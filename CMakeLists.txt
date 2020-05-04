@@ -32,5 +32,3 @@ target_link_libraries(bomberman
 if (UNIX)
     target_link_libraries(bomberman GL Xxf86vm Xext X11 Xcursor)
 endif (UNIX)
-
-target_compile_features(bomberman PRIVATE cxx_std_11)
