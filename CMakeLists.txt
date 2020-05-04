@@ -20,6 +20,18 @@ file(
 
 add_executable(bomberman ${SOURCES_CPP} ${SOURCES_HPP})
 
+if(MSVC)
+	set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/")
+	add_custom_command(TARGET bomberman POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${PROJECT_SOURCE_DIR}/cmake-dependencies/Irrlicht.dll"
+	        "${BIN_DIRECTORY}/Irrlicht.dll")
+    set_target_properties( bomberman PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY} )
+    set_target_properties( bomberman PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BIN_DIRECTORY} )
+    set_target_properties( bomberman PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BIN_DIRECTORY} )
+
+endif(MSVC)
+
 target_include_directories(bomberman PUBLIC
 		${PROJECT_SOURCE_DIR}/include
 		${Irrlicht_INCLUDE_DIRS}
@@ -40,5 +52,4 @@ target_link_libraries(bomberman
 if (UNIX)
 	target_link_libraries(bomberman GL Xxf86vm Xext X11 Xcursor)
 endif (UNIX)
-
-target_compile_features(bomberman PRIVATE cxx_std_11)
+target_compile_features(bomberman PRIVATE cxx_std_17)

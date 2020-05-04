@@ -213,6 +213,8 @@ _deps
 ### Code ###
 .vscode/*
 
+.vs
+
 ### Emacs ###
 # -*- mode: gitignore; -*-
 *~
