@@ -4,7 +4,7 @@
 #pragma comment(lib, "Irrlicht.lib")
 #endif
 
-#include <irrlicht.h>
+#include <irrlicht/irrlicht.h>
 
 using namespace irr;
 
