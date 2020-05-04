@@ -5,8 +5,15 @@ set(CMAKE_PROJECT_NAME bomberman)
 project(${CMAKE_PROJECT_NAME})
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake-dependencies)
+
+if(MSVC)
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -W4")
+endif(MSVC)
+
+if(NOT MSVC)
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall")
+endif(NOT MSVC)
 
 if (NOT APPLE)
     set(Irrlicht_FIND_REQUIRED)
