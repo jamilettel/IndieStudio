@@ -267,3 +267,4 @@ flycheck_*.el
 # End of https://www.gitignore.io/api/code,cmake,clion,emacs,clion+iml,clion+all
 
 bomberman
+.DS_Store
