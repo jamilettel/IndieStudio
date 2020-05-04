@@ -23,11 +23,11 @@ add_executable(bomberman ${SOURCES_CPP} ${SOURCES_HPP})
 target_include_directories(bomberman PUBLIC
 		${PROJECT_SOURCE_DIR}/include
 		${Irrlicht_INCLUDE_DIRS}
-        )
+)
 
 target_link_libraries(bomberman
 		${Irrlicht_LIBRARIES}
-		)
+)
 
 # target_link_libraries(bomberman Irrlicht)
 # # target_link_libraries(bomberman Xxf86vm)
