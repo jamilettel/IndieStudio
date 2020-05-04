@@ -59,7 +59,7 @@ int main()
     MyEventReceiver receiver;
 
     IrrlichtDevice* device = createDevice(video::EDT_OPENGL,
-            core::dimension2d<u32>(640, 480), 16, false, false, false, &receiver);
+                                          core::dimension2d<u32>(640, 480), 16, false, false, false, &receiver);
 
     if (device == 0)
         return 1; // could not create selected driver.
@@ -98,7 +98,7 @@ int main()
         n->setMaterialTexture(0, driver->getTexture("resources/t351sml.jpg"));
         n->setMaterialFlag(video::EMF_LIGHTING, false);
         scene::ISceneNodeAnimator* anim =
-            smgr->createFlyCircleAnimator(core::vector3df(0,0,30), 20.0f);
+                smgr->createFlyCircleAnimator(core::vector3df(0,0,30), 20.0f);
         if (anim)
         {
             n->addAnimator(anim);
@@ -111,13 +111,13 @@ int main()
     a b3d model, which uses a 'fly straight' animator to run between to points.
     */
     scene::IAnimatedMeshSceneNode* anms =
-        smgr->addAnimatedMeshSceneNode(smgr->getMesh("resources/ninja.b3d"));
+            smgr->addAnimatedMeshSceneNode(smgr->getMesh("resources/ninja.b3d"));
 
     if (anms)
     {
         scene::ISceneNodeAnimator* anim =
-            smgr->createFlyStraightAnimator(core::vector3df(100,0,60),
-            core::vector3df(-100,0,60), 3500, true);
+                smgr->createFlyStraightAnimator(core::vector3df(100,0,60),
+                                                core::vector3df(-100,0,60), 3500, true);
         if (anim)
         {
             anms->addAnimator(anim);
@@ -159,11 +159,11 @@ int main()
     Add a colorful irrlicht logo
     */
     device->getGUIEnvironment()->addImage(
-        driver->getTexture("resources/irrlichtlogoalpha2.tga"),
-        core::position2d<s32>(10,20));
+            driver->getTexture("resources/irrlichtlogoalpha2.tga"),
+            core::position2d<s32>(10,20));
 
     gui::IGUIStaticText* diagnostics = device->getGUIEnvironment()->addStaticText(
-        L"", core::rect<s32>(10, 10, 400, 20));
+            L"", core::rect<s32>(10, 10, 400, 20));
     diagnostics->setOverrideColor(video::SColor(255, 255, 255, 0));
 
     /*

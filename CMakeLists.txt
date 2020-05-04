@@ -41,14 +41,6 @@ target_link_libraries(bomberman
 		${Irrlicht_LIBRARIES}
 )
 
-# target_link_libraries(bomberman Irrlicht)
-# # target_link_libraries(bomberman Xxf86vm)
-# # target_link_libraries(bomberman Xext)
-# # target_link_libraries(bomberman X11)
-# target_link_libraries(bomberman IrrKlang)
-# target_link_libraries(bomberman IkpFlac)
-# target_link_libraries(bomberman IkpMP3)
-
 if (UNIX)
 	target_link_libraries(bomberman GL Xxf86vm Xext X11 Xcursor)
 endif (UNIX)
