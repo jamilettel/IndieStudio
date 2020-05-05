@@ -22,9 +22,17 @@ namespace is::ecs {
             SystemManager(const SystemManager &) = default;
             SystemManager &operator=(const SystemManager &) = default;
 
+            void addSystem(const std::shared_ptr<ISystem> &system);
+
+            void awake();
+            void start();
+            void update();
+            void stop();
+            void onTearDown();
+
         protected:
         private:
-            std::vector<ISystem> _systems;
+            std::vector<std::shared_ptr<ISystem>> _systems;
     };
 
 }

@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include "Scene.hpp"
+#include "ECS/IScene.hpp"
 
 namespace is {
 
@@ -19,9 +19,20 @@ namespace is {
             Game();
             ~Game();
 
+            Game(const Game &) = default;
+            Game &operator=(const Game &) = default;
+
+            enum Scenes {
+                SCENE_GAME
+            };
+
+            void addScene(Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
+            void launchGame(Scenes startScene);
+
         protected:
         private:
-            std::vector<is::Scene> _scenes;
+            std::map<Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
+            Scenes currentScene;
     };
 
 }

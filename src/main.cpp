@@ -7,10 +7,13 @@
 
 #include "Game.hpp"
 
+#include "Scenes/GameScene.hpp"
+
 int main(int argc, char const *argv[])
 {
     is::Game game;
 
-    
-    return 0;
+    game.addScene(is::Game::Scenes::SCENE_GAME, std::make_shared<GameScene>());
+    game.launchGame(is::Game::Scenes::SCENE_GAME);
+    return (0);
 }
