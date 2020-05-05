@@ -2,15 +2,15 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** main
+** Game
 */
 
 #include "Game.hpp"
 
-int main(int argc, char const *argv[])
+is::Game::Game()
 {
-    is::Game game;
+}
 
-    
-    return 0;
+is::Game::~Game()
+{
 }
