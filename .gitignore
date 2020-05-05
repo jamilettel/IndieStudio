@@ -273,3 +273,5 @@ flycheck_*.el
 
 bomberman
 .DS_Store
+bomberman.build
+bomberman.xcodeproj
