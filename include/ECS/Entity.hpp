@@ -12,7 +12,6 @@
 #include <memory>
 #include "ECS/Component.hpp"
 #include <optional>
-#include <uuid/uuid.h>
 #include "Exception.hpp"
 
 namespace is::ecs {
@@ -47,7 +46,7 @@ namespace is::ecs {
 
     protected:
     private:
-        uuid_t _uuid;
+        int _id;
         bool _actif;
         std::vector<std::shared_ptr<Component>> _components;
         bool _delete;

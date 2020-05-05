@@ -9,5 +9,7 @@
 
 is::ecs::Entity::Entity(): _actif(true), _delete(false)
 {
-    uuid_generate_random(_uuid);
+    static int id = 0;
+    
+    _id = id++;
 }
