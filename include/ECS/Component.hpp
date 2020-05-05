@@ -20,8 +20,10 @@ namespace is::ecs {
         Component(const Component &) = delete;
         Component &operator=(const Component &) = delete;
 
+        Entity &getEntity();
+
     protected:
-        Entity &e;
+        Entity &_entity;
 
     };
 

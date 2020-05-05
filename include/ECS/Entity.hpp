@@ -44,6 +44,9 @@ namespace is::ecs {
             _components.emplace_back(std::make_shared<T>(args...));
         }
 
+        void setDelete(bool set);
+        bool shouldBeDeleted() const;
+
     protected:
     private:
         int _id;
