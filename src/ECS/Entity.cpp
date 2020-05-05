@@ -7,7 +7,7 @@
 
 #include "ECS/Entity.hpp"
 
-is::ecs::Entity::Entity(): _actif(true), _delete(false)
+is::ecs::Entity::Entity(): _active(true), _delete(false)
 {
     static int id = 0;
 
@@ -21,5 +21,15 @@ void is::ecs::Entity::setDelete(bool set)
 
 bool is::ecs::Entity::shouldBeDeleted() const
 {
-    return (_delete);
+    return _delete;
+}
+
+bool is::ecs::Entity::isActive() const
+{
+    return _active;
+}
+
+void is::ecs::Entity::setActive(bool active)
+{
+    _active = active;
 }

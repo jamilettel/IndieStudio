@@ -47,10 +47,13 @@ namespace is::ecs {
         void setDelete(bool set);
         bool shouldBeDeleted() const;
 
+        bool isActive() const;
+        void setActive(bool active);
+
     protected:
     private:
         int _id;
-        bool _actif;
+        bool _active;
         std::vector<std::shared_ptr<Component>> _components;
         bool _delete;
 
