@@ -228,6 +228,9 @@ _deps
 auto-save-list
 tramp
 .\#*
+GPATH
+GRTAGS
+GTAGS
 
 # Org-mode
 .org-id-locations
