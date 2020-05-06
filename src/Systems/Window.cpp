@@ -28,7 +28,7 @@ void SystemWindow::start()
 void SystemWindow::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = elem.lock();
+        auto ptr = elem;
         std::cout << "lol" << std::endl;
     }
     

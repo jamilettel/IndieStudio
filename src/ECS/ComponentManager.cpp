@@ -16,14 +16,12 @@ is::ecs::ComponentManager::~ComponentManager()
 {
 }
 
-void is::ecs::ComponentManager::addComponent(std::weak_ptr<Component> component)
+void is::ecs::ComponentManager::addComponent(std::shared_ptr<Component> component)
 {
-    auto spt = component.lock();
-
-    _components[typeid(*spt).hash_code()].push_back(component);
+    _components[typeid(*component).hash_code()].push_back(component);
 }
 
-std::vector<std::weak_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type)
+std::vector<std::shared_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type)
 {
     return (_components[type]);
 }

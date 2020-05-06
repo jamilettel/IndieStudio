@@ -26,13 +26,13 @@ namespace is::ecs {
             ComponentManager(const ComponentManager &) = default;
             ComponentManager &operator=(const ComponentManager &) = default;
 
-            void addComponent(std::weak_ptr<Component> component);
+            void addComponent(std::shared_ptr<Component> component);
 
-            std::vector<std::weak_ptr<Component>> &getComponentsByType(size_t type);
+            std::vector<std::shared_ptr<Component>> &getComponentsByType(size_t type);
 
         protected:
         private:
-            std::map<size_t, std::vector<std::weak_ptr<Component>>> _components;
+            std::map<size_t, std::vector<std::shared_ptr<Component>>> _components;
     };
 
 }

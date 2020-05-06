@@ -9,6 +9,7 @@
 #define COLLIDERSYSTEM_HPP_
 
 #include "ECS/ASystem.hpp"
+#include "Components/ColliderComponent.hpp"
 
 namespace is::system {
 
@@ -26,8 +27,9 @@ namespace is::system {
         void stop() override;
         void onTearDown() override;
 
-    protected:
     private:
+
+        bool checkCollision(is::components::ColliderComponent *collider, is::components::ColliderComponent *collider2) const;
     };
 
 }

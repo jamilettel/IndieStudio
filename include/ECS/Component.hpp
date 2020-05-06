@@ -22,7 +22,7 @@ namespace is::ecs {
         Component(const Component &) = delete;
         Component &operator=(const Component &) = delete;
 
-        std::weak_ptr<is::ecs::Entity> getEntity();
+        std::shared_ptr<is::ecs::Entity> getEntity();
 
     protected:
         std::shared_ptr<Entity> _entity;
