@@ -17,6 +17,7 @@
 #include <irrlicht.h>
 #include <driverChoice.h>
 #include <map>
+#include <functional>
 
 using namespace irr;
 
@@ -43,11 +44,15 @@ namespace is
             [[nodiscard]] bool IsKeyDown(EKEY_CODE keyCode) const;
 
             /* OTHER METHODS */
-            std::pair<float, float> getMousePosition() const;
+            [[nodiscard]] std::pair<float, float> getMousePosition() const;
+            void addKeyEvent(EKEY_CODE keyCode, const std::function<void()>& _ft);
+            void removeKeyEvent(EKEY_CODE keyCode);
 
         private:
             std::map<int, bool> _keyState;
             mouseState _mouse;
+
+            std::map<int, std::function<void()>> _keyEvent;
     };
 }
 
