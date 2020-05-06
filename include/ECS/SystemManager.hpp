@@ -9,6 +9,8 @@
 #define SYSTEMMANAGER_HPP_
 
 #include <vector>
+#include <memory>
+#include <algorithm>
 
 #include "ECS/ISystem.hpp"
 
