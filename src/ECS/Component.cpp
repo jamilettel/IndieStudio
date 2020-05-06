@@ -10,7 +10,7 @@
 is::ecs::Component::Component(std::shared_ptr<Entity> &e): _entity(e)
 {}
 
-std::weak_ptr<is::ecs::Entity> is::ecs::Component::getEntity()
+std::shared_ptr<is::ecs::Entity> is::ecs::Component::getEntity()
 {
     return (_entity);
 }

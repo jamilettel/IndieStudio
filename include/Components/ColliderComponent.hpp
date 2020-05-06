@@ -16,32 +16,25 @@ namespace is::components {
 
     class ColliderComponent: public is::ecs::Component {
     public:
-        ColliderComponent(std::shared_ptr<is::ecs::Entity> &e, bool check);
+        ColliderComponent(std::shared_ptr<is::ecs::Entity> &e, bool check, TransformComponent &transform);
         ~ColliderComponent() = default;
 
         ColliderComponent(const ColliderComponent &) = delete;
         ColliderComponent &operator=(const ColliderComponent &) = delete;
 
-        void checkCollisionWith(std::shared_ptr<is::ecs::Entity> entity);
-        std::vector<std::weak_ptr<is::ecs::Entity>> &getEntities();
+        std::vector<std::shared_ptr<is::ecs::Entity>> &getEntities();
 
         irr::core::vector3df offset;
         irr::core::vector3df size;
 
         bool activeCheck; // ?
 
-        std::vector<std::weak_ptr<is::ecs::Entity>> collisions;
+        std::vector<std::shared_ptr<is::ecs::Entity>> collisions;
 
-        class ColliderFunctions {
-        public:
-            ~ColliderFunctions() = delete;
-
-            static bool checkCollision(const ColliderComponent &, const ColliderComponent &);
-        };
-
+        const TransformComponent &getTransform() const noexcept;
 
     private:
-        TransformComponent _transform;
+        TransformComponent &_transform;
     };
 
 }

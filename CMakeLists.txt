@@ -22,6 +22,9 @@ if (NOT APPLE)
 endif(NOT APPLE)
 
 if (APPLE)
+    set(CMAKE_C_COMPILER "gcc")
+    set(CMAKE_CXX_COMPILER "g++")
+
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_SOURCE_DIR})
 
     find_package(OpenGL REQUIRED)

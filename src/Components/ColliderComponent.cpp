@@ -9,6 +9,11 @@
 
 using namespace is::components;
 
-ColliderComponent::ColliderComponent(std::shared_ptr<is::ecs::Entity> &e, bool check):
-    Component(e), activeCheck(check)
+ColliderComponent::ColliderComponent(std::shared_ptr<is::ecs::Entity> &e, bool check, TransformComponent &transform):
+    Component(e), activeCheck(check), _transform(transform)
 {}
+
+const TransformComponent &ColliderComponent::getTransform() const noexcept
+{
+    return (_transform);
+}

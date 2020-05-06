@@ -20,7 +20,7 @@ SystemWindow::~SystemWindow()
 void SystemWindow::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem.lock());
+        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
         ptr->device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1920, 1080), 32, true);
@@ -43,7 +43,7 @@ void SystemWindow::start()
 void SystemWindow::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem.lock());
+        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
         if (!ptr->device->run()) {
@@ -59,7 +59,7 @@ void SystemWindow::update()
 void SystemWindow::stop()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem.lock());
+        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
         ptr->device->drop();
