@@ -8,6 +8,8 @@
 #ifndef Window_HPP_
 #define Window_HPP_
 
+#include <irrlicht.h>
+
 #include "ECS/Component.hpp"
 
 class ComponentWindow : public is::ecs::Component {
@@ -18,8 +20,10 @@ class ComponentWindow : public is::ecs::Component {
         ComponentWindow(const ComponentWindow &) = delete;
         ComponentWindow &operator=(const ComponentWindow &) = delete;
 
-    protected:
-    private:
+        irr::IrrlichtDevice *device;
+        irr::video::IVideoDriver* driver;
+        irr::scene::ISceneManager* scenemgr;
+
 };
 
 #endif /* !Window_HPP_ */

@@ -11,6 +11,9 @@
 #include "ECS/AScene.hpp"
 
 #include "Systems/Window.hpp"
+#include "Systems/Camera.hpp"
+#include "Systems/ModelRenderer.hpp"
+#include "Systems/CharacterController.hpp"
 
 #include "Components/Window.hpp"
 

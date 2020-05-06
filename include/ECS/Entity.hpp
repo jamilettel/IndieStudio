@@ -30,7 +30,7 @@ namespace is::ecs {
 
             for (std::shared_ptr<Component> &component: _components) {
                 if (dynamic_cast<T *>(component.get())) {
-                    ret.emplace(std::shared_ptr<T>(static_cast<T *>(component.get())));
+                    ret.emplace(std::dynamic_pointer_cast<T>(component));
                     break;
                 }
             }

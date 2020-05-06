@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemWindow
+** SystemCamera
 */
 
-#ifndef SystemWindow_HPP_
-#define SystemWindow_HPP_
+#ifndef SystemCamera_HPP_
+#define SystemCamera_HPP_
 
 #include <iostream>
 #include <memory>
@@ -16,17 +16,17 @@
 #include "ECS/ASystem.hpp"
 #include "Game.hpp"
 
+#include "Components/Camera.hpp"
 #include "Components/Window.hpp"
 
 
-class SystemWindow : public is::ecs::ASystem {
+class SystemCamera : public is::ecs::ASystem {
     public:
-        SystemWindow();
-        ~SystemWindow();
+        SystemCamera();
+        ~SystemCamera();
 
-        SystemWindow(const SystemWindow &) = default;
-        SystemWindow &operator=(const SystemWindow &) = default;
-
+        SystemCamera(const SystemCamera &) = default;
+        SystemCamera &operator=(const SystemCamera &) = default;
 
         void awake();
         void start();
@@ -38,4 +38,4 @@ class SystemWindow : public is::ecs::ASystem {
     private:
 };
 
-#endif /* !SystemWindow_HPP_ */
+#endif /* !SystemCamera_HPP_ */

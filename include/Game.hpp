@@ -29,6 +29,8 @@ namespace is {
             void addScene(Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
             void launchGame(Scenes startScene);
 
+            static bool isRunning;
+
         protected:
         private:
             std::map<Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;

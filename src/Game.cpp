@@ -7,6 +7,8 @@
 
 #include "Game.hpp"
 
+bool is::Game::isRunning = true;
+
 is::Game::Game()
 {
 }
@@ -25,9 +27,8 @@ void is::Game::launchGame(Scenes startScene)
     currentScene = startScene;
     _scenes[currentScene]->awake();
     _scenes[currentScene]->start();
-    while (true) {
+    while (isRunning) {
         _scenes[currentScene]->update();
-        break;
     }
     _scenes[currentScene]->stop();
     _scenes[currentScene]->onTearDown();

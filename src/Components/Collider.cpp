@@ -5,7 +5,7 @@
 ** collider component
 */
 
-#include "Components/ColliderComponent.hpp"
+#include "Components/Collider.hpp"
 
 using namespace is::components;
 
