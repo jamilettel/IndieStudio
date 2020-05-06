@@ -19,6 +19,7 @@ if (NOT APPLE)
     set(Irrlicht_FIND_REQUIRED)
 
     include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
+    include(${CMAKE_MODULE_PATH}/FindSFML.cmake)
 endif(NOT APPLE)
 
 if (APPLE)
@@ -64,10 +65,12 @@ if (NOT APPLE)
     target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/include
         ${Irrlicht_INCLUDE_DIRS}
+        ${SFML_INCLUDE_DIRS}
     )
 
     target_link_libraries(${CMAKE_PROJECT_NAME}
         ${Irrlicht_LIBRARIES}
+        ${SFML_LIBRARIES}
     )
     
     target_link_libraries(${CMAKE_PROJECT_NAME} uuid)
