@@ -19,23 +19,26 @@
 #include "Components/Camera.hpp"
 #include "Components/Window.hpp"
 
+namespace is::systems {
 
-class SystemCamera : public is::ecs::ASystem {
-    public:
-        SystemCamera();
-        ~SystemCamera();
+    class SystemCamera : public is::ecs::ASystem {
+        public:
+            SystemCamera() = default;
+            ~SystemCamera() = default;
 
-        SystemCamera(const SystemCamera &) = default;
-        SystemCamera &operator=(const SystemCamera &) = default;
+            SystemCamera(const SystemCamera &) = default;
+            SystemCamera &operator=(const SystemCamera &) = default;
 
-        void awake();
-        void start();
-        void update();
-        void stop();
-        void onTearDown();
+            void awake();
+            void start();
+            void update();
+            void stop();
+            void onTearDown();
 
-    protected:
-    private:
-};
+        protected:
+        private:
+    };
+
+}
 
 #endif /* !SystemCamera_HPP_ */

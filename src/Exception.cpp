@@ -7,8 +7,10 @@
 
 #include "Exception.hpp"
 
-is::exceptions::Exception::Exception(const std::string &component, const std::string &message):
-    _component(component), _message(message)
+is::exceptions::Exception::Exception(const std::string &component,
+                                     const std::string &message):
+_component(component),
+_message(message)
 {}
 
 const char *is::exceptions::Exception::what() const noexcept

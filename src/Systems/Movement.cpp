@@ -10,7 +10,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-using namespace is::system;
+using namespace is::systems;
 using namespace is::components;
 
 void MovementSystem::awake()

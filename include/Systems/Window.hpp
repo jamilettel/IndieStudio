@@ -18,24 +18,26 @@
 
 #include "Components/Window.hpp"
 
-class SystemWindow : public is::ecs::ASystem {
-    public:
-        SystemWindow();
-        ~SystemWindow();
+namespace is::systems {
 
-        SystemWindow(const SystemWindow &) = default;
-        SystemWindow &operator=(const SystemWindow &) = default;
+    class SystemWindow : public is::ecs::ASystem {
+        public:
+            SystemWindow() = default;
+            ~SystemWindow() = default;
 
+            SystemWindow(const SystemWindow &) = default;
+            SystemWindow &operator=(const SystemWindow &) = default;
 
-        void awake();
-        void start();
-        void update();
-        void stop();
-        void onTearDown();
+            void awake();
+            void start();
+            void update();
+            void stop();
+            void onTearDown();
 
+        protected:
+        private:
+    };
 
-    protected:
-    private:
-};
+}
 
 #endif /* !SystemWindow_HPP_ */

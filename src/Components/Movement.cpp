@@ -9,7 +9,10 @@
 
 using namespace is::components;
 
-MovementComponent::MovementComponent(std::shared_ptr<is::ecs::Entity> &e, TransformComponent &transform) : Component(e), _transform(transform)
+MovementComponent::MovementComponent(std::shared_ptr<is::ecs::Entity> &e,
+                                     TransformComponent &transform) :
+Component(e),
+_transform(transform)
 {
 }
 

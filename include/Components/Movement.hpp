@@ -13,11 +13,12 @@
 
 #include <irrlicht.h>
 
-namespace is::components
-{
+namespace is::components {
+
     class MovementComponent: public is::ecs::Component {
         public:
-            MovementComponent(std::shared_ptr<is::ecs::Entity> &e, TransformComponent &transform);
+            MovementComponent(std::shared_ptr<is::ecs::Entity> &e,
+                              TransformComponent &transform);
             ~MovementComponent() = default;
 
             MovementComponent(const MovementComponent &) = delete;

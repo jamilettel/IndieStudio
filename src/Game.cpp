@@ -9,14 +9,6 @@
 
 bool is::Game::isRunning = true;
 
-is::Game::Game()
-{
-}
-
-is::Game::~Game()
-{
-}
-
 void is::Game::addScene(Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene)
 {
     _scenes[sceneType] = scene;

@@ -10,11 +10,13 @@
 using namespace is::components;
 
 TransformComponent::TransformComponent(std::shared_ptr<is::ecs::Entity> &e,
-irr::core::vector3df pos, irr::core::vector3df rot, irr::core::vector3df scl):
-    position(pos),
-    rotation(rot),
-    scale(scl),
-    Component(e)
+                                       irr::core::vector3df pos,
+                                       irr::core::vector3df rot,
+                                       irr::core::vector3df scl):
+Component(e),
+position(pos),
+rotation(rot),
+scale(scl)
 {}
 
 void TransformComponent::move(const irr::core::vector3df &vector)

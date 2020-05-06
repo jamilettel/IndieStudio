@@ -18,7 +18,7 @@
 #include "Components/ModelRenderer.hpp"
 #include "Components/CharacterController.hpp"
 
-namespace prefabs {
+namespace is::prefabs {
 
     class GlobalPrefabs {
         public:

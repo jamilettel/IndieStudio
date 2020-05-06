@@ -13,17 +13,23 @@
 
 #include "ECS/Component.hpp"
 
-class ComponentModelRenderer : public is::ecs::Component {
-    public:
-        ComponentModelRenderer(std::shared_ptr<is::ecs::Entity> &e, const std::string &name, int window);
-        ~ComponentModelRenderer() = default;
+namespace is::components {
 
-        ComponentModelRenderer(const ComponentModelRenderer &) = delete;
-        ComponentModelRenderer &operator=(const ComponentModelRenderer &) = delete;
+    class ComponentModelRenderer : public is::ecs::Component {
+        public:
+            ComponentModelRenderer(std::shared_ptr<is::ecs::Entity> &e,
+                                   const std::string &name,
+                                   const std::string &wn);
+            ~ComponentModelRenderer() = default;
 
-        std::string _name;
-        int _window;
-        irr::scene::IAnimatedMeshSceneNode *node;
-};
+            ComponentModelRenderer(const ComponentModelRenderer &) = delete;
+            ComponentModelRenderer &operator=(const ComponentModelRenderer &) = delete;
+
+            std::string fileName;
+            std::string windowName;
+            irr::scene::IAnimatedMeshSceneNode *node;
+    };
+
+}
 
 #endif /* !ModelRenderer_HPP_ */

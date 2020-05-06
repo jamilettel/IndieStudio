@@ -16,8 +16,8 @@ namespace is {
 
     class Game {
         public:
-            Game();
-            ~Game();
+            Game() = default;
+            ~Game() = default;
 
             Game(const Game &) = default;
             Game &operator=(const Game &) = default;

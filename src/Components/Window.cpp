@@ -7,7 +7,9 @@
 
 #include "Components/Window.hpp"
 
-ComponentWindow::ComponentWindow(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
+is::components::ComponentWindow::ComponentWindow(std::shared_ptr<is::ecs::Entity> &e,
+                                                 const std::string &wn) :
+Component(e)
 {
-
+    windowName = wn;
 }

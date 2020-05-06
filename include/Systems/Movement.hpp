@@ -10,8 +10,8 @@
 
 #include "ECS/ASystem.hpp"
 
-namespace is::system
-{
+namespace is::systems {
+
     class MovementSystem : public is::ecs::ASystem {
         public:
             MovementSystem() = default;

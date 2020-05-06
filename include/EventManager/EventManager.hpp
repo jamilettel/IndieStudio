@@ -15,7 +15,6 @@
 #endif
 
 #include <irrlicht.h>
-#include <driverChoice.h>
 #include <map>
 #include <functional>
 

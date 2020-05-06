@@ -9,14 +9,18 @@
 #define Window_HPP_
 
 #include <irrlicht.h>
+#include <string>
 
 #include "ECS/Component.hpp"
 
 #include "EventManager/EventManager.hpp"
 
-class ComponentWindow : public is::ecs::Component {
+namespace is::components {
+
+    class ComponentWindow : public is::ecs::Component {
     public:
-        ComponentWindow(std::shared_ptr<is::ecs::Entity> &e);
+        ComponentWindow(std::shared_ptr<is::ecs::Entity> &e,
+                        const std::string &windowName = "MainWindow");
         ~ComponentWindow() = default;
 
         ComponentWindow(const ComponentWindow &) = delete;
@@ -27,7 +31,11 @@ class ComponentWindow : public is::ecs::Component {
         irr::scene::ISceneManager* scenemgr;
 
         is::EventManager eventManager;
+    
+        std::string windowName;
 
-};
+    };
+
+}
 
 #endif /* !Window_HPP_ */

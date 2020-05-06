@@ -11,7 +11,7 @@
 #include "ECS/ASystem.hpp"
 #include "Components/Collider.hpp"
 
-namespace is::system {
+namespace is::systems {
 
     class ColliderSystem: public is::ecs::ASystem {
     public:
@@ -28,8 +28,8 @@ namespace is::system {
         void onTearDown() override;
 
     private:
-
-        bool checkCollision(is::components::ColliderComponent *collider, is::components::ColliderComponent *collider2) const;
+        bool checkCollision(is::components::ColliderComponent *collider,
+                            is::components::ColliderComponent *collider2) const;
     };
 
 }

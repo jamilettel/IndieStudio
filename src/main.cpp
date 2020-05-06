@@ -12,7 +12,12 @@ int main(int argc, char const *argv[])
 {
     is::Game game;
 
-    game.addScene(is::Game::Scenes::SCENE_GAME, std::make_shared<GameScene>());
-    game.launchGame(is::Game::Scenes::SCENE_GAME);
+    try {
+        game.addScene(is::Game::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
+        game.launchGame(is::Game::Scenes::SCENE_GAME);
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return (1);
+    }
     return (0);
 }

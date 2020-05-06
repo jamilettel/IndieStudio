@@ -7,18 +7,11 @@
 
 #include "ECS/ComponentManager.hpp"
 
-is::ecs::ComponentManager::ComponentManager()
-{
-
-}
-
-is::ecs::ComponentManager::~ComponentManager()
-{
-}
-
 void is::ecs::ComponentManager::addComponent(std::shared_ptr<Component> component)
 {
-    _components[typeid(*component).hash_code()].push_back(component);
+    auto& r = *component.get();
+
+    _components[typeid(r).hash_code()].push_back(component);
 }
 
 std::vector<std::shared_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type)

@@ -7,7 +7,11 @@
 
 #include "Components/CharacterController.hpp"
 
-ComponentCharacterController::ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
+is::components::ComponentCharacterController::ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e,
+                                                                           const std::string &wn,
+                                                                           float ps) :
+Component(e)
 {
-
+    playerSpeed = ps;
+    windowName = wn;
 }

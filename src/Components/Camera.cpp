@@ -7,7 +7,15 @@
 
 #include "Components/Camera.hpp"
 
-ComponentCamera::ComponentCamera(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
+is::components::ComponentCamera::ComponentCamera(std::shared_ptr<is::ecs::Entity> &e,
+                                                 const std::string &cm,
+                                                 const std::string &wm,
+                                                 irr::core::vector3df pos,
+                                                 irr::core::vector3df rot) :
+Component(e)
 {
-
+    position = pos;
+    rotation = rot;
+    cameraName = cm;
+    windowName = wm;
 }

@@ -7,8 +7,11 @@
 
 #include "Components/ModelRenderer.hpp"
 
-ComponentModelRenderer::ComponentModelRenderer(std::shared_ptr<is::ecs::Entity> &e, const std::string &name, int window) : Component(e)
+is::components::ComponentModelRenderer::ComponentModelRenderer(std::shared_ptr<is::ecs::Entity> &e,
+                                                               const std::string &name,
+                                                               const std::string &window) :
+Component(e)
 {
-    _name = name;
-    _window = window;
+    fileName = name;
+    windowName = window;
 }

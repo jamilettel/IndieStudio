@@ -16,8 +16,8 @@ namespace is::ecs {
 
     class EntityManager {
         public:
-            EntityManager();
-            ~EntityManager();
+            EntityManager() = default;
+            ~EntityManager() = default;
 
             EntityManager(const EntityManager &) = default;
             EntityManager &operator=(const EntityManager &) = default;

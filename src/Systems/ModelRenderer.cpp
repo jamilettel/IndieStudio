@@ -9,44 +9,45 @@
 
 using namespace irr;
 
-SystemModelRenderer::SystemModelRenderer()
+void is::systems::SystemModelRenderer::awake()
 {
-}
-
-SystemModelRenderer::~SystemModelRenderer()
-{
-}
-
-void SystemModelRenderer::awake()
-{
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentModelRenderer).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentModelRenderer>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentModelRenderer).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::ComponentModelRenderer>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not get ComponentModelRenderer pointer");
-        try {
-            auto window = _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code()).at(ptr->_window);
-            auto ptr_window = std::dynamic_pointer_cast<ComponentWindow>(window); // change to string
+
+        std::shared_ptr<is::components::ComponentWindow> ptr_window;
+        bool windowFound = false;
+        for (auto &wc : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
+            ptr_window = std::dynamic_pointer_cast<is::components::ComponentWindow>(wc);
             if (!ptr_window)
                 throw new is::exceptions::Exception("SystemModelRenderer", "Could not get ComponentWindow pointer");
-            ptr->node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(ptr->_name.c_str()));
-            if (!ptr->node)
-                throw new is::exceptions::Exception("SystemModelRenderer", "Could not create node from model");
-            ptr->node->setMaterialFlag(video::EMF_LIGHTING, false);
-        } catch(const std::out_of_range &e) {
-            std::cerr << "Impossible to get window with idx " << ptr->_window << std::endl;
+            if (ptr_window->windowName == ptr->windowName) {
+                windowFound = true;
+                break;
+            }
         }
+        if (!windowFound)
+            throw new is::exceptions::Exception("SystemModelRenderer", "Could not found window");
+
+        ptr->node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(ptr->fileName.c_str()));
+        if (!ptr->node)
+            throw new is::exceptions::Exception("SystemModelRenderer", "Could not create node from model");
+
+        ptr->node->setMaterialFlag(video::EMF_LIGHTING, false);
+
     }
 }
 
-void SystemModelRenderer::start()
+void is::systems::SystemModelRenderer::start()
 {
 
 }
 
-void SystemModelRenderer::update()
+void is::systems::SystemModelRenderer::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentModelRenderer).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentModelRenderer>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentModelRenderer).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::ComponentModelRenderer>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not get ComponentModelRenderer pointer");
         auto tr = ptr->getEntity()->getComponent<is::components::TransformComponent>();
@@ -58,12 +59,12 @@ void SystemModelRenderer::update()
     }
 }
 
-void SystemModelRenderer::stop()
+void is::systems::SystemModelRenderer::stop()
 {
 
 }
 
-void SystemModelRenderer::onTearDown()
+void is::systems::SystemModelRenderer::onTearDown()
 {
 
 }

@@ -19,19 +19,23 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 
-class GameScene : public is::ecs::AScene {
-    public:
-        GameScene();
-        ~GameScene();
+namespace is::scenes {
 
-        GameScene(const GameScene &) = default;
-        GameScene &operator=(const GameScene &) = default;
+    class GameScene : public is::ecs::AScene {
+        public:
+            GameScene();
+            ~GameScene() = default;
 
-        void initSystems();
-        void initEntities();
+            GameScene(const GameScene &) = default;
+            GameScene &operator=(const GameScene &) = default;
 
-    protected:
-    private:
-};
+            void initSystems();
+            void initEntities();
+
+        protected:
+        private:
+    };
+
+}
 
 #endif /* !GAMESCENE_HPP_ */

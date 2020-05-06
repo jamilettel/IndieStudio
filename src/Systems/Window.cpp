@@ -9,65 +9,63 @@
 
 using namespace irr;
 
-SystemWindow::SystemWindow()
+void is::systems::SystemWindow::awake()
 {
-}
-
-SystemWindow::~SystemWindow()
-{
-}
-
-void SystemWindow::awake()
-{
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
+
         ptr->device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1600, 900), 32, false, false, false, &ptr->eventManager);
         if (!ptr->device)
             throw new is::exceptions::Exception("SystemWindow", "Could not create new irr device");
-        ptr->device->setWindowCaption(L"Indie Studio");
+
+        std::wstring wide_string = std::wstring(ptr->windowName.begin(), ptr->windowName.end());
+        const wchar_t* result = wide_string.c_str();
+        ptr->device->setWindowCaption(result);
         ptr->driver = ptr->device->getVideoDriver();
         if (!ptr->driver)
             throw new is::exceptions::Exception("SystemWindow", "Could not create video driver");
+
         ptr->scenemgr = ptr->device->getSceneManager();
         if (!ptr->scenemgr)
             throw new is::exceptions::Exception("SystemWindow", "Could not create scene manager");
     }
 }
 
-void SystemWindow::start()
+void is::systems::SystemWindow::start()
 {
 
 }
 
-void SystemWindow::update()
+void is::systems::SystemWindow::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
+
         if (!ptr->device->run()) {
             is::Game::isRunning = false;
             return;
         }
-        ptr->driver->beginScene(true, true, video::SColor(255,255,255,255));
+        ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         ptr->scenemgr->drawAll();
         ptr->driver->endScene();
     }
 }
 
-void SystemWindow::stop()
+void is::systems::SystemWindow::stop()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
         ptr->device->drop();
     }
 }
 
-void SystemWindow::onTearDown()
+void is::systems::SystemWindow::onTearDown()
 {
 
 }

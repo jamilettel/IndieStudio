@@ -10,7 +10,7 @@
 
 #include <algorithm>
 
-using namespace is::system;
+using namespace is::systems;
 using namespace is::components;
 
 void ColliderSystem::awake()

@@ -9,19 +9,29 @@
 #define CharacterController_HPP_
 
 #include <irrlicht.h>
+#include <string>
 
 #include "ECS/Component.hpp"
 
-class ComponentCharacterController : public is::ecs::Component {
-public:
-    ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e);
-    ~ComponentCharacterController() = default;
+namespace is::components {
 
-    ComponentCharacterController(const ComponentCharacterController &) = delete;
-    ComponentCharacterController &operator=(const ComponentCharacterController &) = delete;
+    class ComponentCharacterController : public is::ecs::Component {
+    public:
+        ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e,
+                                     const std::string &wn = "MainWindow",
+                                     float ps = 0);
+        ~ComponentCharacterController() = default;
 
-    irr::core::vector3df move;
-    float rotateY;
-};
+        ComponentCharacterController(const ComponentCharacterController &) = delete;
+        ComponentCharacterController &operator=(const ComponentCharacterController &) = delete;
+
+        irr::core::vector3df move;
+        float rotateY;
+
+        float playerSpeed;
+        std::string windowName;
+    };
+
+}
 
 #endif /* !CharacterController_HPP_ */

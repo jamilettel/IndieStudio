@@ -20,8 +20,8 @@ namespace is::ecs {
 
     class ComponentManager {
         public:
-            ComponentManager();
-            ~ComponentManager();
+            ComponentManager() = default;
+            ~ComponentManager() = default;
 
             ComponentManager(const ComponentManager &) = default;
             ComponentManager &operator=(const ComponentManager &) = default;

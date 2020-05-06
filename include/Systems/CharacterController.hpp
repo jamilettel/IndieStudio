@@ -20,22 +20,26 @@
 #include "Components/Transform.hpp"
 #include "Components/Window.hpp"
 
-class SystemCharacterController : public is::ecs::ASystem {
-    public:
-        SystemCharacterController();
-        ~SystemCharacterController();
+namespace is::systems {
 
-        SystemCharacterController(const SystemCharacterController &) = default;
-        SystemCharacterController &operator=(const SystemCharacterController &) = default;
+    class SystemCharacterController : public is::ecs::ASystem {
+        public:
+            SystemCharacterController() = default;
+            ~SystemCharacterController() = default;
 
-        void awake();
-        void start();
-        void update();
-        void stop();
-        void onTearDown();
+            SystemCharacterController(const SystemCharacterController &) = default;
+            SystemCharacterController &operator=(const SystemCharacterController &) = default;
 
-    protected:
-    private:
-};
+            void awake();
+            void start();
+            void update();
+            void stop();
+            void onTearDown();
+
+        protected:
+        private:
+    };
+
+}
 
 #endif /* !SystemCharacterController_HPP_ */

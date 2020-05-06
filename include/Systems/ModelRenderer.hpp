@@ -22,22 +22,26 @@
 #include "Components/Window.hpp"
 #include "Components/Transform.hpp"
 
-class SystemModelRenderer : public is::ecs::ASystem {
-    public:
-        SystemModelRenderer();
-        ~SystemModelRenderer();
+namespace is::systems {
 
-        SystemModelRenderer(const SystemModelRenderer &) = default;
-        SystemModelRenderer &operator=(const SystemModelRenderer &) = default;
+    class SystemModelRenderer : public is::ecs::ASystem {
+        public:
+            SystemModelRenderer() = default;
+            ~SystemModelRenderer() = default;
 
-        void awake();
-        void start();
-        void update();
-        void stop();
-        void onTearDown();
+            SystemModelRenderer(const SystemModelRenderer &) = default;
+            SystemModelRenderer &operator=(const SystemModelRenderer &) = default;
 
-    protected:
-    private:
-};
+            void awake();
+            void start();
+            void update();
+            void stop();
+            void onTearDown();
+
+        protected:
+        private:
+    };
+
+}
 
 #endif /* !SystemModelRenderer_HPP_ */
