@@ -6,7 +6,6 @@
 */
 
 #include "Game.hpp"
-
 #include "Scenes/GameScene.hpp"
 
 int main(int argc, char const *argv[])
