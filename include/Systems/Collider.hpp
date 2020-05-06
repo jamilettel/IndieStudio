@@ -9,7 +9,7 @@
 #define COLLIDERSYSTEM_HPP_
 
 #include "ECS/ASystem.hpp"
-#include "Components/ColliderComponent.hpp"
+#include "Components/Collider.hpp"
 
 namespace is::system {
 

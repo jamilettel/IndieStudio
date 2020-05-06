@@ -5,7 +5,7 @@
 ** TransformSystem
 */
 
-#include "Components/TransformComponent.hpp"
+#include "Components/Transform.hpp"
 
 using namespace is::components;
 

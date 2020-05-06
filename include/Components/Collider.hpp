@@ -8,7 +8,7 @@
 #ifndef COLLIDERCOMPONENT_HPP_
 #define COLLIDERCOMPONENT_HPP_
 
-#include "Components/TransformComponent.hpp"
+#include "Components/Transform.hpp"
 #include <irrlicht.h>
 #include <vector>
 
