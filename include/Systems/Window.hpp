@@ -18,7 +18,6 @@
 
 #include "Components/Window.hpp"
 
-
 class SystemWindow : public is::ecs::ASystem {
     public:
         SystemWindow();
@@ -33,6 +32,7 @@ class SystemWindow : public is::ecs::ASystem {
         void update();
         void stop();
         void onTearDown();
+
 
     protected:
     private:

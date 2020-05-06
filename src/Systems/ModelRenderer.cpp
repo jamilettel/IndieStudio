@@ -25,7 +25,7 @@ void SystemModelRenderer::awake()
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not get ComponentModelRenderer pointer");
         try {
             auto window = _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code()).at(ptr->_window);
-            auto ptr_window = std::dynamic_pointer_cast<ComponentWindow>(window);
+            auto ptr_window = std::dynamic_pointer_cast<ComponentWindow>(window); // change to string
             if (!ptr_window)
                 throw new is::exceptions::Exception("SystemModelRenderer", "Could not get ComponentWindow pointer");
             ptr->node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(ptr->_name.c_str()));

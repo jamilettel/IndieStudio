@@ -14,7 +14,7 @@
 
 #include "Components/Window.hpp"
 #include "Components/Camera.hpp"
-#include "Components/TransformComponent.hpp"
+#include "Components/Transform.hpp"
 #include "Components/ModelRenderer.hpp"
 #include "Components/CharacterController.hpp"
 

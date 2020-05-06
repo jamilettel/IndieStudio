@@ -45,10 +45,16 @@ bool is::EventManager::OnEvent(const SEvent &event)
         }
     }
     // Remember whether each key is down or up
+    std::cout << event.EventType << std::endl;
     if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
+            std::cout << "-1" << std::endl;
+
         _keyState[event.KeyInput.Key] = event.KeyInput.PressedDown;
         if (!event.KeyInput.PressedDown) {
+            std::cout << "2" << std::endl;
+
             if (_keyEvent.find(event.KeyInput.Key) != _keyEvent.end()) {
+            std::cout << "3" << std::endl;
                 _keyEvent[event.KeyInput.Key]();
             }
         }
@@ -68,7 +74,7 @@ std::pair<float, float> is::EventManager::getMousePosition() const
 
 void is::EventManager::addKeyEvent(EKEY_CODE keyCode, const std::function<void()> &_ft)
 {
-    if (_keyEvent.find(keyCode) == _keyEvent.end()) {
+    if (_keyEvent.find(keyCode) != _keyEvent.end()) {
         //throw
         return;
     }

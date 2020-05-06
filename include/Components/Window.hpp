@@ -12,6 +12,8 @@
 
 #include "ECS/Component.hpp"
 
+#include "EventManager/EventManager.hpp"
+
 class ComponentWindow : public is::ecs::Component {
     public:
         ComponentWindow(std::shared_ptr<is::ecs::Entity> &e);
@@ -23,6 +25,8 @@ class ComponentWindow : public is::ecs::Component {
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* scenemgr;
+
+        is::EventManager eventManager;
 
 };
 
