@@ -33,6 +33,7 @@ void ColliderSystem::update()
     for (size_t i = 0; i < colliders.size(); i++) {
         ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
 
+        ptr->collisions.clear();
         if (!ptr->activeCheck)
             continue;
         for (size_t j = 0; j < colliders.size(); j++) {
@@ -52,14 +53,12 @@ bool ColliderSystem::checkCollision(ColliderComponent *collider, ColliderCompone
     irr::core::vector3df position = collider->getTransform().position + collider->offset;
     irr::core::vector3df position2 = collider2->getTransform().position + collider2->offset;
 
-    if (((position.X < position2.X + collider2->size.X && position.X > position2.X) || 
+    return (((position.X < position2.X + collider2->size.X && position.X > position2.X) || 
         (position.X + collider->size.X < position2.X + collider2->size.X && position.X + collider->size.X > position2.X)) &&
         
         ((position.Y < position2.Y + collider2->size.Y && position.Y > position2.Y) || 
         (position.Y + collider->size.Y < position2.Y + collider2->size.Y && position.Y + collider->size.Y > position2.Y)) &&
         
         ((position.Z < position2.Z + collider2->size.Z && position.Z > position2.Z) || 
-        (position.Z + collider->size.Z < position2.Z + collider2->size.Z && position.Z + collider->size.Z > position2.Z)))
-        return (true);
-    return (false);
+        (position.Z + collider->size.Z < position2.Z + collider2->size.Z && position.Z + collider->size.Z > position2.Z)));
 }
