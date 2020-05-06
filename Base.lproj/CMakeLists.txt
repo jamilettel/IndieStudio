@@ -16,9 +16,10 @@ if(NOT MSVC)
 endif(NOT MSVC)
 
 if (NOT APPLE)
-    set(Irrlicht_FIND_REQUIRED)
 
-    include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
+set(Irrlicht_FIND_REQUIRED)
+
+include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
 endif(NOT APPLE)
 
 if (APPLE)
@@ -50,7 +51,13 @@ file(
 		${PROJECT_SOURCE_DIR}/include/*.hpp
 )
 
-add_executable(${CMAKE_PROJECT_NAME} ${SOURCES_CPP} ${SOURCES_HPP})
+if (APPLE)
+    add_executable(${CMAKE_PROJECT_NAME} MACOSX_BUNDLE ${SOURCES_CPP} ${SOURCES_HPP})
+endif (APPLE)
+
+if (NOT APPLE)
+    add_executable(${CMAKE_PROJECT_NAME} ${SOURCES_CPP} ${SOURCES_HPP})
+endif (NOT APPLE)
 
 if(MSVC)
 	set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/")

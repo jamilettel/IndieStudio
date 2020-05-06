@@ -13,14 +13,15 @@
 #include "ECS/Component.hpp"
 
 class ComponentCharacterController : public is::ecs::Component {
-    public:
-        ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e);
-        ~ComponentCharacterController() = default;
+public:
+    ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e);
+    ~ComponentCharacterController() = default;
 
-        ComponentCharacterController(const ComponentCharacterController &) = delete;
-        ComponentCharacterController &operator=(const ComponentCharacterController &) = delete;
-    protected:
-    private:
+    ComponentCharacterController(const ComponentCharacterController &) = delete;
+    ComponentCharacterController &operator=(const ComponentCharacterController &) = delete;
+
+    irr::core::vector3df move;
+    float rotateY;
 };
 
 #endif /* !CharacterController_HPP_ */

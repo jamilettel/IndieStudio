@@ -23,9 +23,10 @@ void SystemWindow::awake()
         auto ptr = std::dynamic_pointer_cast<ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
-        ptr->device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1920, 1080), 32, false, false, false, &ptr->eventManager);
+        ptr->device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1600, 900), 32, false, false, false, &ptr->eventManager);
         if (!ptr->device)
             throw new is::exceptions::Exception("SystemWindow", "Could not create new irr device");
+        ptr->device->setWindowCaption(L"Indie Studio");
         ptr->driver = ptr->device->getVideoDriver();
         if (!ptr->driver)
             throw new is::exceptions::Exception("SystemWindow", "Could not create video driver");
