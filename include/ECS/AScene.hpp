@@ -20,7 +20,7 @@ namespace is::ecs {
         public:
             virtual ~AScene() = default;
 
-            virtual void initSystems() = 0;
+            void initEntity(std::shared_ptr<Entity> &entity);
 
             void awake();
             void start();
@@ -29,9 +29,9 @@ namespace is::ecs {
             void onTearDown();
 
         protected:
-            EntityManager _entityManager;
-            ComponentManager _componentManager;
-            SystemManager _systemManager;
+            std::shared_ptr<EntityManager> _entityManager;
+            std::shared_ptr<ComponentManager> _componentManager;
+            std::shared_ptr<SystemManager> _systemManager;
     };
 
 }

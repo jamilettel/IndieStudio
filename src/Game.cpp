@@ -27,7 +27,7 @@ void is::Game::launchGame(Scenes startScene)
     _scenes[currentScene]->start();
     while (true) {
         _scenes[currentScene]->update();
-        break;   
+        break;
     }
     _scenes[currentScene]->stop();
     _scenes[currentScene]->onTearDown();

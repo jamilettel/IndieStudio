@@ -12,6 +12,8 @@
 
 #include "Systems/Gravity.hpp"
 
+#include "Components/Gravity.hpp"
+
 class GameScene : public is::ecs::AScene {
     public:
         GameScene();
@@ -21,6 +23,7 @@ class GameScene : public is::ecs::AScene {
         GameScene &operator=(const GameScene &) = default;
 
         void initSystems();
+        void initEntities();
 
     protected:
     private:

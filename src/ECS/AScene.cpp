@@ -7,29 +7,37 @@
 
 #include "ECS/AScene.hpp"
 
+void is::ecs::AScene::initEntity(std::shared_ptr<Entity> &entity)
+{
+    for (auto &elem : entity->getComponents())
+        _componentManager->addComponent(elem);
+    _entityManager->addEntity(entity);
+}
+
 void is::ecs::AScene::awake()
 {
     initSystems();
-    _systemManager.awake();
+    initEntities();
+    _systemManager->awake();
 }
 
 void is::ecs::AScene::start()
 {
-    _systemManager.start();
+    _systemManager->start();
 }
 
 void is::ecs::AScene::update()
 {
-    _systemManager.update();
+    _systemManager->update();
 }
 
 void is::ecs::AScene::stop()
 {
-    _systemManager.stop();
+    _systemManager->stop();
 }
 
 void is::ecs::AScene::onTearDown()
 {
-    _systemManager.onTearDown();
+    _systemManager->onTearDown();
 }
 

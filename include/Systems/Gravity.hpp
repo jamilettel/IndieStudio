@@ -2,23 +2,23 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** Gravity
+** SystemGravity
 */
 
-#ifndef GRAVITY_HPP_
-#define GRAVITY_HPP_
+#ifndef SystemGravity_HPP_
+#define SystemGravity_HPP_
 
-#include "ECS/ISystem.hpp"
+#include "ECS/ASystem.hpp"
 
 #include <iostream>
 
-class Gravity : public is::ecs::ISystem {
+class SystemGravity : public is::ecs::ASystem {
     public:
-        Gravity();
-        ~Gravity();
+        SystemGravity();
+        ~SystemGravity();
 
-        Gravity(const Gravity &) = default;
-        Gravity &operator=(const Gravity &) = default;
+        SystemGravity(const SystemGravity &) = default;
+        SystemGravity &operator=(const SystemGravity &) = default;
 
 
         void awake();
@@ -31,4 +31,4 @@ class Gravity : public is::ecs::ISystem {
     private:
 };
 
-#endif /* !GRAVITY_HPP_ */
+#endif /* !SystemGravity_HPP_ */

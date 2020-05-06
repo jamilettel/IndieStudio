@@ -33,3 +33,9 @@ void is::ecs::Entity::setActive(bool active)
 {
     _active = active;
 }
+
+std::vector<std::shared_ptr<is::ecs::Component>> is::ecs::Entity::getComponents() const
+{
+    return (_components);
+}
+

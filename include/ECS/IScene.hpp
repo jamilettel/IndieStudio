@@ -18,6 +18,9 @@ namespace is::ecs {
         public:
             virtual ~IScene() = default;
 
+            virtual void initSystems() = 0;
+            virtual void initEntities() = 0;
+
             virtual void awake() = 0;
             virtual void start() = 0;
             virtual void update() = 0;

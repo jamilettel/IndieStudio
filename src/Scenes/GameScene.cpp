@@ -9,6 +9,9 @@
 
 GameScene::GameScene() : AScene()
 {
+    _entityManager = std::make_shared<is::ecs::EntityManager>();
+    _componentManager = std::make_shared<is::ecs::ComponentManager>();
+    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager);
 }
 
 GameScene::~GameScene()
@@ -17,5 +20,13 @@ GameScene::~GameScene()
 
 void GameScene::initSystems()
 {
-    _systemManager.addSystem(std::make_shared<Gravity>());
+    _systemManager->addSystem(std::make_shared<SystemGravity>());
+}
+
+void GameScene::initEntities()
+{
+    std::shared_ptr<is::ecs::Entity> a = std::make_shared<is::ecs::Entity>();
+
+    a->addComponent<ComponentGravity>(a);
+    initEntity(a);
 }

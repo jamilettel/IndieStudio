@@ -14,3 +14,8 @@ is::ecs::EntityManager::EntityManager()
 is::ecs::EntityManager::~EntityManager()
 {
 }
+
+void is::ecs::EntityManager::addEntity(std::shared_ptr<Entity> &entity)
+{
+    _entities.push_back(entity);
+}

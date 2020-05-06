@@ -2,40 +2,40 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** Gravity
+** SystemGravity
 */
 
 #include "Systems/Gravity.hpp"
 
-Gravity::Gravity()
+SystemGravity::SystemGravity()
 {
 }
 
-Gravity::~Gravity()
+SystemGravity::~SystemGravity()
 {
 }
 
-void Gravity::awake()
+void SystemGravity::awake()
 {
     std::cout << "awake" << std::endl;
 }
 
-void Gravity::start()
+void SystemGravity::start()
 {
     std::cout << "start" << std::endl;
 }
 
-void Gravity::update()
+void SystemGravity::update()
 {
     std::cout << "update" << std::endl;
 }
 
-void Gravity::stop()
+void SystemGravity::stop()
 {
     std::cout << "stop" << std::endl;
 }
 
-void Gravity::onTearDown()
+void SystemGravity::onTearDown()
 {
     std::cout << "onTearDown" << std::endl;
 }

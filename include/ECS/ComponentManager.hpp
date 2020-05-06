@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <iostream>
 
 #include "ECS/Component.hpp"
 
@@ -25,9 +26,13 @@ namespace is::ecs {
             ComponentManager(const ComponentManager &) = default;
             ComponentManager &operator=(const ComponentManager &) = default;
 
+            void addComponent(std::weak_ptr<Component> component);
+
+            std::vector<std::weak_ptr<Component>> &getComponentsByType(size_t type);
+
         protected:
         private:
-            std::map<std::string, std::vector<std::weak_ptr<Component>>> map;
+            std::map<size_t, std::vector<std::weak_ptr<Component>>> _components;
     };
 
 }

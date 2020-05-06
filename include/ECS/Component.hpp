@@ -8,22 +8,24 @@
 #ifndef COMPONENT_HPP_
 #define COMPONENT_HPP_
 
+#include <memory>
+
 namespace is::ecs {
 
     class Entity;
 
     class Component {
     public:
-        explicit Component(Entity &e);
+        explicit Component(std::shared_ptr<Entity> &e);
         virtual ~Component() = default;
 
         Component(const Component &) = delete;
         Component &operator=(const Component &) = delete;
 
-        Entity &getEntity();
+        std::weak_ptr<is::ecs::Entity> getEntity();
 
     protected:
-        Entity &_entity;
+        std::shared_ptr<Entity> _entity;
 
     };
 

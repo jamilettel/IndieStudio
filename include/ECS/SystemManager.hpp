@@ -13,12 +13,13 @@
 #include <algorithm>
 
 #include "ECS/ISystem.hpp"
+#include "ECS/ComponentManager.hpp"
 
 namespace is::ecs {
 
     class SystemManager {
         public:
-            SystemManager();
+            SystemManager(std::shared_ptr<ComponentManager> componentManager);
             ~SystemManager();
 
             SystemManager(const SystemManager &) = default;
@@ -35,8 +36,8 @@ namespace is::ecs {
         protected:
         private:
             std::vector<std::shared_ptr<ISystem>> _systems;
+            std::shared_ptr<ComponentManager> _componentManager;
     };
-
 }
 
 #endif /* !SYSTEMMANAGER_HPP_ */

@@ -37,6 +37,8 @@ namespace is::ecs {
             return ret;
         }
 
+        std::vector<std::shared_ptr<Component>> getComponents() const;
+
         template <typename T, typename ...U>
         void addComponent(U &&...args) {
             if (getComponent<T>().has_value())
