@@ -10,9 +10,11 @@
 
 #include "ECS/AScene.hpp"
 
-#include "Systems/Gravity.hpp"
+#include "Systems/Window.hpp"
 
-#include "Components/Gravity.hpp"
+#include "Components/Window.hpp"
+
+#include "Prefabs/GlobalPrefabs.hpp"
 
 class GameScene : public is::ecs::AScene {
     public:

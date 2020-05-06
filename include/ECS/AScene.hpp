@@ -20,7 +20,7 @@ namespace is::ecs {
         public:
             virtual ~AScene() = default;
 
-            void initEntity(std::shared_ptr<Entity> &entity);
+            void initEntity(std::shared_ptr<Entity> &&entity);
 
             void awake();
             void start();

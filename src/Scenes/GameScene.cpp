@@ -20,13 +20,10 @@ GameScene::~GameScene()
 
 void GameScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<SystemGravity>());
+    _systemManager->addSystem(std::make_shared<SystemWindow>());
 }
 
 void GameScene::initEntities()
 {
-    std::shared_ptr<is::ecs::Entity> a = std::make_shared<is::ecs::Entity>();
-
-    a->addComponent<ComponentGravity>(a);
-    initEntity(a);
+    initEntity(prefabs::GlobalPrefabs::createGlobalPrefab());
 }

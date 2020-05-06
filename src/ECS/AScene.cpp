@@ -7,7 +7,7 @@
 
 #include "ECS/AScene.hpp"
 
-void is::ecs::AScene::initEntity(std::shared_ptr<Entity> &entity)
+void is::ecs::AScene::initEntity(std::shared_ptr<Entity> &&entity)
 {
     for (auto &elem : entity->getComponents())
         _componentManager->addComponent(elem);
