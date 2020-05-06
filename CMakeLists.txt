@@ -69,6 +69,8 @@ if (NOT APPLE)
     target_link_libraries(${CMAKE_PROJECT_NAME}
         ${Irrlicht_LIBRARIES}
     )
+    
+    target_link_libraries(${CMAKE_PROJECT_NAME} uuid)
 endif (NOT APPLE)
 
 if (LINUX)

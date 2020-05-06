@@ -5,7 +5,14 @@
 ** main
 */
 
+#include "Game.hpp"
+#include "Scenes/GameScene.hpp"
+
 int main(int argc, char const *argv[])
 {
-    return 0;
+    is::Game game;
+
+    game.addScene(is::Game::Scenes::SCENE_GAME, std::make_shared<GameScene>());
+    game.launchGame(is::Game::Scenes::SCENE_GAME);
+    return (0);
 }
