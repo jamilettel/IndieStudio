@@ -5,8 +5,8 @@
 ** ColliderSystem
 */
 
-#include "Systems/ColliderSystem.hpp"
-#include "Components/ColliderComponent.hpp"
+#include "Systems/Collider.hpp"
+#include "Components/Collider.hpp"
 
 #include <algorithm>
 
