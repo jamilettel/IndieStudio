@@ -17,7 +17,7 @@
 #include "Game.hpp"
 
 #include "Components/CharacterController.hpp"
-#include "Components/TransformComponent.hpp"
+#include "Components/Transform.hpp"
 #include "Components/Window.hpp"
 
 class SystemCharacterController : public is::ecs::ASystem {

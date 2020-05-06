@@ -20,7 +20,7 @@
 
 #include "Components/ModelRenderer.hpp"
 #include "Components/Window.hpp"
-#include "Components/TransformComponent.hpp"
+#include "Components/Transform.hpp"
 
 class SystemModelRenderer : public is::ecs::ASystem {
     public:
