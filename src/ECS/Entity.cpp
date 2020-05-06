@@ -38,4 +38,3 @@ std::vector<std::shared_ptr<is::ecs::Component>> is::ecs::Entity::getComponents(
 {
     return (_components);
 }
-
