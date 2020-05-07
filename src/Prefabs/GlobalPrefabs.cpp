@@ -44,25 +44,22 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e);
-    ColliderComponent &collider = e->addComponent<ColliderComponent>(
+    e->addComponent<is::components::TransformComponent>(e);
+
+    e->addComponent<is::components::ColliderComponent>(
         e,
-        transform,
+        *e->getComponent<is::components::TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
-        );
-    MovementComponent &movement = e->addComponent<MovementComponent>(
+    );
+
+    e->addComponent<is::components::MovementComponent>(
         e,
-        transform,
-        collider
-        );
-    e->addComponent<ComponentCharacterController>(
-        e,
-        transform,
-        movement,
-        "Indie Studio",
-        0.2,
-        3
-        );
-    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("Robot.obj"), "Indie Studio");
+        *e->getComponent<is::components::TransformComponent>()->get(),
+        *e->getComponent<is::components::ColliderComponent>()->get()
+    );
+
+    e->addComponent<is::components::ComponentAudio>(e, RESSOURCE("footstep.wav"), is::components::SOUND);
+    e->addComponent<is::components::ComponentCharacterController>(e, "Indie Studio", 0.2);
+    e->addComponent<is::components::ComponentModelRenderer>(e, RESSOURCE("Robot.obj"), "Indie Studio");
     return (e);
 }

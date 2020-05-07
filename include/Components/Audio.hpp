@@ -28,18 +28,22 @@ namespace is::components {
         ComponentAudio(const ComponentAudio &) = delete;
         ComponentAudio &operator=(const ComponentAudio &) = delete;
 
+        void init();
         void play();
         void pause();
         void stop();
         void toPlay();
         void toStop();
         void nothing();
+        bool isPlaying();
 
         SOUND_STATUS getStatus() const;
 
     private:
+        std::string _filename;
         std::shared_ptr<is::audio::IAudioSource> _audioSource;
         SOUND_STATUS _status;
+        SOUND_TYPE _type;
     };
 
 }

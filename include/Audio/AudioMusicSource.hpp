@@ -19,6 +19,7 @@ namespace is::audio {
             void play();
             void pause();
             void stop();
+            bool isPlaying();
         private:
             sf::Music _music;
     };

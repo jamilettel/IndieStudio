@@ -15,6 +15,10 @@ using namespace is::components;
 
 void SystemAudio::awake()
 {
+    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentAudio).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<ComponentAudio>(elem);
+        ptr->init();
+    }
 }
 
 void SystemAudio::start()
@@ -33,10 +37,10 @@ void SystemAudio::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentAudio).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<ComponentAudio>(elem);
-        if (ptr->getStatus() == TO_PLAY) {
+        if (ptr->getStatus() == TO_PLAY && !ptr->isPlaying()) {
             ptr->play();
             ptr->nothing();
-        } else if (ptr->getStatus() == TO_STOP) {
+        } else if (ptr->getStatus() == TO_STOP && ptr->isPlaying()) {
             ptr->stop();
             ptr->nothing();
         }
