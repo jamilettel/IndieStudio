@@ -6,6 +6,7 @@
 */
 
 #include "EventManager/EventManager.hpp"
+#include <iostream>
 
 is::EventManager::EventManager()
 {
@@ -18,6 +19,14 @@ is::EventManager::~EventManager()
 
 bool is::EventManager::OnEvent(const SEvent &event)
 {
+    if (event.EventType == irr::EET_GUI_EVENT) {
+        switch(event.GUIEvent.EventType) {
+            case irr::gui::EGET_BUTTON_CLICKED:
+                break;
+            default:
+                break;
+        }
+    }
     // Save the mouse state
     if (event.EventType == irr::EET_MOUSE_INPUT_EVENT) {
         switch (event.MouseInput.Event) {
@@ -74,6 +83,11 @@ bool is::EventManager::OnEvent(const SEvent &event)
 bool is::EventManager::IsKeyDown(enum EKEY_CODE keyCode) const
 {
     return _keyState.at(keyCode);
+}
+
+void is::EventManager::setDeviceContext(IrrlichtDevice &device)
+{
+    _context.device = &device;
 }
 
 void is::EventManager::addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft)
