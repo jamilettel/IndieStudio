@@ -14,6 +14,7 @@
 #include "Systems/Camera.hpp"
 #include "Systems/ModelRenderer.hpp"
 #include "Systems/CharacterController.hpp"
+#include "Systems/Light.hpp"
 
 #include "Components/Window.hpp"
 

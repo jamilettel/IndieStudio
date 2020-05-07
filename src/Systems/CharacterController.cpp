@@ -35,22 +35,61 @@ void is::systems::SystemCharacterController::start()
             throw new is::exceptions::Exception("SystemCharacterController", "Could not found window");
 
         ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_W, [ptr](){
-            ptr->move = core::vector3df(1, 0, 0);
-            ptr->rotateY = 90;
+            ptr->move.X = 1;
+        });
+        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_W, [ptr](){
+            if (ptr->move.X == 1)
+                ptr->move.X = 0;
         });
         ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_S, [ptr](){
-            ptr->move = core::vector3df(-1, 0, 0);
-            ptr->rotateY = 270;
+            ptr->move.X = -1;
+        });
+        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_S, [ptr](){
+            if (ptr->move.X == -1)
+                ptr->move.X = 0;
         });
         ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_A, [ptr](){
-            ptr->move = core::vector3df(0, 0, 1);
-            ptr->rotateY = 0;
+            ptr->move.Z = 1;
+        });
+        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_A, [ptr](){
+            if (ptr->move.Z == 1)
+                ptr->move.Z = 0;
         });
         ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_D, [ptr](){
-            ptr->move = core::vector3df(0, 0, -1);
-            ptr->rotateY = 180;
+            ptr->move.Z = -1;
+        });
+        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_D, [ptr](){
+            if (ptr->move.Z == -1)
+                ptr->move.Z = 0;
         });
     }
+}
+
+void is::systems::SystemCharacterController::rotateToAngle(irr::core::vector3df &rotate,
+                                                           float angle)
+{
+    int diff;
+
+    angle = 360 - angle;
+    diff = (360 + (int)angle - (int)rotate.Y) % 360;
+    if (diff > 180)
+        rotate.Y += 5;
+    else if (diff < 180)
+        rotate.Y -= 5;
+}
+
+void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector3df move,
+                                                               irr::core::vector3df &rotate)
+{
+    float angle;
+    
+    if (move.X == 0 && move.Z == 0)
+        return;
+    if (move.X < 0)
+        angle = 270 - (atan(move.Z / -move.X) * 180 / M_PI);
+    else
+        angle = 90 + (atan(move.Z / move.X) * 180 / M_PI);
+    rotateToAngle(rotate, angle);
 }
 
 void is::systems::SystemCharacterController::update()
@@ -63,7 +102,7 @@ void is::systems::SystemCharacterController::update()
         if (!tr)
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
         tr->get()->move(ptr->move * ptr->playerSpeed);
-        tr->get()->rotation.Y = ptr->rotateY;
+        rotateToDirection(ptr->move, tr->get()->rotation);
     }
 }
 

@@ -9,21 +9,14 @@ set(CMAKE_MODULE_PATH cmake-dependencies)
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -W4")
+else(MSVC)
+    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall")
 endif(MSVC)
 
-if(NOT MSVC)
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall")
-endif(NOT MSVC)
-
 if (NOT APPLE)
-
-  # set(Irrlicht_FIND_REQUIRED)
-
   include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
   include(${CMAKE_MODULE_PATH}/FindSFML.cmake)
-endif(NOT APPLE)
-
-if (APPLE)
+else (NOT APPLE)
     set(CMAKE_C_COMPILER "gcc")
     set(CMAKE_CXX_COMPILER "g++")
 
@@ -33,13 +26,12 @@ if (APPLE)
     find_package(GLUT REQUIRED)
 
     include_directories(include)
+    include_directories(/usr/local/include)
     include_directories("${CMAKE_MODULE_PATH}/include")
-
-    link_directories(/usr/local/lib)
     include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 
-    
-endif(APPLE)
+    link_directories(/usr/local/lib)
+endif (NOT APPLE)
 
 file(
         GLOB_RECURSE
@@ -54,11 +46,9 @@ file(
 
 if (APPLE)
     add_executable(${CMAKE_PROJECT_NAME} MACOSX_BUNDLE ${SOURCES_CPP} ${SOURCES_HPP})
-endif (APPLE)
-
-if (NOT APPLE)
+else (APPLE)
     add_executable(${CMAKE_PROJECT_NAME} ${SOURCES_CPP} ${SOURCES_HPP})
-endif (NOT APPLE)
+endif (APPLE)
 
 if(MSVC)
 	set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/")
@@ -91,8 +81,8 @@ if (LINUX)
 endif (LINUX)
 
 if (APPLE)
-    target_link_libraries(${CMAKE_PROJECT_NAME} Irrlicht)
-    target_link_libraries(${CMAKE_PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+    target_link_libraries(${CMAKE_PROJECT_NAME} Irrlicht sfml-audio)
+    target_link_libraries(${CMAKE_PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${SFML_LIBRARIES})
 
     find_library(IOKIT_FRAMEWORK IOKit)
     find_library(COREFOUNDATION_FRAMEWORK CoreFoundation)

@@ -33,9 +33,6 @@ void is::systems::SystemModelRenderer::awake()
         ptr->node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(ptr->fileName.c_str()));
         if (!ptr->node)
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not create node from model");
-
-        ptr->node->setMaterialFlag(video::EMF_LIGHTING, false);
-
     }
 }
 

@@ -5,7 +5,7 @@
 ** .hpp
 */
 
-#include "audio/AudioSoundSource.hpp"
+#include "Audio/AudioSoundSource.hpp"
 #include "Exception.hpp"
 using namespace is::audio;
 using namespace is::exceptions;
