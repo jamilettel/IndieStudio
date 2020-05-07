@@ -19,6 +19,7 @@
 
 #include "Components/CharacterController.hpp"
 #include "Components/Transform.hpp"
+#include "Components/Movement.hpp"
 #include "Components/Window.hpp"
 
 namespace is::systems {
