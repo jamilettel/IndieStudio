@@ -36,8 +36,8 @@ namespace is::components {
         bool clipping;
 
         private:
-        TransformComponent &_transform;
-        ColliderComponent &_collider;
+            TransformComponent &_transform;
+            ColliderComponent &_collider;
     };
 
 }
