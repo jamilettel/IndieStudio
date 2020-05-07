@@ -32,7 +32,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     e->addComponent<is::components::ColliderComponent>(
         e,
         *e->getComponent<is::components::TransformComponent>()->get(),
-        irr::core::vector3df(1, 1, 1)
+        irr::core::vector3df(3, 3, 3)
         );
     e->addComponent<is::components::ComponentModelRenderer>(e, RESSOURCE("Prop_Block_Brick.obj"), "Indie Studio");
     return (e);
@@ -47,7 +47,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     e->addComponent<is::components::ColliderComponent>(
         e,
         *e->getComponent<is::components::TransformComponent>()->get(),
-        irr::core::vector3df(1, 1, 1)
+        irr::core::vector3df(3, 3, 3)
         );
 
     e->addComponent<is::components::MovementComponent>(
