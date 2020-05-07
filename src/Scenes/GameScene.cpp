@@ -24,6 +24,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::SystemLight>());
     _systemManager->addSystem(std::make_shared<is::systems::SystemAudio>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
 }
 
 void is::scenes::GameScene::initEntities()
