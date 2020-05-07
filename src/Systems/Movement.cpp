@@ -37,8 +37,9 @@ void MovementSystem::checkCollisions(
 
         if (&collider == ptr)
             continue;
-        if (ColliderSystem::checkCollision(collider, *ptr))
-            collider.collisions.emplace_back(*ptr);
+        if (ColliderSystem::checkCollision(collider, *ptr)) {
+            collider.collisions.emplace_back(ptr);
+        }
     }
 }
 
@@ -47,8 +48,8 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
     ColliderComponent &collider = movement.getCollider();
     irr::core::vector3df position = collider.getTransform().position + collider.offset;
 
-    for (size_t i = 0; collider.collisions.size(); i++) {
-        ColliderComponent &collider2 = collider.collisions[i].get();
+    for (size_t i = 0; i < collider.collisions.size(); i++) {
+        ColliderComponent &collider2 = *collider.collisions[i];
         irr::core::vector3df position2 = collider2.getTransform().position + collider2.offset;
         irr::core::vector3df distance;
         irr::core::vector3df absDistance;
@@ -74,10 +75,16 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
         absDistance.Z = abs(distance.Z);
         if (absDistance.X < absDistance.Y && absDistance.X < absDistance.Z) {
             movement.getTransform().position.X += distance.X;
+            if (SIGN_OF(movement.velocity.X) != SIGN_OF(distance.X))
+                movement.velocity.X = 0;
         } else if (absDistance.Y < absDistance.Z) {
             movement.getTransform().position.Y += distance.Y;
+            if (SIGN_OF(movement.velocity.Y) != SIGN_OF(distance.Y))
+                movement.velocity.Y = 0;
         } else {
             movement.getTransform().position.Z += distance.Z;
+            if (SIGN_OF(movement.velocity.Z) != SIGN_OF(distance.Z))
+                movement.velocity.Z = 0;
         }
     }
     collider.collisions.clear();

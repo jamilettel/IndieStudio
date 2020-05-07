@@ -7,11 +7,32 @@
 
 #include "Components/CharacterController.hpp"
 
-is::components::ComponentCharacterController::ComponentCharacterController(std::shared_ptr<is::ecs::Entity> &e,
-                                                                           const std::string &wn,
-                                                                           float ps) :
-Component(e)
+using namespace is::components;
+
+ComponentCharacterController::ComponentCharacterController(
+    std::shared_ptr<is::ecs::Entity> &e,
+    TransformComponent &transform,
+    MovementComponent &movementComponent,
+    const std::string &wn,
+    float ps,
+    float playerJumpSpeed
+    ):
+    Component(e),
+    rotateY(0),
+    playerSpeed(ps),
+    windowName(wn),
+    jumpSpeed(playerJumpSpeed),
+    _movementComponent(movementComponent),
+    _transform(transform)
 {
-    playerSpeed = ps;
-    windowName = wn;
+}
+
+MovementComponent &ComponentCharacterController::getMovementComponent() const noexcept
+{
+    return (_movementComponent);
+}
+
+TransformComponent &ComponentCharacterController::getTransform() const noexcept
+{
+    return (_transform);
 }

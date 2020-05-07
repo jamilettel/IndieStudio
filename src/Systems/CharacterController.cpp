@@ -8,6 +8,7 @@
 #include "Systems/CharacterController.hpp"
 
 using namespace irr;
+using namespace is::components;
 
 void is::systems::SystemCharacterController::awake()
 {
@@ -15,24 +16,24 @@ void is::systems::SystemCharacterController::awake()
 
 void is::systems::SystemCharacterController::start()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentCharacterController).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::ComponentCharacterController>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentCharacterController).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<ComponentCharacterController>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
+            throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
 
-        std::shared_ptr<is::components::ComponentWindow> ptr_window;
+        std::shared_ptr<ComponentWindow> ptr_window;
         bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<is::components::ComponentWindow>(wc);
+        for (auto &wc : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
+            ptr_window = std::dynamic_pointer_cast<ComponentWindow>(wc);
             if (!ptr_window)
-                throw new is::exceptions::Exception("SystemCharacterController", "Could not get ComponentWindow pointer");
+                throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentWindow pointer");
             if (ptr_window->windowName == ptr->windowName) {
                 windowFound = true;
                 break;
             }
         }
         if (!windowFound)
-            throw new is::exceptions::Exception("SystemCharacterController", "Could not found window");
+            throw is::exceptions::Exception("SystemCharacterController", "Could not found window");
 
         ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_W, [ptr](){
             ptr->move.X = 1;
@@ -62,6 +63,11 @@ void is::systems::SystemCharacterController::start()
             if (ptr->move.Z == -1)
                 ptr->move.Z = 0;
         });
+        ptr_window->eventManager.addEventKeyReleased(
+            irr::KEY_SPACE,
+            [ptr](){
+                ptr->jump = true;
+            });
     }
 }
 
@@ -82,7 +88,7 @@ void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector
                                                                irr::core::vector3df &rotate)
 {
     float angle;
-    
+
     if (move.X == 0 && move.Z == 0)
         return;
     if (move.X < 0)
@@ -94,28 +100,19 @@ void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector
 
 void is::systems::SystemCharacterController::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentCharacterController).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::ComponentCharacterController>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentCharacterController).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<ComponentCharacterController>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
-        auto mo = ptr->getEntity()->getComponent<is::components::MovementComponent>();
-        if (!mo)
-            throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
-        auto tr = ptr->getEntity()->getComponent<is::components::TransformComponent>();
-        if (!tr)
-            throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
-        mo->get()->velocity = ptr->move * ptr->playerSpeed;
-        rotateToDirection(ptr->move, tr->get()->rotation);
+            throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
+        ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed;
+        rotateToDirection(ptr->move, ptr->getTransform().rotation);
     }
 }
 
 void is::systems::SystemCharacterController::stop()
 {
-
 }
 
 void is::systems::SystemCharacterController::onTearDown()
 {
-
 }
-
