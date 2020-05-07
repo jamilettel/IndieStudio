@@ -18,7 +18,7 @@
 #include "Components/ModelRenderer.hpp"
 #include "Components/CharacterController.hpp"
 #include "Components/Light.hpp"
-#include "Components/AudioComponent.hpp"
+#include "Components/Audio.hpp"
 #include "Components/Collider.hpp"
 #include "Components/Movement.hpp"
 

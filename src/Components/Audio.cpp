@@ -5,14 +5,14 @@
 ** collider component
 */
 
-#include "Components/AudioComponent.hpp"
+#include "Components/Audio.hpp"
 #include "Audio/AudioSoundSource.hpp"
 #include "Audio/AudioMusicSource.hpp"
 
 using namespace is::components;
 using namespace is::audio;
 
-AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type) : Component(e), _status(NOTHING)
+ComponentAudio::ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type) : Component(e), _status(NOTHING)
 {
     if (type == SOUND)
         _audioSource = std::make_shared<AudioSoundSource>(filename);
@@ -20,7 +20,7 @@ AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::s
         _audioSource = std::make_shared<AudioMusicSource>(filename);
 }
 
-AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart) : Component(e)
+ComponentAudio::ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart) : Component(e)
 {
     if (type == SOUND)
         _audioSource = std::make_shared<AudioSoundSource>(filename);
@@ -32,39 +32,39 @@ AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::s
         _status = NOTHING;
 }
 
-void AudioComponent::play()
+void ComponentAudio::play()
 {
     _audioSource->play();
 }
 
 
-void AudioComponent::pause()
+void ComponentAudio::pause()
 {
     _audioSource->pause();
 }
 
-void AudioComponent::stop()
+void ComponentAudio::stop()
 {
     _audioSource->stop();
 }
 
-void AudioComponent::toPlay()
+void ComponentAudio::toPlay()
 {
     _status = TO_PLAY;
 }
 
-void AudioComponent::toStop()
+void ComponentAudio::toStop()
 {
     _status = TO_STOP;
 }
 
-void AudioComponent::nothing()
+void ComponentAudio::nothing()
 {
     _status = NOTHING;
 }
 
 
-SOUND_STATUS AudioComponent::getStatus() const
+SOUND_STATUS ComponentAudio::getStatus() const
 {
     return (_status);
 }
