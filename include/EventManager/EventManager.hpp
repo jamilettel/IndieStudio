@@ -26,9 +26,10 @@ namespace is
     {
         core::position2di position;
         bool leftButtonDown;
+        bool middleButtonDown;
         bool rightButtonDown;
         float wheelDelta;
-        SMouseState() : leftButtonDown(false), rightButtonDown(false),
+        SMouseState() : leftButtonDown(false), middleButtonDown(false), rightButtonDown(false),
         wheelDelta(0.0) {}
     } mouseState;
 
@@ -44,6 +45,10 @@ namespace is
 
             /* OTHER METHODS */
             [[nodiscard]] std::pair<float, float> getMousePosition() const;
+            [[nodiscard]] bool isRightPressed() const;
+            [[nodiscard]] bool isMiddlePressed() const;
+            [[nodiscard]] bool isLeftPressed() const;
+            [[nodiscard]] float getMouseWheel() const;
 
             void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
             void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
