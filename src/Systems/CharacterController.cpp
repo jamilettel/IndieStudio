@@ -6,6 +6,7 @@
 */
 
 #include "Systems/CharacterController.hpp"
+#include "Components/Audio.hpp"
 
 using namespace irr;
 using namespace is::components;
@@ -106,6 +107,8 @@ void is::systems::SystemCharacterController::update()
             throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
+        if (ptr->move.X != 0 || ptr->move.Z != 0)
+            ptr->getAudioComponent().toPlay();
     }
 }
 

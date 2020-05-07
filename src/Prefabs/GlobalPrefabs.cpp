@@ -55,10 +55,16 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         transform,
         collider
         );
+    ComponentAudio &audio = e->addComponent<is::components::ComponentAudio>(
+        e,
+        RESSOURCE("footstep.wav"),
+        is::components::SOUND
+        );
     e->addComponent<ComponentCharacterController>(
         e,
         transform,
         movement,
+        audio,
         "Indie Studio",
         0.2,
         3
