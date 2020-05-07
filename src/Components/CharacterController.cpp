@@ -13,6 +13,7 @@ ComponentCharacterController::ComponentCharacterController(
     std::shared_ptr<is::ecs::Entity> &e,
     TransformComponent &transform,
     MovementComponent &movementComponent,
+    ComponentAudio &audio,
     const std::string &wn,
     float ps,
     float playerJumpSpeed
@@ -23,7 +24,8 @@ ComponentCharacterController::ComponentCharacterController(
     windowName(wn),
     jumpSpeed(playerJumpSpeed),
     _movementComponent(movementComponent),
-    _transform(transform)
+    _transform(transform),
+    _audioComponent(audio)
 {
 }
 
@@ -35,4 +37,9 @@ MovementComponent &ComponentCharacterController::getMovementComponent() const no
 TransformComponent &ComponentCharacterController::getTransform() const noexcept
 {
     return (_transform);
+}
+
+ComponentAudio &ComponentCharacterController::getAudioComponent() const noexcept
+{
+    return (_audioComponent);
 }

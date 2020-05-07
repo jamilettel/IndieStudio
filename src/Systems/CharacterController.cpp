@@ -101,20 +101,14 @@ void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector
 
 void is::systems::SystemCharacterController::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentCharacterController).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::ComponentCharacterController>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentCharacterController).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<ComponentCharacterController>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
-        auto mo = ptr->getEntity()->getComponent<is::components::MovementComponent>();
-        if (!mo)
-            throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
-        auto tr = ptr->getEntity()->getComponent<is::components::TransformComponent>();
-        if (!tr)
-            throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
-        mo->get()->velocity = ptr->move * ptr->playerSpeed;
-        rotateToDirection(ptr->move, tr->get()->rotation);
+            throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
+        ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed;
+        rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->move.X != 0 || ptr->move.Z != 0)
-            ptr->getEntity()->getComponent<is::components::ComponentAudio>()->get()->toPlay();
+            ptr->getAudioComponent().toPlay();
     }
 }
 
