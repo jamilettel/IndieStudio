@@ -10,6 +10,7 @@
 
 #include "ECS/ComponentManager.hpp"
 #include "ECS/EntityManager.hpp"
+#include "ECS/Entity.hpp"
 
 namespace is::ecs {
 
@@ -25,6 +26,7 @@ namespace is::ecs {
 
             virtual void setComponentManager(std::shared_ptr<ComponentManager> componentManager) = 0;
             virtual void setEntityManager(std::shared_ptr<EntityManager> entityManager) = 0;
+            virtual std::shared_ptr<Entity> &initRuntimeEntity(std::shared_ptr<Entity> &&entity) = 0;
 
         protected:
         private:
