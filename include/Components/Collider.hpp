@@ -29,16 +29,14 @@ namespace is::components {
         ColliderComponent(const ColliderComponent &) = delete;
         ColliderComponent &operator=(const ColliderComponent &) = delete;
 
-        std::vector<std::shared_ptr<is::ecs::Entity>> &getEntities();
+        const TransformComponent &getTransform() const noexcept;
 
         irr::core::vector3df offset;
         irr::core::vector3df size;
 
         bool activeCheck;
 
-        std::vector<std::reference_wrapper<ColliderComponent>> collisions;
-
-        const TransformComponent &getTransform() const noexcept;
+        std::vector<ColliderComponent *> collisions;
 
     private:
         TransformComponent &_transform;
