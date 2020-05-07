@@ -33,6 +33,14 @@ namespace is
         wheelDelta(0.0) {}
     } mouseState;
 
+    typedef struct SAppContext
+    {
+        IrrlichtDevice *device;
+        s32 counter;
+        irr::gui::IGUIListBox *listbox;
+        SAppContext() : device(nullptr), counter(0), listbox(nullptr) {}
+    } appContext;
+
     class EventManager : public IEventReceiver
     {
         public:
@@ -42,6 +50,9 @@ namespace is
             /* IMPORTANT, THEY SHOULDN'T BE CHANGED */
             bool OnEvent(const SEvent &event) override;
             [[nodiscard]] bool IsKeyDown(EKEY_CODE keyCode) const;
+
+            /* CONTEXT METHODS */
+            void setDeviceContext(IrrlichtDevice &device);
 
             /* OTHER METHODS */
             [[nodiscard]] std::pair<float, float> getMousePosition() const;
@@ -59,6 +70,8 @@ namespace is
             void removeEventKeyReleased(EKEY_CODE keyCode);
 
         private:
+            appContext _context;
+
             std::map<int, bool> _keyState;
             mouseState _mouse;
 

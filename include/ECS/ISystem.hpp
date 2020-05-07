@@ -9,6 +9,7 @@
 #define ISYSTEM_HPP_
 
 #include "ECS/ComponentManager.hpp"
+#include "ECS/EntityManager.hpp"
 
 namespace is::ecs {
 
@@ -22,7 +23,8 @@ namespace is::ecs {
             virtual void stop() = 0;
             virtual void onTearDown() = 0;
 
-            virtual void setComponentManager(std::shared_ptr<ComponentManager> _componentManager) = 0;
+            virtual void setComponentManager(std::shared_ptr<ComponentManager> componentManager) = 0;
+            virtual void setEntityManager(std::shared_ptr<EntityManager> entityManager) = 0;
 
         protected:
         private:

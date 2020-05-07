@@ -75,10 +75,16 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
         absDistance.Z = abs(distance.Z);
         if (absDistance.X < absDistance.Y && absDistance.X < absDistance.Z) {
             movement.getTransform().position.X += distance.X;
+            if (SIGN_OF(movement.velocity.X) != SIGN_OF(distance.X))
+                movement.velocity.X = 0;
         } else if (absDistance.Y < absDistance.Z) {
             movement.getTransform().position.Y += distance.Y;
+            if (SIGN_OF(movement.velocity.Y) != SIGN_OF(distance.Y))
+                movement.velocity.Y = 0;
         } else {
             movement.getTransform().position.Z += distance.Z;
+            if (SIGN_OF(movement.velocity.Z) != SIGN_OF(distance.Z))
+                movement.velocity.Z = 0;
         }
     }
     collider.collisions.clear();
