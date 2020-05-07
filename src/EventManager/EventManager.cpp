@@ -33,6 +33,12 @@ bool is::EventManager::OnEvent(const SEvent &event)
             case EMIE_RMOUSE_LEFT_UP:
                 _mouse.rightButtonDown = false;
                 break;
+            case EMIE_MMOUSE_PRESSED_DOWN:
+                _mouse.middleButtonDown = true;
+                break;
+            case EMIE_MMOUSE_LEFT_UP:
+                _mouse.middleButtonDown = false;
+                break;
             case EMIE_MOUSE_MOVED:
                 _mouse.position.X = event.MouseInput.X;
                 _mouse.position.Y = event.MouseInput.Y;
@@ -47,7 +53,6 @@ bool is::EventManager::OnEvent(const SEvent &event)
     // Check whether each key is down or up and run ft associated
     if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
         _keyState[event.KeyInput.Key] = event.KeyInput.PressedDown;
-
         // run ft associated with key released
         if (!event.KeyInput.PressedDown) {
             if (_eventKeyReleased.find(event.KeyInput.Key) != _eventKeyReleased.end()) {
@@ -69,11 +74,6 @@ bool is::EventManager::OnEvent(const SEvent &event)
 bool is::EventManager::IsKeyDown(enum EKEY_CODE keyCode) const
 {
     return _keyState.at(keyCode);
-}
-
-std::pair<float, float> is::EventManager::getMousePosition() const
-{
-    return std::pair<float, float>(_mouse.position.X, _mouse.position.Y);
 }
 
 void is::EventManager::addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft)
@@ -138,3 +138,27 @@ void is::EventManager::removeEventKeyReleased(EKEY_CODE keyCode)
     _eventKeyReleased.erase(keyCode);
 }
 
+std::pair<float, float> is::EventManager::getMousePosition() const
+{
+    return std::pair<float, float>(_mouse.position.X, _mouse.position.Y);
+}
+
+bool is::EventManager::isRightPressed() const
+{
+    return _mouse.rightButtonDown;
+}
+
+bool is::EventManager::isMiddlePressed() const
+{
+    return _mouse.middleButtonDown;
+}
+
+bool is::EventManager::isLeftPressed() const
+{
+    return _mouse.leftButtonDown;
+}
+
+float is::EventManager::getMouseWheel() const
+{
+    return _mouse.wheelDelta;
+}
