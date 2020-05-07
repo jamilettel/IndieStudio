@@ -17,9 +17,11 @@ namespace is::components {
 
     class ColliderComponent: public is::ecs::Component {
     public:
-        ColliderComponent(std::shared_ptr<is::ecs::Entity> &e,
-                          bool check,
-                          TransformComponent &transform);
+        ColliderComponent(
+            std::shared_ptr<is::ecs::Entity> &e,
+            bool check,
+            TransformComponent &transform
+            );
         ~ColliderComponent() = default;
 
         ColliderComponent(const ColliderComponent &) = delete;

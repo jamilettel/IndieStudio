@@ -80,6 +80,7 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
             movement.getTransform().position.Z += distance.Z;
         }
     }
+    collider.collisions.clear();
 }
 
 void MovementSystem::update()
