@@ -7,11 +7,17 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 
+#ifdef __APPLE__
+    #define RESSOURCE(str) std::string(std::string("../resources/") + std::string(str))
+#else
+    #define RESSOURCE(str) std::string(std::string("./resources/") + std::string(str))
+#endif
+
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    //e->addComponent<is::components::AudioComponent>(e, "./ressources/lol.wav", is::components::MUSIC, true);
+    e->addComponent<is::components::ComponentAudio>(e, RESSOURCE("lol.wav"), is::components::MUSIC, true);
     e->addComponent<is::components::ComponentWindow>(e, "Indie Studio");
     e->addComponent<is::components::ComponentLight>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
     e->addComponent<is::components::ComponentCamera>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 15, 0), core::vector3df(1, -10, 0));
@@ -28,7 +34,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
         *e->getComponent<is::components::TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
         );
-    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Prop_Block_Brick.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, RESSOURCE("Prop_Block_Brick.obj"), "Indie Studio");
     return (e);
 }
 
@@ -51,6 +57,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         );
 
     e->addComponent<is::components::ComponentCharacterController>(e, "Indie Studio", 0.2);
-    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Robot.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, RESSOURCE("Robot.obj"), "Indie Studio");
     return (e);
 }
