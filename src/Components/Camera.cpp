@@ -19,3 +19,8 @@ Component(e)
     cameraName = cm;
     windowName = wm;
 }
+
+void is::components::CameraComponent::deleteComponent()
+{
+    
+}

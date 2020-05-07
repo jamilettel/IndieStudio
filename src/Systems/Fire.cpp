@@ -27,7 +27,8 @@ void is::systems::FireSystem::update()
             throw is::exceptions::Exception("FireComponent", "Could not get FireComponent pointer");
         ptr->lifeTime-=0.3;
         if (ptr->lifeTime < 0) {
-            ptr->lifeTime = 1000000000; // TODO: delete Fire object
+            std::cout << "ddd" << std::endl;
+            ptr->getEntity()->setDelete(true);
         }
     }
 }

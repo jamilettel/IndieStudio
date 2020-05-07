@@ -19,6 +19,11 @@ rotation(rot),
 scale(scl)
 {}
 
+void TransformComponent::deleteComponent()
+{
+    
+}
+
 void TransformComponent::move(const irr::core::vector3df &vector)
 {
     this->position += vector;

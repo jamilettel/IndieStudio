@@ -13,6 +13,11 @@ GravityComponent::GravityComponent(std::shared_ptr<is::ecs::Entity> &e, Movement
 {
 }
 
+void GravityComponent::deleteComponent()
+{
+    
+}
+
 void GravityComponent::setActive(bool active)
 {
     _active = active;

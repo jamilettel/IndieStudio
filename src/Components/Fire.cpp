@@ -12,3 +12,8 @@ Component(e)
 {
     lifeTime = 3;
 }
+
+void is::components::FireComponent::deleteComponent()
+{
+    
+}

@@ -19,3 +19,8 @@ Component(e)
     color = col;
     windowName = window;
 }
+
+void is::components::LightComponent::deleteComponent()
+{
+    
+}

@@ -40,12 +40,11 @@ void is::systems::BombSystem::update()
             }
             if (!windowFound)
                 throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
-            // propagate fire
             for (int i = 0; i < 2 && dropFire(ptr, ptr_window, 0, i + 1); i++);
             for (int i = 0; i < 2 && dropFire(ptr, ptr_window, i + 1, 0); i++);
             for (int i = 0; i < 2 && dropFire(ptr, ptr_window, 0, -(i + 1)); i++);
             for (int i = 0; i < 2 && dropFire(ptr, ptr_window, -(i + 1), 0); i++);
-            ptr->lifeTime = 1000000000; // TODO: delete bomb object
+            ptr->getEntity()->setDelete(true);
         }
     }
 }
@@ -57,7 +56,7 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
 {
     irr::core::vector3df f = ptr->getEntity()->getComponent<is::components::TransformComponent>()->get()->position;
     f.X = ((int)((f.X + 1.5f) / 3) + x - (f.X < 0)) * 3;
-    f.Y = 0; // remove for 3d game
+    f.Y = 0;
     f.Z = ((int)((f.Z + 1.5f) / 3) + y - (f.Z < 0)) * 3;
     auto e = this->initRuntimeEntity(is::prefabs::GlobalPrefabs::createFire(f));
     auto mr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());

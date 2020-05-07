@@ -23,6 +23,8 @@ namespace is::components {
         BombComponent(const BombComponent &) = delete;
         BombComponent &operator=(const BombComponent &) = delete;
 
+        void deleteComponent();
+
         float lifeTime;
 
     };

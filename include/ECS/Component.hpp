@@ -23,6 +23,8 @@ namespace is::ecs {
         Component &operator=(const Component &) = delete;
 
         std::shared_ptr<is::ecs::Entity> getEntity();
+        
+        virtual void deleteComponent() = 0;
 
     protected:
         std::shared_ptr<Entity> _entity;

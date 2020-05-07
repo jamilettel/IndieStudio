@@ -29,6 +29,11 @@ CharacterControllerComponent::CharacterControllerComponent(
 {
 }
 
+void CharacterControllerComponent::deleteComponent()
+{
+    
+}
+
 MovementComponent &CharacterControllerComponent::getMovementComponent() const noexcept
 {
     return (_movementComponent);

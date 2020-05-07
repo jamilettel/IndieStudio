@@ -22,3 +22,8 @@ void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<i
     if (!node)
         throw new is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
 }
+
+void is::components::ModelRendererComponent::deleteComponent()
+{
+    node->remove();
+}

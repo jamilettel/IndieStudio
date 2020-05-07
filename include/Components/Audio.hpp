@@ -39,6 +39,8 @@ namespace is::components {
 
         SOUND_STATUS getStatus() const;
 
+        void deleteComponent();
+
     private:
         std::string _filename;
         std::shared_ptr<is::audio::IAudioSource> _audioSource;

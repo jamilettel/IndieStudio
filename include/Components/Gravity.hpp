@@ -24,6 +24,8 @@ namespace is::components {
         GravityComponent(const GravityComponent &) = delete;
         GravityComponent &operator=(const GravityComponent &) = delete;
 
+        void deleteComponent();
+
         void setActive(bool use);
         bool isActive() const noexcept;
         MovementComponent &getMovement() const noexcept;

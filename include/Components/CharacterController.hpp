@@ -32,6 +32,8 @@ namespace is::components {
         CharacterControllerComponent(const CharacterControllerComponent &) = delete;
         CharacterControllerComponent &operator=(const CharacterControllerComponent &) = delete;
 
+        void deleteComponent();
+
         MovementComponent &getMovementComponent() const noexcept;
         TransformComponent &getTransform() const noexcept;
         AudioComponent &getAudioComponent() const noexcept;

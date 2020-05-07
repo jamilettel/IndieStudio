@@ -27,6 +27,8 @@ namespace is::components {
             ModelRendererComponent(const ModelRendererComponent &) = delete;
             ModelRendererComponent &operator=(const ModelRendererComponent &) = delete;
 
+            void deleteComponent();
+
             void initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window);
 
             std::string fileName;

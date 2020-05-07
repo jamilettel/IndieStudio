@@ -27,6 +27,8 @@ namespace is::components {
         LightComponent(const LightComponent &) = delete;
         LightComponent &operator=(const LightComponent &) = delete;
 
+        void deleteComponent();
+
         std::string windowName;
         irr::core::vector3df position;
         irr::video::SColorf color;

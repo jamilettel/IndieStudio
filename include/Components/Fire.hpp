@@ -23,6 +23,8 @@ namespace is::components {
         FireComponent(const FireComponent &) = delete;
         FireComponent &operator=(const FireComponent &) = delete;
 
+        void deleteComponent();
+
         float lifeTime;
     };
 

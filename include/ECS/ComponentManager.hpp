@@ -13,6 +13,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 #include "ECS/Component.hpp"
 
@@ -27,6 +28,7 @@ namespace is::ecs {
             ComponentManager &operator=(const ComponentManager &) = default;
 
             void addComponent(std::shared_ptr<Component> component);
+            void removeComponent(std::shared_ptr<Component> &component);
 
             std::vector<std::shared_ptr<Component>> &getComponentsByType(size_t type);
 

@@ -29,6 +29,8 @@ namespace is::components {
         MovementComponent(const MovementComponent &) = delete;
         MovementComponent &operator=(const MovementComponent &) = delete;
 
+        void deleteComponent();
+
         TransformComponent &getTransform() const noexcept;
         ColliderComponent &getCollider() const noexcept;
         bool isOnTheGround() const noexcept;

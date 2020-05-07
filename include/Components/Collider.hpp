@@ -29,6 +29,8 @@ namespace is::components {
         ColliderComponent(const ColliderComponent &) = delete;
         ColliderComponent &operator=(const ColliderComponent &) = delete;
 
+        void deleteComponent();
+
         const TransformComponent &getTransform() const noexcept;
 
         irr::core::vector3df offset;

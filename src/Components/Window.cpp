@@ -17,3 +17,8 @@ Component(e)
     windowSize = ws;
     fullscreen = fs;
 }
+
+void is::components::WindowComponent::deleteComponent()
+{
+    
+}

@@ -28,6 +28,8 @@ namespace is::components {
         WindowComponent(const WindowComponent &) = delete;
         WindowComponent &operator=(const WindowComponent &) = delete;
 
+        void deleteComponent();
+
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* scenemgr;

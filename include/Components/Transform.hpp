@@ -24,6 +24,8 @@ namespace is::components {
         TransformComponent(const TransformComponent &) = delete;
         TransformComponent &operator=(const TransformComponent &) = delete;
 
+        void deleteComponent();
+
         void move(const irr::core::vector3df &vector);
         void rotate(const irr::core::vector3df &vector);
         void scaleObject(const irr::core::vector3df &vector);

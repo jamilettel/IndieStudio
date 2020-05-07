@@ -28,6 +28,8 @@ namespace is::components {
         CameraComponent(const CameraComponent &) = delete;
         CameraComponent &operator=(const CameraComponent &) = delete;
 
+        void deleteComponent();
+
         irr::core::vector3df position;
         irr::core::vector3df rotation;
 

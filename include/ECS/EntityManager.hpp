@@ -9,8 +9,10 @@
 #define ENTITYMANAGER_HPP_
 
 #include <vector>
+#include <iostream>
 
 #include "ECS/Entity.hpp"
+#include "ECS/ComponentManager.hpp"
 
 namespace is::ecs {
 
@@ -23,6 +25,7 @@ namespace is::ecs {
             EntityManager &operator=(const EntityManager &) = default;
 
             void addEntity(std::shared_ptr<Entity> &entity);
+            void deleteEntities(std::shared_ptr<is::ecs::ComponentManager> &cm);
         protected:
         private:
             std::vector<std::shared_ptr<Entity>> _entities;

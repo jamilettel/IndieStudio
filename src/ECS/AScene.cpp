@@ -29,6 +29,7 @@ void is::ecs::AScene::start()
 void is::ecs::AScene::update()
 {
     _systemManager->update();
+    _entityManager->deleteEntities(_componentManager);
 }
 
 void is::ecs::AScene::stop()

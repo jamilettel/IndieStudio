@@ -24,6 +24,11 @@ AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::s
         _status = NOTHING;
 }
 
+void AudioComponent::deleteComponent()
+{
+    
+}
+
 void AudioComponent::init()
 {
     if (_type == SOUND)

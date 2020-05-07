@@ -17,6 +17,11 @@ MovementComponent::MovementComponent(
     ): Component(e), clipping(clip), _transform(transform), _collider(collider)
 {}
 
+void MovementComponent::deleteComponent()
+{
+    
+}
+
 TransformComponent &MovementComponent::getTransform() const noexcept
 {
     return (_transform);

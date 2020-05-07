@@ -23,6 +23,11 @@ ColliderComponent::ColliderComponent(
     _transform(transform)
 {}
 
+void ColliderComponent::deleteComponent()
+{
+    
+}
+
 const TransformComponent &ColliderComponent::getTransform() const noexcept
 {
     return (_transform);
