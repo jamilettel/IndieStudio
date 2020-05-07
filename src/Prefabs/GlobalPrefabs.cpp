@@ -12,10 +12,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<is::components::ComponentWindow>(e, "Indie Studio");
-
-    // sun light
     e->addComponent<is::components::ComponentLight>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
-
     e->addComponent<is::components::ComponentCamera>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 15, 0), core::vector3df(1, -10, 0));
     return (e);
 }
