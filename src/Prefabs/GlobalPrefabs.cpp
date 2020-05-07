@@ -23,8 +23,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<is::components::TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
-    e->addComponent<is::components::ColliderComponent>(e, true, *e->getComponent<is::components::TransformComponent>()->get());
-    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Prop_Block_Brick.obj", "Indie Studio");
+    e->addComponent<is::components::ColliderComponent>(
+        e,
+        *e->getComponent<is::components::TransformComponent>()->get(),
+        irr::core::vector3df(1, 1, 1)
+        );
+    e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Prop_Block_Brick.obj", "Indie Studio");
     return (e);
 }
 
@@ -33,10 +37,19 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<is::components::TransformComponent>(e);
-    e->addComponent<is::components::ColliderComponent>(e, true, *e->getComponent<is::components::TransformComponent>()->get());
-    e->addComponent<is::components::MovementComponent>(e,
-                                                       *e->getComponent<is::components::TransformComponent>()->get(),
-                                                       *e->getComponent<is::components::ColliderComponent>()->get());
+
+    e->addComponent<is::components::ColliderComponent>(
+        e,
+        *e->getComponent<is::components::TransformComponent>()->get(),
+        irr::core::vector3df(1, 1, 1)
+        );
+
+    e->addComponent<is::components::MovementComponent>(
+        e,
+        *e->getComponent<is::components::TransformComponent>()->get(),
+        *e->getComponent<is::components::ColliderComponent>()->get()
+        );
+
     e->addComponent<is::components::ComponentCharacterController>(e, "Indie Studio", 0.2);
     e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Robot.obj", "Indie Studio");
     return (e);
