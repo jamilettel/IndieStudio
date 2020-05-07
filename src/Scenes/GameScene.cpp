@@ -30,5 +30,6 @@ void is::scenes::GameScene::initEntities()
     for (int i = -4; i < 4; i++)
         for (int j = -4; j < 4; j++)
             initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(i * 3, -3, j * 3)));
+    initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(2, 0, 2)));
     initEntity(prefabs::GlobalPrefabs::createPlayer());
 }
