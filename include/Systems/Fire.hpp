@@ -5,8 +5,8 @@
 ** ModelRendererSystem
 */
 
-#ifndef SystemLightSystem_HPP_
-#define SystemLightSystem_HPP_
+#ifndef SystemFireSystem_HPP_
+#define SystemFireSystem_HPP_
 
 #include <iostream>
 #include <memory>
@@ -18,19 +18,22 @@
 #include "ECS/ASystem.hpp"
 #include "Game.hpp"
 
-#include "Components/Light.hpp"
+#include "Components/Fire.hpp"
 #include "Components/Window.hpp"
 #include "Components/Transform.hpp"
+#include "Components/ModelRenderer.hpp"
+
+#include "Prefabs/GlobalPrefabs.hpp"
 
 namespace is::systems {
 
-    class LightSystem : public is::ecs::ASystem {
+    class FireSystem : public is::ecs::ASystem {
         public:
-            LightSystem() = default;
-            ~LightSystem() = default;
+            FireSystem() = default;
+            ~FireSystem() = default;
 
-            LightSystem(const LightSystem &) = default;
-            LightSystem &operator=(const LightSystem &) = default;
+            FireSystem(const FireSystem &) = default;
+            FireSystem &operator=(const FireSystem &) = default;
 
             void awake();
             void start();
@@ -44,4 +47,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemLightSystem_HPP_ */
+#endif /* !SystemFireSystem_HPP_ */

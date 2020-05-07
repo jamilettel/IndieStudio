@@ -18,15 +18,15 @@ namespace is::components {
     enum SOUND_TYPE {SOUND, MUSIC};
     enum SOUND_STATUS {NOTHING, TO_PLAY, TO_STOP};
 
-    class ComponentAudio: public is::ecs::Component {
+    class AudioComponent: public is::ecs::Component {
 
     public:
-        ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type);
-        ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart);
-        ~ComponentAudio() = default;
+        AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type);
+        AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart);
+        ~AudioComponent() = default;
 
-        ComponentAudio(const ComponentAudio &) = delete;
-        ComponentAudio &operator=(const ComponentAudio &) = delete;
+        AudioComponent(const AudioComponent &) = delete;
+        AudioComponent &operator=(const AudioComponent &) = delete;
 
         void init();
         void play();

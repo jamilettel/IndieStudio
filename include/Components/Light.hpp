@@ -15,17 +15,17 @@
 
 namespace is::components {
 
-    class ComponentLight : public is::ecs::Component {
+    class LightComponent : public is::ecs::Component {
     public:
-        ComponentLight(std::shared_ptr<is::ecs::Entity> &e,
+        LightComponent(std::shared_ptr<is::ecs::Entity> &e,
                        const std::string &wn,
                        irr::core::vector3df position = irr::core::vector3df(0),
                        irr::video::SColorf color = irr::video::SColorf(0),
                        float radius = 100.0f);
-        ~ComponentLight() = default;
+        ~LightComponent() = default;
 
-        ComponentLight(const ComponentLight &) = delete;
-        ComponentLight &operator=(const ComponentLight &) = delete;
+        LightComponent(const LightComponent &) = delete;
+        LightComponent &operator=(const LightComponent &) = delete;
 
         std::string windowName;
         irr::core::vector3df position;

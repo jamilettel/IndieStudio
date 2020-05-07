@@ -16,25 +16,25 @@
 
 namespace is::components {
 
-    class ComponentCharacterController : public is::ecs::Component {
+    class CharacterControllerComponent : public is::ecs::Component {
     public:
-        ComponentCharacterController(
+        CharacterControllerComponent(
             std::shared_ptr<is::ecs::Entity> &e,
             TransformComponent &transform,
             MovementComponent &movementComponent,
-            ComponentAudio &audio,
+            AudioComponent &audio,
             const std::string &wn = "MainWindow",
             float ps = 0,
             float playerJumpSeed = 0
             );
-        ~ComponentCharacterController() = default;
+        ~CharacterControllerComponent() = default;
 
-        ComponentCharacterController(const ComponentCharacterController &) = delete;
-        ComponentCharacterController &operator=(const ComponentCharacterController &) = delete;
+        CharacterControllerComponent(const CharacterControllerComponent &) = delete;
+        CharacterControllerComponent &operator=(const CharacterControllerComponent &) = delete;
 
         MovementComponent &getMovementComponent() const noexcept;
         TransformComponent &getTransform() const noexcept;
-        ComponentAudio &getAudioComponent() const noexcept;
+        AudioComponent &getAudioComponent() const noexcept;
 
         irr::core::vector3df move;
         float rotateY;
@@ -48,7 +48,7 @@ namespace is::components {
     private:
         MovementComponent &_movementComponent;
         TransformComponent &_transform;
-        ComponentAudio &_audioComponent;
+        AudioComponent &_audioComponent;
     };
 
 }

@@ -7,7 +7,7 @@
 
 #include "Components/Camera.hpp"
 
-is::components::ComponentCamera::ComponentCamera(std::shared_ptr<is::ecs::Entity> &e,
+is::components::CameraComponent::CameraComponent(std::shared_ptr<is::ecs::Entity> &e,
                                                  const std::string &cm,
                                                  const std::string &wm,
                                                  irr::core::vector3df pos,

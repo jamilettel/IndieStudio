@@ -17,17 +17,17 @@
 #include "Exception.hpp"
 namespace is::components {
 
-    class ComponentModelRenderer : public is::ecs::Component {
+    class ModelRendererComponent : public is::ecs::Component {
         public:
-            ComponentModelRenderer(std::shared_ptr<is::ecs::Entity> &e,
+            ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
                                    const std::string &name,
                                    const std::string &wn);
-            ~ComponentModelRenderer() = default;
+            ~ModelRendererComponent() = default;
 
-            ComponentModelRenderer(const ComponentModelRenderer &) = delete;
-            ComponentModelRenderer &operator=(const ComponentModelRenderer &) = delete;
+            ModelRendererComponent(const ModelRendererComponent &) = delete;
+            ModelRendererComponent &operator=(const ModelRendererComponent &) = delete;
 
-            void initModelRenderer(std::shared_ptr<is::components::ComponentWindow> ptr_window);
+            void initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window);
 
             std::string fileName;
             std::string windowName;

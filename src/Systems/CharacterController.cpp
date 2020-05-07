@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemCharacterController
+** CharacterControllerSystem
 */
 
 #include "Systems/CharacterController.hpp"
@@ -11,30 +11,30 @@
 using namespace irr;
 using namespace is::components;
 
-void is::systems::SystemCharacterController::awake()
+void is::systems::CharacterControllerSystem::awake()
 {
 }
 
-void is::systems::SystemCharacterController::start()
+void is::systems::CharacterControllerSystem::start()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentCharacterController).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentCharacterController>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
-            throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
 
-        std::shared_ptr<ComponentWindow> ptr_window;
+        std::shared_ptr<WindowComponent> ptr_window;
         bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(ComponentWindow).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<ComponentWindow>(wc);
+        for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+            ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
             if (!ptr_window)
-                throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentWindow pointer");
+                throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
             if (ptr_window->windowName == ptr->windowName) {
                 windowFound = true;
                 break;
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("SystemCharacterController", "Could not found window");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
 
         ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_W, [ptr](){
             ptr->move.X = 1;
@@ -70,13 +70,13 @@ void is::systems::SystemCharacterController::start()
         // drop bomb
         ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_E, [this, ptr_window, ptr]() {
             auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position));
-            auto ptr = std::dynamic_pointer_cast<ComponentModelRenderer>(*e->getComponent<ComponentModelRenderer>());
+            auto ptr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
             ptr->initModelRenderer(ptr_window);
         });
     }
 }
 
-void is::systems::SystemCharacterController::rotateToAngle(irr::core::vector3df &rotate,
+void is::systems::CharacterControllerSystem::rotateToAngle(irr::core::vector3df &rotate,
                                                            float angle)
 {
     int diff;
@@ -89,7 +89,7 @@ void is::systems::SystemCharacterController::rotateToAngle(irr::core::vector3df 
         rotate.Y -= 15;
 }
 
-void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector3df move,
+void is::systems::CharacterControllerSystem::rotateToDirection(irr::core::vector3df move,
                                                                irr::core::vector3df &rotate)
 {
     float angle;
@@ -103,12 +103,12 @@ void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector
     rotateToAngle(rotate, angle);
 }
 
-void is::systems::SystemCharacterController::update()
+void is::systems::CharacterControllerSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentCharacterController).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentCharacterController>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
-            throw is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->move.X != 0 || ptr->move.Z != 0)
@@ -116,10 +116,10 @@ void is::systems::SystemCharacterController::update()
     }
 }
 
-void is::systems::SystemCharacterController::stop()
+void is::systems::CharacterControllerSystem::stop()
 {
 }
 
-void is::systems::SystemCharacterController::onTearDown()
+void is::systems::CharacterControllerSystem::onTearDown()
 {
 }

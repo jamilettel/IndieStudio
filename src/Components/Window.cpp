@@ -7,7 +7,7 @@
 
 #include "Components/Window.hpp"
 
-is::components::ComponentWindow::ComponentWindow(std::shared_ptr<is::ecs::Entity> &e,
+is::components::WindowComponent::WindowComponent(std::shared_ptr<is::ecs::Entity> &e,
                                                  const std::string &wn,
                                                  irr::core::dimension2d<u32> ws,
                                                  bool fs) :

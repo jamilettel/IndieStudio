@@ -7,7 +7,7 @@
 
 #include "Components/Light.hpp"
 
-is::components::ComponentLight::ComponentLight(std::shared_ptr<is::ecs::Entity> &e,
+is::components::LightComponent::LightComponent(std::shared_ptr<is::ecs::Entity> &e,
                                                const std::string &window,
                                                irr::core::vector3df pos,
                                                irr::video::SColorf col,

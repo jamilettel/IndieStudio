@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemModelRenderer
+** ModelRendererSystem
 */
 
-#ifndef SystemModelRenderer_HPP_
-#define SystemModelRenderer_HPP_
+#ifndef ModelRendererSystem_HPP_
+#define ModelRendererSystem_HPP_
 
 #include <iostream>
 #include <memory>
@@ -24,13 +24,13 @@
 
 namespace is::systems {
 
-    class SystemModelRenderer : public is::ecs::ASystem {
+    class ModelRendererSystem : public is::ecs::ASystem {
         public:
-            SystemModelRenderer() = default;
-            ~SystemModelRenderer() = default;
+            ModelRendererSystem() = default;
+            ~ModelRendererSystem() = default;
 
-            SystemModelRenderer(const SystemModelRenderer &) = default;
-            SystemModelRenderer &operator=(const SystemModelRenderer &) = default;
+            ModelRendererSystem(const ModelRendererSystem &) = default;
+            ModelRendererSystem &operator=(const ModelRendererSystem &) = default;
 
             void awake();
             void start();
@@ -44,4 +44,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemModelRenderer_HPP_ */
+#endif /* !ModelRendererSystem_HPP_ */

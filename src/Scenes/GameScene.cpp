@@ -17,14 +17,15 @@ AScene()
 
 void is::scenes::GameScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::SystemWindow>());
-    _systemManager->addSystem(std::make_shared<is::systems::SystemCamera>());
-    _systemManager->addSystem(std::make_shared<is::systems::SystemModelRenderer>());
-    _systemManager->addSystem(std::make_shared<is::systems::SystemCharacterController>());
-    _systemManager->addSystem(std::make_shared<is::systems::SystemLight>());
-    _systemManager->addSystem(std::make_shared<is::systems::SystemAudio>());
+    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
 }
 
 void is::scenes::GameScene::initEntities()

@@ -9,11 +9,11 @@
 
 using namespace is::components;
 
-ComponentCharacterController::ComponentCharacterController(
+CharacterControllerComponent::CharacterControllerComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     TransformComponent &transform,
     MovementComponent &movementComponent,
-    ComponentAudio &audio,
+    AudioComponent &audio,
     const std::string &wn,
     float ps,
     float playerJumpSpeed
@@ -29,17 +29,17 @@ ComponentCharacterController::ComponentCharacterController(
 {
 }
 
-MovementComponent &ComponentCharacterController::getMovementComponent() const noexcept
+MovementComponent &CharacterControllerComponent::getMovementComponent() const noexcept
 {
     return (_movementComponent);
 }
 
-TransformComponent &ComponentCharacterController::getTransform() const noexcept
+TransformComponent &CharacterControllerComponent::getTransform() const noexcept
 {
     return (_transform);
 }
 
-ComponentAudio &ComponentCharacterController::getAudioComponent() const noexcept
+AudioComponent &CharacterControllerComponent::getAudioComponent() const noexcept
 {
     return (_audioComponent);
 }

@@ -12,11 +12,11 @@
 using namespace is::components;
 using namespace is::audio;
 
-ComponentAudio::ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type) : Component(e), _filename(filename), _status(NOTHING), _type(type)
+AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type) : Component(e), _filename(filename), _status(NOTHING), _type(type)
 {
 }
 
-ComponentAudio::ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart) : Component(e),_filename(filename),  _type(type)
+AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart) : Component(e),_filename(filename),  _type(type)
 {
     if (playOnStart)
         _status = TO_PLAY;
@@ -24,7 +24,7 @@ ComponentAudio::ComponentAudio(std::shared_ptr<is::ecs::Entity> &e, const std::s
         _status = NOTHING;
 }
 
-void ComponentAudio::init()
+void AudioComponent::init()
 {
     if (_type == SOUND)
         _audioSource = std::make_shared<AudioSoundSource>(_filename);
@@ -32,43 +32,43 @@ void ComponentAudio::init()
         _audioSource = std::make_shared<AudioMusicSource>(_filename);
 }
 
-void ComponentAudio::play()
+void AudioComponent::play()
 {
     _audioSource->play();
 }
 
 
-void ComponentAudio::pause()
+void AudioComponent::pause()
 {
     _audioSource->pause();
 }
 
-void ComponentAudio::stop()
+void AudioComponent::stop()
 {
     _audioSource->stop();
 }
 
-void ComponentAudio::toPlay()
+void AudioComponent::toPlay()
 {
     _status = TO_PLAY;
 }
 
-void ComponentAudio::toStop()
+void AudioComponent::toStop()
 {
     _status = TO_STOP;
 }
 
-void ComponentAudio::nothing()
+void AudioComponent::nothing()
 {
     _status = NOTHING;
 }
 
-bool ComponentAudio::isPlaying()
+bool AudioComponent::isPlaying()
 {
     return (_audioSource->isPlaying());
 }
 
-SOUND_STATUS ComponentAudio::getStatus() const
+SOUND_STATUS AudioComponent::getStatus() const
 {
     return (_status);
 }
