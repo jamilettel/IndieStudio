@@ -24,7 +24,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
 
     e->addComponent<is::components::TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
     e->addComponent<is::components::ColliderComponent>(e, true, *e->getComponent<is::components::TransformComponent>()->get());
-    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Prop_Block_Brick.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Prop_Block_Brick.obj", "Indie Studio");
     return (e);
 }
 

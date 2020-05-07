@@ -22,6 +22,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::SystemModelRenderer>());
     _systemManager->addSystem(std::make_shared<is::systems::SystemCharacterController>());
     _systemManager->addSystem(std::make_shared<is::systems::SystemLight>());
+    _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
 }
 
 void is::scenes::GameScene::initEntities()
