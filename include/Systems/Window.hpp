@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemWindow
+** WindowSystem
 */
 
-#ifndef SystemWindow_HPP_
-#define SystemWindow_HPP_
+#ifndef WindowSystem_HPP_
+#define WindowSystem_HPP_
 
 #include <iostream>
 #include <memory>
@@ -21,13 +21,13 @@
 
 namespace is::systems {
 
-    class SystemWindow : public is::ecs::ASystem {
+    class WindowSystem : public is::ecs::ASystem {
         public:
-            SystemWindow() = default;
-            ~SystemWindow() = default;
+            WindowSystem() = default;
+            ~WindowSystem() = default;
 
-            SystemWindow(const SystemWindow &) = default;
-            SystemWindow &operator=(const SystemWindow &) = default;
+            WindowSystem(const WindowSystem &) = default;
+            WindowSystem &operator=(const WindowSystem &) = default;
 
             void awake();
             void start();
@@ -41,4 +41,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemWindow_HPP_ */
+#endif /* !WindowSystem_HPP_ */

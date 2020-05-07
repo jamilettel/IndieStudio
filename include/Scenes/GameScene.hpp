@@ -18,6 +18,7 @@
 #include "Systems/Audio.hpp"
 #include "Systems/Movement.hpp"
 #include "Systems/Gravity.hpp"
+#include "Systems/Bomb.hpp"
 
 #include "Components/Window.hpp"
 

@@ -2,23 +2,23 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemWindow
+** WindowSystem
 */
 
 #include "Systems/Window.hpp"
 
 using namespace irr;
 
-void is::systems::SystemWindow::awake()
+void is::systems::WindowSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::WindowComponent>(elem);
         if (!ptr)
-            throw is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
+            throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
 
         ptr->device = createDevice(video::EDT_OPENGL, ptr->windowSize, 32, ptr->fullscreen, true, true, &ptr->eventManager);
         if (!ptr->device)
-            throw is::exceptions::Exception("SystemWindow", "Could not create new irr device");
+            throw is::exceptions::Exception("WindowSystem", "Could not create new irr device");
 
         ptr->eventManager.setDeviceContext(*ptr->device);
         ptr->device->setEventReceiver(&ptr->eventManager);
@@ -27,11 +27,11 @@ void is::systems::SystemWindow::awake()
         ptr->device->setWindowCaption(result);
         ptr->driver = ptr->device->getVideoDriver();
         if (!ptr->driver)
-            throw is::exceptions::Exception("SystemWindow", "Could not create video driver");
+            throw is::exceptions::Exception("WindowSystem", "Could not create video driver");
 
         ptr->scenemgr = ptr->device->getSceneManager();
         if (!ptr->scenemgr)
-            throw is::exceptions::Exception("SystemWindow", "Could not create scene manager");
+            throw is::exceptions::Exception("WindowSystem", "Could not create scene manager");
 
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
@@ -39,17 +39,17 @@ void is::systems::SystemWindow::awake()
     }
 }
 
-void is::systems::SystemWindow::start()
+void is::systems::WindowSystem::start()
 {
 
 }
 
-void is::systems::SystemWindow::update()
+void is::systems::WindowSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::WindowComponent>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
+            throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         if (!ptr->device->run()) {
             std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
@@ -61,17 +61,17 @@ void is::systems::SystemWindow::update()
     }
 }
 
-void is::systems::SystemWindow::stop()
+void is::systems::WindowSystem::stop()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<is::components::WindowComponent>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
+            throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         ptr->device->drop();
     }
 }
 
-void is::systems::SystemWindow::onTearDown()
+void is::systems::WindowSystem::onTearDown()
 {
 
 }

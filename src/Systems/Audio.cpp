@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** Systems/SystemAudio.cpp
+** Systems/AudioSystem.cpp
 ** File description:
 ** 
 */
@@ -13,18 +13,18 @@
 using namespace is::systems;
 using namespace is::components;
 
-void SystemAudio::awake()
+void AudioSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentAudio).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentAudio>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         ptr->init();
     }
 }
 
-void SystemAudio::start()
+void AudioSystem::start()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentAudio).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentAudio>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         if (ptr->getStatus() == TO_PLAY) {
             ptr->play();
             ptr->nothing();
@@ -33,10 +33,10 @@ void SystemAudio::start()
 
 }
 
-void SystemAudio::update()
+void AudioSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentAudio).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentAudio>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         if (ptr->getStatus() == TO_PLAY && !ptr->isPlaying()) {
             ptr->play();
             ptr->nothing();
@@ -47,15 +47,15 @@ void SystemAudio::update()
     }
 }
 
-void SystemAudio::stop()
+void AudioSystem::stop()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ComponentAudio).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ComponentAudio>(elem);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         ptr->stop();
     }
 }
 
-void SystemAudio::onTearDown()
+void AudioSystem::onTearDown()
 {
 }
 

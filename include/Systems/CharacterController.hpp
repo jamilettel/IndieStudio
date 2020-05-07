@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemCharacterController
+** CharacterControllerSystem
 */
 
-#ifndef SystemCharacterController_HPP_
-#define SystemCharacterController_HPP_
+#ifndef CharacterControllerSystem_HPP_
+#define CharacterControllerSystem_HPP_
 
 #include <iostream>
 #include <memory>
@@ -26,13 +26,13 @@
 
 namespace is::systems {
 
-    class SystemCharacterController : public is::ecs::ASystem {
+    class CharacterControllerSystem : public is::ecs::ASystem {
     public:
-        SystemCharacterController() = default;
-        ~SystemCharacterController() = default;
+        CharacterControllerSystem() = default;
+        ~CharacterControllerSystem() = default;
 
-        SystemCharacterController(const SystemCharacterController &) = default;
-        SystemCharacterController &operator=(const SystemCharacterController &) = default;
+        CharacterControllerSystem(const CharacterControllerSystem &) = default;
+        CharacterControllerSystem &operator=(const CharacterControllerSystem &) = default;
 
         void awake();
         void start();
@@ -49,4 +49,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemCharacterController_HPP_ */
+#endif /* !CharacterControllerSystem_HPP_ */

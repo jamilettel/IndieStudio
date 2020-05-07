@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** SystemCamera
+** CameraSystem
 */
 
-#ifndef SystemCamera_HPP_
-#define SystemCamera_HPP_
+#ifndef CameraSystem_HPP_
+#define CameraSystem_HPP_
 
 #include <iostream>
 #include <memory>
@@ -21,13 +21,13 @@
 
 namespace is::systems {
 
-    class SystemCamera : public is::ecs::ASystem {
+    class CameraSystem : public is::ecs::ASystem {
         public:
-            SystemCamera() = default;
-            ~SystemCamera() = default;
+            CameraSystem() = default;
+            ~CameraSystem() = default;
 
-            SystemCamera(const SystemCamera &) = default;
-            SystemCamera &operator=(const SystemCamera &) = default;
+            CameraSystem(const CameraSystem &) = default;
+            CameraSystem &operator=(const CameraSystem &) = default;
 
             void awake();
             void start();
@@ -41,4 +41,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemCamera_HPP_ */
+#endif /* !CameraSystem_HPP_ */

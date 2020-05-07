@@ -19,10 +19,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<ComponentAudio>(e, RESSOURCE("lol.wav"), MUSIC, true);
-    e->addComponent<ComponentWindow>(e, "Indie Studio");
-    e->addComponent<ComponentLight>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
-    e->addComponent<ComponentCamera>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0));
+    e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, true);
+    e->addComponent<WindowComponent>(e, "Indie Studio");
+    e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
+    e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0));
     return (e);
 }
 
@@ -36,7 +36,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
         *e->getComponent<TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
     );
-    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("Prop_Block_Brick.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Brick.obj"), "Indie Studio");
     return (e);
 }
 
@@ -45,7 +45,18 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::cor
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
-    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("bomb.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
+    e->addComponent<BombComponent>(e);
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::core::vector3df position)
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
+    e->addComponent<FireComponent>(e);
     return (e);
 }
 
@@ -66,12 +77,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         transform,
         collider
     );
-    ComponentAudio &audio = e->addComponent<is::components::ComponentAudio>(
+    AudioComponent &audio = e->addComponent<is::components::AudioComponent>(
         e,
         RESSOURCE("footstep.wav"),
         is::components::SOUND
     );
-    e->addComponent<ComponentCharacterController>(
+    e->addComponent<CharacterControllerComponent>(
         e,
         transform,
         movement,
@@ -80,7 +91,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         0.2,
         3
     );
-    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("player.b3d"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     return (e);

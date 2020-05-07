@@ -17,16 +17,16 @@
 
 namespace is::components {
 
-    class ComponentWindow : public is::ecs::Component {
+    class WindowComponent : public is::ecs::Component {
     public:
-        ComponentWindow(std::shared_ptr<is::ecs::Entity> &e,
+        WindowComponent(std::shared_ptr<is::ecs::Entity> &e,
                         const std::string &windowName = "MainWindow",
                         irr::core::dimension2d<u32> ws = irr::core::dimension2d<u32>(1600, 900),
                         bool fs = false);
-        ~ComponentWindow() = default;
+        ~WindowComponent() = default;
 
-        ComponentWindow(const ComponentWindow &) = delete;
-        ComponentWindow &operator=(const ComponentWindow &) = delete;
+        WindowComponent(const WindowComponent &) = delete;
+        WindowComponent &operator=(const WindowComponent &) = delete;
 
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** include/Systems/SystemAudio.hpp
+** include/Systems/AudioSystem.hpp
 ** File description:
 ** 
 */
@@ -14,13 +14,13 @@
 
 namespace is::systems {
 
-    class SystemAudio: public is::ecs::ASystem {
+    class AudioSystem: public is::ecs::ASystem {
         public:
-            SystemAudio() = default;
-            ~SystemAudio() = default;
+            AudioSystem() = default;
+            ~AudioSystem() = default;
 
-            SystemAudio(const SystemAudio &) = default;
-            SystemAudio &operator=(const SystemAudio &) = default;
+            AudioSystem(const AudioSystem &) = default;
+            AudioSystem &operator=(const AudioSystem &) = default;
 
             void awake() override;
             void start() override;
