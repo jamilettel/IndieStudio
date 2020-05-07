@@ -56,6 +56,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         *e->getComponent<is::components::ColliderComponent>()->get()
         );
 
+    e->addComponent<is::components::ComponentAudio>(e, RESSOURCE("footstep.wav"), is::components::SOUND);
     e->addComponent<is::components::ComponentCharacterController>(e, "Indie Studio", 0.2);
     e->addComponent<is::components::ComponentModelRenderer>(e, RESSOURCE("Robot.obj"), "Indie Studio");
     return (e);

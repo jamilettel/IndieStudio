@@ -31,3 +31,10 @@ void AudioSoundSource::stop()
 {
     _sound.stop();
 }
+
+bool AudioSoundSource::isPlaying()
+{
+    if (_sound.getStatus() == sf::SoundSource::Status::Playing)
+        return (true);
+    return (false);
+}

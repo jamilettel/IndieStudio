@@ -6,6 +6,7 @@
 */
 
 #include "Systems/CharacterController.hpp"
+#include "Components/Audio.hpp"
 
 using namespace irr;
 
@@ -106,6 +107,8 @@ void is::systems::SystemCharacterController::update()
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
         mo->get()->velocity = ptr->move * ptr->playerSpeed;
         rotateToDirection(ptr->move, tr->get()->rotation);
+        if (ptr->move.X != 0 || ptr->move.Z != 0)
+            ptr->getEntity()->getComponent<is::components::ComponentAudio>()->get()->toPlay();
     }
 }
 
