@@ -22,6 +22,8 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 
+#include "MapGenerator.hpp"
+
 namespace is::scenes {
 
     class GameScene : public is::ecs::AScene {

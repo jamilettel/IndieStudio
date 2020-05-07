@@ -13,13 +13,15 @@
 namespace is::ecs {
 
     class ASystem : public ISystem {
-        public:
-            virtual ~ASystem() = default;
+    public:
+        virtual ~ASystem() = default;
 
-            void setComponentManager(std::shared_ptr<ComponentManager> componentManager) final;
+        void setComponentManager(std::shared_ptr<ComponentManager> componentManager) final;
+        void setEntityManager(std::shared_ptr<EntityManager> entityManager) final;
 
-        protected:
-            std::shared_ptr<ComponentManager> _componentManager;
+    protected:
+        std::shared_ptr<ComponentManager> _componentManager;
+        std::shared_ptr<EntityManager> _entityManager;
 
     };
 

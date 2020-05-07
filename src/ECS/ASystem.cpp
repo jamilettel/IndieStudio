@@ -11,3 +11,8 @@ void is::ecs::ASystem::setComponentManager(std::shared_ptr<ComponentManager> com
 {
     _componentManager = componentManager;
 }
+
+void is::ecs::ASystem::setEntityManager(std::shared_ptr<EntityManager> entityManager)
+{
+    _entityManager = entityManager;
+}

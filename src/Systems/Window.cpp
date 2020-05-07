@@ -14,22 +14,28 @@ void is::systems::SystemWindow::awake()
     for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ComponentWindow).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
+            throw is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
 
-        ptr->device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1600, 900), 32, false, true, true, &ptr->eventManager);
+        ptr->device = createDevice(video::EDT_OPENGL, ptr->windowSize, 32, ptr->fullscreen, true, true, &ptr->eventManager);
         if (!ptr->device)
-            throw new is::exceptions::Exception("SystemWindow", "Could not create new irr device");
+            throw is::exceptions::Exception("SystemWindow", "Could not create new irr device");
 
+        ptr->eventManager.setDeviceContext(*ptr->device);
+        ptr->device->setEventReceiver(&ptr->eventManager);
         std::wstring wide_string = std::wstring(ptr->windowName.begin(), ptr->windowName.end());
         const wchar_t* result = wide_string.c_str();
         ptr->device->setWindowCaption(result);
         ptr->driver = ptr->device->getVideoDriver();
         if (!ptr->driver)
-            throw new is::exceptions::Exception("SystemWindow", "Could not create video driver");
+            throw is::exceptions::Exception("SystemWindow", "Could not create video driver");
 
         ptr->scenemgr = ptr->device->getSceneManager();
         if (!ptr->scenemgr)
-            throw new is::exceptions::Exception("SystemWindow", "Could not create scene manager");
+            throw is::exceptions::Exception("SystemWindow", "Could not create scene manager");
+
+        ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
+            is::Game::isRunning = false;
+        });
     }
 }
 
@@ -44,8 +50,8 @@ void is::systems::SystemWindow::update()
         auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
-
         if (!ptr->device->run()) {
+            std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
             return;
         }
