@@ -31,9 +31,11 @@ void GravitySystem::update()
     std::for_each(gravities.begin(), gravities.end(), [](std::shared_ptr<Component> &gravity) {
         GravityComponent *ptr = static_cast<GravityComponent *>(gravity.get());
 
-        if (!ptr->isActive())
+        if (!ptr->isActive() || ptr->getMovement().isOnTheGround()) {
+            ptr->gravity = irr::core::vector3df(0, 0, 0);
             return;
+        }
         ptr->getMovement().velocity += ptr->gravity;
-        ptr->gravity += irr::core::vector3df(0, 0.1, 0);
+        ptr->gravity += irr::core::vector3df(0, -0.1, 0);
     });
 }
