@@ -6,8 +6,8 @@
 */
 
 #include "Components/AudioComponent.hpp"
-#include "audio/AudioSoundSource.hpp"
-#include "audio/AudioMusicSource.hpp"
+#include "Audio/AudioSoundSource.hpp"
+#include "Audio/AudioMusicSource.hpp"
 
 using namespace is::components;
 using namespace is::audio;

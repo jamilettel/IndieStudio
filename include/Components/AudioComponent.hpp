@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "ECS/Component.hpp"
-#include "audio/IAudioSource.hpp"
+#include "Audio/IAudioSource.hpp"
 #include <memory>
 
 namespace is::components {
