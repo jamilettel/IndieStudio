@@ -45,14 +45,17 @@ namespace is
 
             /* OTHER METHODS */
             [[nodiscard]] std::pair<float, float> getMousePosition() const;
-            void addKeyEvent(EKEY_CODE keyCode, const std::function<void()>& _ft);
-            void removeKeyEvent(EKEY_CODE keyCode);
+            void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
+            void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
+            void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
+            void removeEventKeyReleased(EKEY_CODE keyCode);
 
         private:
             std::map<int, bool> _keyState;
             mouseState _mouse;
 
-            std::map<int, std::function<void()>> _keyEvent;
+            std::map<std::pair<int, int>, std::function<void()>> _eventKeyPressed;
+            std::map<int, std::function<void()>> _eventKeyReleased;
     };
 }
 

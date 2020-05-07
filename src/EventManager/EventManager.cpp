@@ -18,7 +18,7 @@ is::EventManager::~EventManager()
 
 bool is::EventManager::OnEvent(const SEvent &event)
 {
-    // Remember the mouse state
+    // Save the mouse state
     if (event.EventType == irr::EET_MOUSE_INPUT_EVENT) {
         switch (event.MouseInput.Event) {
             case EMIE_LMOUSE_PRESSED_DOWN:
@@ -44,13 +44,23 @@ bool is::EventManager::OnEvent(const SEvent &event)
                 break;
         }
     }
-    // Remember whether each key is down or up
+    // Check whether each key is down or up and run ft associated
     if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
         _keyState[event.KeyInput.Key] = event.KeyInput.PressedDown;
+
+        // run ft associated with key released
         if (!event.KeyInput.PressedDown) {
-            if (_keyEvent.find(event.KeyInput.Key) != _keyEvent.end()) {
-                _keyEvent[event.KeyInput.Key]();
+            if (_eventKeyReleased.find(event.KeyInput.Key) != _eventKeyReleased.end()) {
+                _eventKeyReleased[event.KeyInput.Key]();
             }
+        } else if (event.KeyInput.PressedDown) {
+            std::pair<int, int> eventKey(0, event.KeyInput.Key);
+            if (event.KeyInput.Control)
+                eventKey.first = KEY_CONTROL;
+            else if (event.KeyInput.Shift)
+                eventKey.second = KEY_SHIFT;
+            if (_eventKeyPressed.find(eventKey) != _eventKeyPressed.end())
+                _eventKeyPressed[eventKey]();
         }
     }
     return false;
@@ -66,18 +76,47 @@ std::pair<float, float> is::EventManager::getMousePosition() const
     return std::pair<float, float>(_mouse.position.X, _mouse.position.Y);
 }
 
-void is::EventManager::addKeyEvent(EKEY_CODE keyCode, const std::function<void()> &_ft)
+void is::EventManager::addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft)
 {
-    if (_keyEvent.find(keyCode) == _keyEvent.end()) {
-        //throw
+    if (keyCtrl == KEY_CONTROL || keyCtrl == KEY_SHIFT || keyCtrl == 0) {
+        if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) != _eventKeyPressed.end()) {
+            //throw already exist
+            return;
+        }
+        _eventKeyPressed[std::pair<int, int>(keyCtrl, keyCode)] = ft;
         return;
     }
-    _keyEvent[keyCode] = _ft;
+    //throw invalid
 }
 
-void is::EventManager::removeKeyEvent(EKEY_CODE keyCode)
+void is::EventManager::addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft)
 {
-    _keyEvent.erase(keyCode);
+    if (_eventKeyReleased.find(keyCode) != _eventKeyReleased.end()) {
+        //throw already exist
+        return;
+    }
+    _eventKeyReleased[keyCode] = ft;
 }
 
+void is::EventManager::removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode)
+{
+    if (keyCtrl == KEY_CONTROL || keyCtrl == KEY_SHIFT || keyCtrl == 0) {
+        if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) == _eventKeyPressed.end()) {
+            //throw no exist exist
+            return;
+        }
+        _eventKeyPressed.erase(std::pair<int, int>(keyCtrl, keyCode));
+        return;
+    }
+    //throw invalid
+}
+
+void is::EventManager::removeEventKeyReleased(EKEY_CODE keyCode)
+{
+    if (_eventKeyReleased.find(keyCode) == _eventKeyReleased.end()) {
+        //throw no exist exist
+        return;
+    }
+    _eventKeyReleased.erase(keyCode);
+}
 
