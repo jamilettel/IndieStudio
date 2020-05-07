@@ -36,11 +36,12 @@ namespace is::components {
 
         irr::core::vector3df velocity;
         bool clipping;
+        bool sort = true;
 
-        private:
-            bool _isOnTheGround = false;
-            TransformComponent &_transform;
-            ColliderComponent &_collider;
+    private:
+        bool _isOnTheGround = false;
+        TransformComponent &_transform;
+        ColliderComponent &_collider;
     };
 
 }
