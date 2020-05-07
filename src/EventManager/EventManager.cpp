@@ -89,18 +89,18 @@ void is::EventManager::addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, 
     //throw invalid
 }
 
-void is::EventManager::addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft)
+void is::EventManager::addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft)
 {
-    if (_eventKeyReleased.find(keyCode) != _eventKeyReleased.end()) {
+    if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) != _eventKeyPressed.end()) {
         //throw already exist
         return;
     }
-    _eventKeyReleased[keyCode] = ft;
+    _eventKeyPressed[std::pair<int, int>(0, keyCode)] = ft;
 }
 
 void is::EventManager::removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode)
 {
-    if (keyCtrl == KEY_CONTROL || keyCtrl == KEY_SHIFT || keyCtrl == 0) {
+    if (keyCtrl == KEY_CONTROL || keyCtrl == KEY_SHIFT) {
         if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) == _eventKeyPressed.end()) {
             //throw no exist exist
             return;
@@ -109,6 +109,24 @@ void is::EventManager::removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCod
         return;
     }
     //throw invalid
+}
+
+void is::EventManager::removeEventKeyPressed(EKEY_CODE keyCode)
+{
+    if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) == _eventKeyPressed.end()) {
+        //throw no exist exist
+        return;
+    }
+    _eventKeyPressed.erase(std::pair<int, int>(0, keyCode));
+}
+
+void is::EventManager::addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft)
+{
+    if (_eventKeyReleased.find(keyCode) != _eventKeyReleased.end()) {
+        //throw already exist
+        return;
+    }
+    _eventKeyReleased[keyCode] = ft;
 }
 
 void is::EventManager::removeEventKeyReleased(EKEY_CODE keyCode)

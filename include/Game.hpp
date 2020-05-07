@@ -16,8 +16,8 @@ namespace is {
 
     class Game {
         public:
-            Game();
-            ~Game();
+            Game() = default;
+            ~Game() = default;
 
             Game(const Game &) = default;
             Game &operator=(const Game &) = default;
@@ -28,6 +28,8 @@ namespace is {
 
             void addScene(Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
             void launchGame(Scenes startScene);
+
+            static bool isRunning;
 
         protected:
         private:

@@ -5,7 +5,7 @@ set(CMAKE_PROJECT_NAME bomberman)
 project(${CMAKE_PROJECT_NAME})
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake-dependencies)
+set(CMAKE_MODULE_PATH cmake-dependencies)
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -W4")
@@ -16,12 +16,16 @@ if(NOT MSVC)
 endif(NOT MSVC)
 
 if (NOT APPLE)
-    set(Irrlicht_FIND_REQUIRED)
 
-    include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
+set(Irrlicht_FIND_REQUIRED)
+
+include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
 endif(NOT APPLE)
 
 if (APPLE)
+    set(CMAKE_C_COMPILER "gcc")
+    set(CMAKE_CXX_COMPILER "g++")
+
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_SOURCE_DIR})
 
     find_package(OpenGL REQUIRED)
@@ -47,13 +51,19 @@ file(
 		${PROJECT_SOURCE_DIR}/include/*.hpp
 )
 
-add_executable(${CMAKE_PROJECT_NAME} ${SOURCES_CPP} ${SOURCES_HPP})
+if (APPLE)
+    add_executable(${CMAKE_PROJECT_NAME} MACOSX_BUNDLE ${SOURCES_CPP} ${SOURCES_HPP})
+endif (APPLE)
+
+if (NOT APPLE)
+    add_executable(${CMAKE_PROJECT_NAME} ${SOURCES_CPP} ${SOURCES_HPP})
+endif (NOT APPLE)
 
 if(MSVC)
 	set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/")
 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${PROJECT_SOURCE_DIR}/cmake-dependencies/Irrlicht.dll"
+			"cmake-dependencies/Irrlicht.dll"
 	        "${BIN_DIRECTORY}/Irrlicht.dll")
     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY} )
     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BIN_DIRECTORY} )
@@ -62,7 +72,7 @@ endif(MSVC)
 
 if (NOT APPLE)
     target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
-        ${PROJECT_SOURCE_DIR}/include
+            include
         ${Irrlicht_INCLUDE_DIRS}
     )
 

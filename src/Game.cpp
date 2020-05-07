@@ -7,13 +7,7 @@
 
 #include "Game.hpp"
 
-is::Game::Game()
-{
-}
-
-is::Game::~Game()
-{
-}
+bool is::Game::isRunning = true;
 
 void is::Game::addScene(Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene)
 {
@@ -25,9 +19,8 @@ void is::Game::launchGame(Scenes startScene)
     currentScene = startScene;
     _scenes[currentScene]->awake();
     _scenes[currentScene]->start();
-    while (true) {
+    while (isRunning) {
         _scenes[currentScene]->update();
-        break;   
     }
     _scenes[currentScene]->stop();
     _scenes[currentScene]->onTearDown();

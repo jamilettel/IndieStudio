@@ -15,7 +15,6 @@
 #endif
 
 #include <irrlicht.h>
-#include <driverChoice.h>
 #include <map>
 #include <functional>
 
@@ -45,9 +44,13 @@ namespace is
 
             /* OTHER METHODS */
             [[nodiscard]] std::pair<float, float> getMousePosition() const;
+
             void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
-            void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
+            void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
             void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
+            void removeEventKeyPressed(EKEY_CODE keyCode);
+
+            void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
             void removeEventKeyReleased(EKEY_CODE keyCode);
 
         private:

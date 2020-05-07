@@ -7,10 +7,7 @@
 
 #include "ECS/EntityManager.hpp"
 
-is::ecs::EntityManager::EntityManager()
+void is::ecs::EntityManager::addEntity(std::shared_ptr<Entity> &entity)
 {
-}
-
-is::ecs::EntityManager::~EntityManager()
-{
+    _entities.push_back(entity);
 }

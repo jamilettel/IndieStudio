@@ -10,20 +10,32 @@
 
 #include "ECS/AScene.hpp"
 
-#include "Systems/Gravity.hpp"
+#include "Systems/Window.hpp"
+#include "Systems/Camera.hpp"
+#include "Systems/ModelRenderer.hpp"
+#include "Systems/CharacterController.hpp"
 
-class GameScene : public is::ecs::AScene {
-    public:
-        GameScene();
-        ~GameScene();
+#include "Components/Window.hpp"
 
-        GameScene(const GameScene &) = default;
-        GameScene &operator=(const GameScene &) = default;
+#include "Prefabs/GlobalPrefabs.hpp"
 
-        void initSystems();
+namespace is::scenes {
 
-    protected:
-    private:
-};
+    class GameScene : public is::ecs::AScene {
+        public:
+            GameScene();
+            ~GameScene() = default;
+
+            GameScene(const GameScene &) = default;
+            GameScene &operator=(const GameScene &) = default;
+
+            void initSystems();
+            void initEntities();
+
+        protected:
+        private:
+    };
+
+}
 
 #endif /* !GAMESCENE_HPP_ */

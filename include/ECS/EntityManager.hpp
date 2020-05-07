@@ -16,16 +16,16 @@ namespace is::ecs {
 
     class EntityManager {
         public:
-            EntityManager();
-            ~EntityManager();
+            EntityManager() = default;
+            ~EntityManager() = default;
 
             EntityManager(const EntityManager &) = default;
             EntityManager &operator=(const EntityManager &) = default;
 
-
+            void addEntity(std::shared_ptr<Entity> &entity);
         protected:
         private:
-            std::vector<Entity> _entities;
+            std::vector<std::shared_ptr<Entity>> _entities;
     };
 
 }
