@@ -16,7 +16,7 @@ void is::systems::SystemWindow::awake()
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
 
-        ptr->device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1600, 900), 32, false, true, true, &ptr->eventManager);
+        ptr->device = createDevice(video::EDT_OPENGL, ptr->windowSize, 32, ptr->fullscreen, true, true, &ptr->eventManager);
         if (!ptr->device)
             throw new is::exceptions::Exception("SystemWindow", "Could not create new irr device");
 
@@ -30,6 +30,9 @@ void is::systems::SystemWindow::awake()
         ptr->scenemgr = ptr->device->getSceneManager();
         if (!ptr->scenemgr)
             throw new is::exceptions::Exception("SystemWindow", "Could not create scene manager");
+        ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
+            is::Game::isRunning = false;
+        });
     }
 }
 
@@ -44,8 +47,8 @@ void is::systems::SystemWindow::update()
         auto ptr = std::dynamic_pointer_cast<is::components::ComponentWindow>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemWindow", "Could not get ComponentWindow pointer");
-
         if (!ptr->device->run()) {
+            std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
             return;
         }

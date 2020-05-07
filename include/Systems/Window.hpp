@@ -17,6 +17,7 @@
 #include "Game.hpp"
 
 #include "Components/Window.hpp"
+#include "Game.hpp"
 
 namespace is::systems {
 
