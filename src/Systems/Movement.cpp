@@ -78,8 +78,10 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
                 movement.velocity.X = 0;
         } else if (absDistance.Y < absDistance.Z) {
             movement.getTransform().position.Y += distance.Y;
-            if (SIGN_OF(movement.velocity.Y) != SIGN_OF(distance.Y))
+            if (SIGN_OF(movement.velocity.Y) != SIGN_OF(distance.Y)) {
                 movement.velocity.Y = 0;
+                movement.setOnTheGround(true);
+            }
         } else {
             movement.getTransform().position.Z += distance.Z;
             if (SIGN_OF(movement.velocity.Z) != SIGN_OF(distance.Z))

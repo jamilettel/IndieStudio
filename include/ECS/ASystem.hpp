@@ -18,6 +18,7 @@ namespace is::ecs {
 
         void setComponentManager(std::shared_ptr<ComponentManager> componentManager) final;
         void setEntityManager(std::shared_ptr<EntityManager> entityManager) final;
+        std::shared_ptr<Entity> &initRuntimeEntity(std::shared_ptr<Entity> &&entity) final;
 
     protected:
         std::shared_ptr<ComponentManager> _componentManager;

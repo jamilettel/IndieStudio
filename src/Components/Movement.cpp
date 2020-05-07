@@ -26,3 +26,13 @@ ColliderComponent &MovementComponent::getCollider() const noexcept
 {
     return (_collider);
 }
+
+bool MovementComponent::isOnTheGround() const noexcept
+{
+    return (_isOnTheGround);
+}
+
+void MovementComponent::setOnTheGround(bool isOnTheGround) noexcept
+{
+    _isOnTheGround = isOnTheGround;
+}

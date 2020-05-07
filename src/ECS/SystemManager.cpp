@@ -7,8 +7,10 @@
 
 #include "ECS/SystemManager.hpp"
 
-is::ecs::SystemManager::SystemManager(std::shared_ptr<ComponentManager> componentManager) :
-_componentManager(componentManager)
+is::ecs::SystemManager::SystemManager(std::shared_ptr<ComponentManager> componentManager,
+    std::shared_ptr<EntityManager> entityManager) :
+_componentManager(componentManager),
+_entityManager(entityManager)
 {
 }
 
@@ -19,6 +21,7 @@ is::ecs::SystemManager::~SystemManager()
 void is::ecs::SystemManager::addSystem(const std::shared_ptr<is::ecs::ISystem> &system)
 {
     system->setComponentManager(_componentManager);
+    system->setEntityManager(_entityManager);
     _systems.push_back(system);
 }
 

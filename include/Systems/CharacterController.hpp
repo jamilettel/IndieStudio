@@ -22,6 +22,8 @@
 #include "Components/Movement.hpp"
 #include "Components/Window.hpp"
 
+#include "Prefabs/GlobalPrefabs.hpp"
+
 namespace is::systems {
 
     class SystemCharacterController : public is::ecs::ASystem {

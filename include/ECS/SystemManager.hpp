@@ -14,12 +14,14 @@
 
 #include "ECS/ISystem.hpp"
 #include "ECS/ComponentManager.hpp"
+#include "ECS/EntityManager.hpp"
 
 namespace is::ecs {
 
     class SystemManager {
         public:
-            SystemManager(std::shared_ptr<ComponentManager> componentManager);
+            SystemManager(std::shared_ptr<ComponentManager> componentManager,
+                          std::shared_ptr<EntityManager> entityManager);
             ~SystemManager();
 
             SystemManager(const SystemManager &) = default;
@@ -37,6 +39,7 @@ namespace is::ecs {
         private:
             std::vector<std::shared_ptr<ISystem>> _systems;
             std::shared_ptr<ComponentManager> _componentManager;
+            std::shared_ptr<EntityManager> _entityManager;
     };
 }
 

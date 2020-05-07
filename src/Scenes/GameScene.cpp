@@ -12,7 +12,7 @@ AScene()
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
     _componentManager = std::make_shared<is::ecs::ComponentManager>();
-    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager);
+    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
 }
 
 void is::scenes::GameScene::initSystems()
@@ -23,6 +23,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::SystemCharacterController>());
     _systemManager->addSystem(std::make_shared<is::systems::SystemLight>());
     _systemManager->addSystem(std::make_shared<is::systems::SystemAudio>());
+    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
 }
 

@@ -64,16 +64,15 @@ void is::systems::SystemCharacterController::start()
             if (ptr->move.Z == -1)
                 ptr->move.Z = 0;
         });
-        ptr_window->eventManager.addEventKeyReleased(
-            irr::KEY_SPACE,
-            [ptr](){
-                ptr->jump = true;
-            });
-        ptr_window->eventManager.addEventKeyReleased(
-            irr::KEY_KEY_B,
-            [ptr](){
-                
-            });
+        ptr_window->eventManager.addEventKeyReleased(irr::KEY_SPACE, [ptr](){
+            ptr->jump = true;
+        });
+        // drop bomb
+        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_E, [this, ptr_window, ptr]() {
+            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position));
+            auto ptr = std::dynamic_pointer_cast<ComponentModelRenderer>(*e->getComponent<ComponentModelRenderer>());
+            ptr->initModelRenderer(ptr_window);
+        });
     }
 }
 

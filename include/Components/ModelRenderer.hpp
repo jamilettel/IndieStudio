@@ -12,7 +12,9 @@
 #include <string>
 
 #include "ECS/Component.hpp"
+#include "Components/Window.hpp"
 
+#include "Exception.hpp"
 namespace is::components {
 
     class ComponentModelRenderer : public is::ecs::Component {
@@ -24,6 +26,8 @@ namespace is::components {
 
             ComponentModelRenderer(const ComponentModelRenderer &) = delete;
             ComponentModelRenderer &operator=(const ComponentModelRenderer &) = delete;
+
+            void initModelRenderer(std::shared_ptr<is::components::ComponentWindow> ptr_window);
 
             std::string fileName;
             std::string windowName;
