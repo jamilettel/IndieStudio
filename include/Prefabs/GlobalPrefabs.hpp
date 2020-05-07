@@ -17,6 +17,7 @@
 #include "Components/Transform.hpp"
 #include "Components/ModelRenderer.hpp"
 #include "Components/CharacterController.hpp"
+#include "Components/Light.hpp"
 
 namespace is::prefabs {
 
