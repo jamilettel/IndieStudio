@@ -25,10 +25,10 @@
 namespace is::prefabs {
 
     class GlobalPrefabs {
-        public:
-            static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
-            static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createPlayer();
+    public:
+        static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
+        static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createPlayer();
     };
 
 }
