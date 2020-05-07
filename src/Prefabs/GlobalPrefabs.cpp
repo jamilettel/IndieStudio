@@ -70,5 +70,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         3
     );
     e->addComponent<ComponentModelRenderer>(e, RESSOURCE("Robot.obj"), "Indie Studio");
+    e->addComponent<GravityComponent>(e, movement);
+    transform.position.Y = 10;
     return (e);
 }

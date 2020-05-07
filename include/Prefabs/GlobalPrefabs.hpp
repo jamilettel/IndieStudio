@@ -21,6 +21,7 @@
 #include "Components/Audio.hpp"
 #include "Components/Collider.hpp"
 #include "Components/Movement.hpp"
+#include "Components/Gravity.hpp"
 
 namespace is::prefabs {
 

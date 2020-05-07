@@ -31,11 +31,14 @@ namespace is::components {
 
         TransformComponent &getTransform() const noexcept;
         ColliderComponent &getCollider() const noexcept;
+        bool isOnTheGround() const noexcept;
+        void setOnTheGround(bool isOnTheGround) noexcept;
 
         irr::core::vector3df velocity;
         bool clipping;
 
         private:
+            bool _isOnTheGround = false;
             TransformComponent &_transform;
             ColliderComponent &_collider;
     };
