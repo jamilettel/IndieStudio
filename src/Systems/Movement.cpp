@@ -32,11 +32,13 @@ void MovementSystem::checkCollisions(
     std::vector<std::shared_ptr<Component>> &colliders
     )
 {
+    ColliderSystem::precomputeCollisionVariables(collider);
     for (size_t i = 0; i < colliders.size(); i++) {
         ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
 
         if (&collider == ptr)
             continue;
+        ColliderSystem::precomputeCollisionVariables(*ptr);
         if (ColliderSystem::checkCollision(collider, *ptr)) {
             collider.collisions.emplace_back(ptr);
         }
@@ -108,13 +110,12 @@ void MovementSystem::update()
         if (ptr->clipping) {
             checkCollisions(ptr->getCollider(), colliders);
             if (ptr->sort) {
-                irr::core::vector3df center = ptr->getCollider().position + ptr->getCollider().size / 2;
 
-                std::for_each(
+               std::for_each(
                     ptr->getCollider().collisions.begin(),
                     ptr->getCollider().collisions.end(),
-                    [&center](ColliderComponent *collider) {
-                        collider->distance = center.getDistanceFrom(collider->position + collider->size / 2);
+                    [&ptr](ColliderComponent *collider) {
+                        collider->distance = ptr->getCollider().center.getDistanceFrom(collider->center);
                     });
 
                 std::sort(

@@ -27,8 +27,13 @@ namespace is::systems {
         void stop() override;
         void onTearDown() override;
 
-        static bool checkCollision(is::components::ColliderComponent &collider,
-                                   is::components::ColliderComponent &collider2);
+        static void precomputeCollisionVariables(
+            is::components::ColliderComponent &
+            );
+        static bool checkCollision(
+            is::components::ColliderComponent &collider,
+            is::components::ColliderComponent &collider2
+            );
     };
 
 }

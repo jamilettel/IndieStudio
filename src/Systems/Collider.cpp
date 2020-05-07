@@ -29,22 +29,16 @@ void ColliderSystem::update()
 {
 }
 
-bool ColliderSystem::checkCollision(ColliderComponent &collider, ColliderComponent &collider2)
+void ColliderSystem::precomputeCollisionVariables(ColliderComponent &collider)
 {
     collider.position = collider.getTransform().position + collider.offset;
-    collider2.position = collider2.getTransform().position + collider2.offset;
-    return (((collider.position.X < collider2.position.X + collider2.size.X &&
-              collider.position.X >= collider2.position.X) ||
-             (collider.position.X + collider.size.X < collider2.position.X + collider2.size.X &&
-              collider.position.X + collider.size.X > collider2.position.X)) &&
+    collider.center = collider.position + collider.size/2;
+}
 
-            ((collider.position.Y < collider2.position.Y + collider2.size.Y &&
-              collider.position.Y >= collider2.position.Y) ||
-             (collider.position.Y + collider.size.Y < collider2.position.Y + collider2.size.Y &&
-              collider.position.Y + collider.size.Y > collider2.position.Y)) &&
 
-            ((collider.position.Z < collider2.position.Z + collider2.size.Z &&
-              collider.position.Z >= collider2.position.Z) ||
-             (collider.position.Z + collider.size.Z < collider2.position.Z + collider2.size.Z &&
-              collider.position.Z + collider.size.Z > collider2.position.Z)));
+bool ColliderSystem::checkCollision(ColliderComponent &collider, ColliderComponent &collider2)
+{
+    return ((abs(collider.center.X - collider2.center.X) < (collider.size.X + collider2.size.X)/2.0) &&
+            (abs(collider.center.Y - collider2.center.Y) < (collider.size.Y + collider2.size.Y)/2.0) &&
+            (abs(collider.center.Z - collider2.center.Z) < (collider.size.Z + collider2.size.Z)/2.0));
 }

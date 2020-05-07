@@ -39,6 +39,7 @@ namespace is::components {
         std::vector<ColliderComponent *> collisions;
 
         irr::core::vector3df position;
+        irr::core::vector3df center;
         float distance;
 
     private:
