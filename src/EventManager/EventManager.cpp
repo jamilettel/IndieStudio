@@ -44,7 +44,7 @@ bool is::EventManager::OnEvent(const SEvent &event)
                 _mouse.position.Y = event.MouseInput.Y;
                 break;
             case EMIE_MOUSE_WHEEL:
-                _mouse.wheelDelta = event.MouseInput.Wheel;
+                _mouse.wheelDelta += event.MouseInput.Wheel;
                 break;
             default:
                 break;
