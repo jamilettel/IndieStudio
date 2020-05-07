@@ -18,6 +18,7 @@
 #include "Components/ModelRenderer.hpp"
 #include "Components/CharacterController.hpp"
 #include "Components/Light.hpp"
+#include "Components/AudioComponent.hpp"
 
 namespace is::prefabs {
 

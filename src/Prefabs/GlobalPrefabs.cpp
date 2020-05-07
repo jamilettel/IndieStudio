@@ -11,6 +11,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
+    //e->addComponent<is::components::AudioComponent>(e, "./ressources/lol.wav", is::components::MUSIC, true);
     e->addComponent<is::components::ComponentWindow>(e, "Indie Studio");
 
     // sun light
@@ -25,7 +26,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<is::components::TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
-    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Prop_Block_Brick.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Prop_Block_Brick.obj", "Indie Studio");
     return (e);
 }
 
@@ -35,6 +36,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
 
     e->addComponent<is::components::TransformComponent>(e);
     e->addComponent<is::components::ComponentCharacterController>(e, "Indie Studio", 0.2);
-    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Robot.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Robot.obj", "Indie Studio");
     return (e);
 }
