@@ -19,8 +19,10 @@ namespace is::components {
     public:
         ColliderComponent(
             std::shared_ptr<is::ecs::Entity> &e,
-            bool check,
-            TransformComponent &transform
+            TransformComponent &transform,
+            const irr::core::vector3df &size = irr::core::vector3df(),
+            const irr::core::vector3df &offset = irr::core::vector3df(),
+            bool check = true
             );
         ~ColliderComponent() = default;
 

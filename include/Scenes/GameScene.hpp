@@ -16,6 +16,7 @@
 #include "Systems/CharacterController.hpp"
 #include "Systems/Light.hpp"
 #include "Systems/Audio.hpp"
+#include "Systems/Movement.hpp"
 
 #include "Components/Window.hpp"
 

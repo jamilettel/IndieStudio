@@ -98,10 +98,13 @@ void is::systems::SystemCharacterController::update()
         auto ptr = std::dynamic_pointer_cast<is::components::ComponentCharacterController>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("SystemCharacterController", "Could not get ComponentCharacterController pointer");
+        auto mo = ptr->getEntity()->getComponent<is::components::MovementComponent>();
+        if (!mo)
+            throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
         auto tr = ptr->getEntity()->getComponent<is::components::TransformComponent>();
         if (!tr)
             throw new is::exceptions::Exception("SystemModelRenderer", "Could not get TransformComponent pointer");
-        tr->get()->move(ptr->move * ptr->playerSpeed);
+        mo->get()->velocity = ptr->move * ptr->playerSpeed;
         rotateToDirection(ptr->move, tr->get()->rotation);
     }
 }
