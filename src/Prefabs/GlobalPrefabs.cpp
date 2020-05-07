@@ -28,7 +28,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
         *e->getComponent<is::components::TransformComponent>()->get(),
         irr::core::vector3df(1, 1, 1)
         );
-    e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Prop_Block_Brick.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Prop_Block_Brick.obj", "Indie Studio");
     return (e);
 }
 
@@ -51,6 +51,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         );
 
     e->addComponent<is::components::ComponentCharacterController>(e, "Indie Studio", 0.2);
-    e->addComponent<is::components::ComponentModelRenderer>(e, "./resources/Robot.obj", "Indie Studio");
+    e->addComponent<is::components::ComponentModelRenderer>(e, "../resources/Robot.obj", "Indie Studio");
     return (e);
 }
