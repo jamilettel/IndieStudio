@@ -34,8 +34,9 @@ namespace is::components {
 
         irr::core::vector3df velocity;
         bool clipping;
+        bool sort = true;
 
-        private:
+    private:
         TransformComponent &_transform;
         ColliderComponent &_collider;
     };

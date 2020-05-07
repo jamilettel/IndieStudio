@@ -35,6 +35,7 @@ namespace is::systems {
             is::components::ColliderComponent &component,
             std::vector<std::shared_ptr<is::ecs::Component>> &colliders
             );
+        static bool checkMovement(is::components::MovementComponent &collision);
         static void moveOutOfCollision(is::components::MovementComponent &collision);
     };
 }

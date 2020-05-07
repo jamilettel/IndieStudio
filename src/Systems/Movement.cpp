@@ -46,33 +46,32 @@ void MovementSystem::checkCollisions(
 void MovementSystem::moveOutOfCollision(MovementComponent &movement)
 {
     ColliderComponent &collider = movement.getCollider();
-    irr::core::vector3df position = collider.getTransform().position + collider.offset;
+    irr::core::vector3df distance;
 
-    for (size_t i = 0; i < collider.collisions.size(); i++) {
-        ColliderComponent &collider2 = *collider.collisions[i];
-        irr::core::vector3df position2 = collider2.getTransform().position + collider2.offset;
-        irr::core::vector3df distance;
-        irr::core::vector3df absDistance;
+    while (collider.collisions.size()) {
+        irr::core::vector3df position = collider.getTransform().position + collider.offset;
+        const ColliderComponent &collider2 = *collider.collisions[0];
 
-        if (position.X > position2.X) {
-            distance.X = (position2.X + collider2.size.X) - position.X;
+        collider.collisions.erase(collider.collisions.begin());
+
+        if (position.X > collider2.position.X) {
+            distance.X = (collider2.position.X + collider2.size.X) - position.X;
         } else {
-            distance.X = (position2.X - collider.size.X) - position.X;
+            distance.X = (collider2.position.X - collider.size.X) - position.X;
         }
-        if (position.Y > position2.Y) {
-            distance.Y = (position2.Y + collider2.size.Y) - position.Y;
+        if (position.Y > collider2.position.Y) {
+            distance.Y = (collider2.position.Y + collider2.size.Y) - position.Y;
         } else {
-            distance.Y = (position2.Y - collider.size.Y) - position.Y;
+            distance.Y = (collider2.position.Y - collider.size.Y) - position.Y;
         }
-        if (position.Z > position2.Z) {
-            distance.Z = (position2.Z + collider2.size.Z) - position.Z;
+        if (position.Z > collider2.position.Z) {
+            distance.Z = (collider2.position.Z + collider2.size.Z) - position.Z;
         } else {
-            distance.Z = (position2.Z - collider.size.Z) - position.Z;
+            distance.Z = (collider2.position.Z - collider.size.Z) - position.Z;
         }
 
-        absDistance.X = abs(distance.X);
-        absDistance.Y = abs(distance.Y);
-        absDistance.Z = abs(distance.Z);
+        irr::core::vector3df absDistance(abs(distance.X), abs(distance.Y), abs(distance.Z));
+
         if (absDistance.X < absDistance.Y && absDistance.X < absDistance.Z) {
             movement.getTransform().position.X += distance.X;
             if (SIGN_OF(movement.velocity.X) != SIGN_OF(distance.X))
@@ -87,7 +86,6 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
                 movement.velocity.Z = 0;
         }
     }
-    collider.collisions.clear();
 }
 
 void MovementSystem::update()
@@ -96,7 +94,7 @@ void MovementSystem::update()
         _componentManager->getComponentsByType(typeid(MovementComponent).hash_code());
     std::vector<std::shared_ptr<Component>> &colliders =
         _componentManager->getComponentsByType(typeid(ColliderComponent).hash_code());
-    irr::core::vector3df zero(0, 0, 0);
+    irr::core::vector3df zero;
 
     for (size_t i = 0; i < movements.size(); i++) {
         MovementComponent *ptr = static_cast<MovementComponent *>(movements[i].get());
@@ -107,6 +105,24 @@ void MovementSystem::update()
 
         if (ptr->clipping) {
             checkCollisions(ptr->getCollider(), colliders);
+            if (ptr->sort) {
+                irr::core::vector3df center = ptr->getCollider().position + ptr->getCollider().size / 2;
+
+                std::for_each(
+                    ptr->getCollider().collisions.begin(),
+                    ptr->getCollider().collisions.end(),
+                    [&center](ColliderComponent *collider) {
+                        collider->distance = center.getDistanceFrom(collider->position + collider->size / 2);
+                    });
+
+                std::sort(
+                    ptr->getCollider().collisions.begin(),
+                    ptr->getCollider().collisions.end(),
+                    [] (ColliderComponent *lhs, ColliderComponent *rhs)->bool {
+                        return (lhs->distance < rhs->distance);
+                    });
+            }
+
             moveOutOfCollision(*ptr);
         }
     }
