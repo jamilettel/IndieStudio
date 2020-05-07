@@ -12,6 +12,8 @@
 #include "Systems/Collider.hpp"
 #include "Components/Movement.hpp"
 
+#define SIGN_OF(value) (value < 0 ? -1 : 1)
+
 namespace is::systems {
 
     class MovementSystem : public is::ecs::ASystem {

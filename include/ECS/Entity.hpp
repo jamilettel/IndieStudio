@@ -52,8 +52,9 @@ namespace is::ecs {
 
 
         template <typename T, typename ...U>
-        void addComponent(U &&...args) {
+        T &addComponent(U &&...args) {
             _components.emplace_back(std::make_shared<T>(args...));
+            return (*static_cast<T *>(_components.back().get()));
         }
 
         void setDelete(bool set);
