@@ -16,19 +16,20 @@
 namespace is::components
 {
     class MovementComponent: public is::ecs::Component {
-        public:
-            MovementComponent(std::shared_ptr<is::ecs::Entity> &e, TransformComponent &transform);
-            ~MovementComponent() = default;
+    public:
+        MovementComponent(std::shared_ptr<is::ecs::Entity> &e, TransformComponent &transform, bool clip = false);
+        ~MovementComponent() = default;
 
-            MovementComponent(const MovementComponent &) = delete;
-            MovementComponent &operator=(const MovementComponent &) = delete;
+        MovementComponent(const MovementComponent &) = delete;
+        MovementComponent &operator=(const MovementComponent &) = delete;
 
-            TransformComponent &getTransform() const noexcept;
+        TransformComponent &getTransform() const noexcept;
 
-            irr::core::vector3df velocity;
+        irr::core::vector3df velocity;
+        bool clipping;
 
         private:
-            TransformComponent &_transform;
+        TransformComponent &_transform;
     };
 
 }
