@@ -48,6 +48,7 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
     ColliderComponent &collider = movement.getCollider();
     irr::core::vector3df distance;
 
+    movement.setOnTheGround(false);
     while (collider.collisions.size()) {
         irr::core::vector3df position = collider.getTransform().position + collider.offset;
         const ColliderComponent &collider2 = *collider.collisions[0];
