@@ -9,12 +9,12 @@
 
 using namespace is::components;
 
-MovementComponent::MovementComponent(std::shared_ptr<is::ecs::Entity> &e,
-                                     TransformComponent &transform) :
-Component(e),
-_transform(transform)
-{
-}
+MovementComponent::MovementComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    TransformComponent &transform,
+    bool clip
+    ): Component(e), clipping(clip), _transform(transform)
+{}
 
 TransformComponent &MovementComponent::getTransform() const noexcept
 {
