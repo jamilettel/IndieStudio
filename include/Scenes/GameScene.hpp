@@ -17,6 +17,7 @@
 #include "Systems/Light.hpp"
 #include "Systems/Audio.hpp"
 #include "Systems/Movement.hpp"
+#include "Systems/Gravity.hpp"
 
 #include "Components/Window.hpp"
 
