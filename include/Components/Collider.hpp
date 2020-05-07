@@ -11,6 +11,7 @@
 #include "Components/Transform.hpp"
 #include <irrlicht.h>
 #include <vector>
+#include <functional>
 
 namespace is::components {
 
@@ -29,9 +30,9 @@ namespace is::components {
         irr::core::vector3df offset;
         irr::core::vector3df size;
 
-        bool activeCheck; // ?
+        bool activeCheck;
 
-        std::vector<std::shared_ptr<is::ecs::Entity>> collisions;
+        std::vector<std::reference_wrapper<ColliderComponent>> collisions;
 
         const TransformComponent &getTransform() const noexcept;
 
