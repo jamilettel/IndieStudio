@@ -69,7 +69,7 @@ void is::systems::SystemCharacterController::start()
         });
         // drop bomb
         ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_E, [this, ptr_window, ptr]() {
-            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallBlock(ptr->getTransform().position));
+            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position));
             auto ptr = std::dynamic_pointer_cast<ComponentModelRenderer>(*e->getComponent<ComponentModelRenderer>());
             ptr->initModelRenderer(ptr_window);
         });

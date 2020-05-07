@@ -40,15 +40,26 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     return (e);
 }
 
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::core::vector3df position)
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
+    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("bomb.obj"), "Indie Studio");
+    return (e);
+}
+
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e);
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, irr::core::vector3df(0, 0, 0),
+        irr::core::vector3df(0, 0, 0),
+        irr::core::vector3df(3.5, 3.5, 3.5));
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
-        irr::core::vector3df(3, 3, 3)
+        irr::core::vector3df(2, 2, 2)
     );
     MovementComponent &movement = e->addComponent<MovementComponent>(
         e,
@@ -69,7 +80,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         0.2,
         3
     );
-    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("Robot.obj"), "Indie Studio");
+    e->addComponent<ComponentModelRenderer>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     return (e);
