@@ -9,24 +9,31 @@
 #define MOVEMENTSYSTEM_HPP_
 
 #include "ECS/ASystem.hpp"
+#include "Systems/Collider.hpp"
+#include "Components/Movement.hpp"
 
 namespace is::systems {
 
     class MovementSystem : public is::ecs::ASystem {
-        public:
-            MovementSystem() = default;
-            ~MovementSystem() = default;
+    public:
+        MovementSystem() = default;
+        ~MovementSystem() = default;
 
-            MovementSystem(const MovementSystem &) = default;
-            MovementSystem &operator=(const MovementSystem &) = default;
+        MovementSystem(const MovementSystem &) = default;
+        MovementSystem &operator=(const MovementSystem &) = default;
 
-            void awake() override;
-            void start() override;
-            void update() override;
-            void stop() override;
-            void onTearDown() override;
+        void awake() override;
+        void start() override;
+        void update() override;
+        void stop() override;
+        void onTearDown() override;
 
-        private:
+    private:
+        static void checkCollisions(
+            is::components::ColliderComponent &component,
+            std::vector<std::shared_ptr<is::ecs::Component>> &colliders
+            );
+        static void moveOutOfCollision(is::components::MovementComponent &collision);
     };
 }
 

@@ -15,7 +15,7 @@ namespace is::systems {
 
     class ColliderSystem: public is::ecs::ASystem {
     public:
-        ColliderSystem() = default;
+        ColliderSystem() = delete;
         ~ColliderSystem() = default;
 
         ColliderSystem(const ColliderSystem &) = default;
@@ -27,9 +27,8 @@ namespace is::systems {
         void stop() override;
         void onTearDown() override;
 
-    private:
-        bool checkCollision(is::components::ColliderComponent *collider,
-                            is::components::ColliderComponent *collider2) const;
+        static bool checkCollision(is::components::ColliderComponent &collider,
+                                   is::components::ColliderComponent &collider2);
     };
 
 }

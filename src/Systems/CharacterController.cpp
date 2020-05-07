@@ -73,9 +73,9 @@ void is::systems::SystemCharacterController::rotateToAngle(irr::core::vector3df 
     angle = 360 - angle;
     diff = (360 + (int)angle - (int)rotate.Y) % 360;
     if (diff > 180)
-        rotate.Y += 5;
+        rotate.Y += 15;
     else if (diff < 180)
-        rotate.Y -= 5;
+        rotate.Y -= 15;
 }
 
 void is::systems::SystemCharacterController::rotateToDirection(irr::core::vector3df move,

@@ -19,6 +19,8 @@
 #include "Components/CharacterController.hpp"
 #include "Components/Light.hpp"
 #include "Components/AudioComponent.hpp"
+#include "Components/Collider.hpp"
+#include "Components/Movement.hpp"
 
 namespace is::prefabs {
 

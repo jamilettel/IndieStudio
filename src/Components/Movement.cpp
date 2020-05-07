@@ -12,11 +12,17 @@ using namespace is::components;
 MovementComponent::MovementComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     TransformComponent &transform,
+    ColliderComponent &collider,
     bool clip
-    ): Component(e), clipping(clip), _transform(transform)
+    ): Component(e), clipping(clip), _transform(transform), _collider(collider)
 {}
 
 TransformComponent &MovementComponent::getTransform() const noexcept
 {
     return (_transform);
+}
+
+ColliderComponent &MovementComponent::getCollider() const noexcept
+{
+    return (_collider);
 }
