@@ -24,6 +24,7 @@
 #include "Components/Gravity.hpp"
 #include "Components/Bomb.hpp"
 #include "Components/Fire.hpp"
+#include "Components/Time.hpp"
 
 namespace is::prefabs {
 
