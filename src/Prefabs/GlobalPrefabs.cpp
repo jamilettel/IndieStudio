@@ -40,11 +40,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     return (e);
 }
 
-#include <iostream>
-void a(std::vector<ColliderComponent *> b) {
-    std::cout << "ddd" << std::endl;
-}
-
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df position)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::BRKBL_BLK);
