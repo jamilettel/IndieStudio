@@ -23,8 +23,8 @@ IF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
     PATHS
         /usr/include/SFML/        # Default Fedora28 system include path
         /usr/local/include/SFML/  # Default Fedora28 local include path
-      ${CMAKE_MODULE_PATH}/include/ # Expected to contain the path to this file for Windows10
-      ${Irrlicht_DIR}/include/      # Irrlicht root directory (if provided)
+      ${CMAKE_MODULE_PATH}/include/SFML/ # Expected to contain the path to this file for Windows10
+      ${Irrlicht_DIR}/include/SFML/      # Irrlicht root directory (if provided)
   )
 
   IF (MSVC)     # Windows
