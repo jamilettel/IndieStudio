@@ -9,6 +9,8 @@
 #define CharacterControllerSystem_HPP_
 #define _USE_MATH_DEFINES
 
+#define _USE_MATH_DEFINES
+
 #include <iostream>
 #include <memory>
 #include <irrlicht.h>
