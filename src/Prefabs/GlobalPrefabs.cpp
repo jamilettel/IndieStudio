@@ -8,9 +8,9 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 
 #ifdef __APPLE__
-    #define RESSOURCE(str) std::string(std::string("../resources/") + std::string(str))
+    #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 #else
-    #define RESSOURCE(str) std::string(std::string("./resources/") + std::string(str))
+    #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 #endif
 
 using namespace is::components;
