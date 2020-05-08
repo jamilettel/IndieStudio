@@ -35,10 +35,15 @@ namespace is::components {
         irr::scene::ISceneManager* scenemgr;
 
         is::EventManager eventManager;
-    
+
         std::string windowName;
         irr::core::dimension2d<u32> windowSize;
         bool fullscreen;
+
+        irr::core::array<irr::SJoystickInfo> joysticks;
+        float joystickRefresh = 2;
+        float joystickRefreshRemainingTime = joystickRefresh;
+        bool joystickSupport = true;
 
     };
 

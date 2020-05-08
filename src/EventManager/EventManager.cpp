@@ -19,6 +19,13 @@ is::EventManager::~EventManager()
 
 bool is::EventManager::OnEvent(const SEvent &event)
 {
+    if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT) {
+
+        // for (int i = 0; i < 6; i++) {
+        //     std::cerr << i << ": " << event.JoystickEvent.Axis[i] << std::endl;
+        // }
+
+    }
     if (event.EventType == irr::EET_GUI_EVENT) {
         switch(event.GUIEvent.EventType) {
             case irr::gui::EGET_BUTTON_CLICKED:
