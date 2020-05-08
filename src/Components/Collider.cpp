@@ -6,6 +6,7 @@
 */
 
 #include "Components/Collider.hpp"
+#include <algorithm>
 
 using namespace is::components;
 

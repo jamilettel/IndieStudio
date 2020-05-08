@@ -57,16 +57,47 @@ else (APPLE)
     add_executable(${CMAKE_PROJECT_NAME} ${SOURCES_CPP})
 endif (APPLE)
 
-# if(MSVC)
-# 	set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/")
-# 	add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-# 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-# 			"cmake-dependencies/Irrlicht.dll"
-# 	        "${BIN_DIRECTORY}/Irrlicht.dll")
-#     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY} )
-#     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BIN_DIRECTORY} )
-#     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BIN_DIRECTORY} )
-# endif(MSVC)
+if(MSVC)
+    set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+    if(NOT CMAKE_CL_64)
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win32/Irrlicht.dll"
+            "${BIN_DIRECTORY}/Irrlicht.dll")
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win32/openal32.dll"
+            "${BIN_DIRECTORY}/openal32.dll")
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win32/sfml-audio-d-2.dll"
+            "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win32/sfml-system-d-2.dll"
+            "${BIN_DIRECTORY}/sfml-system-d-2.dll")
+    else(NOT CMAKE_CL_64)
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win64/Irrlicht.dll"
+            "${BIN_DIRECTORY}/Irrlicht.dll")
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win64/openal32.dll"
+            "${BIN_DIRECTORY}/openal32.dll")
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win64/sfml-audio-d-2.dll"
+            "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
+        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "cmake-dependencies/win64/sfml-system-d-2.dll"
+            "${BIN_DIRECTORY}/sfml-system-d-2.dll")
+    endif()
+    set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY} )
+    set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BIN_DIRECTORY} )
+    set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BIN_DIRECTORY} )
+endif(MSVC)
 
 if (NOT APPLE)
     target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
