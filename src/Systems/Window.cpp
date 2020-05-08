@@ -43,7 +43,9 @@ void WindowSystem::awake()
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+        #ifndef __APPLE__
+            ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+        #endif
     }
 }
 
@@ -84,8 +86,10 @@ void WindowSystem::update()
             is::Game::isRunning = false;
             return;
         }
-        if (ptr->joystickSupport)
-            manageJoysticks(ptr);
+        #ifndef __APPLE__
+            if (ptr->joystickSupport)
+                manageJoysticks(ptr);
+        #endif
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
