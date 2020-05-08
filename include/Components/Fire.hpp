@@ -17,7 +17,7 @@ namespace is::components {
 
     class FireComponent : public is::ecs::Component {
     public:
-        FireComponent(std::shared_ptr<is::ecs::Entity> &e);
+        FireComponent(std::shared_ptr<is::ecs::Entity> &e, float lt = 0.4f);
         ~FireComponent() = default;
 
         FireComponent(const FireComponent &) = delete;

@@ -16,12 +16,17 @@
 
 #include "Exception.hpp"
 #include "ECS/ASystem.hpp"
+#include "ECS/Entity.hpp"
 #include "Game.hpp"
 
 #include "Components/Bomb.hpp"
 #include "Components/Window.hpp"
 #include "Components/Transform.hpp"
 #include "Components/ModelRenderer.hpp"
+#include "Components/ColliderTrigger.hpp"
+#include "Components/Collider.hpp"
+#include "Components/Time.hpp"
+#include "Systems/Collider.hpp"
 
 #include "Prefabs/GlobalPrefabs.hpp"
 
@@ -42,12 +47,15 @@ namespace is::systems {
             void onTearDown();
 
             bool dropFire(std::shared_ptr<is::components::BombComponent> ptr,
-                        std::shared_ptr<is::components::WindowComponent> ptr_window,
-                        int x,
-                        int y);
+                         std::shared_ptr<is::components::WindowComponent> ptr_window,
+                         int x,
+                         int y);
+
+            bool checkFireCollision(is::components::ColliderComponent &trigger, std::shared_ptr<is::components::WindowComponent> ptr_window);
 
         protected:
         private:
+            std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
     };
 
 }

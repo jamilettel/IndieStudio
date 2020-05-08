@@ -17,7 +17,9 @@ namespace is::components {
 
     class BombComponent : public is::ecs::Component {
     public:
-        BombComponent(std::shared_ptr<is::ecs::Entity> &e);
+        BombComponent(std::shared_ptr<is::ecs::Entity> &e,
+            float lt = 1,
+            int size = 2);
         ~BombComponent() = default;
 
         BombComponent(const BombComponent &) = delete;
@@ -26,6 +28,7 @@ namespace is::components {
         void deleteComponent();
 
         float lifeTime;
+        float bombSize;
 
     };
 

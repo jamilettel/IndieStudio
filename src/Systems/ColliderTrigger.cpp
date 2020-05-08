@@ -19,13 +19,13 @@ void ColliderTriggerSystem::awake()
 void ColliderTriggerSystem::start()
 {}
 
-void ColliderTriggerSystem::update()
-{}
-
 void ColliderTriggerSystem::stop()
 {}
 
 void ColliderTriggerSystem::onTearDown()
+{}
+
+void ColliderTriggerSystem::update()
 {
     std::vector<std::shared_ptr<Component>> &triggers =
         _componentManager->getComponentsByType(typeid(ColliderTriggerComponent).hash_code());
@@ -42,7 +42,7 @@ void ColliderTriggerSystem::onTearDown()
         for (size_t i = 0; i < colliders.size(); i++) {
             ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
 
-            if (&trigger->collider == ptr)
+            if (&trigger->collider == ptr || !trigger->collider.collidesWith(ptr->getEntity()->layer))
                 continue;
             ColliderSystem::precomputeCollisionVariables(*ptr);
             if (ColliderSystem::checkCollision(trigger->collider, *ptr)) {

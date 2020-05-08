@@ -21,8 +21,8 @@ void TimeComponent::start()
 void TimeComponent::setCurrentInterval()
 {
     _end = std::chrono::system_clock::now();
-    _interval_seconds = std::chrono::duration_cast<std::chrono::seconds>(_end - _start).count();
-    _interval_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
+    _interval_milliseconds = std::chrono::duration_cast<std::chrono::microseconds>(_end - _start).count() / 1000.0;
+    _interval_seconds =_interval_milliseconds / 1000.0;
     _start = std::chrono::system_clock::now();
 }
 

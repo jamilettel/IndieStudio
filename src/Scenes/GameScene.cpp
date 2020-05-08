@@ -30,6 +30,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
 }
 
 void is::scenes::GameScene::initEntities()
