@@ -27,15 +27,14 @@ namespace is::components {
         void deleteComponent() override;
     
         void setJump(bool jump);
-        bool isJumping() const noexcept;
+        bool isJump() const noexcept;
         MovementComponent &getMovement() const noexcept;
-        irr::core::vector3df jump;
+        irr::core::vector3df jumpForce;
 
     private:
         MovementComponent &_movement;
 
-        bool _isJumping = false;
-        float _jumpForce = 2.0f;
+        bool _jump = false;
     };
 
 }

@@ -19,12 +19,12 @@ void JumpComponent::deleteComponent()
 
 void JumpComponent::setJump(bool jump)
 {
-    _isJumping = jump;
+    _jump = jump;
 }
 
-bool JumpComponent::isJumping() const noexcept
+bool JumpComponent::isJump() const noexcept
 {
-    return (_isJumping);
+    return (_jump);
 }
 
 MovementComponent &JumpComponent::getMovement() const noexcept
