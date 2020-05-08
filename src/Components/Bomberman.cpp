@@ -12,7 +12,7 @@ Component(e)
 {
     instantBomb = 0;
 
-    bombRange = 2;
+    bombRange = 1;
     bombNumber = 1;
     speedMult = 1;
     wallPass = false;

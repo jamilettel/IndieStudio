@@ -33,6 +33,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());
 }
 
 void is::scenes::GameScene::initEntities()
@@ -42,5 +43,6 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createGlobalPrefab());
     mg.generateMap(*this);
     initEntity(prefabs::GlobalPrefabs::createPlayer());
+    initEntity(prefabs::GlobalPrefabs::createAI());
     initEntity(prefabs::GlobalPrefabs::createCanvas());
 }

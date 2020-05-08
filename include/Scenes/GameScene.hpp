@@ -26,6 +26,7 @@
 #include "Systems/PowerUp.hpp"
 #include "Systems/Jump.hpp"
 #include "Systems/KeyboardInput.hpp"
+#include "Systems/AIController.hpp"
 
 #include "Components/Window.hpp"
 

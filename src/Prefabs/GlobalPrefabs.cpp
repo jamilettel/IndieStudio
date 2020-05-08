@@ -200,6 +200,52 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     return (e);
 }
 
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI()
+{
+    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
+
+    TransformComponent &transform = e->addComponent<TransformComponent>(
+        e,
+        irr::core::vector3df(-5 * 3, 0, -6 * 3),
+        irr::core::vector3df(0, 0, 0),
+        irr::core::vector3df(3.5, 3.5, 3.5)
+        );
+    ColliderComponent &collider = e->addComponent<ColliderComponent>(
+        e,
+        transform,
+        irr::core::vector3df(2, 2, 2)
+    );
+    MovementComponent &movement = e->addComponent<MovementComponent>(
+        e,
+        transform,
+        collider
+    );
+    AudioComponent &audio = e->addComponent<is::components::AudioComponent>(
+        e,
+        RESSOURCE("footstep.wav"),
+        is::components::SOUND
+    );
+    e->addComponent<CharacterControllerComponent>(
+        e,
+        transform,
+        movement,
+        audio,
+        "Indie Studio",
+        0.2
+    );
+    collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
+    collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
+    e->addComponent<GravityComponent>(e, movement);
+    transform.position.Y = 10;
+    e->addComponent<TimeComponent>(e);
+    e->addComponent<BombermanComponent>(e);
+    e->addComponent<JumpComponent>(e, movement);
+    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
+    e->addComponent<AIControllerComponent>(e, input);
+    return (e);
+}
+
 #include <iostream>
 void function_test()
 {

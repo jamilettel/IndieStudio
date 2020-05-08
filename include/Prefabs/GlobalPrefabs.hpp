@@ -32,6 +32,7 @@
 #include "Components/Jump.hpp"
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardInput.hpp"
+#include "Components/AIController.hpp"
 
 namespace is::prefabs {
 
@@ -47,6 +48,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createPlayer();
+        static std::shared_ptr<is::ecs::Entity> createAI();
         static std::shared_ptr<is::ecs::Entity> createCanvas();
     };
 
