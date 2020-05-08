@@ -17,6 +17,9 @@
 #include <irrlicht.h>
 #include <map>
 #include <functional>
+#include <memory>
+#include "ECS/Component.hpp"
+#include "Components/Button.hpp"
 
 using namespace irr;
 
@@ -37,8 +40,8 @@ namespace is
     {
         IrrlichtDevice *device;
         s32 counter;
-        irr::gui::IGUIListBox *listbox;
-        SAppContext() : device(nullptr), counter(0), listbox(nullptr) {}
+        std::vector<std::shared_ptr<is::components::ButtonComponent>> button;
+        SAppContext() : device(nullptr), counter(0) {}
     } appContext;
 
     class EventManager : public IEventReceiver
@@ -68,6 +71,9 @@ namespace is
 
             void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
             void removeEventKeyReleased(EKEY_CODE keyCode);
+
+            void addButton(std::shared_ptr<is::components::ButtonComponent>);
+            void checkButtonClicked(irr::s32 id);
 
         private:
             appContext _context;

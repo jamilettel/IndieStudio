@@ -22,6 +22,7 @@ bool is::EventManager::OnEvent(const SEvent &event)
     if (event.EventType == irr::EET_GUI_EVENT) {
         switch(event.GUIEvent.EventType) {
             case irr::gui::EGET_BUTTON_CLICKED:
+                checkButtonClicked(event.GUIEvent.Caller->getID());
                 break;
             default:
                 break;
@@ -175,4 +176,17 @@ bool is::EventManager::isLeftPressed() const
 float is::EventManager::getMouseWheel() const
 {
     return _mouse.wheelDelta;
+}
+
+void is::EventManager::addButton(std::shared_ptr<is::components::ButtonComponent> toAdd)
+{
+    _context.button.push_back(toAdd);
+}
+
+void is::EventManager::checkButtonClicked(irr::s32 id)
+{
+    for (auto &it : _context.button) {
+        if (it->getId() == id)
+            it->setClicked(true);
+    }
 }

@@ -1,0 +1,2178 @@
+SALUT
+Irrlicht Engine version 1.8.4
+Linux 5.4.18-200.fc31.x86_64 #1 SMP Fri Feb 7 14:50:05 UTC 2020 x86_64
+Creating X window...
+Visual chosen: : 306
+Using renderer: OpenGL 3.0
+Mesa DRI Intel(R) UHD Graphics 620 (Kabylake GT2) : Intel Open Source Technology Center
+OpenGL driver version is 1.2 or better.
+GLSL version: 1.3
+Reading material file: Prop_Block_Brick.mtl
+Loaded group start: Block
+Loaded smoothing group start: 1
+Loaded material start: Brick
+Loaded smoothing group start: 2
+Loaded smoothing group start: 3
+Loaded smoothing group start: 4
+Loaded smoothing group start: 5
+Loaded smoothing group start: 6
+Loaded smoothing group start: 7
+Loaded smoothing group start: 8
+Loaded smoothing group start: 9
+Loaded smoothing group start: 10
+Loaded smoothing group start: 11
+Loaded smoothing group start: 12
+Loaded smoothing group start: 13
+Loaded smoothing group start: 14
+Loaded smoothing group start: 15
+Loaded smoothing group start: 16
+Loaded smoothing group start: 17
+Loaded smoothing group start: 18
+Loaded smoothing group start: 19
+Loaded smoothing group start: 20
+Loaded smoothing group start: 21
+Loaded smoothing group start: 22
+Loaded smoothing group start: 23
+Loaded smoothing group start: 24
+Loaded smoothing group start: 25
+Loaded smoothing group start: 26
+Loaded smoothing group start: 27
+Loaded smoothing group start: 28
+Loaded smoothing group start: 29
+Loaded smoothing group start: 30
+Loaded smoothing group start: 31
+Loaded smoothing group start: 32
+Loaded smoothing group start: 33
+Loaded smoothing group start: 34
+Loaded smoothing group start: 35
+Loaded smoothing group start: 36
+Loaded smoothing group start: 37
+Loaded smoothing group start: 38
+Loaded smoothing group start: 39
+Loaded smoothing group start: 40
+Loaded smoothing group start: 41
+Loaded smoothing group start: 42
+Loaded smoothing group start: 43
+Loaded smoothing group start: 44
+Loaded smoothing group start: 45
+Loaded smoothing group start: 46
+Loaded smoothing group start: 47
+Loaded smoothing group start: 48
+Loaded smoothing group start: 49
+Loaded smoothing group start: 50
+Loaded smoothing group start: 51
+Loaded smoothing group start: 52
+Loaded smoothing group start: 53
+Loaded smoothing group start: 54
+Loaded smoothing group start: 55
+Loaded smoothing group start: 56
+Loaded smoothing group start: 57
+Loaded smoothing group start: 58
+Loaded smoothing group start: 59
+Loaded smoothing group start: 60
+Loaded smoothing group start: 61
+Loaded smoothing group start: 62
+Loaded smoothing group start: 63
+Loaded smoothing group start: 64
+Loaded smoothing group start: 65
+Loaded smoothing group start: 66
+Loaded smoothing group start: 67
+Loaded smoothing group start: 68
+Loaded smoothing group start: 69
+Loaded smoothing group start: 70
+Loaded smoothing group start: 71
+Loaded smoothing group start: 72
+Loaded smoothing group start: 73
+Loaded smoothing group start: 74
+Loaded smoothing group start: 75
+Loaded smoothing group start: 76
+Loaded smoothing group start: 77
+Loaded smoothing group start: 78
+Loaded smoothing group start: 79
+Loaded smoothing group start: 80
+Loaded smoothing group start: 81
+Loaded smoothing group start: 82
+Loaded smoothing group start: 83
+Loaded smoothing group start: 84
+Loaded smoothing group start: 85
+Loaded smoothing group start: 86
+Loaded smoothing group start: 87
+Loaded smoothing group start: 88
+Loaded smoothing group start: 89
+Loaded smoothing group start: 90
+Loaded smoothing group start: 91
+Loaded smoothing group start: 92
+Loaded smoothing group start: 93
+Loaded smoothing group start: 94
+Loaded smoothing group start: 95
+Loaded smoothing group start: 96
+Loaded smoothing group start: 97
+Loaded smoothing group start: 98
+Loaded smoothing group start: 99
+Loaded smoothing group start: 100
+Loaded smoothing group start: 101
+Loaded smoothing group start: 102
+Loaded smoothing group start: 103
+Loaded smoothing group start: 104
+Loaded smoothing group start: 105
+Loaded smoothing group start: 106
+Loaded smoothing group start: 107
+Loaded smoothing group start: 108
+Loaded smoothing group start: 109
+Loaded smoothing group start: 110
+Loaded smoothing group start: 111
+Loaded smoothing group start: 112
+Loaded smoothing group start: 113
+Loaded smoothing group start: 114
+Loaded smoothing group start: 115
+Loaded smoothing group start: 116
+Loaded smoothing group start: 117
+Loaded smoothing group start: 118
+Loaded smoothing group start: 119
+Loaded smoothing group start: 120
+Loaded smoothing group start: 121
+Loaded smoothing group start: 122
+Loaded smoothing group start: 123
+Loaded smoothing group start: 124
+Loaded smoothing group start: 125
+Loaded smoothing group start: 126
+Loaded smoothing group start: 127
+Loaded smoothing group start: 128
+Loaded smoothing group start: 129
+Loaded smoothing group start: 130
+Loaded smoothing group start: 131
+Loaded smoothing group start: 132
+Loaded smoothing group start: 133
+Loaded smoothing group start: 134
+Loaded smoothing group start: 135
+Loaded smoothing group start: 136
+Loaded smoothing group start: 137
+Loaded smoothing group start: 138
+Loaded smoothing group start: 139
+Loaded smoothing group start: 140
+Loaded smoothing group start: 141
+Loaded smoothing group start: 142
+Loaded smoothing group start: 143
+Loaded smoothing group start: 144
+Loaded smoothing group start: 145
+Loaded smoothing group start: 146
+Loaded smoothing group start: 147
+Loaded smoothing group start: 148
+Loaded smoothing group start: 149
+Loaded smoothing group start: 150
+Loaded smoothing group start: 151
+Loaded smoothing group start: 152
+Loaded smoothing group start: 153
+Loaded smoothing group start: 154
+Loaded smoothing group start: 155
+Loaded smoothing group start: 156
+Loaded smoothing group start: 157
+Loaded smoothing group start: 158
+Loaded smoothing group start: 159
+Loaded smoothing group start: 160
+Loaded smoothing group start: 161
+Loaded smoothing group start: 162
+Loaded smoothing group start: 163
+Loaded smoothing group start: 164
+Loaded smoothing group start: 165
+Loaded smoothing group start: 166
+Loaded smoothing group start: 167
+Loaded smoothing group start: 168
+Loaded smoothing group start: 169
+Loaded smoothing group start: 170
+Loaded smoothing group start: 171
+Loaded smoothing group start: 172
+Loaded smoothing group start: 173
+Loaded smoothing group start: 174
+Loaded smoothing group start: 175
+Loaded smoothing group start: 176
+Loaded smoothing group start: 177
+Loaded smoothing group start: 178
+Loaded smoothing group start: 179
+Loaded smoothing group start: 180
+Loaded smoothing group start: 181
+Loaded smoothing group start: 182
+Loaded smoothing group start: 183
+Loaded smoothing group start: 184
+Loaded smoothing group start: 185
+Loaded smoothing group start: 186
+Loaded smoothing group start: 187
+Loaded smoothing group start: 188
+Loaded smoothing group start: 189
+Loaded smoothing group start: 190
+Loaded smoothing group start: 191
+Loaded smoothing group start: 192
+Loaded smoothing group start: 193
+Loaded smoothing group start: 194
+Loaded smoothing group start: 195
+Loaded smoothing group start: 196
+Loaded smoothing group start: 197
+Loaded smoothing group start: 198
+Loaded smoothing group start: 199
+Loaded smoothing group start: 200
+Loaded smoothing group start: 201
+Loaded smoothing group start: 202
+Loaded smoothing group start: 203
+Loaded smoothing group start: 204
+Loaded smoothing group start: 205
+Loaded smoothing group start: 206
+Loaded smoothing group start: 207
+Loaded smoothing group start: 208
+Loaded smoothing group start: 209
+Loaded smoothing group start: 210
+Loaded smoothing group start: 211
+Loaded smoothing group start: 212
+Loaded smoothing group start: 213
+Loaded smoothing group start: 214
+Loaded smoothing group start: 215
+Loaded smoothing group start: 216
+Loaded smoothing group start: 217
+Loaded smoothing group start: 218
+Loaded smoothing group start: 219
+Loaded smoothing group start: 220
+Loaded smoothing group start: 221
+Loaded smoothing group start: 222
+Loaded smoothing group start: 223
+Loaded smoothing group start: 224
+Loaded smoothing group start: 225
+Loaded smoothing group start: 226
+Loaded smoothing group start: 227
+Loaded smoothing group start: 228
+Loaded smoothing group start: 229
+Loaded smoothing group start: 230
+Loaded smoothing group start: 231
+Loaded smoothing group start: 232
+Loaded smoothing group start: 233
+Loaded smoothing group start: 234
+Loaded smoothing group start: 235
+Loaded smoothing group start: 236
+Loaded smoothing group start: 237
+Loaded smoothing group start: 238
+Loaded smoothing group start: 239
+Loaded smoothing group start: 240
+Loaded smoothing group start: 241
+Loaded smoothing group start: 242
+Loaded smoothing group start: 243
+Loaded smoothing group start: 244
+Loaded smoothing group start: 245
+Loaded smoothing group start: 246
+Loaded smoothing group start: 247
+Loaded smoothing group start: 248
+Loaded smoothing group start: 249
+Loaded smoothing group start: 250
+Loaded smoothing group start: 251
+Loaded smoothing group start: 252
+Loaded smoothing group start: 253
+Loaded smoothing group start: 254
+Loaded smoothing group start: 255
+Loaded smoothing group start: 256
+Loaded smoothing group start: 257
+Loaded smoothing group start: 258
+Loaded smoothing group start: 259
+Loaded smoothing group start: 260
+Loaded smoothing group start: 261
+Loaded smoothing group start: 262
+Loaded smoothing group start: 263
+Loaded smoothing group start: 264
+Loaded smoothing group start: 265
+Loaded smoothing group start: 266
+Loaded smoothing group start: 267
+Loaded smoothing group start: 268
+Loaded smoothing group start: 269
+Loaded smoothing group start: 270
+Loaded smoothing group start: 271
+Loaded smoothing group start: 272
+Loaded smoothing group start: 273
+Loaded smoothing group start: 274
+Loaded smoothing group start: 275
+Loaded smoothing group start: 276
+Loaded smoothing group start: 277
+Loaded smoothing group start: 278
+Loaded smoothing group start: 279
+Loaded smoothing group start: 280
+Loaded smoothing group start: 281
+Loaded smoothing group start: 282
+Loaded smoothing group start: 283
+Loaded smoothing group start: 284
+Loaded smoothing group start: 285
+Loaded smoothing group start: 286
+Loaded smoothing group start: 287
+Loaded smoothing group start: 288
+Loaded smoothing group start: 289
+Loaded smoothing group start: 290
+Loaded smoothing group start: 291
+Loaded smoothing group start: 292
+Loaded smoothing group start: 293
+Loaded smoothing group start: 294
+Loaded smoothing group start: 295
+Loaded smoothing group start: 296
+Loaded smoothing group start: 297
+Loaded smoothing group start: 298
+Loaded smoothing group start: 299
+Loaded smoothing group start: 300
+Loaded smoothing group start: 301
+Loaded smoothing group start: 302
+Loaded smoothing group start: 303
+Loaded smoothing group start: 304
+Loaded smoothing group start: 305
+Loaded smoothing group start: 306
+Loaded smoothing group start: 307
+Loaded smoothing group start: 308
+Loaded smoothing group start: 309
+Loaded smoothing group start: 310
+Loaded smoothing group start: 311
+Loaded smoothing group start: 312
+Loaded smoothing group start: 313
+Loaded smoothing group start: 314
+Loaded smoothing group start: 315
+Loaded smoothing group start: 316
+Loaded smoothing group start: 317
+Loaded smoothing group start: 318
+Loaded smoothing group start: 319
+Loaded smoothing group start: 320
+Loaded smoothing group start: 321
+Loaded smoothing group start: 322
+Loaded smoothing group start: 323
+Loaded smoothing group start: 324
+Loaded smoothing group start: 325
+Loaded smoothing group start: 326
+Loaded smoothing group start: 327
+Loaded smoothing group start: 328
+Loaded smoothing group start: 329
+Loaded smoothing group start: 330
+Loaded smoothing group start: 331
+Loaded smoothing group start: 332
+Loaded smoothing group start: 333
+Loaded smoothing group start: 334
+Loaded smoothing group start: 335
+Loaded smoothing group start: 336
+Loaded smoothing group start: 337
+Loaded smoothing group start: 338
+Loaded smoothing group start: 339
+Loaded smoothing group start: 340
+Loaded smoothing group start: 341
+Loaded smoothing group start: 342
+Loaded smoothing group start: 343
+Loaded smoothing group start: 344
+Loaded smoothing group start: 345
+Loaded smoothing group start: 346
+Loaded smoothing group start: 347
+Loaded smoothing group start: 348
+Loaded smoothing group start: 349
+Loaded smoothing group start: 350
+Loaded smoothing group start: 351
+Loaded smoothing group start: 352
+Loaded smoothing group start: 353
+Loaded smoothing group start: 354
+Loaded smoothing group start: 355
+Loaded smoothing group start: 356
+Loaded smoothing group start: 357
+Loaded smoothing group start: 358
+Loaded smoothing group start: 359
+Loaded smoothing group start: 360
+Loaded smoothing group start: 361
+Loaded smoothing group start: 362
+Loaded smoothing group start: 363
+Loaded smoothing group start: 364
+Loaded smoothing group start: 365
+Loaded smoothing group start: 366
+Loaded smoothing group start: 367
+Loaded smoothing group start: 368
+Loaded smoothing group start: 369
+Loaded smoothing group start: 370
+Loaded smoothing group start: 371
+Loaded smoothing group start: 372
+Loaded smoothing group start: 373
+Loaded smoothing group start: 374
+Loaded smoothing group start: 375
+Loaded smoothing group start: 376
+Loaded smoothing group start: 377
+Loaded smoothing group start: 378
+Loaded smoothing group start: 379
+Loaded smoothing group start: 380
+Loaded smoothing group start: 381
+Loaded smoothing group start: 382
+Loaded smoothing group start: 383
+Loaded smoothing group start: 384
+Loaded smoothing group start: 385
+Loaded smoothing group start: 386
+Loaded smoothing group start: 387
+Loaded smoothing group start: 388
+Loaded smoothing group start: 389
+Loaded smoothing group start: 390
+Loaded smoothing group start: 391
+Loaded smoothing group start: 392
+Loaded smoothing group start: 393
+Loaded smoothing group start: 394
+Loaded smoothing group start: 395
+Loaded smoothing group start: 396
+Loaded smoothing group start: 397
+Loaded smoothing group start: 398
+Loaded smoothing group start: 399
+Loaded smoothing group start: 400
+Loaded smoothing group start: 401
+Loaded smoothing group start: 402
+Loaded smoothing group start: 403
+Loaded smoothing group start: 404
+Loaded smoothing group start: 405
+Loaded smoothing group start: 406
+Loaded smoothing group start: 407
+Loaded smoothing group start: 408
+Loaded smoothing group start: 409
+Loaded smoothing group start: 410
+Loaded smoothing group start: 411
+Loaded smoothing group start: 412
+Loaded smoothing group start: 413
+Loaded smoothing group start: 414
+Loaded smoothing group start: 415
+Loaded smoothing group start: 416
+Loaded smoothing group start: 417
+Loaded smoothing group start: 418
+Loaded smoothing group start: 419
+Loaded smoothing group start: 420
+Loaded smoothing group start: 421
+Loaded smoothing group start: 422
+Loaded smoothing group start: 423
+Loaded smoothing group start: 424
+Loaded smoothing group start: 425
+Loaded smoothing group start: 426
+Loaded smoothing group start: 427
+Loaded smoothing group start: 428
+Loaded smoothing group start: 429
+Loaded smoothing group start: 430
+Loaded smoothing group start: 431
+Loaded smoothing group start: 432
+Loaded smoothing group start: 433
+Loaded smoothing group start: 434
+Loaded mesh: /home/Louis/INDIEGITHUB/resources/Prop_Block_Brick.obj
+-read ChunkBRUS
+read Material: mat_pc001_white_face_001
+Blend: 1
+FX: 0
+read Material: mat_pc001_white_body_001
+Blend: 1
+FX: 0
+read Material: mat_pc001_white_knot_001
+Blend: 1
+FX: 0
+-read ChunkNODE: ROOT
+--read ChunkNODE: face1
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face2
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face3
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face4
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face5
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face6
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face7
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face8
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: face9
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: mesh_pc001_white_body
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: mesh_pc001_white_face
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: top_knot
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+--read ChunkNODE: top_rod
+---read ChunkMESH
+----ChunkVRTS
+----ChunkTRIS
+---read ChunkANIM
+FPS: 60.000000
+---read ChunkNODE: model_pc001_white
+----read ChunkBONE
+----read ChunkKEYS
+----read ChunkNODE: reference
+-----read ChunkBONE
+-----read ChunkKEYS
+-----read ChunkNODE: C_hip
+------read ChunkBONE
+------read ChunkKEYS
+------read ChunkNODE: C_waist
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: C_spine
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: bom_pos
+---------read ChunkBONE
+---------read ChunkKEYS
+--------read ChunkNODE: R_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: R_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: L_shoulder
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_elbow
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: L_hand
+-----------read ChunkBONE
+-----------read ChunkKEYS
+--------read ChunkNODE: C_head
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: face6Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face6
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: C_neduke
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: knot_root
+-----------read ChunkBONE
+-----------read ChunkKEYS
+----------read ChunkNODE: C_neduke_1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face4Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face4
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face1Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face1
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face9Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face9
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face3Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face3
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face2Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face2
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face7Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face7
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face8Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face8
+-----------read ChunkBONE
+-----------read ChunkKEYS
+---------read ChunkNODE: face5Pos
+----------read ChunkBONE
+----------read ChunkKEYS
+----------read ChunkNODE: face5
+-----------read ChunkBONE
+-----------read ChunkKEYS
+------read ChunkNODE: R_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: R_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: R_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: R_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+------read ChunkNODE: L_leg
+-------read ChunkBONE
+-------read ChunkKEYS
+-------read ChunkNODE: L_knee
+--------read ChunkBONE
+--------read ChunkKEYS
+--------read ChunkNODE: L_foot
+---------read ChunkBONE
+---------read ChunkKEYS
+---------read ChunkNODE: L_toe
+----------read ChunkBONE
+----------read ChunkKEYS
+Loaded mesh: /home/Louis/INDIEGITHUB/resources/player.b3d
+LOLLLLLLLLLLLL
+Quit message received.
+Indie Studio
