@@ -28,6 +28,8 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
 }
 
 void is::scenes::GameScene::initEntities()
@@ -37,4 +39,5 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createGlobalPrefab());
     mg.generateMap(*this);
     initEntity(prefabs::GlobalPrefabs::createPlayer());
+    initEntity(prefabs::GlobalPrefabs::createCanvas());
 }

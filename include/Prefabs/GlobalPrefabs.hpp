@@ -25,6 +25,8 @@
 #include "Components/Bomb.hpp"
 #include "Components/Fire.hpp"
 #include "Components/Time.hpp"
+#include "Components/Button.hpp"
+#include "Components/Text.hpp"
 
 namespace is::prefabs {
 
@@ -35,6 +37,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createFire(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createPlayer();
+        static std::shared_ptr<is::ecs::Entity> createCanvas();
     };
 
 }

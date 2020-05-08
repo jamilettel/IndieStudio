@@ -93,3 +93,31 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     e->addComponent<TimeComponent>(e);
     return (e);
 }
+
+#include <iostream>
+void function_test()
+{
+    std::cout << "BUTTON OKAY" << std::endl;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
+{
+    std::cout << "SALUT" << std::endl;
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "TEST",
+        "Indie Studio",
+        10, 10, 100, 100,
+        function_test
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Test Text",
+        "Indie Studio",
+        100, 10, 200, 200,
+        false
+    );
+    return (e);
+}

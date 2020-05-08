@@ -33,11 +33,12 @@ namespace is::components {
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
         irr::scene::ISceneManager* scenemgr;
+        irr::gui::IGUIEnvironment* canvas;
 
         is::EventManager eventManager;
     
         std::string windowName;
-        irr::core::dimension2d<u32> windowSize;
+        irr::core::dimension2d<irr::u32> windowSize;
         bool fullscreen;
 
     };
