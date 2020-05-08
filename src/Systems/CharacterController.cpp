@@ -66,12 +66,12 @@ void is::systems::CharacterControllerSystem::update()
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
-        ptr->move.X = im->get()->getInput("MoveHorizontalAxis");
-        ptr->move.Z = im->get()->getInput("MoveVerticalAxis");
+        ptr->move.X = im->get()->getInput("MoveVerticalAxis");
+        ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
         
         
         //  other function
-        if (im->get()->getInput("DropBomb") == 1) {
+        if (im->get()->getInput("Jump") == 1) {
             std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
             if (!jump.has_value())
                 return;
@@ -80,7 +80,7 @@ void is::systems::CharacterControllerSystem::update()
 
 
         //other function
-        if (im->get()->getInput("Jump") == 1) {
+        if (im->get()->getInput("DropBomb") == 1) {
             std::shared_ptr<WindowComponent> ptr_window;
             bool windowFound = false;
             for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {

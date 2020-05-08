@@ -193,8 +193,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
     keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
     keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
-    keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", 1);
-    keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", -1);
+    keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", -1);
+    keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
     return (e);
