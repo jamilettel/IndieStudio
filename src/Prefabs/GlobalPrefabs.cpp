@@ -7,6 +7,10 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 
+#ifndef RESOURCES_PATH
+#define RESOURCES_PATH "./resources/"
+#endif
+
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
 using namespace is::components;
@@ -60,9 +64,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, irr::core::vector3df(0, 0, 0),
+    TransformComponent &transform = e->addComponent<TransformComponent>(
+        e,
         irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(3.5, 3.5, 3.5));
+        irr::core::vector3df(0, 0, 0),
+        irr::core::vector3df(3.5, 3.5, 3.5)
+        );
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,

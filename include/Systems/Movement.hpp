@@ -11,6 +11,7 @@
 #include "ECS/ASystem.hpp"
 #include "Systems/Collider.hpp"
 #include "Components/Movement.hpp"
+#include "Components/Time.hpp"
 
 #define SIGN_OF(value) (value < 0 ? -1 : 1)
 
@@ -37,6 +38,9 @@ namespace is::systems {
             );
         static bool checkMovement(is::components::MovementComponent &collision);
         static void moveOutOfCollision(is::components::MovementComponent &collision);
+
+    private:
+        std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
     };
 }
 

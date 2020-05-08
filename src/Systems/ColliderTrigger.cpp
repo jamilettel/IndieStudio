@@ -19,13 +19,13 @@ void ColliderTriggerSystem::awake()
 void ColliderTriggerSystem::start()
 {}
 
-void ColliderTriggerSystem::update()
-{}
-
 void ColliderTriggerSystem::stop()
 {}
 
 void ColliderTriggerSystem::onTearDown()
+{}
+
+void ColliderTriggerSystem::update()
 {
     std::vector<std::shared_ptr<Component>> &triggers =
         _componentManager->getComponentsByType(typeid(ColliderTriggerComponent).hash_code());
