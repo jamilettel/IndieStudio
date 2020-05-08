@@ -10,6 +10,7 @@
 
 #include "ECS/ASystem.hpp"
 #include "Components/KeyboardInput.hpp"
+#include "Components/Window.hpp"
 
 namespace is::systems {
 
@@ -27,8 +28,8 @@ namespace is::systems {
         void stop() override;
         void onTearDown() override;
 
-    protected:
     private:
+        std::shared_ptr<is::components::WindowComponent> _window;
     };
 
 }
