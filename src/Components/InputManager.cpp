@@ -6,6 +6,7 @@
 */
 
 #include "Components/InputManager.hpp"
+#include <algorithm>
 
 using namespace is::components;
 
@@ -17,6 +18,20 @@ InputManagerComponent::InputManagerComponent(
 
 void InputManagerComponent::deleteComponent()
 {}
+
+void InputManagerComponent::resetValues()
+{
+    std::for_each(
+        _actions.begin(), _actions.end(),
+        [] (std::pair<const std::string, float> &pair) {
+            pair.second = 0;
+        });
+}
+
+void InputManagerComponent::addValue(const std::string &action, float value)
+{
+    _actions[action] += value;
+}
 
 void InputManagerComponent::setValue(const std::string &action, float value)
 {
