@@ -43,7 +43,7 @@ void MovementSystem::checkCollisions(
     for (size_t i = 0; i < colliders.size(); i++) {
         ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
 
-        if (&collider == ptr)
+        if (&collider == ptr || !collider.collidesWith(ptr->getEntity()->layer))
             continue;
         ColliderSystem::precomputeCollisionVariables(*ptr);
         if (ColliderSystem::checkCollision(collider, *ptr)) {

@@ -12,6 +12,7 @@
 #include <irrlicht.h>
 #include <vector>
 #include <functional>
+#include "ECS/Entity.hpp"
 
 namespace is::components {
 
@@ -44,7 +45,12 @@ namespace is::components {
         irr::core::vector3df center;
         float distance;
 
+        void addCollisionWithLayer(is::ecs::Entity::Layer layer);
+        void removeCollisionWithLayer(is::ecs::Entity::Layer layer);
+        bool collidesWith(is::ecs::Entity::Layer layer);
+
     private:
+        std::vector<is::ecs::Entity::Layer> _layers;
         TransformComponent &_transform;
     };
 

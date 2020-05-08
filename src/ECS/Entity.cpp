@@ -7,7 +7,7 @@
 
 #include "ECS/Entity.hpp"
 
-is::ecs::Entity::Entity(): _active(true), _delete(false)
+is::ecs::Entity::Entity(Layer entityLayer): layer(entityLayer), _active(true), _delete(false)
 {
     static int id = 0;
 
