@@ -1,0 +1,37 @@
+/*
+** EPITECH PROJECT, 2020
+** Indie Studio
+** File description:
+** Input Manager
+*/
+
+#ifndef INPUTMANAGERCOMPONENT_HPP_
+#define INPUTMANAGERCOMPONENT_HPP_
+
+#include "ECS/Component.hpp"
+#include <map>
+
+namespace is::components {
+
+    class InputManagerComponent: public is::ecs::Component {
+    public:
+        InputManagerComponent(
+            std::shared_ptr<is::ecs::Entity> &e
+            );
+        ~InputManagerComponent() = default;
+
+        InputManagerComponent(const InputManagerComponent &) = delete;
+        InputManagerComponent &operator=(const InputManagerComponent &) = delete;
+
+        void setValue(const std::string &action, float value);
+        float getInput(const std::string &action) const;
+
+        void deleteComponent() override;
+
+    private:
+        std::map<std::string, float> _actions;
+    };
+
+}
+
+#endif /* !INPUTMANAGERCOMPONENT_HPP_ */

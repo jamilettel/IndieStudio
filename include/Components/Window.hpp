@@ -36,10 +36,15 @@ namespace is::components {
         irr::gui::IGUIEnvironment* canvas;
 
         is::EventManager eventManager;
-    
+
         std::string windowName;
         irr::core::dimension2d<irr::u32> windowSize;
         bool fullscreen;
+
+        irr::core::array<irr::SJoystickInfo> joysticks;
+        float joystickRefresh = 2;
+        float joystickRefreshRemainingTime = joystickRefresh;
+        bool joystickSupport = true;
 
     };
 
