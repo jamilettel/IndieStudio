@@ -23,6 +23,7 @@ void TimeComponent::setCurrentInterval()
     _end = std::chrono::system_clock::now();
     _interval_seconds = std::chrono::duration_cast<std::chrono::seconds>(_end - _start).count();
     _interval_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_end - _start).count();
+    _start = std::chrono::system_clock::now();
 }
 
 float TimeComponent::getCurrentIntervalSeconds() const
