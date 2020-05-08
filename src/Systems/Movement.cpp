@@ -6,6 +6,8 @@
 */
 
 #include "Systems/Movement.hpp"
+#include "Components/Movement.hpp"
+#include "ECS/Entity.hpp"
 
 using namespace is::systems;
 using namespace is::components;
