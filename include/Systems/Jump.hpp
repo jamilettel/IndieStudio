@@ -10,6 +10,8 @@
 
 #include "ECS/ASystem.hpp"
 
+#include "Components/Jump.hpp"
+
 namespace is::systems {
 
     class JumpSystem : public is::ecs::ASystem {

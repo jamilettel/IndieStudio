@@ -27,6 +27,7 @@
 #include "Components/Time.hpp"
 #include "Components/ColliderTrigger.hpp"
 #include "Components/PowerUp.hpp"
+#include "Components/Jump.hpp"
 
 namespace is::prefabs {
 

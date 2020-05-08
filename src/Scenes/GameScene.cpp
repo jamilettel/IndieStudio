@@ -29,6 +29,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JumpSystem>());
 }
 
 void is::scenes::GameScene::initEntities()
