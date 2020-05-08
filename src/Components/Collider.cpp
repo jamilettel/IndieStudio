@@ -24,11 +24,24 @@ ColliderComponent::ColliderComponent(
 {}
 
 void ColliderComponent::deleteComponent()
-{
-    
-}
+{}
 
 const TransformComponent &ColliderComponent::getTransform() const noexcept
 {
     return (_transform);
+}
+
+void ColliderComponent::addCollisionWithLayer(is::ecs::Entity::Layer layer)
+{
+    _layers.emplace_back(layer);
+}
+
+void ColliderComponent::removeCollisionWithLayer(is::ecs::Entity::Layer layer)
+{
+    _layers.erase(std::remove(_layers.begin(), _layers.end(), layer), _layers.end());
+}
+
+bool ColliderComponent::collidesWith(is::ecs::Entity::Layer layer)
+{
+    return (std::find(_layers.begin(), _layers.end(), layer) != _layers.end());
 }

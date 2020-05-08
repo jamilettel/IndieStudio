@@ -7,10 +7,13 @@
 
 #include "Components/Bomb.hpp"
 
-is::components::BombComponent::BombComponent(std::shared_ptr<is::ecs::Entity> &e) :
+is::components::BombComponent::BombComponent(std::shared_ptr<is::ecs::Entity> &e,
+    float lt,
+    int size) :
 Component(e)
 {
-    lifeTime = 3;
+    lifeTime = lt;
+    bombSize = size;
 }
 
 void is::components::BombComponent::deleteComponent()

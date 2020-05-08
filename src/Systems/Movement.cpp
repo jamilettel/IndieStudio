@@ -17,7 +17,14 @@ void MovementSystem::awake()
 {}
 
 void MovementSystem::start()
-{}
+{
+    std::vector<std::shared_ptr<Component>> &time =
+        _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
+
+    if (!time.size())
+        throw is::exceptions::Exception("Movement", "No time component in scene");
+    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
+}
 
 void MovementSystem::stop()
 {}
@@ -34,7 +41,7 @@ void MovementSystem::checkCollisions(
     for (size_t i = 0; i < colliders.size(); i++) {
         ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
 
-        if (&collider == ptr)
+        if (&collider == ptr || !collider.collidesWith(ptr->getEntity()->layer))
             continue;
         ColliderSystem::precomputeCollisionVariables(*ptr);
         if (ColliderSystem::checkCollision(collider, *ptr)) {
@@ -104,7 +111,7 @@ void MovementSystem::update()
 
         if (ptr->velocity == zero)
             continue;
-        ptr->getTransform().position += ptr->velocity;
+        ptr->getTransform().position += ptr->velocity * _time->get().getCurrentIntervalSeconds() * 100.0;
 
         if (ptr->clipping) {
             checkCollisions(ptr->getCollider(), colliders);

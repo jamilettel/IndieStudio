@@ -8,8 +8,6 @@
 #include "Systems/Collider.hpp"
 #include "Components/Collider.hpp"
 
-#include <algorithm>
-
 using namespace is::systems;
 using namespace is::components;
 
@@ -34,7 +32,6 @@ void ColliderSystem::precomputeCollisionVariables(ColliderComponent &collider)
     collider.position = collider.getTransform().position + collider.offset;
     collider.center = collider.position + collider.size/2;
 }
-
 
 bool ColliderSystem::checkCollision(ColliderComponent &collider, ColliderComponent &collider2)
 {

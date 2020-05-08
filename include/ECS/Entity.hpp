@@ -18,7 +18,18 @@ namespace is::ecs {
 
     class Entity {
     public:
-        Entity();
+
+        enum Layer {
+            DEFAULT,
+            GROUND,
+            PLAYER,
+            BOMB,
+            FIRE,
+            BRKBL_BLK,
+        };
+
+    public:
+        Entity(Layer entityLayer = DEFAULT);
         ~Entity() = default;
 
         Entity(const Entity &) = default;
@@ -62,6 +73,8 @@ namespace is::ecs {
 
         bool isActive() const;
         void setActive(bool active);
+
+        Layer layer;
 
     protected:
     private:

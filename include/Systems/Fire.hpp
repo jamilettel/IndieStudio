@@ -43,6 +43,8 @@ namespace is::systems {
 
         protected:
         private:
+            std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
+
     };
 
 }
