@@ -29,7 +29,7 @@ void is::systems::JumpSystem::update()
 
         if (ptr->isJump()) {
             ptr->setJump(false);
-            ptr->jumpForce = irr::core::vector3df(0, 0.7, 0);
+            ptr->jumpForce = irr::core::vector3df(0, 0.6, 0);
             ptr->getMovement().setOnTheGround(false);
         }
         if (!ptr->isJump()) {

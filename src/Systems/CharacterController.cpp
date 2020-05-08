@@ -68,8 +68,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
-        
-        
+
         //  other function
         if (im->get()->getInput("Jump") == 1) {
             std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
@@ -78,31 +77,35 @@ void is::systems::CharacterControllerSystem::update()
             jump.value()->setJump(true);
         }
 
-
         //other function
         if (im->get()->getInput("DropBomb") == 1) {
-            std::shared_ptr<WindowComponent> ptr_window;
-            bool windowFound = false;
-            for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-                ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-                if (!ptr_window)
-                    throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
-                if (ptr_window->windowName == ptr->windowName) {
-                    windowFound = true;
-                    break;
+            if (ptr->canPlaceBomb) {
+                std::shared_ptr<WindowComponent> ptr_window;
+                bool windowFound = false;
+                for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+                    ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
+                    if (!ptr_window)
+                        throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
+                    if (ptr_window->windowName == ptr->windowName) {
+                        windowFound = true;
+                        break;
+                    }
                 }
+                if (!windowFound)
+                    throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
+                auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
+                if (!bm)
+                    throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+                if (bm->get()->instantBomb + 1 > bm->get()->bombNumber)
+                    return;
+                bm->get()->instantBomb++;
+                auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
+                auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
+                ptr_mr->initModelRenderer(ptr_window);
+                ptr->canPlaceBomb = false;
             }
-            if (!windowFound)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
-            auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
-            if (!bm)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
-            if (bm->get()->instantBomb + 1 > bm->get()->bombNumber)
-                return;
-            bm->get()->instantBomb++;
-            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
-            auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
-            ptr_mr->initModelRenderer(ptr_window);
+        } else {
+            ptr->canPlaceBomb = true;
         }
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed * bm->get()->speedMult;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
