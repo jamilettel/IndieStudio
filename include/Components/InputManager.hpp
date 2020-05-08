@@ -10,6 +10,7 @@
 
 #include "ECS/Component.hpp"
 #include <map>
+#include <string>
 
 namespace is::components {
 
