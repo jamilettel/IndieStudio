@@ -90,5 +90,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
+    e->addComponent<TimeComponent>(e);
     return (e);
 }
