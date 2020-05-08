@@ -16,7 +16,12 @@ void is::systems::BombSystem::awake()
 
 void is::systems::BombSystem::start()
 {
+    std::vector<std::shared_ptr<is::ecs::Component>> &time =
+        _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
+    if (!time.size())
+        throw is::exceptions::Exception("Bomb", "No time component in scene");
+    _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
 void is::systems::BombSystem::update()
@@ -25,7 +30,7 @@ void is::systems::BombSystem::update()
         auto ptr = std::dynamic_pointer_cast<is::components::BombComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("BombComponent", "Could not get BombComponent pointer");
-        ptr->lifeTime-=0.05;
+        ptr->lifeTime -= _time->get().getCurrentIntervalSeconds();
         if (ptr->lifeTime < 0) {
             std::shared_ptr<is::components::WindowComponent> ptr_window;
             bool windowFound = false;
@@ -40,10 +45,11 @@ void is::systems::BombSystem::update()
             }
             if (!windowFound)
                 throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
-            for (int i = 0; i < 2 && dropFire(ptr, ptr_window, 0, i + 1); i++);
-            for (int i = 0; i < 2 && dropFire(ptr, ptr_window, i + 1, 0); i++);
-            for (int i = 0; i < 2 && dropFire(ptr, ptr_window, 0, -(i + 1)); i++);
-            for (int i = 0; i < 2 && dropFire(ptr, ptr_window, -(i + 1), 0); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, i + 1); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, i + 1, 0); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, -(i + 1)); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, -(i + 1), 0); i++);
+            dropFire(ptr, ptr_window, 0, 0);
             ptr->getEntity()->setDelete(true);
         }
     }
@@ -61,7 +67,34 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
     auto e = this->initRuntimeEntity(is::prefabs::GlobalPrefabs::createFire(f));
     auto mr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
     mr->initModelRenderer(ptr_window);
+    auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*e->getComponent<is::components::ColliderComponent>());
+    if (checkFireCollision(*cc)) {
+        e->setDelete(true);
+        return (false);
+    }
     return (true);
+}
+
+
+bool is::systems::BombSystem::checkFireCollision(is::components::ColliderComponent &trcollider)
+{
+    std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
+    _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
+
+    is::systems::ColliderSystem::precomputeCollisionVariables(trcollider);
+    for (size_t i = 0; i < colliders.size(); i++) {
+        is::components::ColliderComponent *ptr = static_cast<is::components::ColliderComponent *>(colliders[i].get());
+
+        if (&trcollider == ptr || (!trcollider.collidesWith(ptr->getEntity()->layer) && ptr->getEntity()->layer != is::ecs::Entity::BRKBL_BLK))
+            continue;
+        is::systems::ColliderSystem::precomputeCollisionVariables(*ptr);
+        if (is::systems::ColliderSystem::checkCollision(trcollider, *ptr)) {
+            if (ptr->getEntity()->layer == is::ecs::Entity::BRKBL_BLK)
+                ptr->getEntity()->setDelete(true);
+            return (true);
+        }
+    }
+    return (false);
 }
 
 void is::systems::BombSystem::stop()

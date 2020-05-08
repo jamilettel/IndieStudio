@@ -35,5 +35,8 @@ void MapGenerator::generateMap(ecs::AScene &sc)
         for (int j = -mid_h + 1; j < mid_h; j++)
             if (i % 2 && !(j % 2))
                 sc.initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(j * 3, 0, i * 3)));
-    
-}
+    for (int i = -mid_w + 1; i < mid_w; i++)
+        for (int j = -mid_h + 1; j < mid_h; j++)
+            if (!(i % 2 && !(j % 2)) && rand() % 4 == 0 && !(i == 0 && j == 0))
+                sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
+    }

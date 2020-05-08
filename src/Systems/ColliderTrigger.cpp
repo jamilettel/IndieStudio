@@ -42,7 +42,7 @@ void ColliderTriggerSystem::update()
         for (size_t i = 0; i < colliders.size(); i++) {
             ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
 
-            if (&trigger->collider == ptr || trigger->collider.collidesWith(ptr->getEntity()->layer))
+            if (&trigger->collider == ptr || !trigger->collider.collidesWith(ptr->getEntity()->layer))
                 continue;
             ColliderSystem::precomputeCollisionVariables(*ptr);
             if (ColliderSystem::checkCollision(trigger->collider, *ptr)) {

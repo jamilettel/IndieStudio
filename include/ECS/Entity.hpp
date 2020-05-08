@@ -25,6 +25,7 @@ namespace is::ecs {
             PLAYER,
             BOMB,
             FIRE,
+            BRKBL_BLK,
         };
 
     public:
