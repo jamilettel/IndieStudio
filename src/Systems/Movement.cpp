@@ -6,10 +6,6 @@
 */
 
 #include "Systems/Movement.hpp"
-#include "Components/Movement.hpp"
-#include <signal.h>
-#include <unistd.h>
-#include "ECS/Entity.hpp"
 
 using namespace is::systems;
 using namespace is::components;
