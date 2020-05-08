@@ -29,6 +29,7 @@
 #include "Components/Text.hpp"
 #include "Components/ColliderTrigger.hpp"
 #include "Components/PowerUp.hpp"
+#include "Components/Jump.hpp"
 
 namespace is::prefabs {
 

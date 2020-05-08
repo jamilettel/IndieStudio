@@ -24,6 +24,7 @@
 #include "Systems/Button.hpp"
 #include "Systems/Text.hpp"
 #include "Systems/PowerUp.hpp"
+#include "Systems/Jump.hpp"
 
 #include "Components/Window.hpp"
 

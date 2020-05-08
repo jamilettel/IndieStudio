@@ -134,8 +134,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         movement,
         audio,
         "Indie Studio",
-        0.2,
-        3
+        0.2
     );
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
@@ -145,6 +144,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     transform.position.Y = 10;
     e->addComponent<TimeComponent>(e);
     e->addComponent<ColliderTriggerComponent>(e, collider, a);
+    e->addComponent<JumpComponent>(e, movement);
     return (e);
 }
 
