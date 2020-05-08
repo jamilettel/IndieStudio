@@ -64,6 +64,22 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::cor
     return (e);
 }
 
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createTestPowerUp(irr::core::vector3df position)
+{
+    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::BOMB);
+
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Lollipop.obj"), "Indie Studio");
+    e->addComponent<PowerUpComponent>(e);
+    ColliderComponent &collider = e->addComponent<ColliderComponent>(
+        e,
+        transform,
+        irr::core::vector3df(3, 3, 3)
+    );
+    collider.addCollisionWithLayer(is::ecs::Entity::PLAYER);
+    return (e);
+}
+
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::core::vector3df position)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::FIRE);
@@ -80,6 +96,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::cor
     collider.addCollisionWithLayer(is::ecs::Entity::BOMB);
     collider.addCollisionWithLayer(is::ecs::Entity::FIRE);
     return (e);
+}
+
+#include <iostream>
+void a(std::vector<ColliderComponent *> b) {
+    std::cout << "ddd" << std::endl;
 }
 
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
@@ -118,9 +139,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     );
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
+    collider.addCollisionWithLayer(is::ecs::Entity::POWERUP);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     e->addComponent<TimeComponent>(e);
+    e->addComponent<ColliderTriggerComponent>(e, collider, a);
     return (e);
 }

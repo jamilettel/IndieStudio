@@ -21,6 +21,7 @@
 #include "Systems/Bomb.hpp"
 #include "Systems/Fire.hpp"
 #include "Systems/Time.hpp"
+#include "Systems/PowerUp.hpp"
 
 #include "Components/Window.hpp"
 

@@ -68,7 +68,7 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
     auto mr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
     mr->initModelRenderer(ptr_window);
     auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*e->getComponent<is::components::ColliderComponent>());
-    if (checkFireCollision(*cc)) {
+    if (checkFireCollision(*cc, ptr_window)) {
         e->setDelete(true);
         return (false);
     }
@@ -76,7 +76,7 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
 }
 
 
-bool is::systems::BombSystem::checkFireCollision(is::components::ColliderComponent &trcollider)
+bool is::systems::BombSystem::checkFireCollision(is::components::ColliderComponent &trcollider, std::shared_ptr<is::components::WindowComponent> ptr_window)
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
     _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
@@ -89,8 +89,12 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
             continue;
         is::systems::ColliderSystem::precomputeCollisionVariables(*ptr);
         if (is::systems::ColliderSystem::checkCollision(trcollider, *ptr)) {
-            if (ptr->getEntity()->layer == is::ecs::Entity::BRKBL_BLK)
+            if (ptr->getEntity()->layer == is::ecs::Entity::BRKBL_BLK) {
                 ptr->getEntity()->setDelete(true);
+                auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createTestPowerUp(ptr->getTransform().position));
+                auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
+                ptr->initModelRenderer(ptr_window);
+            }
             return (true);
         }
     }
