@@ -8,6 +8,8 @@
 #ifndef KEYBOARDINPUTCOMPONENT_HPP_
 #define KEYBOARDINPUTCOMPONENT_HPP_
 
+#include <string>
+
 #include "Components/InputManager.hpp"
 #include "EventManager/EventManager.hpp"
 

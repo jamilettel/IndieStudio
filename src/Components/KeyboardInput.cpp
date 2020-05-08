@@ -28,6 +28,7 @@ void KeyboardInputComponent::bind(EKEY_CODE key, const std::string &action, floa
 {
     _bindings[key].first = action;
     _bindings[key].second = target;
+    _inputManager.setValue(action, 0);
 }
 
 void KeyboardInputComponent::unbind(EKEY_CODE key)

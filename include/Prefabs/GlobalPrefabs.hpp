@@ -30,6 +30,8 @@
 #include "Components/ColliderTrigger.hpp"
 #include "Components/PowerUp.hpp"
 #include "Components/Jump.hpp"
+#include "Components/InputManager.hpp"
+#include "Components/KeyboardInput.hpp"
 
 namespace is::prefabs {
 

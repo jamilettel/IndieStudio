@@ -19,7 +19,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, true);
+    e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
     e->addComponent<WindowComponent>(e, "Indie Studio");
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
     e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0));
@@ -189,6 +189,14 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
+    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
+    KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
+    keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
+    keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
+    keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", 1);
+    keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", -1);
+    keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
+    keyboard.bind(irr::KEY_SPACE, "Jump", 1);
     return (e);
 }
 

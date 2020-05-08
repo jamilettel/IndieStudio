@@ -7,6 +7,8 @@
 
 #include "Components/InputManager.hpp"
 #include <algorithm>
+#include <utility>
+#include <string>
 
 using namespace is::components;
 

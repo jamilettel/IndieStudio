@@ -21,67 +21,9 @@ void is::systems::CharacterControllerSystem::start()
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
-
-        std::shared_ptr<WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
-            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
-
-        ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_W, [ptr](){
-            ptr->move.X = 1;
-        });
-        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_W, [ptr](){
-            if (ptr->move.X == 1)
-                ptr->move.X = 0;
-        });
-        ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_S, [ptr](){
-            ptr->move.X = -1;
-        });
-        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_S, [ptr](){
-            if (ptr->move.X == -1)
-                ptr->move.X = 0;
-        });
-        ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_A, [ptr](){
-            ptr->move.Z = 1;
-        });
-        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_A, [ptr](){
-            if (ptr->move.Z == 1)
-                ptr->move.Z = 0;
-        });
-        ptr_window->eventManager.addEventKeyPressed(irr::KEY_KEY_D, [ptr](){
-            ptr->move.Z = -1;
-        });
-        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_D, [ptr](){
-            if (ptr->move.Z == -1)
-                ptr->move.Z = 0;
-        });
-        ptr_window->eventManager.addEventKeyReleased(irr::KEY_SPACE, [ptr](){
-            std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
-            if (!jump.has_value())
-                return;
-            jump.value()->setJump(true);
-        });
-        // drop bomb
-        ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_E, [this, ptr_window, ptr]() {
-            auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
-            if (!bm)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
-            if (bm->get()->instantBomb + 1 > bm->get()->bombNumber)
-                return;
-            bm->get()->instantBomb++;
-            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
-            auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
-            ptr_mr->initModelRenderer(ptr_window);
-        });
+        auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
+        if (!im)
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
     }
 }
 
@@ -121,6 +63,47 @@ void is::systems::CharacterControllerSystem::update()
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+        auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
+        if (!im)
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+        ptr->move.X = im->get()->getInput("MoveHorizontalAxis");
+        ptr->move.Z = im->get()->getInput("MoveVerticalAxis");
+        
+        
+        //  other function
+        if (im->get()->getInput("DropBomb") == 1) {
+            std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
+            if (!jump.has_value())
+                return;
+            jump.value()->setJump(true);
+        }
+
+
+        //other function
+        if (im->get()->getInput("Jump") == 1) {
+            std::shared_ptr<WindowComponent> ptr_window;
+            bool windowFound = false;
+            for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+                ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
+                if (!ptr_window)
+                    throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
+                if (ptr_window->windowName == ptr->windowName) {
+                    windowFound = true;
+                    break;
+                }
+            }
+            if (!windowFound)
+                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
+            auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
+            if (!bm)
+                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+            if (bm->get()->instantBomb + 1 > bm->get()->bombNumber)
+                return;
+            bm->get()->instantBomb++;
+            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
+            auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
+            ptr_mr->initModelRenderer(ptr_window);
+        }
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed * bm->get()->speedMult;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->move.X != 0 || ptr->move.Z != 0)
