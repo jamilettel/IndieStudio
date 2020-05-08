@@ -43,6 +43,8 @@ namespace is::components {
         float playerSpeed;
         std::string windowName;
 
+        bool canPlaceBomb = true;
+
     private:
         MovementComponent &_movementComponent;
         TransformComponent &_transform;
