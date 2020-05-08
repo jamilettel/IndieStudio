@@ -65,7 +65,10 @@ void is::systems::CharacterControllerSystem::start()
                 ptr->move.Z = 0;
         });
         ptr_window->eventManager.addEventKeyReleased(irr::KEY_SPACE, [ptr](){
-            ptr->jump = true;
+            std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
+            if (!jump.has_value())
+                return;
+            jump.value()->setJump(true);
         });
         // drop bomb
         ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_E, [this, ptr_window, ptr]() {

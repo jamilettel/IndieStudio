@@ -33,6 +33,10 @@ void is::systems::WindowSystem::awake()
         if (!ptr->scenemgr)
             throw is::exceptions::Exception("WindowSystem", "Could not create scene manager");
 
+        ptr->canvas = ptr->device->getGUIEnvironment();
+        if (!ptr->canvas)
+            throw is::exceptions::Exception("WindowSystem", "Could not create gui environment");
+        
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
@@ -57,6 +61,7 @@ void is::systems::WindowSystem::update()
         }
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         ptr->scenemgr->drawAll();
+        ptr->canvas->drawAll();
         ptr->driver->endScene();
     }
 }

@@ -179,8 +179,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
         movement,
         audio,
         "Indie Studio",
-        0.2,
-        3
+        0.2
     );
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
@@ -189,5 +188,34 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     transform.position.Y = 10;
     e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
+    e->addComponent<JumpComponent>(e, movement);
+    return (e);
+}
+
+#include <iostream>
+void function_test()
+{
+    std::cout << "BUTTON OKAY" << std::endl;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
+{
+    std::cout << "SALUT" << std::endl;
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "TEST",
+        "Indie Studio",
+        10, 10, 100, 100,
+        function_test
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Test Text",
+        "Indie Studio",
+        100, 10, 200, 200,
+        false
+    );
     return (e);
 }

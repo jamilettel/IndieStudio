@@ -25,9 +25,11 @@
 #include "Components/Bomb.hpp"
 #include "Components/Fire.hpp"
 #include "Components/Time.hpp"
+#include "Components/Button.hpp"
+#include "Components/Text.hpp"
 #include "Components/ColliderTrigger.hpp"
 #include "Components/PowerUp.hpp"
-#include "Components/Bomberman.hpp"
+#include "Components/Jump.hpp"
 
 namespace is::prefabs {
 
@@ -43,6 +45,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createPlayer();
+        static std::shared_ptr<is::ecs::Entity> createCanvas();
     };
 
 }
