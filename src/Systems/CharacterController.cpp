@@ -69,9 +69,15 @@ void is::systems::CharacterControllerSystem::start()
         });
         // drop bomb
         ptr_window->eventManager.addEventKeyReleased(irr::KEY_KEY_E, [this, ptr_window, ptr]() {
-            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position));
-            auto ptr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
-            ptr->initModelRenderer(ptr_window);
+            auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
+            if (!bm)
+                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+            if (bm->get()->instantBomb + 1 > bm->get()->bombNumber)
+                return;
+            bm->get()->instantBomb++;
+            auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
+            auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
+            ptr_mr->initModelRenderer(ptr_window);
         });
     }
 }
@@ -109,7 +115,10 @@ void is::systems::CharacterControllerSystem::update()
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
-        ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed;
+        auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
+        if (!bm)
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+        ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed * bm->get()->speedMult;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->move.X != 0 || ptr->move.Z != 0)
             ptr->getAudioComponent().toPlay();

@@ -17,13 +17,22 @@ namespace is::components {
 
     class PowerUpComponent : public is::ecs::Component {
     public:
-        PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e);
+        enum PowerUpType {
+            BOMB_UP,
+            SPEED_UP,
+            FIRE_UP,
+            WALL_PASS
+        };
+
+        PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e, PowerUpType tp);
         ~PowerUpComponent() = default;
 
         PowerUpComponent(const PowerUpComponent &) = delete;
         PowerUpComponent &operator=(const PowerUpComponent &) = delete;
 
         void deleteComponent();
+
+        PowerUpType type;
     };
 
 }

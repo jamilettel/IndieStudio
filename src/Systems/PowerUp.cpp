@@ -40,13 +40,13 @@ void is::systems::PowerUpSystem::update()
         if (!windowFound)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
         auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*ptr->getEntity()->getComponent<is::components::ColliderComponent>());
-        if (checkPowerUpCollision(*cc, ptr_window)) {
-            ptr->getEntity()->setDelete(true);
-        }
+        checkPowerUpCollision(*cc, ptr_window, ptr->type);
     }
 }
 
-bool is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderComponent &trcollider, std::shared_ptr<is::components::WindowComponent> ptr_window)
+void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderComponent &trcollider,
+    std::shared_ptr<is::components::WindowComponent> ptr_window,
+    is::components::PowerUpComponent::PowerUpType type)
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
     _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
@@ -59,10 +59,27 @@ bool is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
             continue;
         is::systems::ColliderSystem::precomputeCollisionVariables(*ptr);
         if (is::systems::ColliderSystem::checkCollision(trcollider, *ptr)) {
-            return (true);
+            auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
+            if (!bm)
+                throw is::exceptions::Exception("PowerUpSystem", "Could not found bomberman");
+            switch (type) {
+            case is::components::PowerUpComponent::BOMB_UP:
+                bm->get()->bombNumber++;
+                break;
+            case is::components::PowerUpComponent::SPEED_UP:
+                bm->get()->speedMult++;
+                break;
+            case is::components::PowerUpComponent::FIRE_UP:
+                bm->get()->bombRange++;
+                break;
+            case is::components::PowerUpComponent::WALL_PASS:
+                ptr->getEntity()->getComponent<is::components::ColliderComponent>()->get()->removeCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
+                break;
+            }
+            trcollider.getEntity()->setDelete(true);
+            return;
         }
     }
-    return (false);
 }
 
 void is::systems::PowerUpSystem::stop()

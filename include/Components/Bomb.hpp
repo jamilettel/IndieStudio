@@ -12,12 +12,14 @@
 #include <string>
 
 #include "ECS/Component.hpp"
+#include "Components/Bomberman.hpp"
 
 namespace is::components {
 
     class BombComponent : public is::ecs::Component {
     public:
         BombComponent(std::shared_ptr<is::ecs::Entity> &e,
+            std::shared_ptr<is::components::BombermanComponent> &bm,
             float lt = 1,
             int size = 2);
         ~BombComponent() = default;
@@ -29,6 +31,7 @@ namespace is::components {
 
         float lifeTime;
         float bombSize;
+        std::shared_ptr<is::components::BombermanComponent> bomberman;
 
     };
 

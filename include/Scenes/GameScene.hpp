@@ -22,6 +22,7 @@
 #include "Systems/Fire.hpp"
 #include "Systems/Time.hpp"
 #include "Systems/PowerUp.hpp"
+#include "Systems/Bomberman.hpp"
 
 #include "Components/Window.hpp"
 

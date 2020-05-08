@@ -51,7 +51,11 @@ namespace is::systems {
                          int x,
                          int y);
 
-            bool checkFireCollision(is::components::ColliderComponent &trigger, std::shared_ptr<is::components::WindowComponent> ptr_window);
+            bool checkFireCollision(is::components::ColliderComponent &trigger,
+                                    std::shared_ptr<is::components::WindowComponent> ptr_window);
+ 
+            void generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
+                                       std::shared_ptr<is::components::WindowComponent> ptr_window);
 
         protected:
         private:

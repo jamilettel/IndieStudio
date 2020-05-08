@@ -22,6 +22,7 @@
 #include "Components/Window.hpp"
 #include "Components/Transform.hpp"
 #include "Components/ModelRenderer.hpp"
+#include "Components/Bomberman.hpp"
 #include "Systems/Collider.hpp"
 
 #include "Prefabs/GlobalPrefabs.hpp"
@@ -42,8 +43,9 @@ namespace is::systems {
             void stop();
             void onTearDown();
 
-            bool checkPowerUpCollision(is::components::ColliderComponent &trcollider, std::shared_ptr<is::components::WindowComponent> ptr_window);
-
+            void checkPowerUpCollision(is::components::ColliderComponent &trcollider,
+                std::shared_ptr<is::components::WindowComponent> ptr_window,
+                is::components::PowerUpComponent::PowerUpType type);
 
         protected:
         private:

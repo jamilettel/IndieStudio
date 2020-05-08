@@ -27,6 +27,7 @@
 #include "Components/Time.hpp"
 #include "Components/ColliderTrigger.hpp"
 #include "Components/PowerUp.hpp"
+#include "Components/Bomberman.hpp"
 
 namespace is::prefabs {
 
@@ -34,10 +35,13 @@ namespace is::prefabs {
     public:
         static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
         static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
-        static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
         static std::shared_ptr<is::ecs::Entity> createFire(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createBreakableBlock(irr::core::vector3df position);
-        static std::shared_ptr<is::ecs::Entity> createTestPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createBombUpPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createPlayer();
     };
 
