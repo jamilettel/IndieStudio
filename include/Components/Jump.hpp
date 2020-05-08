@@ -29,13 +29,13 @@ namespace is::components {
         void setJump(bool jump);
         bool isJumping() const noexcept;
         MovementComponent &getMovement() const noexcept;
+        irr::core::vector3df jump;
 
     private:
         MovementComponent &_movement;
 
         bool _isJumping = false;
-        float _jumpForce;
-        irr::core::vector3df _jump;
+        float _jumpForce = 2.0f;
     };
 
 }

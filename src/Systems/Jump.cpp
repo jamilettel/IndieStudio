@@ -28,8 +28,15 @@ void is::systems::JumpSystem::update()
         JumpComponent *ptr = static_cast<JumpComponent *>(gravity.get());
 
         if (ptr->isJumping()) {
-            std::cout << "Jump" << std::endl; 
             ptr->setJump(false);
+            ptr->jump = irr::core::vector3df(0, 0.7, 0);
+            ptr->getMovement().setOnTheGround(false);
+        }
+        if (!ptr->isJumping()) {
+            if (ptr->getMovement().isOnTheGround())
+                ptr->jump = irr::core::vector3df(0, 0, 0);
+            ptr->getMovement().velocity += ptr->jump;
+            return;
         }
     });
 }
