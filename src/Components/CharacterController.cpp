@@ -15,14 +15,12 @@ CharacterControllerComponent::CharacterControllerComponent(
     MovementComponent &movementComponent,
     AudioComponent &audio,
     const std::string &wn,
-    float ps,
-    float playerJumpSpeed
+    float ps
     ):
     Component(e),
     rotateY(0),
     playerSpeed(ps),
     windowName(wn),
-    jumpSpeed(playerJumpSpeed),
     _movementComponent(movementComponent),
     _transform(transform),
     _audioComponent(audio)

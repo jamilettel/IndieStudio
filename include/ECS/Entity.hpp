@@ -26,6 +26,7 @@ namespace is::ecs {
             BOMB,
             FIRE,
             BRKBL_BLK,
+            POWERUP
         };
 
     public:

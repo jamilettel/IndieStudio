@@ -24,8 +24,7 @@ namespace is::components {
             MovementComponent &movementComponent,
             AudioComponent &audio,
             const std::string &wn = "MainWindow",
-            float ps = 0,
-            float playerJumpSeed = 0
+            float ps = 0
             );
         ~CharacterControllerComponent() = default;
 
@@ -43,9 +42,6 @@ namespace is::components {
 
         float playerSpeed;
         std::string windowName;
-
-        bool jump;
-        float jumpSpeed;
 
     private:
         MovementComponent &_movementComponent;

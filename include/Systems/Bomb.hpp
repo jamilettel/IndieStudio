@@ -51,7 +51,7 @@ namespace is::systems {
                          int x,
                          int y);
 
-            bool checkFireCollision(is::components::ColliderComponent &trigger);
+            bool checkFireCollision(is::components::ColliderComponent &trigger, std::shared_ptr<is::components::WindowComponent> ptr_window);
 
         protected:
         private:

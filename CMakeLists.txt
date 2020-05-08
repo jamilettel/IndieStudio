@@ -62,36 +62,36 @@ if(MSVC)
     if(NOT CMAKE_CL_64)
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win32/Irrlicht.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/Irrlicht.dll"
             "${BIN_DIRECTORY}/Irrlicht.dll")
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win32/openal32.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/openal32.dll"
             "${BIN_DIRECTORY}/openal32.dll")
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win32/sfml-audio-d-2.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/sfml-audio-d-2.dll"
             "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win32/sfml-system-d-2.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/sfml-system-d-2.dll"
             "${BIN_DIRECTORY}/sfml-system-d-2.dll")
     else(NOT CMAKE_CL_64)
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win64/Irrlicht.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/Irrlicht.dll"
             "${BIN_DIRECTORY}/Irrlicht.dll")
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win64/openal32.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/openal32.dll"
             "${BIN_DIRECTORY}/openal32.dll")
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win64/sfml-audio-d-2.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/sfml-audio-d-2.dll"
             "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
         add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "cmake-dependencies/win64/sfml-system-d-2.dll"
+            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/sfml-system-d-2.dll"
             "${BIN_DIRECTORY}/sfml-system-d-2.dll")
     endif()
     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY} )
