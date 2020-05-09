@@ -22,19 +22,17 @@ namespace is {
             Game(const Game &) = default;
             Game &operator=(const Game &) = default;
 
-            enum Scenes {
-                SCENE_GAME
-            };
-
-            void addScene(Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
-            void launchGame(Scenes startScene);
+            void addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
+            void launchGame(is::ecs::Scenes startScene);
 
             static bool isRunning;
+            static void setActualScene(is::ecs::Scenes);
 
         protected:
         private:
-            std::map<Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
-            Scenes currentScene;
+            std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
+            static is::ecs::Scenes currentScene;
+            is::ecs::Scenes changeScene;
     };
 
 }

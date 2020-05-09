@@ -8,7 +8,7 @@
 #include "Scenes/GameScene.hpp"
 
 is::scenes::GameScene::GameScene() :
-AScene()
+AScene(is::ecs::Scenes::SCENE_GAME)
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
     _componentManager = std::make_shared<is::ecs::ComponentManager>();

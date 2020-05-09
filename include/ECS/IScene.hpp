@@ -14,6 +14,11 @@
 
 namespace is::ecs {
 
+    enum Scenes {
+        SCENE_GAME,
+        NOTHING
+    };
+
     class IScene {
         public:
             virtual ~IScene() = default;
