@@ -35,8 +35,8 @@ void GravitySystem::update()
             ptr->gravity = irr::core::vector3df(0, 0, 0);
             return;
         }
-        ptr->getMovement().velocity += ptr->gravity;
-        if (ptr->gravity < irr::core::vector3df(0, 0.8, 0))
-            ptr->gravity += irr::core::vector3df(0, -0.06, 0);
+        if (ptr->getMovement().getTransform().position.Y + ptr->gravity.Y > 1)
+            ptr->getMovement().velocity += ptr->gravity;
+        ptr->gravity += irr::core::vector3df(0, -0.06, 0);
     });
 }

@@ -42,6 +42,11 @@ void AIControllerSystem::stop()
 void AIControllerSystem::onTearDown()
 {}
 
+bool cmpf(float A, float B, float epsilon = 0.005f)
+{
+    return (fabs(A - B) < epsilon);
+}
+
 void AIControllerSystem::update()
 {
     std::vector<std::shared_ptr<Component>> &aiComponents =
@@ -66,36 +71,35 @@ void AIControllerSystem::update()
             continue;
         TransformComponent &tr = *static_cast<TransformComponent *>(ai.getEntity()->getComponent<TransformComponent>()->get());
         irr::core::vector2di aiPos;
-        aiPos.X = ((int)(tr.position.X) + (tr.position.X < 0 ? 1 : -1)) + (int)(mapX * 3 / 2);
-        aiPos.Y = ((int)(tr.position.Z) + (tr.position.Z < 0 ? 1 : -1)) + (int)(mapY * 3 / 2);
+        aiPos.X = (tr.position.X + (int)(mapX * 3 / 2)) / 3;
+        aiPos.Y = (tr.position.Z + (int)(mapY * 3 / 2)) / 3;
         if (ai.firstObjective || ai.needObjective) {
             if (ai.firstObjective) {
                 ai.lastShortObjective.X = aiPos.X;
                 ai.lastShortObjective.Y = aiPos.Y;
-                ai.shortObjective.X = 9 * 3 + 1;
-                ai.shortObjective.Y = 11 * 3 + 1;
-                ai.longObjective.X = 3 * 3 + 1;
-                ai.longObjective.Y = 3 * 3 + 1;
+                ai.shortObjective.X = 1;
+                ai.shortObjective.Y = 5;
+                ai.longObjective.X = 9;
+                ai.longObjective.Y = 11;
                 ai.firstObjective = false;
                 ai.needObjective = false;
             }
-            else
-                setNewObjective(ai, aiPos, map);
+            setNewObjective(ai, aiPos, map);
         }
 
         ai.getInputManager().setValue("MoveHorizontalAxis", 0);
         ai.getInputManager().setValue("MoveVerticalAxis", 0);
-        if (aiPos.Y > ai.shortObjective.Y)
+        if (ai.lastShortObjective.Y > ai.shortObjective.Y)
             ai.getInputManager().setValue("MoveHorizontalAxis", -1);
-        else if (aiPos.Y < ai.shortObjective.Y)
+        else if (ai.lastShortObjective.Y < ai.shortObjective.Y)
             ai.getInputManager().setValue("MoveHorizontalAxis", 1);
-        if (aiPos.X > ai.shortObjective.X)
+        if (ai.lastShortObjective.X > ai.shortObjective.X)
             ai.getInputManager().setValue("MoveVerticalAxis", -1);
-        else if (aiPos.X < ai.shortObjective.X)
+        else if (ai.lastShortObjective.X < ai.shortObjective.X)
             ai.getInputManager().setValue("MoveVerticalAxis", 1);
         std::cout << aiPos.X << " -  " << aiPos.Y << std::endl;
         std::cout << "sss" << ai.shortObjective.X << " -  " << ai.shortObjective.Y << std::endl;
-        
+
         if (!ai.needObjective && aiPos.X == ai.shortObjective.X && aiPos.Y == ai.shortObjective.Y) {
             ai.needObjective = true;
             std::cout << "js suis pd" << std::endl;
@@ -105,8 +109,8 @@ void AIControllerSystem::update()
 
 void AIControllerSystem::setNewObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map)
 {
-    char dirX[] = {-3, 0, 3, 0};
-    char dirY[] = {0, -3, 0, 3};
+    char dirX[] = {-1, 0, 1, 0};
+    char dirY[] = {0, -1, 0, 1};
 
     if (!aiPos.X)
         aiPos.X++;
@@ -127,8 +131,8 @@ void AIControllerSystem::setNewObjective(AIControllerComponent &ai, irr::core::v
 
 int AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos)
 {
-    char dirX[] = {-3, 0, 3, 0};
-    char dirY[] = {0, -3, 0, 3};
+    char dirX[] = {-1, 0, 1, 0};
+    char dirY[] = {0, -1, 0, 1};
     int path_finded = 0;
 
     for (int i = 0; i < 4; i++) {
@@ -147,8 +151,8 @@ int AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std:
 bool AIControllerSystem::aiSearchPathRecursive(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir)
 {
     irr::core::vector2di newAiPos = irr::core::vector2di(aiPos.X + dir.X, aiPos.Y + dir.Y);
-    char dirX[] = {-3, 0, 3, 0};
-    char dirY[] = {0, -3, 0, 3};
+    char dirX[] = {-1, 0, 1, 0};
+    char dirY[] = {0, -1, 0, 1};
 
     if (ai.longObjective.X == newAiPos.X && ai.longObjective.Y == newAiPos.Y) {
         return (true);
