@@ -14,6 +14,7 @@
 #include <irrlicht.h>
 #include "Components/Window.hpp"
 #include "Exception.hpp"
+#include "IDGenerator.hpp"
 
 namespace is::components {
 

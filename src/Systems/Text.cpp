@@ -40,7 +40,6 @@ void TextSystem::awake()
             throw new is::exceptions::Exception("TextComponent", "Could not found window");
 
         ptr->init(ptr_window);
-        ptr_window->canvas->addScrollBar(true, irr::core::rect<s32>(500, 10, 600, 20));
     }
 }
 

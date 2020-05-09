@@ -277,5 +277,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         "Indie Studio",
         500, 10
     );
+    e->addComponent<is::components::SliderComponent>(
+        e,
+        "",
+        "Indie Studio",
+        0, 10, 20,
+        1000, 10, 500, 100
+    );
     return (e);
 }

@@ -32,6 +32,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::SliderSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());

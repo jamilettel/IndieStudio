@@ -6,6 +6,7 @@
 */
 
 #include "Components/Text.hpp"
+#include "IDGenerator.hpp"
 
 using namespace irr;
 
@@ -27,7 +28,7 @@ Component(e), windowName(wn), _text(text), _dimension(x, y, x + width, y + heigh
 
 void is::components::TextComponent::init(std::shared_ptr<is::components::WindowComponent> ptr_window)
 {
-    element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, -1);
+    element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, IDGenerator::getNewID());
     if (!element)
         throw new is::exceptions::Exception("TextCompononent", "Could not create node from model");
     if (!_font.empty())
