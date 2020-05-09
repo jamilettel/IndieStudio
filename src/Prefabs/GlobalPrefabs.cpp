@@ -161,7 +161,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
-        irr::core::vector3df(2, 2, 2)
+        irr::core::vector3df(1, 1, 1)
     );
     MovementComponent &movement = e->addComponent<MovementComponent>(
         e,
@@ -213,7 +213,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI()
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
-        irr::core::vector3df(2, 2, 2)
+        irr::core::vector3df(1, 1, 1)
     );
     MovementComponent &movement = e->addComponent<MovementComponent>(
         e,

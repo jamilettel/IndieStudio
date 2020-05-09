@@ -66,16 +66,16 @@ void AIControllerSystem::update()
             continue;
         TransformComponent &tr = *static_cast<TransformComponent *>(ai.getEntity()->getComponent<TransformComponent>()->get());
         irr::core::vector2di aiPos;
-        aiPos.X = (((int)(tr.position.X) / 3 + (tr.position.X < 0 ? 1 : -1))/* - (tr.position.X < 0)*/) + (int)(mapX / 2);
-        aiPos.Y = (((int)(tr.position.Z) / 3 + (tr.position.Z < 0 ? 1 : -1))/* - (tr.position.Z < 0)*/) + (int)(mapY / 2);
+        aiPos.X = ((int)(tr.position.X) + (tr.position.X < 0 ? 1 : -1)) + (int)(mapX * 3 / 2);
+        aiPos.Y = ((int)(tr.position.Z) + (tr.position.Z < 0 ? 1 : -1)) + (int)(mapY * 3 / 2);
         if (ai.firstObjective || ai.needObjective) {
             if (ai.firstObjective) {
                 ai.lastShortObjective.X = aiPos.X;
                 ai.lastShortObjective.Y = aiPos.Y;
-                ai.shortObjective.X = 9;
-                ai.shortObjective.Y = 11;
-                ai.longObjective.X = 3;
-                ai.longObjective.Y = 3;
+                ai.shortObjective.X = 9 * 3 + 1;
+                ai.shortObjective.Y = 11 * 3 + 1;
+                ai.longObjective.X = 3 * 3 + 1;
+                ai.longObjective.Y = 3 * 3 + 1;
                 ai.firstObjective = false;
                 ai.needObjective = false;
             }
@@ -105,8 +105,8 @@ void AIControllerSystem::update()
 
 void AIControllerSystem::setNewObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map)
 {
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
+    char dirX[] = {-3, 0, 3, 0};
+    char dirY[] = {0, -3, 0, 3};
 
     if (!aiPos.X)
         aiPos.X++;
@@ -127,8 +127,8 @@ void AIControllerSystem::setNewObjective(AIControllerComponent &ai, irr::core::v
 
 int AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos)
 {
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
+    char dirX[] = {-3, 0, 3, 0};
+    char dirY[] = {0, -3, 0, 3};
     int path_finded = 0;
 
     for (int i = 0; i < 4; i++) {
@@ -147,8 +147,8 @@ int AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std:
 bool AIControllerSystem::aiSearchPathRecursive(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir)
 {
     irr::core::vector2di newAiPos = irr::core::vector2di(aiPos.X + dir.X, aiPos.Y + dir.Y);
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
+    char dirX[] = {-3, 0, 3, 0};
+    char dirY[] = {0, -3, 0, 3};
 
     if (ai.longObjective.X == newAiPos.X && ai.longObjective.Y == newAiPos.Y) {
         return (true);
