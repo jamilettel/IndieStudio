@@ -14,6 +14,7 @@
 #include "Components/Movement.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Time.hpp"
+#include <vector>
 
 namespace is::systems {
 
@@ -31,6 +32,10 @@ namespace is::systems {
         void stop() override;
         void onTearDown() override;
 
+        void setNewObjective(is::components::AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map);
+        int aiSearchPath(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos);
+        bool aiSearchPathRecursive(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir);
+        bool isAirBlock(is::ecs::Entity::Layer);
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
 

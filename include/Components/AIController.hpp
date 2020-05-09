@@ -30,12 +30,13 @@ namespace is::components {
 
         InputManagerComponent &getInputManager() const;
 
-        bool offense;
-        irr::core::vector2df objective;
-        irr::core::vector2df lock;
+        irr::core::vector2df shortObjective;
+        irr::core::vector2df lastShortObjective;
+        irr::core::vector2df longObjective;
         bool needObjective;
+        bool firstObjective;
 
-        float timeBeforeBegin;
+        float timeBeforeBegin; // temp
 
     private:
         InputManagerComponent &_inputManager;
