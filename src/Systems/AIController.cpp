@@ -70,39 +70,59 @@ void AIControllerSystem::update()
         if (ai.timeBeforeBegin > 0)
             continue;
         TransformComponent &tr = *static_cast<TransformComponent *>(ai.getEntity()->getComponent<TransformComponent>()->get());
-        irr::core::vector2di aiPos;
+        irr::core::vector2df aiPos;
         aiPos.X = (tr.position.X + (int)(mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(mapY * 3 / 2)) / 3;
+
         if (ai.firstObjective || ai.needObjective) {
             if (ai.firstObjective) {
                 ai.lastShortObjective.X = aiPos.X;
                 ai.lastShortObjective.Y = aiPos.Y;
                 ai.shortObjective.X = 1;
-                ai.shortObjective.Y = 5;
+                ai.shortObjective.Y = 2;
                 ai.longObjective.X = 9;
                 ai.longObjective.Y = 11;
                 ai.firstObjective = false;
                 ai.needObjective = false;
             }
-            setNewObjective(ai, aiPos, map);
+            setNewObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
         }
+
 
         ai.getInputManager().setValue("MoveHorizontalAxis", 0);
         ai.getInputManager().setValue("MoveVerticalAxis", 0);
-        if (ai.lastShortObjective.Y > ai.shortObjective.Y)
+        if (ai.lastShortObjective.Y > ai.shortObjective.Y) {
             ai.getInputManager().setValue("MoveHorizontalAxis", -1);
-        else if (ai.lastShortObjective.Y < ai.shortObjective.Y)
+            std::cout << "left" << std::endl;
+        }
+        else if (ai.lastShortObjective.Y < ai.shortObjective.Y) {
             ai.getInputManager().setValue("MoveHorizontalAxis", 1);
-        if (ai.lastShortObjective.X > ai.shortObjective.X)
+            std::cout << "right" << std::endl;
+        }
+        else if (ai.lastShortObjective.X > ai.shortObjective.X) {
             ai.getInputManager().setValue("MoveVerticalAxis", -1);
-        else if (ai.lastShortObjective.X < ai.shortObjective.X)
+            std::cout << "down" << std::endl;
+        }
+        else if (ai.lastShortObjective.X < ai.shortObjective.X) {
             ai.getInputManager().setValue("MoveVerticalAxis", 1);
-        std::cout << aiPos.X << " -  " << aiPos.Y << std::endl;
-        std::cout << "sss" << ai.shortObjective.X << " -  " << ai.shortObjective.Y << std::endl;
+            std::cout << "up" << std::endl;
+        }
+        std::cout << aiPos.X << " - " << aiPos.Y << std::endl;
 
-        if (!ai.needObjective && aiPos.X == ai.shortObjective.X && aiPos.Y == ai.shortObjective.Y) {
+        if (!ai.needObjective &&
+        aiPos.X - 1/3 >= ai.shortObjective.X &&
+        aiPos.X - 1/3 <= ai.shortObjective.X + 1 &&
+        aiPos.X + 1/3 >= ai.shortObjective.X &&
+        aiPos.X + 1/3 <= ai.shortObjective.X + 1 &&
+        aiPos.Y - 1/3 >= ai.shortObjective.Y &&
+        aiPos.Y - 1/3 <= ai.shortObjective.Y + 1 &&
+        aiPos.Y + 1/3 >= ai.shortObjective.Y &&
+        aiPos.Y + 1/3 <= ai.shortObjective.Y + 1) {
             ai.needObjective = true;
+            ai.timeBeforeBegin = 2;
             std::cout << "js suis pd" << std::endl;
+            ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
         }
     }
 }
@@ -112,10 +132,6 @@ void AIControllerSystem::setNewObjective(AIControllerComponent &ai, irr::core::v
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
 
-    if (!aiPos.X)
-        aiPos.X++;
-    if (!aiPos.Y)
-        aiPos.Y++;
     if (ai.needObjective) {
         int i = aiSearchPath(ai, map, aiPos);
         if (i == 0) {
