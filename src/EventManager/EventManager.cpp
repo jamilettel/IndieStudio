@@ -15,17 +15,17 @@ is::EventManager::EventManager()
         _keyState[i] = false;
 }
 
-is::EventManager::~EventManager()
-= default;
+is::EventManager::~EventManager() = default;
 
 bool is::EventManager::OnEvent(const SEvent &event)
 {
     if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT) {
-
-        // for (int i = 0; i < 6; i++) {
-        //     std::cerr << i << ": " << event.JoystickEvent.Axis[i] << std::endl;
-        // }
-
+        memcpy(
+            _joystickStates[event.JoystickEvent.Joystick].second,
+            event.JoystickEvent.Axis,
+            sizeof(s16[6])
+            );
+        _joystickStates[event.JoystickEvent.Joystick].first = event.JoystickEvent.ButtonStates;
     }
     if (event.EventType == irr::EET_GUI_EVENT) {
         switch(event.GUIEvent.EventType) {
@@ -197,4 +197,14 @@ void is::EventManager::checkButtonClicked(irr::s32 id)
         if (it->getId() == id)
             it->setClicked(true);
     }
+}
+
+bool is::EventManager::isJoystickButtonPressed(u8 joystick, u32 button) const
+{
+    return (_joystickStates.at(joystick).first & (1 << button)) ? true : false;
+}
+
+s16 is::EventManager::getAxisValue(u8 joystick, u32 axis) const
+{
+    return _joystickStates.at(joystick).second[axis];
 }

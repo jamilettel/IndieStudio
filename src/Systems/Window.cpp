@@ -39,13 +39,11 @@ void WindowSystem::awake()
         ptr->canvas = ptr->device->getGUIEnvironment();
         if (!ptr->canvas)
             throw is::exceptions::Exception("WindowSystem", "Could not create gui environment");
-        
+
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-        #ifndef __APPLE__
-            ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
-        #endif
+        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
     }
 }
 
@@ -65,11 +63,10 @@ void WindowSystem::manageJoysticks(std::shared_ptr<WindowComponent> &ptr)
     if (ptr->joystickRefreshRemainingTime < ptr->joystickRefresh)
         return;
     ptr->joystickRefreshRemainingTime = 0;
-    ptr->device->activateJoysticks(ptr->joysticks);
     for (size_t i = 0; i < ptr->joysticks.size(); i++) {
         std::cerr << time(NULL) << std::endl;
         std::cerr << ptr->joysticks[i].Name.c_str() << std::endl;
-        std::cerr << "ID: " << ptr->joysticks[i].Joystick << std::endl;
+        std::cerr << "ID: " << (int)ptr->joysticks[i].Joystick << std::endl;
         std::cerr << "Axes: " << ptr->joysticks[i].Axes << std::endl;
         std::cerr << "Buttons: " << ptr->joysticks[i].Buttons << std::  endl;
     }
@@ -86,10 +83,8 @@ void WindowSystem::update()
             is::Game::isRunning = false;
             return;
         }
-        #ifndef __APPLE__
-            if (ptr->joystickSupport)
-                manageJoysticks(ptr);
-        #endif
+        if (ptr->joystickSupport)
+            manageJoysticks(ptr);
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
@@ -109,6 +104,4 @@ void WindowSystem::stop()
 
 void WindowSystem::onTearDown()
 {
-
 }
-
