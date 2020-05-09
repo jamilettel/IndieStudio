@@ -30,11 +30,12 @@ namespace is::components {
 
         InputManagerComponent &getInputManager() const;
 
-        irr::core::vector2df shortObjective;
-        irr::core::vector2df lastShortObjective;
-        irr::core::vector2df longObjective;
+        irr::core::vector2di shortObjective;
+        irr::core::vector2di lastShortObjective;
+        irr::core::vector2di longObjective;
         bool needObjective;
         bool firstObjective;
+        std::vector<irr::core::vector2di> lastMoves;
 
         float timeBeforeBegin; // temp
 

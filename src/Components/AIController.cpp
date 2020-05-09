@@ -15,9 +15,9 @@ AIControllerComponent::AIControllerComponent(
     InputManagerComponent &inputManager
     ): Component(e), _inputManager(inputManager)
 {
-    shortObjective = irr::core::vector2df(0);
-    lastShortObjective = irr::core::vector2df(0);
-    longObjective = irr::core::vector2df(0);
+    shortObjective = irr::core::vector2di(0);
+    lastShortObjective = irr::core::vector2di(0);
+    longObjective = irr::core::vector2di(0);
     needObjective = true;
     timeBeforeBegin = 1.5f;
     firstObjective = true;
