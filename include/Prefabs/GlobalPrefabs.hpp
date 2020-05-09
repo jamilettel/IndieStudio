@@ -27,6 +27,8 @@
 #include "Components/Time.hpp"
 #include "Components/Button.hpp"
 #include "Components/Text.hpp"
+#include "Components/Slider.hpp"
+#include "Components/Image.hpp"
 #include "Components/ColliderTrigger.hpp"
 #include "Components/PowerUp.hpp"
 #include "Components/Jump.hpp"

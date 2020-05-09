@@ -14,6 +14,10 @@
 using namespace is::systems;
 using namespace is::components;
 
+//
+#include <irrlicht.h>
+//
+
 void TextSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
@@ -45,6 +49,12 @@ void TextSystem::start()
 
 void TextSystem::update()
 {
+    for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<TextComponent>(elem);
+        if (!ptr)
+            throw is::exceptions::Exception("TextSystem", "Could not getTextComponent pointer");
+        ptr->updateText();
+    }
 }
 
 void TextSystem::stop()

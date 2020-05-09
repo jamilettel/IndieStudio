@@ -22,6 +22,8 @@
 #include "Systems/Time.hpp"
 #include "Systems/Button.hpp"
 #include "Systems/Text.hpp"
+#include "Systems/Slider.hpp"
+#include "Systems/Image.hpp"
 #include "Systems/PowerUp.hpp"
 #include "Systems/Jump.hpp"
 #include "Systems/KeyboardInput.hpp"
