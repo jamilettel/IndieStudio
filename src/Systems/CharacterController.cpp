@@ -68,7 +68,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
-
+        
         //  other function
         if (im->get()->getInput("Jump") == 1) {
             std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();

@@ -5,6 +5,9 @@
 ** TODO: add description
 */
 
+#include "Prefabs/GlobalPrefabs.hpp"
+#include "Systems/Image.hpp"
+#include "Systems/Window.hpp"
 #include "Scenes/MainMenuScene.hpp"
 
 is::scenes::MainMenuScene::MainMenuScene() : AScene()
@@ -16,11 +19,13 @@ is::scenes::MainMenuScene::MainMenuScene() : AScene()
 
 void is::scenes::MainMenuScene::initSystems()
 {
-
+    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
 }
 
 void is::scenes::MainMenuScene::initEntities()
 {
-
+    initEntity(prefabs::GlobalPrefabs::createGlobalPrefab());
+    initEntity(prefabs::GlobalPrefabs::createMainMenu());
 }
 

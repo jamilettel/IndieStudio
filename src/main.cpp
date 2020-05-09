@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
     try {
         game.addScene(is::Game::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
         game.addScene(is::Game::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
-        game.launchGame(is::Game::Scenes::SCENE_GAME);
+        game.launchGame(is::Game::Scenes::SCENE_MAIN_MENU);
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return 1;

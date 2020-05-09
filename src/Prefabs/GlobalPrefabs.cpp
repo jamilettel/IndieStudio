@@ -19,6 +19,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
+    e->addComponent<TimeComponent>(e);
     e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
     e->addComponent<WindowComponent>(e, "Indie Studio");
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
