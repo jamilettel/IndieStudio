@@ -197,6 +197,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
+    JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+    joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
+    joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
+    joystick.bindButton(2, "DropBomb", 1);
+    joystick.bindButton(0, "Jump", 1);
+    joystick.assignJoystick(0);
     return (e);
 }
 

@@ -35,6 +35,7 @@ void JoystickInputComponent::bindButton(u32 button, const std::string &action, f
 {
     _buttons[button].first = action;
     _buttons[button].second = target;
+    _inputManager.setValue(action, 0);
 }
 
 void JoystickInputComponent::bindAxis(u32 axis, const std::string &action, float min, float max)
@@ -42,6 +43,7 @@ void JoystickInputComponent::bindAxis(u32 axis, const std::string &action, float
     _axes[axis].first = action;
     _axes[axis].second[0] = min;
     _axes[axis].second[1] = max;
+    _inputManager.setValue(action, 0);
 }
 
 void JoystickInputComponent::unbindButton(u32 axis)

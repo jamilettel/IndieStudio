@@ -111,6 +111,7 @@ void is::systems::CharacterControllerSystem::update()
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->move.X != 0 || ptr->move.Z != 0)
             ptr->getAudioComponent().toPlay();
+        im->get()->resetValues();
     }
 }
 

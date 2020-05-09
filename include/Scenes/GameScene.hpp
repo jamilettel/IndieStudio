@@ -31,6 +31,7 @@
 #include "Components/Window.hpp"
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "MapGenerator.hpp"
+#include "Systems/JoystickInput.hpp"
 
 namespace is::scenes {
 

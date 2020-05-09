@@ -8,6 +8,7 @@
 #include "Game.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
+#include "Exception.hpp"
 
 int main(int argc, char const *argv[])
 {
@@ -17,9 +18,13 @@ int main(int argc, char const *argv[])
         game.addScene(is::Game::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
         game.addScene(is::Game::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
         game.launchGame(is::Game::Scenes::SCENE_GAME);
+    } catch (is::exceptions::Exception &e) {
+        std::cerr << "CAUGHT EXCEPTION:" << std::endl;
+        std::cerr << e.getComponent() << ": " << e.what() << std::endl;
     } catch (const std::exception &e) {
+        std::cerr << "CAUGHT EXCEPTION:" << std::endl;
         std::cerr << e.what() << std::endl;
-        return 1;
+        return 84;
     }
     return 0;
 }

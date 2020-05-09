@@ -57,19 +57,14 @@ void WindowSystem::start()
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
-void WindowSystem::manageJoysticks(std::shared_ptr<WindowComponent> &ptr)
+void WindowSystem::manageJoysticks([[maybe_unused]]std::shared_ptr<WindowComponent> &ptr)
 {
-    ptr->joystickRefreshRemainingTime += _time->get().getCurrentIntervalSeconds();
-    if (ptr->joystickRefreshRemainingTime < ptr->joystickRefresh)
-        return;
-    ptr->joystickRefreshRemainingTime = 0;
-    for (size_t i = 0; i < ptr->joysticks.size(); i++) {
-        std::cerr << time(NULL) << std::endl;
-        std::cerr << ptr->joysticks[i].Name.c_str() << std::endl;
-        std::cerr << "ID: " << (int)ptr->joysticks[i].Joystick << std::endl;
-        std::cerr << "Axes: " << ptr->joysticks[i].Axes << std::endl;
-        std::cerr << "Buttons: " << ptr->joysticks[i].Buttons << std::  endl;
-    }
+    // ptr->joystickRefreshRemainingTime += _time->get().getCurrentIntervalSeconds();
+    // if (ptr->joystickRefreshRemainingTime < ptr->joystickRefresh)
+    //     return;
+    // ptr->joystickRefreshRemainingTime = 0;
+    // for (size_t i = 0; i < ptr->joysticks.size(); i++) {
+    // }
 }
 
 void WindowSystem::update()

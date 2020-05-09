@@ -48,8 +48,8 @@ namespace is::components {
         void assignJoystick(int id);
         int getJoystickId(void) const;
 
-        float axisDeadzoneMin = 0.10;
-        float axisDeadzoneMax = 0.90;
+        float axisDeadzoneMin = 0.15;
+        float axisDeadzoneMax = 0.85;
 
     private:
         InputManagerComponent &_inputManager;

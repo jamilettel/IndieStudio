@@ -45,8 +45,6 @@ void JoystickInputSystem::update()
         auto &axisBindings = joystick->getAxisBindings();
         size_t pos = 0;
 
-        joystick->getInputManager().resetValues();
-
         for (; pos < _joysticks->get().size(); pos++)
             if (_joysticks->get()[pos].Joystick == joystick->getJoystickId())
                 break;
@@ -62,7 +60,7 @@ void JoystickInputSystem::update()
             float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE;
 
             if ((value >= 0 && value <= joystick->axisDeadzoneMin) ||
-                (value < 0 && value >= joystick->axisDeadzoneMin))
+                (value < 0 && value >= -joystick->axisDeadzoneMin))
                 value = 0;
             else if (value > 0 && value >= joystick->axisDeadzoneMax)
                 value = 1;
