@@ -14,6 +14,10 @@
 using namespace is::systems;
 using namespace is::components;
 
+//
+#include <irrlicht.h>
+//
+
 void TextSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
@@ -36,6 +40,7 @@ void TextSystem::awake()
             throw new is::exceptions::Exception("TextComponent", "Could not found window");
 
         ptr->init(ptr_window);
+        ptr_window->canvas->addScrollBar(true, irr::core::rect<s32>(500, 10, 600, 20));
     }
 }
 
@@ -45,6 +50,12 @@ void TextSystem::start()
 
 void TextSystem::update()
 {
+    for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<TextComponent>(elem);
+        if (!ptr)
+            throw is::exceptions::Exception("TextSystem", "Could not getTextComponent pointer");
+        ptr->updateText();
+    }
 }
 
 void TextSystem::stop()
