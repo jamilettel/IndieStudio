@@ -9,7 +9,6 @@
 #define GAMESCENE_HPP_
 
 #include "ECS/AScene.hpp"
-
 #include "Systems/Window.hpp"
 #include "Systems/Camera.hpp"
 #include "Systems/ModelRenderer.hpp"
@@ -29,11 +28,8 @@
 #include "Systems/Jump.hpp"
 #include "Systems/KeyboardInput.hpp"
 #include "Systems/AIController.hpp"
-
 #include "Components/Window.hpp"
-
 #include "Prefabs/GlobalPrefabs.hpp"
-
 #include "MapGenerator.hpp"
 
 namespace is::scenes {
@@ -41,13 +37,13 @@ namespace is::scenes {
     class GameScene : public is::ecs::AScene {
         public:
             GameScene();
-            ~GameScene() = default;
+            ~GameScene() override = default;
 
             GameScene(const GameScene &) = default;
             GameScene &operator=(const GameScene &) = default;
 
-            void initSystems();
-            void initEntities();
+            void initSystems() override;
+            void initEntities() override;
 
         protected:
         private:
