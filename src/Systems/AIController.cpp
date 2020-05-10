@@ -73,7 +73,11 @@ void AIControllerSystem::update()
         irr::core::vector2df aiPos;
         aiPos.X = (tr.position.X + (int)(mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(mapY * 3 / 2)) / 3;
+        ai.getInputManager().setValue("DropBomb", 0);
+        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
 
+        //setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
         if (ai.firstObjective || ai.needObjective) {
             if (ai.firstObjective) {
                 ai.lastShortObjective.X = aiPos.X;
@@ -85,21 +89,35 @@ void AIControllerSystem::update()
                 ai.firstObjective = false;
                 ai.needObjective = false;
             }
-            if (ai.shortObjective.X == ai.longObjective.X && ai.shortObjective.Y ==  ai.longObjective.Y) {
-                ai.lastMoves.clear();
-                setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
-            }
-            else
+            // if (ai.shortObjective.X == ai.longObjective.X && ai.shortObjective.Y ==  ai.longObjective.Y) {
+            //     ai.lastMoves.clear();
+            //     setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+            // }
+            //else {
                 setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+                std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
+                std::cout << "last Short x : " << ai.lastShortObjective.X << ", Y : " << ai.lastShortObjective.Y << std::endl;
+            //}
         }
-        ai.getInputManager().setValue("DropBomb", 0);
+        std::cout << "dckdjkl" << std::endl;
         if (map[ai.shortObjective.X][ai.shortObjective.Y] == is::ecs::Entity::Layer::BRKBL_BLK) {
             ai.getInputManager().setValue("DropBomb", 1);
+            std::cout << "Short x : " << ai.lastShortObjective.X - ai.shortObjective.X << ", Y : " << ai.lastShortObjective.Y - ai.shortObjective.Y << std::endl;
+            irr::core::vector2di a = ai.lastShortObjective - ai.shortObjective;
+            ai.shortObjective += a;
+            if (ai.lastShortObjective == ai.shortObjective) {
+                if (ai.shortObjective.X != 1 && ai.shortObjective.Y != 1 &&
+                ai.shortObjective.X != 13 && ai.shortObjective.Y != 11)
+                    ai.shortObjective += a;
+            }
+            std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
+            std::cout << "Short x : " << ai.lastShortObjective.X << ", Y : " << ai.lastShortObjective.Y << std::endl;
+            ai.needObjective = false;
+            std::cout << "coucou" << std::endl;
         }
-        setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
-        // std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
-        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
-        ai.getInputManager().setValue("MoveVerticalAxis", 0);
+        //std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
+        //std::cout << "Last short x : " << ai.lastShortObjective.X << ", Y : " << ai.lastShortObjective.Y << std::endl;
+
         if (ai.lastShortObjective.Y > ai.shortObjective.Y)
             ai.getInputManager().setValue("MoveHorizontalAxis", -1);
         else if (ai.lastShortObjective.Y < ai.shortObjective.Y)
@@ -116,19 +134,16 @@ void AIControllerSystem::update()
         aiPos.Y - (0.3333f) >= ai.shortObjective.Y &&
         aiPos.Y - (0.3333f) <= ai.shortObjective.Y + 1 &&
         aiPos.Y + (0.3333f) >= ai.shortObjective.Y &&
-        aiPos.Y + (0.3333f) <= ai.shortObjective.Y + 1)
+        aiPos.Y + (0.3333f) <= ai.shortObjective.Y + 1) {
             ai.needObjective = true;
-        // if (ai.getEntity()->getComponent<MovementComponent>()->get()->velocity == irr::core::vector3df(0)) {
-        //     static bool test = false;
-        //     if (test) {
-        //         ai.getInputManager().setValue("DropBomb", 0);
-        //         test = !test;
-        //     }
-        //     else {
-        //         ai.getInputManager().setValue("DropBomb", 1);
-        //         test = !test;
-        //     }
-        // }
+            ai.isEscaping = false;
+            std::cout << "JJJJJJJJJJJJJJ" << std::endl;
+        }
+        if (ai.lastShortObjective == ai.shortObjective) {
+            ai.needObjective = true;
+            ai.isEscaping = false;
+        }
+
     }
 }
 
@@ -136,6 +151,8 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
 {
     irr::core::vector2di bomberPos(-1);
 
+    if (ai.isEscaping)
+        return;
     for (int i = 0; i < map.size(); i++) {
         for (int a = 0; a < map[i].size(); a++) {
             if (map[i][a] != is::ecs::Entity::Layer::BOMB) {
@@ -151,6 +168,7 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
     if (bomberPos.X == -1)
         return;
     std::cout << "JE SUIS UN PD ET EN + Y A UNE BOMBE QUI M'AGRESSE" << std::endl;
+    ai.lastShortObjective = aiPos;
 
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
@@ -158,19 +176,20 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
 
     ai.needObjective = false;
     if (bomberPos.X == aiPos.X) {
+        //ai.shortObjective.Y = aiPos.Y;
         if (bomberPos.Y > aiPos.Y)
-            ai.shortObjective.Y--;
-        else
-            ai.shortObjective.Y++;
-    }
-
-    if (bomberPos.Y == aiPos.Y) {
-        if (bomberPos.X > aiPos.X)
-            ai.shortObjective.X--;
-        else
             ai.shortObjective.X++;
+        else
+            ai.shortObjective.X--;
+    } else if (bomberPos.Y == aiPos.Y) {
+        //ai.shortObjective.X = aiPos.X;
+        if (bomberPos.X > aiPos.X)
+            ai.shortObjective.Y++;
+        else
+            ai.shortObjective.Y--;
     }
     std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
+    ai.isEscaping = true;
 
     // for (int i = 0; i < 4; i++) {
     //     if (isAirBlock(map[aiPos.X + dirX[i]][aiPos.Y + dirY[i]])) {
@@ -250,7 +269,7 @@ bool AIControllerSystem::aiSearchPathRecursive(AIControllerComponent &ai, std::v
     char dirY[] = {0, -1, 0, 1};
     bool alreadyPass = false;
 
-    if (ai.longObjective.X == newAiPos.X && ai.longObjective.Y == newAiPos.Y) {
+    if (ai.longObjective == newAiPos) {
         return (true);
     }
     for (int i = 0; i < 4; i++) {

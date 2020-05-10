@@ -38,6 +38,7 @@ namespace is::components {
         std::vector<irr::core::vector2di> lastMoves;
 
         float timeBeforeBegin; // temp
+        bool isEscaping = false;
 
     private:
         InputManagerComponent &_inputManager;
