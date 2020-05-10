@@ -31,7 +31,7 @@ namespace is::components {
 
         void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
         void deleteComponent();
-       
+
         std::string windowName;
     private:
         irr::core::vector2d<int> _dimension;
