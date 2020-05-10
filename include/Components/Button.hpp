@@ -36,7 +36,7 @@ namespace is::components {
         ButtonComponent(const ButtonComponent &) = delete;
         ButtonComponent &operator=(const ButtonComponent &) = delete;
 
-        void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
+        void init(std::shared_ptr<is::components::WindowComponent> &ptr_window);
         void deleteComponent();
         void (*fctButton)();
         bool isClicked() const;
