@@ -22,6 +22,7 @@ namespace is {
             Game &operator=(const Game &) = default;
 
             enum Scenes {
+                SCENE_SPLASH_SCREEN,
                 SCENE_MAIN_MENU,
                 SCENE_GAME
             };
