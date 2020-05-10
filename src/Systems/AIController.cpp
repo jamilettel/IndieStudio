@@ -82,10 +82,10 @@ void AIControllerSystem::update()
             if (ai.firstObjective) {
                 ai.lastShortObjective.X = aiPos.X;
                 ai.lastShortObjective.Y = aiPos.Y;
-                ai.shortObjective.X = 2;
-                ai.shortObjective.Y = 1;
-                ai.longObjective.X = mapX - 2;
-                ai.longObjective.Y = mapY - 2;
+                ai.shortObjective.X = aiPos.X;
+                ai.shortObjective.Y = aiPos.Y + (aiPos.Y > 6 ? -1 : 1);
+                ai.longObjective.X = (int)(mapX / 2);
+                ai.longObjective.Y = (int)(mapY / 2);
                 ai.firstObjective = false;
                 ai.needObjective = false;
             }

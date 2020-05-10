@@ -20,7 +20,7 @@ namespace is::components {
     public:
         BombComponent(std::shared_ptr<is::ecs::Entity> &e,
             std::shared_ptr<is::components::BombermanComponent> &bm,
-            float lt = 1,
+            float lt = 3,
             int size = 2);
         ~BombComponent() = default;
 
