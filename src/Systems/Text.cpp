@@ -21,6 +21,8 @@ using namespace is::components;
 void TextSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<TextComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("TextSystem", "Could not getTextComponent pointer");

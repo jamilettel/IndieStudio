@@ -16,6 +16,8 @@ using namespace is::components;
 void AudioSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         ptr->init();
     }
@@ -24,6 +26,8 @@ void AudioSystem::awake()
 void AudioSystem::start()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         if (ptr->getStatus() == TO_PLAY) {
             ptr->play();

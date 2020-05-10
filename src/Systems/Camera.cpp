@@ -12,6 +12,8 @@ using namespace irr;
 void is::systems::CameraSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::CameraComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<is::components::CameraComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CameraSystem", "Could not get CameraComponent pointer");

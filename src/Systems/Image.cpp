@@ -21,6 +21,8 @@ using namespace is::components;
 void ImageSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ImageComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<ImageComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("ImageSystem", "Could not getImageComponent pointer");

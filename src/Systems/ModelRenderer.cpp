@@ -12,6 +12,8 @@ using namespace irr;
 void is::systems::ModelRendererSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::ModelRendererComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("ModelRendererSystem", "Could not get ModelRendererComponent pointer");

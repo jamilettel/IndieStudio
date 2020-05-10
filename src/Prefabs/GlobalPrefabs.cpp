@@ -260,7 +260,6 @@ void function_test()
 
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
 {
-    std::cout << "SALUT" << std::endl;
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<ButtonComponent>(

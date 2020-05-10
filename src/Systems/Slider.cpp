@@ -15,6 +15,8 @@ using namespace is::components;
 void SliderSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(SliderComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<SliderComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("SliderSystem", "Could not getSliderComponent pointer");

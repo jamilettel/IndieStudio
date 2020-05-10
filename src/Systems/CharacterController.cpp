@@ -18,6 +18,8 @@ void is::systems::CharacterControllerSystem::awake()
 void is::systems::CharacterControllerSystem::start()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");

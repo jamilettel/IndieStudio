@@ -42,15 +42,19 @@ void is::ecs::AScene::initStaticEntities()
 
 void is::ecs::AScene::awake()
 {
+    std::cout << "first ent " << _entityManager->getEntities().size() << std::endl;
     initSystems();
     initEntities();
+    initStaticEntities();
     _systemManager->awake();
+    for (auto &ent : _entityManager->getEntities())
+        ent->setInit(true);
 }
 
 void is::ecs::AScene::start()
 {
-    initStaticEntities();
     _systemManager->start();
+    std::cout << "second ent " << _entityManager->getEntities().size() << std::endl;
 }
 
 void is::ecs::AScene::update()

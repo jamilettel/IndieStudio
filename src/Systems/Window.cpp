@@ -15,6 +15,8 @@ using namespace is::ecs;
 void WindowSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
