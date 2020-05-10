@@ -72,7 +72,7 @@ void WindowSystem::update()
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
+            throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         if (!ptr->device->run()) {
             std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
@@ -94,7 +94,7 @@ void WindowSystem::stop()
             continue;
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
+            throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         ptr->device->drop();
     }
 }

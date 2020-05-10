@@ -23,7 +23,7 @@ void is::components::SliderComponent::init(std::shared_ptr<is::components::Windo
 {
     elementSlider = ptr_window->canvas->addButton(irr::core::rect<s32>(_dimension.UpperLeftCorner.X, _dimension.UpperLeftCorner.Y, _dimension.UpperLeftCorner.X + (_dimension.getWidth() / _step), _dimension.UpperLeftCorner.Y + _dimension.getHeight()), 0, IDGenerator::getNewID(), L"");
     if (!elementSlider)
-        throw new is::exceptions::Exception("SliderComponent", "Could not create bode from model");    
+        throw is::exceptions::Exception("SliderComponent", "Could not create bode from model");
 }
 
 #include <iostream>

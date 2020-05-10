@@ -9,18 +9,20 @@
 
 using namespace is::components;
 
-TimeComponent::TimeComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e), _interval_milliseconds(0.0), _interval_seconds(0.0)
+TimeComponent::TimeComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e), _elapsed_time(0.0), _interval_milliseconds(0.0), _interval_seconds(0.0)
 {
 }
 
 void TimeComponent::start()
 {
+    _begin = std::chrono::system_clock::now();
     _start = std::chrono::system_clock::now();
 }
 
-void TimeComponent::setCurrentInterval()
+void TimeComponent::update()
 {
     _end = std::chrono::system_clock::now();
+    _elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>(_end - _begin).count() / 1000.0;
     _interval_milliseconds = std::chrono::duration_cast<std::chrono::microseconds>(_end - _start).count() / 1000.0;
     _interval_seconds =_interval_milliseconds / 1000.0;
     _start = std::chrono::system_clock::now();
@@ -38,5 +40,15 @@ float TimeComponent::getCurrentIntervalMilliseconds() const
 
 void TimeComponent::deleteComponent()
 {
+}
+
+float TimeComponent::getElapsedTime() const
+{
+    return _elapsed_time;
+}
+
+void TimeComponent::resetStartTime()
+{
+    _begin = std::chrono::system_clock::now();
 }
 

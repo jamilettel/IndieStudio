@@ -37,7 +37,7 @@ void is::components::ButtonComponent::init(std::shared_ptr<is::components::Windo
 {
     element = ptr_window->canvas->addButton(_dimension, 0, IDGenerator::getNewID(), std::wstring(_text.begin(), _text.end()).c_str());
     if (!element)
-        throw new is::exceptions::Exception("ButtonCompononent", "Could not create node from model");
+        throw is::exceptions::Exception("ButtonCompononent", "Could not create node from model");
     if (!_image.empty() && !_pressed.empty()) {
         element->setImage(ptr_window->driver->getTexture(_image.c_str()));
         element->setPressedImage(ptr_window->driver->getTexture(_pressed.c_str()));

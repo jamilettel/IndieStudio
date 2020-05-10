@@ -61,7 +61,7 @@ void is::ecs::AScene::update()
 
 void is::ecs::AScene::stop()
 {
-    deleteNonStaticEntites();
+    deleteNonStaticEntities();
     _systemManager->stop();
 }
 
@@ -70,7 +70,7 @@ void is::ecs::AScene::onTearDown()
     _systemManager->onTearDown();
 }
 
-void is::ecs::AScene::deleteNonStaticEntites()
+void is::ecs::AScene::deleteNonStaticEntities()
 {
     for (auto ent : _entityManager->getEntities())
     {

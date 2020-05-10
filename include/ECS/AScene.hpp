@@ -32,7 +32,7 @@ namespace is::ecs {
             void stop();
             void onTearDown();
 
-            void deleteNonStaticEntites();
+            void deleteNonStaticEntities();
 
         protected:
             std::shared_ptr<EntityManager> _entityManager;

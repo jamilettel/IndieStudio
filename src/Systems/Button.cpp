@@ -25,14 +25,14 @@ void ButtonSystem::awake()
         for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
             ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
             if (!ptr_window)
-                throw new is::exceptions::Exception("ButtonComponent", "Could not get WindowComponent pointer");
+                throw is::exceptions::Exception("ButtonComponent", "Could not get WindowComponent pointer");
             if (ptr_window->windowName == ptr->windowName) {
                 windowFound = true;
                 break;
             }
         }
         if (!windowFound)
-            throw new is::exceptions::Exception("ButtonComponent", "Could not found window");
+            throw is::exceptions::Exception("ButtonComponent", "Could not found window");
 
         ptr->init(ptr_window);
         ptr_window->eventManager.addButton(ptr->getEntity()->getComponent<ButtonComponent>().value());
