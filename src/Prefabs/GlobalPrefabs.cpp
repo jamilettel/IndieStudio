@@ -19,6 +19,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
+    e->addComponent<TimeComponent>(e);
     e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
     e->addComponent<WindowComponent>(e, "Indie Studio");
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
@@ -197,6 +198,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
+    JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+    joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
+    joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
+    joystick.bindButton(2, "DropBomb", 1);
+    joystick.bindButton(0, "Jump", 1);
+    joystick.assignJoystick(0);
     return (e);
 }
 
@@ -276,7 +283,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         e,
         RESSOURCE("test.png"),
         "Indie Studio",
-        500, 10
+        500, 10, true
     );
     e->addComponent<is::components::SliderComponent>(
         e,

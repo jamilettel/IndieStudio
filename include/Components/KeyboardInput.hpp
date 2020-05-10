@@ -38,6 +38,8 @@ namespace is::components {
         std::map<EKEY_CODE, std::pair<std::string, float>> &getBindings();
         InputManagerComponent &getInputManager() const;
 
+        void unbindAll();
+
     private:
         InputManagerComponent &_inputManager;
         std::map<EKEY_CODE, std::pair<std::string, float>> _bindings;

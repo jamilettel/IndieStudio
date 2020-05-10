@@ -9,7 +9,6 @@
 #define GAME_HPP_
 
 #include <vector>
-
 #include "ECS/IScene.hpp"
 
 namespace is {

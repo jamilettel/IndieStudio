@@ -68,7 +68,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
-
+        
         //  other function
         if (im->get()->getInput("Jump") == 1) {
             std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
@@ -111,6 +111,7 @@ void is::systems::CharacterControllerSystem::update()
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->move.X != 0 || ptr->move.Z != 0)
             ptr->getAudioComponent().toPlay();
+        im->get()->resetValues();
     }
 }
 
