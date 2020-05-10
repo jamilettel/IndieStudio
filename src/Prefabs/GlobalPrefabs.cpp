@@ -304,3 +304,16 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen(
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("background_main_menu.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    return (e);
+}

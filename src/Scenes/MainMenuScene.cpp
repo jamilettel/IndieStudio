@@ -28,4 +28,5 @@ void is::scenes::MainMenuScene::initSystems()
 
 void is::scenes::MainMenuScene::initEntities()
 {
+    initEntity(prefabs::GlobalPrefabs::createMainMenu(), false);
 }
