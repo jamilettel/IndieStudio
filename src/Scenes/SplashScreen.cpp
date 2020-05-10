@@ -28,6 +28,7 @@ void is::scenes::SplashScreenScene::initSystems()
 void is::scenes::SplashScreenScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createGlobalPrefab(), true);
+    initEntity(prefabs::GlobalPrefabs::createSplashScreen(), false);
 }
 
 void is::scenes::SplashScreenScene::start()
@@ -44,7 +45,7 @@ void is::scenes::SplashScreenScene::start()
 void is::scenes::SplashScreenScene::update()
 {
     AScene::update();
-    if (_time->get().getElapsedTime() > 5000) {
+    if (_time->get().getElapsedTime() > 3000) {
         is::Game::setActualScene(is::ecs::SCENE_GAME);
         return;
     }

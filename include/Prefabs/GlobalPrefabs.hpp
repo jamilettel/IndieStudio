@@ -53,6 +53,8 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createPlayer();
         static std::shared_ptr<is::ecs::Entity> createAI();
         static std::shared_ptr<is::ecs::Entity> createCanvas();
+
+        static std::shared_ptr<is::ecs::Entity> createSplashScreen();
     };
 
 }
