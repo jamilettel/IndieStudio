@@ -100,6 +100,8 @@ void WindowSystem::update()
 void WindowSystem::stop()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        if (!(elem->getEntity()->shouldBeDeleted()))
+            continue;
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
             throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");

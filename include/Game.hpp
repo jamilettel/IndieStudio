@@ -24,6 +24,7 @@ namespace is {
 
             void addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
             void launchGame(is::ecs::Scenes startScene);
+            void switchScene();
 
             static bool isRunning;
             static void setActualScene(is::ecs::Scenes);

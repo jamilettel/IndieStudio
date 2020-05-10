@@ -46,7 +46,6 @@ void SliderSystem::update()
     for (auto &elem : _componentManager->getComponentsByType(typeid(SliderComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<SliderComponent>(elem);
         if (ptr->isPressed()) {
-            std::cout << "lol" << std::endl;
             std::shared_ptr<WindowComponent> ptr_window;
             bool windowFound = false;
             for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {

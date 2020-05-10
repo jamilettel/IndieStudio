@@ -50,6 +50,8 @@ void AudioSystem::update()
 void AudioSystem::stop()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        if (!(elem->getEntity()->shouldBeDeleted()))
+            continue;
         auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
         ptr->stop();
     }

@@ -12,6 +12,7 @@ is::ecs::SystemManager::SystemManager(std::shared_ptr<ComponentManager> componen
 _componentManager(componentManager),
 _entityManager(entityManager)
 {
+    std::cout << "SYSTEM : " << componentManager.get() << std::endl; 
 }
 
 is::ecs::SystemManager::~SystemManager()
@@ -42,7 +43,7 @@ void is::ecs::SystemManager::start()
 void is::ecs::SystemManager::update()
 {
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
-        system->update();
+            system->update();
     });
 }
 

@@ -16,6 +16,15 @@ void is::Game::addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs
     _scenes[sceneType] = scene;
 }
 
+void is::Game::switchScene()
+{
+    _scenes[changeScene]->stop();
+    _scenes[changeScene]->onTearDown();
+    _scenes[currentScene]->awake();
+    _scenes[currentScene]->start();
+    changeScene = currentScene;
+}
+
 void is::Game::launchGame(is::ecs::Scenes startScene)
 {
     currentScene = startScene;
@@ -24,13 +33,8 @@ void is::Game::launchGame(is::ecs::Scenes startScene)
     _scenes[currentScene]->start();
     while (isRunning) {
         _scenes[currentScene]->update();
-        if (currentScene != changeScene) {
-            _scenes[changeScene]->stop();
-            _scenes[changeScene]->onTearDown();
-            _scenes[currentScene]->awake();
-            _scenes[currentScene]->start();
-            changeScene = currentScene;
-        }
+        if (currentScene != changeScene)
+            switchScene();
     }
     _scenes[currentScene]->stop();
     _scenes[currentScene]->onTearDown();

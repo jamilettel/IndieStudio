@@ -37,7 +37,7 @@ bool is::ecs::EntityManager::operator()(std::shared_ptr<is::ecs::Entity> &ent)
 {
     for (auto tmpEnt : _entities) {
         if (tmpEnt == ent)
-            return (false);
+            return (true);
     }
-    return (true);
+    return (false);
 }

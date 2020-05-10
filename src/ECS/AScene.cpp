@@ -16,8 +16,9 @@ is::ecs::AScene::AScene(is::ecs::Scenes sceneID) : _sceneID(sceneID)
 
 void is::ecs::AScene::initEntity(std::shared_ptr<Entity> &&entity)
 {
-    for (auto &elem : entity->getComponents())
+    for (auto &elem : entity->getComponents()) {
         _componentManager->addComponent(elem);
+    }
     _entityManager->addEntity(entity);
 }
 void is::ecs::AScene::initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad)
@@ -33,22 +34,22 @@ void is::ecs::AScene::initStaticEntities()
 {
     for (auto ent : _entitySaver->getEntities())
     {
-        if (!_entityManager->operator()(ent))
+        if (!_entityManager->operator()(ent)) {
             initEntity(std::shared_ptr(ent));
+        }
     }
 }
-
 
 void is::ecs::AScene::awake()
 {
     initSystems();
-    initStaticEntities();
     initEntities();
     _systemManager->awake();
 }
 
 void is::ecs::AScene::start()
 {
+    initStaticEntities();
     _systemManager->start();
 }
 

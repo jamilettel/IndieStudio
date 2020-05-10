@@ -6,7 +6,7 @@
 */
 
 #include "Prefabs/GlobalPrefabs.hpp"
-
+#include "Game.hpp"
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
@@ -23,6 +23,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
     e->addComponent<WindowComponent>(e, "Indie Studio");
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
     e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0));
+    e->addComponent<TimeComponent>(e);
     return (e);
 }
 
@@ -186,7 +187,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer()
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
@@ -250,6 +250,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI()
 void function_test()
 {
     std::cout << "BUTTON OKAY" << std::endl;
+    is::Game::setActualScene(is::ecs::NOTHING);
 }
 
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()

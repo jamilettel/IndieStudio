@@ -51,5 +51,4 @@ int is::components::SliderComponent::getStep() const
 void is::components::SliderComponent::deleteComponent()
 {
     elementSlider->remove();
-    elementFrame->remove();
 }

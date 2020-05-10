@@ -7,6 +7,7 @@
 
 #include "Game.hpp"
 #include "Scenes/GameScene.hpp"
+#include "Scenes/test.hpp"
 
 int main(int argc, char const *argv[])
 {
@@ -14,6 +15,7 @@ int main(int argc, char const *argv[])
 
     try {
         game.addScene(is::ecs::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
+        game.addScene(is::ecs::Scenes::NOTHING, std::make_shared<is::scenes::test>());
         game.launchGame(is::ecs::Scenes::SCENE_GAME);
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
