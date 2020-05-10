@@ -48,6 +48,8 @@ namespace is::components {
         void assignJoystick(int id);
         int getJoystickId(void) const;
 
+        void unbindAll();
+
         float axisDeadzoneMin = 0.15;
         float axisDeadzoneMax = 0.85;
 

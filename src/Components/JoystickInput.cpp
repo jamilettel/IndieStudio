@@ -131,3 +131,9 @@ int JoystickInputComponent::getJoystickId() const
 {
     return _joystickId;
 }
+
+void JoystickInputComponent::unbindAll()
+{
+    _buttons.clear();
+    _axes.clear();
+}

@@ -70,3 +70,8 @@ InputManagerComponent &KeyboardInputComponent::getInputManager() const
 {
     return _inputManager;
 }
+
+void KeyboardInputComponent::unbindAll()
+{
+    _bindings.clear();
+}
