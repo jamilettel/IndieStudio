@@ -19,6 +19,7 @@ int main(int argc, char const *argv[])
     } catch (is::exceptions::Exception &e) {
         std::cerr << "CAUGHT EXCEPTION:" << std::endl;
         std::cerr << e.getComponent() << ": " << e.what() << std::endl;
+        return 84;
     } catch (const std::exception &e) {
         std::cerr << "CAUGHT EXCEPTION:" << std::endl;
         std::cerr << e.what() << std::endl;
