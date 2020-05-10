@@ -5,7 +5,7 @@
 ** SplashScreen
 */
 
-#include "Scenes/SplashScreen.hpp"
+#include "Scenes/SplashScreenScene.hpp"
 
 is::scenes::SplashScreenScene::SplashScreenScene() :
 AScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN)
@@ -46,7 +46,7 @@ void is::scenes::SplashScreenScene::update()
 {
     AScene::update();
     if (_time->get().getElapsedTime() > 3000) {
-        is::Game::setActualScene(is::ecs::SCENE_GAME);
+        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
         return;
     }
 }
