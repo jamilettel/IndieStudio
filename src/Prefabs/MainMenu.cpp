@@ -23,7 +23,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         RESSOURCE("background.jpg"),
         "Indie Studio",
-        0, 0
+        0, 0,
+        true
     );
     return e;
 }
