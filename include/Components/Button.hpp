@@ -31,17 +31,17 @@ namespace is::components {
                 irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
                 void (*fct)(), const std::string &image, const std::string &pressed,
                 const std::string &font);
-        ~ButtonComponent() = default;
+        ~ButtonComponent() override = default;
 
         ButtonComponent(const ButtonComponent &) = delete;
         ButtonComponent &operator=(const ButtonComponent &) = delete;
 
         void init(std::shared_ptr<is::components::WindowComponent> &ptr_window);
-        void deleteComponent();
+        void deleteComponent() override;
         void (*fctButton)();
-        bool isClicked() const;
+        [[nodiscard]] bool isClicked() const;
         void setClicked(bool);
-        irr::s32 getId() const;
+        [[nodiscard]] irr::s32 getId() const;
 
         std::string windowName;
     private:

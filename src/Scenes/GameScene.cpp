@@ -46,5 +46,5 @@ void is::scenes::GameScene::initEntities()
     mg.generateMap(*this);
     initEntity(prefabs::GlobalPrefabs::createPlayer());
     initEntity(prefabs::GlobalPrefabs::createAI());
-    initEntity(prefabs::GlobalPrefabs::createCanvas(), true);
+    initEntity(prefabs::GlobalPrefabs::createCanvas());
 }

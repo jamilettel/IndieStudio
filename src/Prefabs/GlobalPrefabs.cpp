@@ -251,13 +251,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI()
     return (e);
 }
 
-#include <iostream>
-void function_test()
-{
-    std::cout << "BUTTON OKAY" << std::endl;
-    is::Game::setActualScene(is::ecs::NOTHING);
-}
-
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
 {
     auto e = std::make_shared<is::ecs::Entity>();
@@ -267,7 +260,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         "TEST",
         "Indie Studio",
         10, 10, 100, 100,
-        function_test
+        [](){
+            std::cout << "test" << std::endl;
+        }
     );
     e->addComponent<is::components::TextComponent>(
         e,
@@ -314,6 +309,18 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         RESSOURCE("background_main_menu.png"),
         "Indie Studio",
         0, 0, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "Play",
+        "Indie Studio",
+        500, 300, 300, 50,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_GAME);
+        },
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_font.ttf")
     );
     return (e);
 }
