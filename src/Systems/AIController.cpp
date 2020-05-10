@@ -92,6 +92,12 @@ void AIControllerSystem::update()
             else
                 setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
         }
+        ai.getInputManager().setValue("DropBomb", 0);
+        if (map[ai.shortObjective.X][ai.shortObjective.Y] == is::ecs::Entity::Layer::BRKBL_BLK) {
+            ai.getInputManager().setValue("DropBomb", 1);
+        }
+        setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+        // std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
         ai.getInputManager().setValue("MoveHorizontalAxis", 0);
         ai.getInputManager().setValue("MoveVerticalAxis", 0);
         if (ai.lastShortObjective.Y > ai.shortObjective.Y)
@@ -112,23 +118,80 @@ void AIControllerSystem::update()
         aiPos.Y + (0.3333f) >= ai.shortObjective.Y &&
         aiPos.Y + (0.3333f) <= ai.shortObjective.Y + 1)
             ai.needObjective = true;
-        if (ai.getEntity()->getComponent<MovementComponent>()->get()->velocity == irr::core::vector3df(0)) {
-            static bool test = false;
-            if (test) {
-                ai.getInputManager().setValue("DropBomb", 0);
-                test = !test;
-            }
-            else {
-                ai.getInputManager().setValue("DropBomb", 1);
-                test = !test;
-            }
-        }
+        // if (ai.getEntity()->getComponent<MovementComponent>()->get()->velocity == irr::core::vector3df(0)) {
+        //     static bool test = false;
+        //     if (test) {
+        //         ai.getInputManager().setValue("DropBomb", 0);
+        //         test = !test;
+        //     }
+        //     else {
+        //         ai.getInputManager().setValue("DropBomb", 1);
+        //         test = !test;
+        //     }
+        // }
     }
 }
 
 void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map)
 {
+    irr::core::vector2di bomberPos(-1);
 
+    for (int i = 0; i < map.size(); i++) {
+        for (int a = 0; a < map[i].size(); a++) {
+            if (map[i][a] != is::ecs::Entity::Layer::BOMB) {
+                continue;
+            }
+            if (i == aiPos.X || a == aiPos.Y) {
+                bomberPos.X = i;
+                bomberPos.Y = a;
+                break;
+            }
+        }
+    }
+    if (bomberPos.X == -1)
+        return;
+    std::cout << "JE SUIS UN PD ET EN + Y A UNE BOMBE QUI M'AGRESSE" << std::endl;
+
+    char dirX[] = {-1, 0, 1, 0};
+    char dirY[] = {0, -1, 0, 1};
+    float longestDis = 0;
+
+    ai.needObjective = false;
+    if (bomberPos.X == aiPos.X) {
+        if (bomberPos.Y > aiPos.Y)
+            ai.shortObjective.Y--;
+        else
+            ai.shortObjective.Y++;
+    }
+
+    if (bomberPos.Y == aiPos.Y) {
+        if (bomberPos.X > aiPos.X)
+            ai.shortObjective.X--;
+        else
+            ai.shortObjective.X++;
+    }
+    std::cout << "Short x : " << ai.shortObjective.X << ", Y : " << ai.shortObjective.Y << std::endl;
+
+    // for (int i = 0; i < 4; i++) {
+    //     if (isAirBlock(map[aiPos.X + dirX[i]][aiPos.Y + dirY[i]])) {
+    //         std::sqrt(std::pow())
+    //     }
+    // }
+}
+
+bool AIControllerSystem::isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const
+{
+    for (size_t i = 0; i < map.size(); i++) {
+        for (size_t a = 0; a < map[i].size(); a++) {
+            if (map[i][a] != is::ecs::Entity::Layer::BOMB) {
+                continue;
+            }
+            if (i == aiPos.X || a == aiPos.Y) {
+                return (true);
+            }
+        }
+    }
+    return (false);
 }
 
 void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map)
@@ -141,6 +204,8 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
         if (i == 0) {
             //ai.getInputManager().setValue("DropBomb", 1);
             ai.lastMoves.clear();
+            // setNewLongObjective(ai, aiPos, map);
+            std::cout << ai.longObjective.X << " - " << ai.longObjective.Y << std::endl;
             return;
         }
         ai.lastMoves.push_back(ai.lastShortObjective);
@@ -212,5 +277,6 @@ bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer)
 {
     return (layer == is::ecs::Entity::Layer::DEFAULT ||
         layer == is::ecs::Entity::Layer::PLAYER ||
-        layer == is::ecs::Entity::Layer::POWERUP);
+        layer == is::ecs::Entity::Layer::POWERUP ||
+        layer == is::ecs::Entity::Layer::BRKBL_BLK);
 }

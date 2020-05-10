@@ -16,6 +16,8 @@
 #include "Components/Time.hpp"
 #include <vector>
 
+#include <cmath>
+
 namespace is::systems {
 
     class AIControllerSystem: public is::ecs::ASystem {
@@ -37,6 +39,7 @@ namespace is::systems {
         int aiSearchPath(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos);
         bool aiSearchPathRecursive(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir);
         bool isAirBlock(is::ecs::Entity::Layer);
+        bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
 
