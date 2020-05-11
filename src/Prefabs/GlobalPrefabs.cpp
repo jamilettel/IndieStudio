@@ -314,7 +314,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "Play",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2, is::components::WindowComponent::_height / 2, 300, 50,
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 2  - 50 / 2,
+        300, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_GAME);
         },
