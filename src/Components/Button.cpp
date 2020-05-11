@@ -44,6 +44,7 @@ void is::components::ButtonComponent::init(std::shared_ptr<is::components::Windo
     }
     if (!_font.empty())
         element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
+    element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
 }
 
 bool is::components::ButtonComponent::isClicked() const
