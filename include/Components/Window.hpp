@@ -46,8 +46,10 @@ namespace is::components {
         float joystickRefreshRemainingTime = joystickRefresh;
         bool joystickSupport = true;
 
-    };
+        static int _width;
+        static int _height;
 
+    };
 }
 
 #endif /* !Window_HPP_ */

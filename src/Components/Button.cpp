@@ -35,7 +35,7 @@ Component(e), fctButton(fct), windowName(wn), _clicked(false), _text(text), _dim
 
 void is::components::ButtonComponent::init(std::shared_ptr<is::components::WindowComponent> &ptr_window)
 {
-    element = ptr_window->canvas->addButton(_dimension, 0, IDGenerator::getNewID(), std::wstring(_text.begin(), _text.end()).c_str());
+    element = ptr_window->canvas->addButton(_dimension, nullptr, IDGenerator::getNewID(), std::wstring(_text.begin(), _text.end()).c_str());
     if (!element)
         throw is::exceptions::Exception("ButtonCompononent", "Could not create node from model");
     if (!_image.empty() && !_pressed.empty()) {
