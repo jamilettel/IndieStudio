@@ -42,15 +42,18 @@ void is::components::ButtonComponent::init(std::shared_ptr<is::components::Windo
     if (!_image.empty() && !_pressed.empty()) {
         element->setImage(ptr_window->driver->getTexture(_image.c_str()));
         element->setPressedImage(ptr_window->driver->getTexture(_pressed.c_str()));
+        element->setScaleImage(true);
     }
     if (!_font.empty())
         element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
     element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
+    element->setUseAlphaChannel(true);
+    element->setDrawBorder(false);
 }
 
 bool is::components::ButtonComponent::isClicked() const
 {
-    return (_clicked);
+    return _clicked;
 }
 
 void is::components::ButtonComponent::setClicked(bool clicked)
@@ -60,7 +63,7 @@ void is::components::ButtonComponent::setClicked(bool clicked)
 
 s32 is::components::ButtonComponent::getId() const
 {
-    return (element->getID());
+    return element->getID();
 }
 
 void is::components::ButtonComponent::deleteComponent()

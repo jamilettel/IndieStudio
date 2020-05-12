@@ -310,64 +310,49 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         "Indie Studio",
         0, 0, true
     );
-    e->addComponent<ButtonComponent>(
+    e->addComponent<is::components::ImageComponent>(
         e,
-        "Play",
+        RESSOURCE("ui/logo.png"),
         "Indie Studio",
-        0,
-        0,
-        300, 50,
-        [](){
-            std::cout << "Bouton 1" << std::endl;
-            //is::Game::setActualScene(is::ecs::SCENE_GAME);
-        },
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_font.ttf")
+        is::components::WindowComponent::_width / 2 - 541 / 2, 50, true
     );
     e->addComponent<ButtonComponent>(
         e,
-        "Play",
+        "",
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 3  - 50 / 2,
-        300, 50,
+        is::components::WindowComponent::_height / 2.5,
+        300, 100,
         [](){
-            std::cout << "Bouton 2" << std::endl;
-            //is::Game::setActualScene(is::ecs::SCENE_GAME);
+            is::Game::setActualScene(is::ecs::SCENE_GAME);
         },
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_font.ttf")
+        RESSOURCE("ui/button_play.png"),
+        RESSOURCE("ui/button_play.png")
     );
     e->addComponent<ButtonComponent>(
         e,
-        "Options",
+        "",
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2  - 50 / 2,
-        300, 50,
+        is::components::WindowComponent::_height / 2.5 + 150,
+        300, 100,
         [](){
-            std::cout << "Bouton 3" << std::endl;
         },
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_font.ttf")
+        RESSOURCE("ui/button_options.png"),
+        RESSOURCE("ui/button_options.png")
     );
     e->addComponent<ButtonComponent>(
         e,
-        "Quit",
+        "",
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 1.5  - 50 / 2,
-        300, 50,
+        is::components::WindowComponent::_height / 2.5 + 300,
+        300, 100,
         [](){
-            std::cout << "Bouton 4" << std::endl;
-            //is::Game::isRunning = false;
+            is::Game::isRunning = false;
         },
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_background.jpg"),
-        RESSOURCE("button_font.ttf")
+        RESSOURCE("ui/button_quit.png"),
+        RESSOURCE("ui/button_quit.png")
     );
 
     return (e);
