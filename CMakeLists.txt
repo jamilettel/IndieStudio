@@ -16,13 +16,19 @@ else(MSVC)
 endif(MSVC)
 
 if (NOT APPLE)
-    if(NOT CMAKE_CL_64)
-        include(${CMAKE_MODULE_PATH}/win32/FindIrrlicht.cmake)
-        include(${CMAKE_MODULE_PATH}/win32/FindSFML.cmake)
-    else(NOT CMAKE_CL_64)
-        include(${CMAKE_MODULE_PATH}/win64/FindIrrlicht.cmake)
-        include(${CMAKE_MODULE_PATH}/win64/FindSFML.cmake)
-    endif()
+    if(MSVC)
+        if(NOT CMAKE_CL_64)
+            set(WINDOWS_VERSION "win32")
+        else(NOT CMAKE_CL_64)
+            set(WINDOWS_VERSION "win64")
+        endif()
+        include(${CMAKE_MODULE_PATH}/${WINDOWS_VERSION}/FindIrrlicht.cmake)
+        include(${CMAKE_MODULE_PATH}/${WINDOWS_VERSION}/FindSFML.cmake)
+    endif(MSVC)
+    if(LINUX)
+        include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
+        include(${CMAKE_MODULE_PATH}/FindSFML.cmake)
+    endif(LINUX)
 else (NOT APPLE)
     set(CMAKE_C_COMPILER "gcc")
     set(CMAKE_CXX_COMPILER "g++")
@@ -59,41 +65,22 @@ endif (APPLE)
 
 if(MSVC)
     set(BIN_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
-    if(NOT CMAKE_CL_64)
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/Irrlicht.dll"
-            "${BIN_DIRECTORY}/Irrlicht.dll")
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/openal32.dll"
-            "${BIN_DIRECTORY}/openal32.dll")
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/sfml-audio-d-2.dll"
-            "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win32/sfml-system-d-2.dll"
-            "${BIN_DIRECTORY}/sfml-system-d-2.dll")
-    else(NOT CMAKE_CL_64)
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/Irrlicht.dll"
-            "${BIN_DIRECTORY}/Irrlicht.dll")
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/openal32.dll"
-            "${BIN_DIRECTORY}/openal32.dll")
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/sfml-audio-d-2.dll"
-            "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
-        add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${PROJECT_SOURCE_DIR}/cmake-dependencies/win64/sfml-system-d-2.dll"
-            "${BIN_DIRECTORY}/sfml-system-d-2.dll")
-    endif()
+    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${PROJECT_SOURCE_DIR}/cmake-dependencies/${WINDOWS_VERSION}/Irrlicht.dll"
+        "${BIN_DIRECTORY}/Irrlicht.dll")
+    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${PROJECT_SOURCE_DIR}/cmake-dependencies/${WINDOWS_VERSION}/openal32.dll"
+        "${BIN_DIRECTORY}/openal32.dll")
+    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${PROJECT_SOURCE_DIR}/cmake-dependencies/${WINDOWS_VERSION}/sfml-audio-d-2.dll"
+        "${BIN_DIRECTORY}/sfml-audio-d-2.dll")
+    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${PROJECT_SOURCE_DIR}/cmake-dependencies/${WINDOWS_VERSION}/sfml-system-d-2.dll"
+        "${BIN_DIRECTORY}/sfml-system-d-2.dll")
     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY} )
     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BIN_DIRECTORY} )
     set_target_properties( ${CMAKE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BIN_DIRECTORY} )
