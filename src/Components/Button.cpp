@@ -6,32 +6,33 @@
 */
 
 #include "Components/Button.hpp"
+
+#include <utility>
 #include "IDGenerator.hpp"
 
 using namespace irr;
 
 is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
     const std::string &text, const std::string &wn, s32 x, s32 y, s32 width, s32 height,
-    void (*fct)()) :
-Component(e), fctButton(fct), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(), _pressed()
+    std::function<void()> ft) :
+Component(e), _ft(std::move(ft)), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(), _pressed()
 {
 }
 
 is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
     const std::string &text, const std::string &wn, s32 x, s32 y, s32 width, s32 height,
-    void (*fct)(), const std::string &image, const std::string &pressed) :
-Component(e), fctButton(fct), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(image), _pressed(pressed)
+    std::function<void()> ft, const std::string &image, const std::string &pressed) :
+Component(e), _ft(std::move(ft)), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(image), _pressed(pressed)
 {
 }
 
 is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
     const std::string &text, const std::string &wn, s32 x, s32 y, s32 width, s32 height,
-    void (*fct)(), const std::string &image, const std::string &pressed,
+    std::function<void()> ft, const std::string &image, const std::string &pressed,
     const std::string &font) :
-Component(e), fctButton(fct), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(image), _pressed(pressed), _font(font)
+Component(e), _ft(std::move(ft)), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(image), _pressed(pressed), _font(font)
 {
 }
-
 
 void is::components::ButtonComponent::init(std::shared_ptr<is::components::WindowComponent> &ptr_window)
 {

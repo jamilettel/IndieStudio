@@ -6,9 +6,9 @@
 */
 
 #ifndef IDGENERATOR_HPP
-#   define IDGENERATOR_HPP
+#define IDGENERATOR_HPP
 
-#   include <sys/types.h>
+#include <sys/types.h>
 
 class IDGenerator {
     public:

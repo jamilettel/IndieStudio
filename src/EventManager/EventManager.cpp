@@ -186,7 +186,7 @@ float is::EventManager::getMouseWheel() const
     return _mouse.wheelDelta;
 }
 
-void is::EventManager::addButton(std::shared_ptr<is::components::ButtonComponent> toAdd)
+void is::EventManager::addButton(const std::shared_ptr<is::components::ButtonComponent>& toAdd)
 {
     _context.button.push_back(toAdd);
 }

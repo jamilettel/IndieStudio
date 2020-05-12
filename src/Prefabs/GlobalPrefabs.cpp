@@ -314,15 +314,61 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "Play",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2  - 50 / 2,
+        0,
+        0,
         300, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_GAME);
+            std::cout << "Bouton 1" << std::endl;
+            //is::Game::setActualScene(is::ecs::SCENE_GAME);
         },
         RESSOURCE("button_background.jpg"),
         RESSOURCE("button_background.jpg"),
         RESSOURCE("button_font.ttf")
     );
+    e->addComponent<ButtonComponent>(
+        e,
+        "Play",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 3  - 50 / 2,
+        300, 50,
+        [](){
+            std::cout << "Bouton 2" << std::endl;
+            //is::Game::setActualScene(is::ecs::SCENE_GAME);
+        },
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_font.ttf")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "Options",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 2  - 50 / 2,
+        300, 50,
+        [](){
+            std::cout << "Bouton 3" << std::endl;
+        },
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_font.ttf")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "Quit",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 1.5  - 50 / 2,
+        300, 50,
+        [](){
+            std::cout << "Bouton 4" << std::endl;
+            //is::Game::isRunning = false;
+        },
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_background.jpg"),
+        RESSOURCE("button_font.ttf")
+    );
+
     return (e);
 }

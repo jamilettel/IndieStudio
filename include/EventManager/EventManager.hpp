@@ -78,7 +78,7 @@ namespace is
         void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
         void removeEventKeyReleased(EKEY_CODE keyCode);
 
-        void addButton(std::shared_ptr<is::components::ButtonComponent>);
+        void addButton(const std::shared_ptr<is::components::ButtonComponent>&);
         void checkButtonClicked(irr::s32 id);
 
         bool isJoystickButtonPressed(u8 joystick, u32 button) const;
