@@ -41,8 +41,6 @@ namespace is::components {
         bool isEscaping = false;
         bool needLongObjective = true;
 
-        std::vector<irr::core::vector2di> last; // A voir
-        std::vector<irr::core::vector2di> last2; // A voir
         enum AIState {
             NONE,
             WAITING,
