@@ -25,8 +25,8 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JumpSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
@@ -48,5 +48,5 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
-    //initEntity(prefabs::GlobalPrefabs::createCanvas());
+    initEntity(prefabs::GlobalPrefabs::createCanvas());
 }
