@@ -171,6 +171,9 @@ void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df 
     if (ai.state == AIControllerComponent::WAITING || ai.state == AIControllerComponent::NONE) {
         // ai.getInputManager().setValue("MoveVerticalAxis", 0);
         std::cout << "STOP" << std::endl;
+        ai.state = AIControllerComponent::NONE;
+        ai.needObjective = true;
+        ai.needShortObjective = false;
         return;
     }
     if (ai.lastShortObjective.Y > ai.shortObjective.Y)
@@ -292,7 +295,7 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
             ai.needShortObjective = true;
         } else {
             std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
-            ai.state = AIControllerComponent::WAITING;
+            ai.state = AIControllerComponent::NONE;
         }
     }
 
@@ -374,7 +377,7 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     // std::cout << "Actual position X :" << aiPos.X << ", Y:" << aiPos.Y << std::endl;
     int i = aiSearchPath(ai, map, aiPos);
     if (i == 0) {
-        ai.state = AIControllerComponent::WAITING;
+        ai.state = AIControllerComponent::NONE;
         // std::cout << "C PAS NORMAL CA !!!!!!" << std::endl; 
         return;
     }
