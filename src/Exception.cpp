@@ -26,3 +26,7 @@ const std::string &is::exceptions::Exception::getComponent() const
 is::exceptions::ECSException::ECSException(const std::string &message):
     is::exceptions::Exception("ECS", message)
 {}
+
+is::exceptions::AStarAlgorithmException::AStarAlgorithmException(const std::string &message):
+    is::exceptions::Exception("AStarAlogrithm", message)
+{}

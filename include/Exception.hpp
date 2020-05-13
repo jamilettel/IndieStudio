@@ -39,6 +39,15 @@ namespace is::exceptions {
     private:
     };
 
+    class AStarAlgorithmException: public Exception {
+        public:
+            AStarAlgorithmException(const std::string &message);
+            ~AStarAlgorithmException() = default;
+
+        protected:
+        private:
+    };
+
 }
 
 #endif /* !INDIESTUDIO_EXCEPTIONS_HPP_ */
