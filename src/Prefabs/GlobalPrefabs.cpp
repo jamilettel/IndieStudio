@@ -385,7 +385,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         "",
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 50 / 2,
-        is::components::WindowComponent::_height / 2.5 + 350,
+        is::components::WindowComponent::_height - 100,
         50, 50,
         [](){
         },
