@@ -39,8 +39,7 @@ namespace is::components {
 
         float timeBeforeBegin; // temp
         bool isEscaping = false;
-        bool needShortObjective = false;
-
+        bool needLongObjective = true;
 
         std::vector<irr::core::vector2di> last; // A voir
         std::vector<irr::core::vector2di> last2; // A voir

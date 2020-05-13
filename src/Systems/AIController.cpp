@@ -90,11 +90,12 @@ void AIControllerSystem::update()
             //     ai.firstObjective = false;
             //     ai.needObjective = false;
             // }
-            if (!ai.needShortObjective) {
+            if (ai.needLongObjective) {
                 ai.lastMoves.clear();
                 setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
             }
-            setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+            if (ai.state != AIControllerComponent::NONE)
+                setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
             // if (ai.shortObjective.X == ai.longObjective.X && ai.shortObjective.Y ==  ai.longObjective.Y) {
             //     ai.lastMoves.clear();
             //     setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
@@ -130,6 +131,7 @@ void AIControllerSystem::update()
                 if (ai.state == AIControllerComponent::PUT_BOMB) {
                     ai.getInputManager().setValue("DropBomb", 1);
                     ai.state = AIControllerComponent::ESCAPE_EXPLOSION;
+                    ai.needLongObjective = true;
                 } else if (ai.state == AIControllerComponent::ESCAPE_EXPLOSION) {
                     ai.state = AIControllerComponent::NONE;
                     std::cout << "NONE" << std::endl;
@@ -137,11 +139,11 @@ void AIControllerSystem::update()
                     ai.lastShortObjective = ai.shortObjective;
                     ai.getInputManager().setValue("MoveVerticalAxis", 0);
                     ai.getInputManager().setValue("MoveHorizontalAxis", 0);
-                    ai.needShortObjective = false;
+                    ai.needLongObjective = true;
                 }
             } else {
                 std::cout << "ARRIVEEE SHORT" << std::endl;
-                ai.needShortObjective = true;
+                ai.needLongObjective = false;
             }
         }
         moveAI(ai, aiPos);
@@ -173,7 +175,7 @@ void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df 
         std::cout << "STOP" << std::endl;
         ai.state = AIControllerComponent::NONE;
         ai.needObjective = true;
-        ai.needShortObjective = false;
+        ai.needLongObjective = true;
         return;
     }
     if (ai.lastShortObjective.Y > ai.shortObjective.Y)
@@ -280,9 +282,8 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
     if (ai.state == AIControllerComponent::ESCAPE_EXPLOSION) {
         ai.longObjective = ai.posToEscape;
         std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
-        ai.lastMoves.clear();
         ai.needObjective = false;
-        ai.needShortObjective = true;
+        ai.needLongObjective = false;
         ai.lastShortObjective = ai.shortObjective;
     } else if (ai.state == AIControllerComponent::NONE) {
         ai.last2.clear();
@@ -292,7 +293,7 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
             std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
             ai.needObjective = false;
-            ai.needShortObjective = true;
+            ai.needLongObjective = false;
         } else {
             std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
             ai.state = AIControllerComponent::NONE;
@@ -379,6 +380,8 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     if (i == 0) {
         ai.state = AIControllerComponent::NONE;
         // std::cout << "C PAS NORMAL CA !!!!!!" << std::endl; 
+        ai.needObjective = true;
+        ai.needLongObjective = true;
         return;
     }
     ai.lastMoves.push_back(ai.lastShortObjective);
@@ -387,7 +390,7 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     ai.shortObjective.Y = aiPos.Y + dirY[i - 1];
     // std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
     ai.needObjective = false;
-    ai.needShortObjective = false;
+    ai.needLongObjective = false;
 }
 
 int AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const
