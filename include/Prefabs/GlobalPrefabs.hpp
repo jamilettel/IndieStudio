@@ -42,6 +42,7 @@ namespace is::prefabs {
     public:
         static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
         static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createGrassBlock(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
         static std::shared_ptr<is::ecs::Entity> createFire(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createBreakableBlock(irr::core::vector3df position);

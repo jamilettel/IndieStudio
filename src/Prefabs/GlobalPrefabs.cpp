@@ -40,6 +40,20 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     return (e);
 }
 
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df position)
+{
+    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::GROUND);
+
+    e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ColliderComponent>(
+        e,
+        *e->getComponent<TransformComponent>()->get(),
+        irr::core::vector3df(3, 3, 3)
+    );
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("grass.obj"), "Indie Studio");
+    return (e);
+}
+
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df position)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::BRKBL_BLK);

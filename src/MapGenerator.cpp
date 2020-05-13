@@ -20,7 +20,7 @@ void MapGenerator::generateMap(ecs::AScene &sc)
     // create ground
     for (int i = -mid_w; i < mid_w + 1; i++)
         for (int j = -mid_h; j < mid_h + 1; j++)
-            sc.initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(j * 3, -3, i * 3)));
+            sc.initEntity(prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df(j * 3, -3, i * 3)));
     
     // create walls
     for (int i = -mid_w; i < mid_w + 1; i++) {
