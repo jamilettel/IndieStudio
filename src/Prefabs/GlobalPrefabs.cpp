@@ -320,13 +320,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
 
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("background_main_menu.png"),
+        RESSOURCE("ui/main_menu/background_main_menu.png"),
         "Indie Studio",
         0, 0, true
     );
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("ui/logo.png"),
+        RESSOURCE("ui/main_menu/logo.png"),
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 541 / 2, 50, true
     );
@@ -334,40 +334,99 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2.5,
-        300, 100,
+        is::components::WindowComponent::_width / 2 - 350 / 2,
+        is::components::WindowComponent::_height / 2.5 + 50,
+        350, 100,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_GAME);
         },
-        RESSOURCE("ui/button_play.png"),
-        RESSOURCE("ui/button_play.png")
+        RESSOURCE("ui/main_menu/button_play.png"),
+        RESSOURCE("ui/main_menu/button_play_pressed.png")
     );
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2.5 + 150,
-        300, 100,
-        [](){
-        },
-        RESSOURCE("ui/button_options.png"),
-        RESSOURCE("ui/button_options.png")
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2.5 + 300,
-        300, 100,
+        is::components::WindowComponent::_width / 2 - 350 / 2,
+        is::components::WindowComponent::_height / 2.5 + 200,
+        350, 100,
         [](){
             is::Game::isRunning = false;
         },
-        RESSOURCE("ui/button_quit.png"),
-        RESSOURCE("ui/button_quit.png")
+        RESSOURCE("ui/main_menu/button_quit.png"),
+        RESSOURCE("ui/main_menu/button_quit_pressed.png")
     );
-
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width - 80,
+        is::components::WindowComponent::_height - 150,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/main_menu/Controllers_BTN.png"),
+        RESSOURCE("ui/main_menu/Controllers_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width - 80,
+        is::components::WindowComponent::_height - 70,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/main_menu/Settings_BTN.png"),
+        RESSOURCE("ui/main_menu/Settings_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 50 / 2,
+        is::components::WindowComponent::_height / 2.5 + 350,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/main_menu/Scores_BTN.png"),
+        RESSOURCE("ui/main_menu/Scores_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30,
+        is::components::WindowComponent::_height - 150,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/main_menu/FAQ_BTN.png"),
+        RESSOURCE("ui/main_menu/FAQ_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30,
+        is::components::WindowComponent::_height - 150,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/main_menu/FAQ_BTN.png"),
+        RESSOURCE("ui/main_menu/FAQ_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30,
+        is::components::WindowComponent::_height - 70,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/main_menu/Info_BTN.png"),
+        RESSOURCE("ui/main_menu/Info_BTN_pressed.png")
+    );
     return (e);
 }
