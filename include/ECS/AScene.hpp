@@ -18,9 +18,13 @@ namespace is::ecs {
 
     class AScene : public IScene {
         public:
+            AScene(Scenes sceneID);
             virtual ~AScene() = default;
 
             void initEntity(std::shared_ptr<Entity> &&entity);
+            void initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad);
+
+            void initStaticEntities();
 
             void awake();
             void start();
@@ -28,10 +32,14 @@ namespace is::ecs {
             void stop();
             void onTearDown();
 
+            void deleteNonStaticEntities();
+
         protected:
             std::shared_ptr<EntityManager> _entityManager;
+            static std::shared_ptr<EntityManager> _entitySaver;
             std::shared_ptr<ComponentManager> _componentManager;
             std::shared_ptr<SystemManager> _systemManager;
+            Scenes _sceneID;
     };
 
 }

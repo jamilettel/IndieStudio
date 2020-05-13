@@ -15,6 +15,8 @@ using namespace is::ecs;
 void WindowSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
@@ -39,13 +41,11 @@ void WindowSystem::awake()
         ptr->canvas = ptr->device->getGUIEnvironment();
         if (!ptr->canvas)
             throw is::exceptions::Exception("WindowSystem", "Could not create gui environment");
-        
+
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-        #ifndef __APPLE__
-            ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
-        #endif
+        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
     }
 }
 
@@ -59,20 +59,14 @@ void WindowSystem::start()
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
-void WindowSystem::manageJoysticks(std::shared_ptr<WindowComponent> &ptr)
+void WindowSystem::manageJoysticks([[maybe_unused]]std::shared_ptr<WindowComponent> &ptr)
 {
-    ptr->joystickRefreshRemainingTime += _time->get().getCurrentIntervalSeconds();
-    if (ptr->joystickRefreshRemainingTime < ptr->joystickRefresh)
-        return;
-    ptr->joystickRefreshRemainingTime = 0;
-    ptr->device->activateJoysticks(ptr->joysticks);
-    for (size_t i = 0; i < ptr->joysticks.size(); i++) {
-        std::cerr << time(NULL) << std::endl;
-        std::cerr << ptr->joysticks[i].Name.c_str() << std::endl;
-        std::cerr << "ID: " << ptr->joysticks[i].Joystick << std::endl;
-        std::cerr << "Axes: " << ptr->joysticks[i].Axes << std::endl;
-        std::cerr << "Buttons: " << ptr->joysticks[i].Buttons << std::  endl;
-    }
+    // ptr->joystickRefreshRemainingTime += _time->get().getCurrentIntervalSeconds();
+    // if (ptr->joystickRefreshRemainingTime < ptr->joystickRefresh)
+    //     return;
+    // ptr->joystickRefreshRemainingTime = 0;
+    // for (size_t i = 0; i < ptr->joysticks.size(); i++) {
+    // }
 }
 
 void WindowSystem::update()
@@ -80,16 +74,14 @@ void WindowSystem::update()
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
+            throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         if (!ptr->device->run()) {
             std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
             return;
         }
-        #ifndef __APPLE__
-            if (ptr->joystickSupport)
-                manageJoysticks(ptr);
-        #endif
+        if (ptr->joystickSupport)
+            manageJoysticks(ptr);
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
@@ -100,15 +92,15 @@ void WindowSystem::update()
 void WindowSystem::stop()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        if (!(elem->getEntity()->shouldBeDeleted()))
+            continue;
         auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
         if (!ptr)
-            throw new is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
+            throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         ptr->device->drop();
     }
 }
 
 void WindowSystem::onTearDown()
 {
-
 }
-

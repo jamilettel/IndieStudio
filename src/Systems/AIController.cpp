@@ -17,6 +17,8 @@ void AIControllerSystem::awake()
         _componentManager->getComponentsByType(typeid(AIControllerComponent).hash_code());
 
     for (std::shared_ptr<Component> &component: aiComponents) {
+        if (component->getEntity()->isInit())
+            continue;
         AIControllerComponent &ai = *static_cast<AIControllerComponent *>(component.get());
         
         ai.getInputManager().addValue("MoveHorizontalAxis", 0);

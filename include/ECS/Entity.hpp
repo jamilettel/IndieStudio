@@ -72,8 +72,8 @@ namespace is::ecs {
         void setDelete(bool set);
         bool shouldBeDeleted() const;
 
-        bool isActive() const;
-        void setActive(bool active);
+        bool isInit() const;
+        void setInit(bool init);
 
         Layer layer;
 

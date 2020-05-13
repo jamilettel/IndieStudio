@@ -21,6 +21,8 @@ using namespace is::components;
 void ImageSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ImageComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<ImageComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("ImageSystem", "Could not getImageComponent pointer");
@@ -30,14 +32,14 @@ void ImageSystem::awake()
         for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
             ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
             if (!ptr_window)
-                throw new is::exceptions::Exception("ImageComponent", "Could not get WindowComponent pointer");
+                throw is::exceptions::Exception("ImageComponent", "Could not get WindowComponent pointer");
             if (ptr_window->windowName == ptr->windowName) {
                 windowFound = true;
                 break;
             }
         }
         if (!windowFound)
-            throw new is::exceptions::Exception("ImageComponent", "Could not found window");
+            throw is::exceptions::Exception("ImageComponent", "Could not found window");
 
         ptr->init(ptr_window);
     }

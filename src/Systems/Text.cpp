@@ -21,6 +21,8 @@ using namespace is::components;
 void TextSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
+        if (elem->getEntity()->isInit())
+            continue;
         auto ptr = std::dynamic_pointer_cast<TextComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("TextSystem", "Could not getTextComponent pointer");
@@ -30,14 +32,14 @@ void TextSystem::awake()
         for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
             ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
             if (!ptr_window)
-                throw new is::exceptions::Exception("TextComponent", "Could not get WindowComponent pointer");
+                throw is::exceptions::Exception("TextComponent", "Could not get WindowComponent pointer");
             if (ptr_window->windowName == ptr->windowName) {
                 windowFound = true;
                 break;
             }
         }
         if (!windowFound)
-            throw new is::exceptions::Exception("TextComponent", "Could not found window");
+            throw is::exceptions::Exception("TextComponent", "Could not found window");
 
         ptr->init(ptr_window);
     }

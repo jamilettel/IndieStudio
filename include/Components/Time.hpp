@@ -26,16 +26,20 @@ namespace is::components {
 
             void start();
 
-            void setCurrentInterval();
+            void update();
             [[nodiscard]] float getCurrentIntervalSeconds() const;
             [[nodiscard]] float getCurrentIntervalMilliseconds() const;
 
+            [[nodiscard]] float getElapsedTime() const;
+            void resetStartTime();
+
         private:
+            std::chrono::time_point<std::chrono::system_clock> _begin;
             std::chrono::time_point<std::chrono::system_clock> _start;
             std::chrono::time_point<std::chrono::system_clock> _end;
+            float _elapsed_time;
             float _interval_milliseconds;
             float _interval_seconds;
-
     };
 }
 

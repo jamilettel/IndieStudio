@@ -35,6 +35,7 @@
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardInput.hpp"
 #include "Components/AIController.hpp"
+#include "Components/JoystickInput.hpp"
 
 namespace is::prefabs {
 
@@ -53,6 +54,9 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos);
         static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos);
         static std::shared_ptr<is::ecs::Entity> createCanvas();
+
+        static std::shared_ptr<is::ecs::Entity> createSplashScreen();
+        static std::shared_ptr<is::ecs::Entity> createMainMenu();
     };
 
 }

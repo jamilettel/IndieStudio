@@ -7,7 +7,7 @@
 
 #include "ECS/Entity.hpp"
 
-is::ecs::Entity::Entity(Layer entityLayer): layer(entityLayer), _active(true), _delete(false)
+is::ecs::Entity::Entity(Layer entityLayer): layer(entityLayer), _active(false), _delete(false)
 {
     static int id = 0;
 
@@ -24,12 +24,12 @@ bool is::ecs::Entity::shouldBeDeleted() const
     return _delete;
 }
 
-bool is::ecs::Entity::isActive() const
+bool is::ecs::Entity::isInit() const
 {
     return _active;
 }
 
-void is::ecs::Entity::setActive(bool active)
+void is::ecs::Entity::setInit(bool active)
 {
     _active = active;
 }

@@ -6,7 +6,7 @@
 */
 
 #include "Prefabs/GlobalPrefabs.hpp"
-
+#include "Game.hpp"
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
@@ -19,6 +19,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
+    e->addComponent<TimeComponent>(e);
     e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
     e->addComponent<WindowComponent>(e, "Indie Studio");
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
@@ -200,7 +201,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
@@ -211,6 +211,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
+    JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+    joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
+    joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
+    joystick.bindButton(2, "DropBomb", 1);
+    joystick.bindButton(0, "Jump", 1);
+    joystick.assignJoystick(0);
     return (e);
 }
 
@@ -252,7 +258,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
@@ -260,15 +265,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     return (e);
 }
 
-#include <iostream>
-void function_test()
-{
-    std::cout << "BUTTON OKAY" << std::endl;
-}
-
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
 {
-    std::cout << "SALUT" << std::endl;
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<ButtonComponent>(
@@ -276,7 +274,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         "TEST",
         "Indie Studio",
         10, 10, 100, 100,
-        function_test
+        [](){
+            std::cout << "test" << std::endl;
+        }
     );
     e->addComponent<is::components::TextComponent>(
         e,
@@ -289,7 +289,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         e,
         RESSOURCE("test.png"),
         "Indie Studio",
-        500, 10
+        500, 10, true
     );
     e->addComponent<is::components::SliderComponent>(
         e,
@@ -298,5 +298,76 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         0, 10, 20,
         1000, 10, 500, 100
     );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("background.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("background_main_menu.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/logo.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 541 / 2, 50, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 2.5,
+        300, 100,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_GAME);
+        },
+        RESSOURCE("ui/button_play.png"),
+        RESSOURCE("ui/button_play.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 2.5 + 150,
+        300, 100,
+        [](){
+        },
+        RESSOURCE("ui/button_options.png"),
+        RESSOURCE("ui/button_options.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 300 / 2,
+        is::components::WindowComponent::_height / 2.5 + 300,
+        300, 100,
+        [](){
+            is::Game::isRunning = false;
+        },
+        RESSOURCE("ui/button_quit.png"),
+        RESSOURCE("ui/button_quit.png")
+    );
+
     return (e);
 }

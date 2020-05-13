@@ -22,6 +22,8 @@ namespace is::components {
     public:
         ImageComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, const std::string &wn,
                 int x, int y);
+        ImageComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, const std::string &wn,
+                int x, int y, bool scale);
         ~ImageComponent() = default;
 
         ImageComponent(const ImageComponent &) = delete;
@@ -29,12 +31,13 @@ namespace is::components {
 
         void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
         void deleteComponent();
-       
+
         std::string windowName;
     private:
         irr::core::vector2d<int> _dimension;
         std::string _filename;
         irr::gui::IGUIImage *element;
+        bool _scale;
     };
 
 }
