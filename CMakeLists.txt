@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 
 set(CMAKE_PROJECT_NAME bomberman) 
+set(CMAKE_BUILD_TYPE Debug)
 
 project(${CMAKE_PROJECT_NAME})
 

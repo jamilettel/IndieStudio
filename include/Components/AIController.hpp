@@ -39,6 +39,20 @@ namespace is::components {
 
         float timeBeforeBegin; // temp
         bool isEscaping = false;
+        bool needShortObjective = false;
+
+
+        std::vector<irr::core::vector2di> last; // A voir
+        std::vector<irr::core::vector2di> last2; // A voir
+        enum AIState {
+            NONE,
+            WAITING,
+            PUT_BOMB,
+            ESCAPE_EXPLOSION
+        };
+
+        AIState state = NONE;
+        irr::core::vector2di posToEscape;
 
     private:
         InputManagerComponent &_inputManager;
