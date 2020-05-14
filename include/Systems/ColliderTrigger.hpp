@@ -13,19 +13,18 @@
 namespace is::systems {
 
     class ColliderTriggerSystem: public is::ecs::ASystem {
-    public:
-        ColliderTriggerSystem() = default;
-        ~ColliderTriggerSystem() = default;
+        public:
+            ColliderTriggerSystem() = default;
+            ~ColliderTriggerSystem() override = default;
 
-        ColliderTriggerSystem(const ColliderTriggerSystem &) = default;
-        ColliderTriggerSystem &operator=(const ColliderTriggerSystem &) = default;
+            ColliderTriggerSystem(const ColliderTriggerSystem &) = default;
+            ColliderTriggerSystem &operator=(const ColliderTriggerSystem &) = default;
 
-        void awake() override;
-        void start() override;
-        void update() override;
-        void stop() override;
-        void onTearDown() override;
-
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
     };
 
 }

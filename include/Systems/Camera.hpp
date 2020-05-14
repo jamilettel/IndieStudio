@@ -24,19 +24,16 @@ namespace is::systems {
     class CameraSystem : public is::ecs::ASystem {
         public:
             CameraSystem() = default;
-            ~CameraSystem() = default;
+            ~CameraSystem() override = default;
 
             CameraSystem(const CameraSystem &) = default;
             CameraSystem &operator=(const CameraSystem &) = default;
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
-
-        protected:
-        private:
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
     };
 
 }

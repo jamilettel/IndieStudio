@@ -10,8 +10,8 @@
 is::components::CameraComponent::CameraComponent(std::shared_ptr<is::ecs::Entity> &e,
                                                  const std::string &cm,
                                                  const std::string &wm,
-                                                 irr::core::vector3df pos,
-                                                 irr::core::vector3df rot) :
+                                                 const irr::core::vector3df& pos,
+                                                 const irr::core::vector3df& rot) :
 Component(e)
 {
     position = pos;

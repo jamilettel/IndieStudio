@@ -18,29 +18,29 @@
 namespace is::systems {
 
     class MovementSystem : public is::ecs::ASystem {
-    public:
-        MovementSystem() = default;
-        ~MovementSystem() = default;
+        public:
+            MovementSystem() = default;
+            ~MovementSystem() override = default;
 
-        MovementSystem(const MovementSystem &) = default;
-        MovementSystem &operator=(const MovementSystem &) = default;
+            MovementSystem(const MovementSystem &) = default;
+            MovementSystem &operator=(const MovementSystem &) = default;
 
-        void awake() override;
-        void start() override;
-        void update() override;
-        void stop() override;
-        void onTearDown() override;
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
-    private:
-        static void checkCollisions(
-            is::components::ColliderComponent &component,
-            std::vector<std::shared_ptr<is::ecs::Component>> &colliders
-            );
-        static bool checkMovement(is::components::MovementComponent &collision);
-        static void moveOutOfCollision(is::components::MovementComponent &collision);
+        private:
+            static void checkCollisions(
+                is::components::ColliderComponent &component,
+                std::vector<std::shared_ptr<is::ecs::Component>> &colliders
+                );
+            static bool checkMovement(is::components::MovementComponent &collision);
+            static void moveOutOfCollision(is::components::MovementComponent &collision);
 
-    private:
-        std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
+        private:
+            std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
     };
 }
 

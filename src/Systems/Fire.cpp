@@ -19,9 +19,9 @@ void is::systems::FireSystem::start()
     std::vector<std::shared_ptr<is::ecs::Component>> &time =
         _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
-    if (!time.size())
+    if (time.empty())
         throw is::exceptions::Exception("Fire", "No time component in scene");
-    _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
+    _time.emplace(*dynamic_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
 void is::systems::FireSystem::update()

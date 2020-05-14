@@ -7,6 +7,8 @@
 
 #include "Systems/Bomb.hpp"
 
+#include <utility>
+
 using namespace irr;
 
 void is::systems::BombSystem::awake()
@@ -19,9 +21,9 @@ void is::systems::BombSystem::start()
     std::vector<std::shared_ptr<is::ecs::Component>> &time =
         _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
-    if (!time.size())
+    if (time.empty())
         throw is::exceptions::Exception("Bomb", "No time component in scene");
-    _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
+    _time.emplace(*dynamic_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
 void is::systems::BombSystem::update()
@@ -77,14 +79,14 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
 }
 
 
-bool is::systems::BombSystem::checkFireCollision(is::components::ColliderComponent &trcollider, std::shared_ptr<is::components::WindowComponent> ptr_window)
+bool is::systems::BombSystem::checkFireCollision(is::components::ColliderComponent &trcollider, const std::shared_ptr<is::components::WindowComponent>& ptr_window)
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
     _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
 
     is::systems::ColliderSystem::precomputeCollisionVariables(trcollider);
-    for (size_t i = 0; i < colliders.size(); i++) {
-        is::components::ColliderComponent *ptr = static_cast<is::components::ColliderComponent *>(colliders[i].get());
+    for (auto & collider : colliders) {
+        auto *ptr = dynamic_cast<is::components::ColliderComponent *>(collider.get());
 
         if (&trcollider == ptr || (!trcollider.collidesWith(ptr->getEntity()->layer) && ptr->getEntity()->layer != is::ecs::Entity::BRKBL_BLK))
             continue;
@@ -116,7 +118,7 @@ void is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderComp
      else if (i == 3)
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallPassPowerUp(ptr_cc->getTransform().position));
     auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
-    ptr->initModelRenderer(ptr_window);
+    ptr->initModelRenderer(std::move(ptr_window));
 }
 
 void is::systems::BombSystem::stop()

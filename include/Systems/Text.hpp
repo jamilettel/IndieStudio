@@ -18,7 +18,7 @@ namespace is::systems {
     class TextSystem: public is::ecs::ASystem {
         public:
             TextSystem() = default;
-            ~TextSystem() = default;
+            ~TextSystem() override = default;
 
             TextSystem(const TextSystem &) = default;
             TextSystem &operator=(const TextSystem &) = default;

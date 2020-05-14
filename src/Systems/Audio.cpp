@@ -41,6 +41,7 @@ void AudioSystem::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
+        ptr->setVolume();
         if (ptr->getStatus() == TO_PLAY && !ptr->isPlaying()) {
             ptr->play();
             ptr->nothing();

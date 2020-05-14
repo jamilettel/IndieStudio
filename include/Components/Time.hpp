@@ -13,7 +13,6 @@
 #include <chrono>
 
 namespace is::components {
-
     class TimeComponent : public is::ecs::Component {
         public:
             explicit TimeComponent(std::shared_ptr<is::ecs::Entity> &e);

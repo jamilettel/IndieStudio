@@ -17,24 +17,24 @@
 namespace is::components {
 
     class GravityComponent: public is::ecs::Component {
-    public:
-        GravityComponent(std::shared_ptr<is::ecs::Entity> &e, MovementComponent &movement);
-        ~GravityComponent() override = default;
+        public:
+            GravityComponent(std::shared_ptr<is::ecs::Entity> &e, MovementComponent &movement);
+            ~GravityComponent() override = default;
 
-        GravityComponent(const GravityComponent &) = delete;
-        GravityComponent &operator=(const GravityComponent &) = delete;
+            GravityComponent(const GravityComponent &) = delete;
+            GravityComponent &operator=(const GravityComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        void setActive(bool use);
-        [[nodiscard]] bool isActive() const noexcept;
-        [[nodiscard]] MovementComponent &getMovement() const noexcept;
+            void setActive(bool use);
+            [[nodiscard]] bool isActive() const noexcept;
+            [[nodiscard]] MovementComponent &getMovement() const noexcept;
 
-        irr::core::vector3df gravity;
+            irr::core::vector3df gravity;
 
-    private:
-        bool _active = true;
-        MovementComponent &_movement;
+        private:
+            bool _active = true;
+            MovementComponent &_movement;
     };
 }
 

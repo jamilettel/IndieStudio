@@ -15,21 +15,21 @@
 namespace is::systems {
 
     class KeyboardInputSystem: public is::ecs::ASystem {
-    public:
-        KeyboardInputSystem() = default;
-        ~KeyboardInputSystem() = default;
+        public:
+            KeyboardInputSystem() = default;
+            ~KeyboardInputSystem() override = default;
 
-        KeyboardInputSystem(const KeyboardInputSystem &) = default;
-        KeyboardInputSystem &operator=(const KeyboardInputSystem &) = default;
+            KeyboardInputSystem(const KeyboardInputSystem &) = default;
+            KeyboardInputSystem &operator=(const KeyboardInputSystem &) = default;
 
-        void awake() override;
-        void start() override;
-        void update() override;
-        void stop() override;
-        void onTearDown() override;
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
-    private:
-        std::shared_ptr<is::components::WindowComponent> _window;
+        private:
+            std::shared_ptr<is::components::WindowComponent> _window;
     };
 
 }

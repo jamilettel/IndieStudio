@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.11)
 
-set(CMAKE_PROJECT_NAME bomberman) 
+set(CMAKE_PROJECT_NAME bomberman)
+
+# DEV options
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(${CMAKE_PROJECT_NAME})
 

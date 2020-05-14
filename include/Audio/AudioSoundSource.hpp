@@ -6,9 +6,9 @@
 */
 
 #ifndef AUDIOSOUNDSOURCE_HPP
-#  define AUDIOSOUNDSOURCE_HPP
+#define AUDIOSOUNDSOURCE_HPP
 
-#   include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #   include "IAudioSource.hpp"
 
 namespace is::audio {
@@ -20,6 +20,7 @@ namespace is::audio {
             void pause() override;
             void stop() override;
             bool isPlaying() override;
+            void setVolume(float volume) override;
         private:
             sf::Sound _sound;
             sf::SoundBuffer _buffer;

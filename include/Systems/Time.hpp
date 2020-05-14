@@ -26,8 +26,6 @@ namespace is::systems {
             void update() override;
             void stop() override;
             void onTearDown() override;
-
-        private:
     };
 }
 

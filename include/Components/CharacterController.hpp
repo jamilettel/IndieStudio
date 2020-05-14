@@ -17,38 +17,38 @@
 namespace is::components {
 
     class CharacterControllerComponent : public is::ecs::Component {
-    public:
-        CharacterControllerComponent(
-            std::shared_ptr<is::ecs::Entity> &e,
-            TransformComponent &transform,
-            MovementComponent &movementComponent,
-            AudioComponent &audio,
-            const std::string &wn = "MainWindow",
-            float ps = 0
-            );
-        ~CharacterControllerComponent() override = default;
+        public:
+            CharacterControllerComponent(
+                std::shared_ptr<is::ecs::Entity> &e,
+                TransformComponent &transform,
+                MovementComponent &movementComponent,
+                AudioComponent &audio,
+                std::string wn = "MainWindow",
+                float ps = 0
+                );
+            ~CharacterControllerComponent() override = default;
 
-        CharacterControllerComponent(const CharacterControllerComponent &) = delete;
-        CharacterControllerComponent &operator=(const CharacterControllerComponent &) = delete;
+            CharacterControllerComponent(const CharacterControllerComponent &) = delete;
+            CharacterControllerComponent &operator=(const CharacterControllerComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        [[nodiscard]] MovementComponent &getMovementComponent() const noexcept;
-        [[nodiscard]] TransformComponent &getTransform() const noexcept;
-        [[nodiscard]] AudioComponent &getAudioComponent() const noexcept;
+            [[nodiscard]] MovementComponent &getMovementComponent() const noexcept;
+            [[nodiscard]] TransformComponent &getTransform() const noexcept;
+            [[nodiscard]] AudioComponent &getAudioComponent() const noexcept;
 
-        irr::core::vector3df move;
-        float rotateY;
+            irr::core::vector3df move;
+            float rotateY;
 
-        float playerSpeed;
-        std::string windowName;
+            float playerSpeed;
+            std::string windowName;
 
-        bool canPlaceBomb = true;
+            bool canPlaceBomb = true;
 
-    private:
-        MovementComponent &_movementComponent;
-        TransformComponent &_transform;
-        AudioComponent &_audioComponent;
+        private:
+            MovementComponent &_movementComponent;
+            TransformComponent &_transform;
+            AudioComponent &_audioComponent;
     };
 
 }

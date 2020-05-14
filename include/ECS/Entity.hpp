@@ -17,72 +17,71 @@
 namespace is::ecs {
 
     class Entity {
-    public:
+        public:
 
-        enum Layer {
-            DEFAULT,
-            GROUND,
-            PLAYER,
-            BOMB,
-            FIRE,
-            BRKBL_BLK,
-            POWERUP
-        };
+            enum Layer {
+                DEFAULT,
+                GROUND,
+                PLAYER,
+                BOMB,
+                FIRE,
+                BRKBL_BLK,
+                POWERUP
+            };
 
-    public:
-        Entity(Layer entityLayer = DEFAULT);
-        ~Entity() = default;
+        public:
+            explicit Entity(Layer entityLayer = DEFAULT);
+            ~Entity() = default;
 
-        Entity(const Entity &) = default;
-        Entity &operator=(const Entity &) = default;
+            Entity(const Entity &) = default;
+            Entity &operator=(const Entity &) = default;
 
-        template <class T>
-        std::optional<std::shared_ptr<T>> getComponent() {
-            std::optional<std::shared_ptr<T>> ret;
+            template <class T>
+            std::optional<std::shared_ptr<T>> getComponent() {
+                std::optional<std::shared_ptr<T>> ret;
 
-            for (std::shared_ptr<Component> &component: _components) {
-                if (dynamic_cast<T *>(component.get())) {
-                    ret.emplace(std::dynamic_pointer_cast<T>(component));
-                    break;
+                for (std::shared_ptr<Component> &component: _components) {
+                    if (dynamic_cast<T *>(component.get())) {
+                        ret.emplace(std::dynamic_pointer_cast<T>(component));
+                        break;
+                    }
                 }
+                return ret;
             }
-            return ret;
-        }
 
-        std::vector<std::shared_ptr<Component>> getComponents() const;
+            [[nodiscard]] std::vector<std::shared_ptr<Component>> getComponents() const;
 
-        template <class T>
-        std::vector<std::shared_ptr<T>> getComponentsOfType() {
-            std::vector<std::shared_ptr<T>> ret;
+            template <class T>
+            std::vector<std::shared_ptr<T>> getComponentsOfType() {
+                std::vector<std::shared_ptr<T>> ret;
 
-            for (std::shared_ptr<Component> &component: _components) {
-                if (dynamic_cast<T *>(component.get()))
-                    ret.emplace_back(std::shared_ptr<T>(static_cast<T *>(component.get())));
+                for (std::shared_ptr<Component> &component: _components) {
+                    if (dynamic_cast<T *>(component.get()))
+                        ret.emplace_back(std::shared_ptr<T>(static_cast<T *>(component.get())));
+                }
+                return ret;
             }
-            return ret;
-        }
 
 
-        template <typename T, typename ...U>
-        T &addComponent(U &&...args) {
-            _components.emplace_back(std::make_shared<T>(args...));
-            return (*static_cast<T *>(_components.back().get()));
-        }
+            template <typename T, typename ...U>
+            T &addComponent(U &&...args) {
+                _components.emplace_back(std::make_shared<T>(args...));
+                return (*static_cast<T *>(_components.back().get()));
+            }
 
-        void setDelete(bool set);
-        bool shouldBeDeleted() const;
+            void setDelete(bool set);
+            [[nodiscard]] bool shouldBeDeleted() const;
 
-        bool isInit() const;
-        void setInit(bool init);
+            [[nodiscard]] bool isInit() const;
+            void setInit(bool init);
 
-        Layer layer;
+            Layer layer;
 
-    protected:
-    private:
-        int _id;
-        bool _active;
-        std::vector<std::shared_ptr<Component>> _components;
-        bool _delete;
+        private:
+            int _id;
+            bool _active;
+            std::vector<std::shared_ptr<Component>> _components;
+            bool _delete;
 
     };
 

@@ -18,7 +18,7 @@ namespace is::systems {
     class ButtonSystem: public is::ecs::ASystem {
         public:
             ButtonSystem() = default;
-            ~ButtonSystem() = default;
+            ~ButtonSystem() override = default;
 
             ButtonSystem(const ButtonSystem &) = default;
             ButtonSystem &operator=(const ButtonSystem &) = default;

@@ -12,6 +12,9 @@
 using namespace is::components;
 using namespace is::audio;
 
+float AudioComponent::_volumeMusic = 50;
+float AudioComponent::_volumeSound = 50;
+
 AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type) : Component(e), _filename(filename), _status(NOTHING), _type(type)
 {
 }
@@ -76,4 +79,12 @@ bool AudioComponent::isPlaying()
 SOUND_STATUS AudioComponent::getStatus() const
 {
     return (_status);
+}
+
+void AudioComponent::setVolume()
+{
+    if (_type == SOUND)
+        _audioSource->setVolume(_volumeSound);
+    else
+        _audioSource->setVolume(_volumeMusic);
 }

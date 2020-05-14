@@ -13,23 +13,22 @@
 namespace is::components {
 
     class ColliderTriggerComponent: public is::ecs::Component {
-    public:
-        ColliderTriggerComponent(
-            std::shared_ptr<is::ecs::Entity> &e,
-            ColliderComponent &colliderToCheck,
-            std::function<void(std::vector<ColliderComponent *> &)> onCollisionFct
-            );
-        ~ColliderTriggerComponent() override = default;
+        public:
+            ColliderTriggerComponent(
+                std::shared_ptr<is::ecs::Entity> &e,
+                ColliderComponent &colliderToCheck,
+                std::function<void(std::vector<ColliderComponent *> &)> onCollisionFct
+                );
+            ~ColliderTriggerComponent() override = default;
 
-        ColliderTriggerComponent(const ColliderTriggerComponent &) = delete;
-        ColliderTriggerComponent &operator=(const ColliderTriggerComponent &) = delete;
+            ColliderTriggerComponent(const ColliderTriggerComponent &) = delete;
+            ColliderTriggerComponent &operator=(const ColliderTriggerComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        ColliderComponent &collider;
-        std::function<void(std::vector<ColliderComponent *> &)> onCollision;
-        bool check = true;
-
+            ColliderComponent &collider;
+            std::function<void(std::vector<ColliderComponent *> &)> onCollision;
+            bool check = true;
     };
 
 }
