@@ -266,13 +266,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
             std::cout << "test" << std::endl;
         }
     );
-    e->addComponent<is::components::TextComponent>(
-        e,
-        "Test Text",
-        "Indie Studio",
-        100, 10, 200, 200,
-        false
-    );
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("test.png"),

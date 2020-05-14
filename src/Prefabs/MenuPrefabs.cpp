@@ -199,14 +199,40 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 500 + 90, 262, true
     );
+    std::string volumeMusic = std::to_string(is::components::AudioComponent::_volumeMusic);
+    std::string volumeSound = std::to_string(is::components::AudioComponent::_volumeSound);
+    auto &volumeMusicText = e->addComponent<is::components::TextComponent>(
+        e,
+        volumeMusic.erase(volumeMusic.find('.')),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 500 + 150, 350,
+        100, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    auto &volumeSoundText = e->addComponent<is::components::TextComponent>(
+        e,
+        volumeSound.erase(volumeSound.find('.')),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 500 - 180, 350,
+        100, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 500 + 140, 450,
         50, 50,
-        [](){
+        [&volumeMusicText](){
             is::components::AudioComponent::_volumeMusic = 0;
+            std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
+            volumeMusicText.setText(text.erase(text.find('.')));
         },
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
@@ -217,10 +243,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 500 + 240, 350,
         50, 50,
-        [](){
+        [&volumeMusicText](){
             if (is::components::AudioComponent::_volumeMusic > 99)
                 return;
             is::components::AudioComponent::_volumeMusic++;
+            std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
+            volumeMusicText.setText(text.erase(text.find('.')));
         },
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
@@ -231,10 +259,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         "Indie Studio",
         is::components::WindowComponent::_width / 2 - 500 + 40, 350,
         50, 50,
-        [](){
+        [&volumeMusicText](){
             if (is::components::AudioComponent::_volumeMusic < 1)
                 return;
             is::components::AudioComponent::_volumeMusic--;
+            std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
+            volumeMusicText.setText(text.erase(text.find('.')));
         },
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
@@ -258,8 +288,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         "Indie Studio",
         is::components::WindowComponent::_width / 2 + 500 - 190, 450,
         50, 50,
-        [](){
+        [&volumeSoundText](){
             is::components::AudioComponent::_volumeSound = 0;
+            std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
+            volumeSoundText.setText(text.erase(text.find('.')));
         },
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
@@ -270,10 +302,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         "Indie Studio",
         is::components::WindowComponent::_width / 2 + 500 - 290, 350,
         50, 50,
-        [](){
+        [&volumeSoundText](){
             if (is::components::AudioComponent::_volumeSound < 1)
                 return;
             is::components::AudioComponent::_volumeSound--;
+            std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
+            volumeSoundText.setText(text.erase(text.find('.')));
         },
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
@@ -284,10 +318,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         "Indie Studio",
         is::components::WindowComponent::_width / 2 + 500 - 90, 350,
         50, 50,
-        [](){
+        [&volumeSoundText](){
             if (is::components::AudioComponent::_volumeSound > 99)
                 return;
             is::components::AudioComponent::_volumeSound++;
+            std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
+            volumeSoundText.setText(text.erase(text.find('.')));
         },
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
