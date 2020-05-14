@@ -14,6 +14,7 @@
 #include "Components/Movement.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Time.hpp"
+#include "AStarAlgorithm.hpp"
 #include <vector>
 
 #include <cmath>
@@ -37,24 +38,67 @@ namespace is::systems {
         void onTearDown() override;
 
     private:
-        // Not useful
-        void setNewLongObjective(is::components::AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
-        int aiSearchPath(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const;
-        bool aiSearchPathRecursive(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir) const;
-        bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
-        
-        // USEFUL
-        void setNewShortObjective(is::components::AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
-        bool isAirBlock(is::ecs::Entity::Layer) const;
-        bool canHideFromExplosion(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map, irr::core::vector2di pos, irr::core::vector2di lastPos) const;
-        bool findBombEmplacement(AIControllerComponent &ai, irr::core::vector2di newPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map, irr::core::vector2di lastPos) const;
-        bool bombPosIsUseful(irr::core::vector2di &bombPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+        // NONE STATE
+        void noneState(
+            is::components::AIControllerComponent &ai,
+            irr::core::vector2df &aiPos,
+            std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+        void setNewLongObjective(
+            is::components::AIControllerComponent &ai,
+            irr::core::vector2di aiPos,
+            std::vector<std::vector<is::ecs::Entity::Layer>> map
+        ) const;
+        bool findBombEmplacement(
+            AIControllerComponent &ai,
+            const irr::core::vector2di &pos,
+            const std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+        bool canHideFromExplosion(
+            AIControllerComponent &ai,
+            const irr::core::vector2di &pos,
+            const std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+        bool bombPosIsUseful(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+
+        // ESCAPE EXPLOSION STATE
+        void escapeExplosionState(
+            is::components::AIControllerComponent &ai,
+            irr::core::vector2df &aiPos,
+            std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+
+        // PUT BOMB STATE
+        void putBombState(
+            is::components::AIControllerComponent &ai,
+            irr::core::vector2df &aiPos,
+            std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+
+        // WAITING STATE
+        void waitingState(
+            is::components::AIControllerComponent &ai,
+            irr::core::vector2df &aiPos,
+            std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+
+        // UTILS
         void moveAI(AIControllerComponent &ai, irr::core::vector2df &aiPos) const;
         bool hasReachedObjective(AIControllerComponent &ai, irr::core::vector2df &aiPos) const noexcept;
-    
+        void setNewShortObjective(
+            is::components::AIControllerComponent &ai,
+            irr::core::vector2di aiPos,
+            std::vector<std::vector<is::ecs::Entity::Layer>> &map
+        ) const;
+        bool isAirBlock(is::ecs::Entity::Layer) const;
+        bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
+        bool isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept;
+
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
 
+        using state_function_t = void (AIControllerSystem::*)(is::components::AIControllerComponent &ai, irr::core::vector2df &aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+        std::map<AIControllerComponent::AIState, state_function_t> _mapFunctionState;
     };
 
 }

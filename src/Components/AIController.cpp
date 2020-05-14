@@ -18,9 +18,7 @@ AIControllerComponent::AIControllerComponent(
     shortObjective = irr::core::vector2di(0);
     lastShortObjective = irr::core::vector2di(0);
     longObjective = irr::core::vector2di(0);
-    needObjective = true;
     timeBeforeBegin = 1.5f;
-    firstObjective = true;
 }
 
 void AIControllerComponent::deleteComponent()
