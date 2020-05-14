@@ -16,10 +16,10 @@ namespace is::components {
 
     class InputManagerComponent: public is::ecs::Component {
     public:
-        InputManagerComponent(
+        explicit InputManagerComponent(
             std::shared_ptr<is::ecs::Entity> &e
             );
-        ~InputManagerComponent() = default;
+        ~InputManagerComponent() override = default;
 
         InputManagerComponent(const InputManagerComponent &) = delete;
         InputManagerComponent &operator=(const InputManagerComponent &) = delete;
@@ -27,7 +27,7 @@ namespace is::components {
         void resetValues();
         void setValue(const std::string &action, float value);
         void addValue(const std::string &action, float value);
-        float getInput(const std::string &action) const;
+        [[nodiscard]] float getInput(const std::string &action) const;
 
         void deleteComponent() override;
 

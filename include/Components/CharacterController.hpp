@@ -26,16 +26,16 @@ namespace is::components {
             const std::string &wn = "MainWindow",
             float ps = 0
             );
-        ~CharacterControllerComponent() = default;
+        ~CharacterControllerComponent() override = default;
 
         CharacterControllerComponent(const CharacterControllerComponent &) = delete;
         CharacterControllerComponent &operator=(const CharacterControllerComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
-        MovementComponent &getMovementComponent() const noexcept;
-        TransformComponent &getTransform() const noexcept;
-        AudioComponent &getAudioComponent() const noexcept;
+        [[nodiscard]] MovementComponent &getMovementComponent() const noexcept;
+        [[nodiscard]] TransformComponent &getTransform() const noexcept;
+        [[nodiscard]] AudioComponent &getAudioComponent() const noexcept;
 
         irr::core::vector3df move;
         float rotateY;

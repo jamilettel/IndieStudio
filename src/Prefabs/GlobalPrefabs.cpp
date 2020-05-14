@@ -6,7 +6,7 @@
 */
 
 #include "Prefabs/GlobalPrefabs.hpp"
-
+#include "Game.hpp"
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
@@ -14,17 +14,6 @@
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
 using namespace is::components;
-
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab()
-{
-    auto e = std::make_shared<is::ecs::Entity>();
-
-    e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
-    e->addComponent<WindowComponent>(e, "Indie Studio");
-    e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
-    e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0));
-    return (e);
-}
 
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df position)
 {
@@ -37,6 +26,20 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
         irr::core::vector3df(3, 3, 3)
     );
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("cubb.obj"), "Indie Studio");
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df position)
+{
+    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::GROUND);
+
+    e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ColliderComponent>(
+        e,
+        *e->getComponent<TransformComponent>()->get(),
+        irr::core::vector3df(3, 3, 3)
+    );
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("grass.obj"), "Indie Studio");
     return (e);
 }
 
@@ -186,7 +189,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
@@ -197,6 +199,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
+    JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+    joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
+    joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
+    joystick.bindButton(2, "DropBomb", 1);
+    joystick.bindButton(0, "Jump", 1);
+    joystick.assignJoystick(0);
     return (e);
 }
 
@@ -238,7 +246,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<TimeComponent>(e);
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
@@ -246,15 +253,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     return (e);
 }
 
-#include <iostream>
-void function_test()
-{
-    std::cout << "BUTTON OKAY" << std::endl;
-}
-
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
 {
-    std::cout << "SALUT" << std::endl;
     auto e = std::make_shared<is::ecs::Entity>();
 
     e->addComponent<ButtonComponent>(
@@ -262,7 +262,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         "TEST",
         "Indie Studio",
         10, 10, 100, 100,
-        function_test
+        [](){
+            std::cout << "test" << std::endl;
+        }
     );
     e->addComponent<is::components::TextComponent>(
         e,

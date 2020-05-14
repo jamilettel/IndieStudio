@@ -35,6 +35,7 @@
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardInput.hpp"
 #include "Components/AIController.hpp"
+#include "Components/JoystickInput.hpp"
 
 namespace is::prefabs {
 
@@ -42,6 +43,7 @@ namespace is::prefabs {
     public:
         static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
         static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createGrassBlock(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
         static std::shared_ptr<is::ecs::Entity> createFire(irr::core::vector3df position);
         static std::shared_ptr<is::ecs::Entity> createBreakableBlock(irr::core::vector3df position);
@@ -52,6 +54,10 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos);
         static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos);
         static std::shared_ptr<is::ecs::Entity> createCanvas();
+
+        static std::shared_ptr<is::ecs::Entity> createSplashScreen();
+        static std::shared_ptr<is::ecs::Entity> createMainMenu();
+        static std::shared_ptr<is::ecs::Entity> createSettings();
     };
 
 }

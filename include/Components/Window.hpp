@@ -19,16 +19,16 @@ namespace is::components {
 
     class WindowComponent : public is::ecs::Component {
     public:
-        WindowComponent(std::shared_ptr<is::ecs::Entity> &e,
+        explicit WindowComponent(std::shared_ptr<is::ecs::Entity> &e,
                         const std::string &windowName = "MainWindow",
                         irr::core::dimension2d<u32> ws = irr::core::dimension2d<u32>(1600, 900),
                         bool fs = false);
-        ~WindowComponent() = default;
+        ~WindowComponent() override = default;
 
         WindowComponent(const WindowComponent &) = delete;
         WindowComponent &operator=(const WindowComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         irr::IrrlichtDevice *device;
         irr::video::IVideoDriver* driver;
@@ -46,8 +46,10 @@ namespace is::components {
         float joystickRefreshRemainingTime = joystickRefresh;
         bool joystickSupport = true;
 
-    };
+        static int _width;
+        static int _height;
 
+    };
 }
 
 #endif /* !Window_HPP_ */

@@ -28,3 +28,16 @@ void is::ecs::EntityManager::deleteEntities(std::shared_ptr<is::ecs::ComponentMa
     }
 }
 
+std::vector<std::shared_ptr<is::ecs::Entity>> is::ecs::EntityManager::getEntities() const
+{
+    return (_entities);
+}
+
+bool is::ecs::EntityManager::operator()(std::shared_ptr<is::ecs::Entity> &ent)
+{
+    for (auto tmpEnt : _entities) {
+        if (tmpEnt == ent)
+            return (true);
+    }
+    return (false);
+}

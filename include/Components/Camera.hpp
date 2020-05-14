@@ -18,17 +18,17 @@ namespace is::components {
 
     class CameraComponent : public is::ecs::Component {
     public:
-        CameraComponent(std::shared_ptr<is::ecs::Entity> &e,
+        explicit CameraComponent(std::shared_ptr<is::ecs::Entity> &e,
                         const std::string &cameraName = "MainCamera",
                         const std::string &windowName = "MainWindow",
                         irr::core::vector3df pos = irr::core::vector3df(0),
                         irr::core::vector3df rot = irr::core::vector3df(0));
-        ~CameraComponent() = default;
+        ~CameraComponent() override = default;
 
         CameraComponent(const CameraComponent &) = delete;
         CameraComponent &operator=(const CameraComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         irr::core::vector3df position;
         irr::core::vector3df rotation;

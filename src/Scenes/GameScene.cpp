@@ -8,7 +8,7 @@
 #include "Scenes/GameScene.hpp"
 
 is::scenes::GameScene::GameScene() :
-AScene()
+AScene(is::ecs::Scenes::SCENE_GAME)
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
     _componentManager = std::make_shared<is::ecs::ComponentManager>();
@@ -22,6 +22,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::KeyboardInputSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
@@ -42,7 +43,6 @@ void is::scenes::GameScene::initEntities()
 {
     MapGenerator mg;
 
-    initEntity(prefabs::GlobalPrefabs::createGlobalPrefab());
     mg.generateMap(*this);
     initEntity(prefabs::GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));

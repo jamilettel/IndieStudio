@@ -22,12 +22,12 @@ namespace is::components {
                        irr::core::vector3df position = irr::core::vector3df(0),
                        irr::video::SColorf color = irr::video::SColorf(0),
                        float radius = 100.0f);
-        ~LightComponent() = default;
+        ~LightComponent() override = default;
 
         LightComponent(const LightComponent &) = delete;
         LightComponent &operator=(const LightComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         std::string windowName;
         irr::core::vector3df position;

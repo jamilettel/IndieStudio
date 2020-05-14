@@ -23,7 +23,7 @@ namespace is::components {
     public:
         AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type);
         AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart);
-        ~AudioComponent() = default;
+        ~AudioComponent() override = default;
 
         AudioComponent(const AudioComponent &) = delete;
         AudioComponent &operator=(const AudioComponent &) = delete;
@@ -37,9 +37,9 @@ namespace is::components {
         void nothing();
         bool isPlaying();
 
-        SOUND_STATUS getStatus() const;
+        [[nodiscard]] SOUND_STATUS getStatus() const;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
     private:
         std::string _filename;

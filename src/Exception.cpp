@@ -7,10 +7,12 @@
 
 #include "Exception.hpp"
 
-is::exceptions::Exception::Exception(const std::string &component,
-                                     const std::string &message):
-_component(component),
-_message(message)
+#include <utility>
+
+is::exceptions::Exception::Exception(std::string component,
+                                     std::string message):
+_component(std::move(component)),
+_message(std::move(message))
 {}
 
 const char *is::exceptions::Exception::what() const noexcept
@@ -30,3 +32,8 @@ is::exceptions::ECSException::ECSException(const std::string &message):
 is::exceptions::AStarAlgorithmException::AStarAlgorithmException(const std::string &message):
     is::exceptions::Exception("AStarAlogrithm", message)
 {}
+
+is::exceptions::EventManagerException::EventManagerException(const std::string &message) :
+is::exceptions::Exception("ECS", message)
+{
+}

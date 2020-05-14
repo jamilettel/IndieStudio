@@ -22,12 +22,12 @@ namespace is::components {
             ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
                                    const std::string &name,
                                    const std::string &wn);
-            ~ModelRendererComponent() = default;
+            ~ModelRendererComponent() override = default;
 
             ModelRendererComponent(const ModelRendererComponent &) = delete;
             ModelRendererComponent &operator=(const ModelRendererComponent &) = delete;
 
-            void deleteComponent();
+            void deleteComponent() override;
 
             void initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window);
 

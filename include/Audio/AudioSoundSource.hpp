@@ -15,11 +15,11 @@ namespace is::audio {
     
     class AudioSoundSource : public IAudioSource {
         public:
-            AudioSoundSource(const std::string &filename);
-            void play();
-            void pause();
-            void stop();
-            bool isPlaying();
+            explicit AudioSoundSource(const std::string &filename);
+            void play() override;
+            void pause() override;
+            void stop() override;
+            bool isPlaying() override;
         private:
             sf::Sound _sound;
             sf::SoundBuffer _buffer;

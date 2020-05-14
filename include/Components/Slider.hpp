@@ -24,17 +24,17 @@ namespace is::components {
     public:
         SliderComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &slider, const std::string &wn, int min, int max, int step,
                 irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height);
-        ~SliderComponent() = default;
+        ~SliderComponent() override = default;
 
         SliderComponent(const SliderComponent &) = delete;
         SliderComponent &operator=(const SliderComponent &) = delete;
 
         void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
-        void deleteComponent();
+        void deleteComponent() override;
 
         void setPosition(float position);
-        bool isPressed() const;
-        int getStep() const;
+        [[nodiscard]] bool isPressed() const;
+        [[nodiscard]] int getStep() const;
         std::string windowName;
     private:
         irr::core::rect<irr::s32> _dimension;

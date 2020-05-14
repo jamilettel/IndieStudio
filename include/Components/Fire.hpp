@@ -17,13 +17,13 @@ namespace is::components {
 
     class FireComponent : public is::ecs::Component {
     public:
-        FireComponent(std::shared_ptr<is::ecs::Entity> &e, float lt = 0.4f);
-        ~FireComponent() = default;
+        explicit FireComponent(std::shared_ptr<is::ecs::Entity> &e, float lt = 0.4f);
+        ~FireComponent() override = default;
 
         FireComponent(const FireComponent &) = delete;
         FireComponent &operator=(const FireComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         float lifeTime;
     };

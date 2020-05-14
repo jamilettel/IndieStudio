@@ -21,14 +21,14 @@ namespace is::components {
             std::shared_ptr<is::ecs::Entity> &e,
             InputManagerComponent &inputManager
             );
-        ~KeyboardInputComponent() = default;
+        ~KeyboardInputComponent() override = default;
 
         KeyboardInputComponent(const KeyboardInputComponent &) = delete;
         KeyboardInputComponent &operator=(const KeyboardInputComponent &) = delete;
 
         void deleteComponent() override;
 
-        bool isBound(EKEY_CODE key) const;
+        [[nodiscard]] bool isBound(EKEY_CODE key) const;
 
         void bind(EKEY_CODE key, const std::string &action, float target);
         void unbind(EKEY_CODE key);
@@ -36,7 +36,9 @@ namespace is::components {
         bool changeTarget(EKEY_CODE key, float target);
 
         std::map<EKEY_CODE, std::pair<std::string, float>> &getBindings();
-        InputManagerComponent &getInputManager() const;
+        [[nodiscard]] InputManagerComponent &getInputManager() const;
+
+        void unbindAll();
 
     private:
         InputManagerComponent &_inputManager;

@@ -21,14 +21,14 @@ namespace is::components {
             std::shared_ptr<is::ecs::Entity> &e,
             InputManagerComponent &inputManager
             );
-        ~AIControllerComponent() = default;
+        ~AIControllerComponent() override = default;
 
         AIControllerComponent(const AIControllerComponent &) = delete;
         AIControllerComponent &operator=(const AIControllerComponent &) = delete;
 
         void deleteComponent() override;
 
-        InputManagerComponent &getInputManager() const;
+        [[nodiscard]] InputManagerComponent &getInputManager() const;
 
         irr::core::vector2di shortObjective;
         irr::core::vector2di lastShortObjective;

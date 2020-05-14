@@ -20,7 +20,7 @@ void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<i
 {
     node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(fileName.c_str()));
     if (!node)
-        throw new is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
+        throw is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
 }
 
 void is::components::ModelRendererComponent::deleteComponent()

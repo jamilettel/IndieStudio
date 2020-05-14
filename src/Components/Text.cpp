@@ -30,7 +30,7 @@ void is::components::TextComponent::init(std::shared_ptr<is::components::WindowC
 {
     element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, IDGenerator::getNewID());
     if (!element)
-        throw new is::exceptions::Exception("TextCompononent", "Could not create node from model");
+        throw is::exceptions::Exception("TextCompononent", "Could not create node from model");
     if (!_font.empty())
         element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
 }

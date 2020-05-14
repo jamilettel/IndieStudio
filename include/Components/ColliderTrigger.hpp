@@ -19,7 +19,7 @@ namespace is::components {
             ColliderComponent &colliderToCheck,
             std::function<void(std::vector<ColliderComponent *> &)> onCollisionFct
             );
-        ~ColliderTriggerComponent() = default;
+        ~ColliderTriggerComponent() override = default;
 
         ColliderTriggerComponent(const ColliderTriggerComponent &) = delete;
         ColliderTriggerComponent &operator=(const ColliderTriggerComponent &) = delete;
