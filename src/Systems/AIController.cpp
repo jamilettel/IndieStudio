@@ -113,6 +113,17 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
         std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
         ai.needObjective = false;
         ai.needLongObjective = false;
+
+        AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
+            return (!isAirBlock(layter));
+        });
+        astar.searchPath();
+        std::optional<std::pair<int, int>> pos;
+        ai.path.clear();
+        while ((pos = astar.getNextPos()).has_value()) {
+            ai.path.emplace_back(pos.value());
+        }
+
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
     } else {
         std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
@@ -251,6 +262,16 @@ void AIControllerSystem::putBombState(is::components::AIControllerComponent &ai,
             std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             ai.lastShortObjective = ai.shortObjective;
             ai.lastMoves.clear();
+
+            AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
+                return (!isAirBlock(layter));
+            });
+            astar.searchPath();
+            std::optional<std::pair<int, int>> pos;
+            ai.path.clear();
+            while ((pos = astar.getNextPos()).has_value()) {
+                ai.path.emplace_back(pos.value());
+            }
         }
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
     }
@@ -366,18 +387,11 @@ bool AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std
     int path_finded = 0;
     bool alreadyPass = false;
 
-    AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
-        return (!isAirBlock(layter));
-    });
-    astar.searchPath();
-    std::optional<std::pair<int, int>> pos = astar.getNextPos();
-    if (!pos.has_value())
-        return (false);
-    std::cout << pos.value().first << " " << pos.value().second << std::endl;
-    ai.lastMoves.push_back(ai.lastShortObjective);
+    // ai.lastMoves.push_back(ai.lastShortObjective);
     ai.lastShortObjective = ai.shortObjective;
-    ai.shortObjective.X = pos.value().first;
-    ai.shortObjective.Y = pos.value().second;
+    ai.shortObjective.X = ai.path[0].first;
+    ai.shortObjective.Y = ai.path[0].second;
+    ai.path.erase(ai.path.begin());
     // for (int i = 0; i < 4; i++) {
     //     alreadyPass = false;
     //     // std::cout << "Check for X: " << aiPos.X + dirX[i] << " and Y:" << aiPos.Y + dirY[i] << std::endl;

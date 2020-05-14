@@ -40,6 +40,7 @@ namespace is::components {
         float timeBeforeBegin; // temp
         bool isEscaping = false;
         bool needLongObjective = true;
+        std::vector<std::pair<int, int>> path;
 
         enum AIState {
             NONE,
