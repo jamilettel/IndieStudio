@@ -22,20 +22,20 @@ namespace is::components {
             std::shared_ptr<is::ecs::Entity> &e,
             InputManagerComponent &inputManager
             );
-        ~JoystickInputComponent() = default;
+        ~JoystickInputComponent() override = default;
 
         JoystickInputComponent(const JoystickInputComponent &) = delete;
         JoystickInputComponent &operator=(const JoystickInputComponent &) = delete;
 
         void deleteComponent() override;
 
-        bool isButtonBound(u32 button) const;
+        [[nodiscard]] bool isButtonBound(u32 button) const;
         void bindButton(u32 button, const std::string &action, float target);
         void unbindButton(u32 button);
         bool changeButton(u32 from, u32 to);
         bool changeButtonTarget(u32 button, float target);
 
-        bool isAxisBound(u32 axis) const;
+        [[nodiscard]] bool isAxisBound(u32 axis) const;
         void bindAxis(u32 axis, const std::string &action, float min, float max);
         void unbindAxis(u32 axis);
         bool changeAxis(u32 from, u32 to);
@@ -43,10 +43,10 @@ namespace is::components {
 
         std::map<u32, std::pair<std::string, float>> &getButtonBindings();
         std::map<u32, std::pair<std::string, float[2]>> &getAxisBindings();
-        InputManagerComponent &getInputManager() const;
+        [[nodiscard]] InputManagerComponent &getInputManager() const;
 
         void assignJoystick(int id);
-        int getJoystickId(void) const;
+        [[nodiscard]] int getJoystickId() const;
 
         void unbindAll();
 

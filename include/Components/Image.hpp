@@ -24,13 +24,13 @@ namespace is::components {
                 int x, int y);
         ImageComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, const std::string &wn,
                 int x, int y, bool scale);
-        ~ImageComponent() = default;
+        ~ImageComponent() override = default;
 
         ImageComponent(const ImageComponent &) = delete;
         ImageComponent &operator=(const ImageComponent &) = delete;
 
         void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
-        void deleteComponent();
+        void deleteComponent() override;
 
         std::string windowName;
     private:
