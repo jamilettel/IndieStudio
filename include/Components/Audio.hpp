@@ -41,6 +41,10 @@ namespace is::components {
 
         void deleteComponent() override;
 
+        void setVolume();
+        static float _volumeMusic;
+        static float _volumeSound;
+
     private:
         std::string _filename;
         std::shared_ptr<is::audio::IAudioSource> _audioSource;

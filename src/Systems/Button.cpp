@@ -62,6 +62,8 @@ void ButtonSystem::stop()
 
 void ButtonSystem::onTearDown()
 {
-
+    for (auto &elem: _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
+        ptr->eventManager.removeAllButtons();
+    }
 }
-

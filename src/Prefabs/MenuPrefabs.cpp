@@ -206,6 +206,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         is::components::WindowComponent::_width / 2 - 500 + 140, 450,
         50, 50,
         [](){
+            is::components::AudioComponent::_volumeMusic = 0;
         },
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
@@ -214,9 +215,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 500 + 140, 450,
+        is::components::WindowComponent::_width / 2 - 500 + 240, 350,
         50, 50,
         [](){
+            if (is::components::AudioComponent::_volumeMusic > 99)
+                return;
+            is::components::AudioComponent::_volumeMusic++;
         },
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
@@ -225,12 +229,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 500 + 140, 450,
+        is::components::WindowComponent::_width / 2 - 500 + 40, 350,
         50, 50,
         [](){
+            if (is::components::AudioComponent::_volumeMusic < 1)
+                return;
+            is::components::AudioComponent::_volumeMusic--;
         },
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
-        RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
+        RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
     );
 
     e->addComponent<is::components::ImageComponent>(
@@ -252,9 +259,38 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         is::components::WindowComponent::_width / 2 + 500 - 190, 450,
         50, 50,
         [](){
+            is::components::AudioComponent::_volumeSound = 0;
         },
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 500 - 290, 350,
+        50, 50,
+        [](){
+            if (is::components::AudioComponent::_volumeSound < 1)
+                return;
+            is::components::AudioComponent::_volumeSound--;
+        },
+        RESSOURCE("ui/settings/Sound_low_BTN.png"),
+        RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 500 - 90, 350,
+        50, 50,
+        [](){
+            if (is::components::AudioComponent::_volumeSound > 99)
+                return;
+            is::components::AudioComponent::_volumeSound++;
+        },
+        RESSOURCE("ui/settings/Sound_high_BTN.png"),
+        RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
     );
     return e;
 }
