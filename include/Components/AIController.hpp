@@ -33,13 +33,8 @@ namespace is::components {
         irr::core::vector2di shortObjective;
         irr::core::vector2di lastShortObjective;
         irr::core::vector2di longObjective;
-        bool needObjective;
-        bool firstObjective;
-        std::vector<irr::core::vector2di> lastMoves;
 
         float timeBeforeBegin; // temp
-        bool isEscaping = false;
-        bool needLongObjective = true;
         std::vector<std::pair<int, int>> path;
 
         enum AIState {

@@ -51,20 +51,15 @@ namespace is::systems {
         ) const;
         bool findBombEmplacement(
             AIControllerComponent &ai,
-            irr::core::vector2di newPos,
-            std::vector<std::vector<is::ecs::Entity::Layer>> &map,
-            irr::core::vector2di lastPos,
-            std::vector<irr::core::vector2di> &lastMove
+            const irr::core::vector2di &pos,
+            const std::vector<std::vector<is::ecs::Entity::Layer>> &map
         ) const;
         bool canHideFromExplosion(
             AIControllerComponent &ai,
-            irr::core::vector2di aiPos,
-            std::vector<std::vector<is::ecs::Entity::Layer>> &map,
-            irr::core::vector2di pos,
-            irr::core::vector2di lastPos,
-            std::vector<irr::core::vector2di> &lastMove
+            const irr::core::vector2di &pos,
+            const std::vector<std::vector<is::ecs::Entity::Layer>> &map
         ) const;
-        bool bombPosIsUseful(irr::core::vector2di &bombPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+        bool bombPosIsUseful(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
 
         // ESCAPE EXPLOSION STATE
         void escapeExplosionState(
@@ -96,15 +91,8 @@ namespace is::systems {
             std::vector<std::vector<is::ecs::Entity::Layer>> &map
         ) const;
         bool isAirBlock(is::ecs::Entity::Layer) const;
-        bool hasAlreadyPass(std::vector<irr::core::vector2di> &moves, irr::core::vector2di &pos) const noexcept;
-        bool aiSearchPath(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const;
-        bool aiSearchPathRecursive(
-            is::components::AIControllerComponent &ai,
-            std::vector<std::vector<is::ecs::Entity::Layer>> map,
-            irr::core::vector2di aiPos,
-            irr::core::vector2di dir
-        ) const;
         bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
+        bool isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept;
 
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;

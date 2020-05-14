@@ -96,12 +96,8 @@ void AIControllerSystem::update()
 void AIControllerSystem::noneState(is::components::AIControllerComponent &ai, irr::core::vector2df &aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
 {
     // std::cout << "NONE STATE" << std::endl;
-    if (ai.firstObjective) {
-        ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
-        ai.shortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
-        ai.firstObjective = false;
-    }
-    ai.lastMoves.clear();
+    ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
+    ai.shortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
     setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
 }
 
@@ -109,12 +105,10 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
 {
     std::vector<irr::core::vector2di> lastMove;
 
-    if (findBombEmplacement(ai, aiPos, map, aiPos, lastMove)) {
+    if (findBombEmplacement(ai, aiPos, map)) {
         std::cout << "FIND EMPLACEMENT FOR BOMB" << std::endl;
         std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
         std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
-        ai.needObjective = false;
-        ai.needLongObjective = false;
 
         AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
             return (!isAirBlock(layter));
@@ -128,50 +122,53 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
 
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
     } else {
-        std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
+        // std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
         ai.state = AIControllerComponent::NONE;
     }
 }
 
 bool AIControllerSystem::canHideFromExplosion(
     AIControllerComponent &ai,
-    irr::core::vector2di aiPos,
-    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
-    irr::core::vector2di bombPos,
-    irr::core::vector2di lastPos,
-    std::vector<irr::core::vector2di> &lastMove
+    const irr::core::vector2di &pos,
+    const std::vector<std::vector<is::ecs::Entity::Layer>> &map
 ) const
 {
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
+    std::vector<irr::core::vector2di> successors;
 
-    for (int i = 0; i < 4; i++) {
-        irr::core::vector2di newPos(aiPos.X + dirX[i], aiPos.Y + dirY[i]);
+    successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
+    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
+    successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
+    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
+    while (successors.size() != 0) {
+        irr::core::vector2di newPos = successors[0];
 
-        if (hasAlreadyPass(lastMove, newPos))
+        successors.erase(successors.begin());
+        if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
             continue;
-        if (newPos.X == lastPos.X && newPos.Y == lastPos.Y)
-            continue;
-        if (!isAirBlock(map[aiPos.X + dirX[i]][aiPos.Y + dirY[i]]))
-            continue;
-
-        if (newPos.X != bombPos.X && newPos.Y != bombPos.Y) {
+        if (newPos.X != pos.X && newPos.Y != pos.Y) {
             ai.posToEscape = newPos;
-            return (true);
+            return true;
+        } else {
+            if (pos.X - newPos.X >= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
+            if (pos.X - newPos.X <= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
+            if (pos.Y - newPos.Y >= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
+            if (pos.Y - newPos.Y <= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
         }
-        lastMove.emplace_back(newPos);
-        if (canHideFromExplosion(ai, newPos, map, bombPos, aiPos, lastMove))
-            return (true);
     }
-    return (false);
+    return false;
 }
 
-bool AIControllerSystem::bombPosIsUseful(irr::core::vector2di &bombPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
+bool AIControllerSystem::bombPosIsUseful(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
 {
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
 
-    // std::cout << "Bomb pos is useful with position X:" << bombPos.X << " and Y:" << bombPos.Y << std::endl << std::flush;
     for (int i = 0; i < 4; i++) {
         irr::core::vector2di newPos(bombPos.X + dirX[i], bombPos.Y + dirY[i]);
 
@@ -183,36 +180,40 @@ bool AIControllerSystem::bombPosIsUseful(irr::core::vector2di &bombPos, std::vec
 
 bool AIControllerSystem::findBombEmplacement(
     AIControllerComponent &ai,
-    irr::core::vector2di pos,
-    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
-    irr::core::vector2di lastPos,
-    std::vector<irr::core::vector2di> &lastMove
+    const irr::core::vector2di &pos,
+    const std::vector<std::vector<is::ecs::Entity::Layer>> &map
 ) const
 {
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
+    std::vector<irr::core::vector2di> successors;
 
-    for (int i = 0; i < 4; i++) {
-        irr::core::vector2di newPos(pos.X + dirX[i], pos.Y + dirY[i]);
+    successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
+    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
+    successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
+    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
+    while (successors.size() != 0) {
+        irr::core::vector2di newPos = successors[0];
 
-        if (hasAlreadyPass(lastMove, newPos))
+        successors.erase(successors.begin());
+        if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
             continue;
-        if (newPos.X == lastPos.X && newPos.Y == lastPos.Y)
-            continue;
-        if (!isAirBlock(map[newPos.X][newPos.Y]))
-            continue;
-        std::vector<irr::core::vector2di> lastMoveHide;
-
-        if (bombPosIsUseful(newPos, map) && canHideFromExplosion(ai, newPos, map, newPos, irr::core::vector2di(0, 0), lastMoveHide)) {
+        if (bombPosIsUseful(newPos, map) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
             ai.longObjective = newPos;
-            return (true);
+            return true;
+        } else {
+            if (pos.X - newPos.X >= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
+            if (pos.X - newPos.X <= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
+            if (pos.Y - newPos.Y >= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
+            if (pos.Y - newPos.Y <= 0)
+                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
         }
-        lastMove.emplace_back(newPos);
-        if (findBombEmplacement(ai, newPos, map, lastPos, lastMove))
-            return (true);
     }
-    return (false);
+    return false;
 }
 
 
@@ -263,7 +264,6 @@ void AIControllerSystem::putBombState(is::components::AIControllerComponent &ai,
             ai.longObjective = ai.posToEscape;
             std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             ai.lastShortObjective = ai.shortObjective;
-            ai.lastMoves.clear();
 
             AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
                 return (!isAirBlock(layter));
@@ -305,8 +305,6 @@ void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df 
     if (ai.state == AIControllerComponent::WAITING || ai.state == AIControllerComponent::NONE) {
         std::cout << "STOP" << std::endl;
         ai.state = AIControllerComponent::NONE;
-        ai.needObjective = true;
-        ai.needLongObjective = true;
         return;
     }
     if (ai.lastShortObjective.Y > ai.shortObjective.Y)
@@ -321,8 +319,7 @@ void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df 
 
 bool AIControllerSystem::hasReachedObjective(AIControllerComponent &ai, irr::core::vector2df &aiPos) const noexcept
 {
-    return (!ai.needObjective &&
-        aiPos.X - (0.3333f) >= ai.shortObjective.X &&
+    return (aiPos.X - (0.3333f) >= ai.shortObjective.X &&
         aiPos.X - (0.3333f) <= ai.shortObjective.X + 1 &&
         aiPos.X + (0.3333f) >= ai.shortObjective.X &&
         aiPos.X + (0.3333f) <= ai.shortObjective.X + 1 &&
@@ -330,15 +327,6 @@ bool AIControllerSystem::hasReachedObjective(AIControllerComponent &ai, irr::cor
         aiPos.Y - (0.3333f) <= ai.shortObjective.Y + 1 &&
         aiPos.Y + (0.3333f) >= ai.shortObjective.Y &&
         aiPos.Y + (0.3333f) <= ai.shortObjective.Y + 1);
-}
-
-bool AIControllerSystem::hasAlreadyPass(std::vector<irr::core::vector2di> &moves, irr::core::vector2di &pos) const noexcept
-{
-    for (auto &e : moves)
-        if (e.X == pos.X && e.Y == pos.Y) {
-            return (true);
-        }
-    return (false);
 }
 
 bool AIControllerSystem::isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const
@@ -361,101 +349,25 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
 
-    // std::cout << "Enter to setNewShortObjective..." << std::endl;
-
-    // std::cout << "Actual sort objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
-    // std::cout << "Actual long objective X :" << ai.longObjective.X << ", Y:" << ai.longObjective.Y << std::endl;
-    // std::cout << "Actual last short objective X :" << ai.lastShortObjective.X << ", Y:" << ai.lastShortObjective.Y << std::endl;
-    // std::cout << "Actual position X :" << aiPos.X << ", Y:" << aiPos.Y << std::endl;
-    if (aiSearchPath(ai, map, aiPos) == false) {
-        ai.state = AIControllerComponent::NONE;
-        // std::cout << "C PAS NORMAL CA !!!!!!" << std::endl; 
-        ai.needObjective = true;
-        ai.needLongObjective = true;
+    if (!ai.path.size())
         return;
-    }
-    // ai.lastShortObjective = ai.shortObjective;
-    // ai.shortObjective.X = aiPos.X + dirX[i - 1];
-    // ai.shortObjective.Y = aiPos.Y + dirY[i - 1];
-    std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
-    // ai.needObjective = false;
-    // ai.needLongObjective = false;
-}
-
-bool AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const
-{
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
-    int path_finded = 0;
-    bool alreadyPass = false;
-
-    // ai.lastMoves.push_back(ai.lastShortObjective);
     ai.lastShortObjective = ai.shortObjective;
     ai.shortObjective.X = ai.path[0].first;
     ai.shortObjective.Y = ai.path[0].second;
     ai.path.erase(ai.path.begin());
-    // for (int i = 0; i < 4; i++) {
-    //     alreadyPass = false;
-    //     // std::cout << "Check for X: " << aiPos.X + dirX[i] << " and Y:" << aiPos.Y + dirY[i] << std::endl;
-    //     for (auto &e : ai.lastMoves)
-    //         if (e.X == aiPos.X + dirX[i] && e.Y == aiPos.Y + dirY[i]) {
-    //             alreadyPass = true;
-    //             // std::cout << "BREAK" << std::endl;
-    //             break;
-    //         }
-    //     // std::cout << "PASS" << std::endl;
-    //     if (alreadyPass) {
-    //         // std::cout << "ALREADY PASS" << std::endl;
-    //         continue;
-    //     }
-    //     if (aiPos.X + dirX[i] == ai.lastShortObjective.X && aiPos.Y + dirY[i] == ai.lastShortObjective.Y) {
-    //         // std::cout << "Same as last short objective" << std::endl;
-    //         continue;
-    //     }
-    //     if (isAirBlock(map[aiPos.X + dirX[i]][aiPos.Y + dirY[i]])) {
-    //         if (aiSearchPathRecursive(ai, map, aiPos, irr::core::vector2di(dirX[i], dirY[i]))) {
-    //             path_finded = i + 1;
-    //             break;
-    //         }
-    //     }
-    // }
-    return (true);
+    std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
 }
-
-bool AIControllerSystem::aiSearchPathRecursive(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir) const
-{
-    irr::core::vector2di newAiPos = irr::core::vector2di(aiPos.X + dir.X, aiPos.Y + dir.Y);
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
-    bool alreadyPass = false;
-
-    if (ai.longObjective == newAiPos) {
-        return (true);
-    }
-    for (int i = 0; i < 4; i++) {
-        alreadyPass = false;
-        for (auto &e : ai.lastMoves)
-            if (e.X == aiPos.X + dirX[i] && e.Y == aiPos.Y + dirY[i]) {
-                alreadyPass = true;
-                break;
-            }
-        if (alreadyPass)
-            continue;
-        if (dir.X == -dirX[i] && dir.Y == -dirY[i])
-            continue;
-        map[aiPos.X][aiPos.Y] = is::ecs::Entity::Layer::GROUND;
-        if (!isAirBlock(map[newAiPos.X + dirX[i]][newAiPos.Y + dirY[i]]))
-            continue;
-        if (aiSearchPathRecursive(ai, map, newAiPos, irr::core::vector2di(dirX[i], dirY[i])))
-            return (true);
-    }
-    return (false);
-}
-
 
 bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer) const
 {
     return (layer == is::ecs::Entity::Layer::DEFAULT ||
         layer == is::ecs::Entity::Layer::PLAYER ||
         layer == is::ecs::Entity::Layer::POWERUP);
+}
+
+bool AIControllerSystem::isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept
+{
+    if (map.size() == 0)
+        return (false);
+    return (pos.X >= 0 && pos.X < map.size() && pos.Y >= 0 && pos.Y < map[0].size());
 }
