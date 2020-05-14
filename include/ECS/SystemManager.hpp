@@ -20,7 +20,7 @@ namespace is::ecs {
 
     class SystemManager {
         public:
-            SystemManager(std::shared_ptr<ComponentManager> componentManager,
+            SystemManager(const std::shared_ptr<ComponentManager>& componentManager,
                           std::shared_ptr<EntityManager> entityManager);
             ~SystemManager();
 
@@ -35,7 +35,6 @@ namespace is::ecs {
             void stop();
             void onTearDown();
 
-        protected:
         private:
             std::vector<std::shared_ptr<ISystem>> _systems;
             std::shared_ptr<ComponentManager> _componentManager;

@@ -7,9 +7,9 @@
 
 #include "ECS/ComponentManager.hpp"
 
-void is::ecs::ComponentManager::addComponent(std::shared_ptr<Component> component)
+void is::ecs::ComponentManager::addComponent(const std::shared_ptr<Component>& component)
 {
-    auto& r = *component.get();
+    auto& r = *component;
 
     _components[typeid(r).hash_code()].push_back(component);
 }

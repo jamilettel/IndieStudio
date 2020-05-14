@@ -18,26 +18,25 @@
 namespace is::components {
 
     class ImageComponent: public is::ecs::Component {
+        public:
+            ImageComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, std::string wn,
+                    int x, int y);
+            ImageComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, std::string wn,
+                    int x, int y, bool scale);
+            ~ImageComponent() override = default;
 
-    public:
-        ImageComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, const std::string &wn,
-                int x, int y);
-        ImageComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, const std::string &wn,
-                int x, int y, bool scale);
-        ~ImageComponent() override = default;
+            ImageComponent(const ImageComponent &) = delete;
+            ImageComponent &operator=(const ImageComponent &) = delete;
 
-        ImageComponent(const ImageComponent &) = delete;
-        ImageComponent &operator=(const ImageComponent &) = delete;
+            void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
+            void deleteComponent() override;
 
-        void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
-        void deleteComponent() override;
-
-        std::string windowName;
-    private:
-        irr::core::vector2d<int> _dimension;
-        std::string _filename;
-        irr::gui::IGUIImage *element;
-        bool _scale;
+            std::string windowName;
+        private:
+            irr::core::vector2d<int> _dimension;
+            std::string _filename;
+            irr::gui::IGUIImage *element{};
+            bool _scale;
     };
 
 }

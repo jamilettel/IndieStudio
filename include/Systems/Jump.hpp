@@ -17,7 +17,7 @@ namespace is::systems {
     class JumpSystem : public is::ecs::ASystem {
         public:
             JumpSystem() = default;
-            ~JumpSystem() = default;
+            ~JumpSystem() override = default;
 
             JumpSystem(const JumpSystem &) = default;
             JumpSystem &operator=(const JumpSystem &) = default;
@@ -27,8 +27,6 @@ namespace is::systems {
             void update() override;
             void stop() override;
             void onTearDown() override;
-
-        private:
     };
 
 }

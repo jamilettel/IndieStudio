@@ -21,9 +21,9 @@ void MovementSystem::start()
     std::vector<std::shared_ptr<Component>> &time =
         _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
-    if (!time.size())
+    if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
-    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
+    _time.emplace(*dynamic_cast<TimeComponent *>(time[0].get()));
 }
 
 void MovementSystem::stop()
@@ -38,8 +38,8 @@ void MovementSystem::checkCollisions(
     )
 {
     ColliderSystem::precomputeCollisionVariables(collider);
-    for (size_t i = 0; i < colliders.size(); i++) {
-        ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
+    for (auto & i : colliders) {
+        auto *ptr = dynamic_cast<ColliderComponent *>(i.get());
 
         if (&collider == ptr || !collider.collidesWith(ptr->getEntity()->layer))
             continue;
@@ -56,7 +56,7 @@ void MovementSystem::moveOutOfCollision(MovementComponent &movement)
     irr::core::vector3df distance;
 
     movement.setOnTheGround(false);
-    while (collider.collisions.size()) {
+    while (!collider.collisions.empty()) {
         irr::core::vector3df position = collider.getTransform().position + collider.offset;
         const ColliderComponent &collider2 = *collider.collisions[0];
 
@@ -106,8 +106,8 @@ void MovementSystem::update()
         _componentManager->getComponentsByType(typeid(ColliderComponent).hash_code());
     irr::core::vector3df zero;
 
-    for (size_t i = 0; i < movements.size(); i++) {
-        MovementComponent *ptr = static_cast<MovementComponent *>(movements[i].get());
+    for (auto & movement : movements) {
+        auto *ptr = dynamic_cast<MovementComponent *>(movement.get());
 
         if (ptr->velocity == zero)
             continue;

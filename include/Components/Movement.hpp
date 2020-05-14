@@ -15,35 +15,34 @@
 #include <irrlicht.h>
 
 namespace is::components {
-
     class MovementComponent: public is::ecs::Component {
-    public:
-        MovementComponent(
-            std::shared_ptr<is::ecs::Entity> &e,
-            TransformComponent &transform,
-            ColliderComponent &collider,
-            bool clip = true
-            );
-        ~MovementComponent() override = default;
+        public:
+            MovementComponent(
+                std::shared_ptr<is::ecs::Entity> &e,
+                TransformComponent &transform,
+                ColliderComponent &collider,
+                bool clip = true
+                );
+            ~MovementComponent() override = default;
 
-        MovementComponent(const MovementComponent &) = delete;
-        MovementComponent &operator=(const MovementComponent &) = delete;
+            MovementComponent(const MovementComponent &) = delete;
+            MovementComponent &operator=(const MovementComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        [[nodiscard]] TransformComponent &getTransform() const noexcept;
-        [[nodiscard]] ColliderComponent &getCollider() const noexcept;
-        [[nodiscard]] bool isOnTheGround() const noexcept;
-        void setOnTheGround(bool isOnTheGround) noexcept;
+            [[nodiscard]] TransformComponent &getTransform() const noexcept;
+            [[nodiscard]] ColliderComponent &getCollider() const noexcept;
+            [[nodiscard]] bool isOnTheGround() const noexcept;
+            void setOnTheGround(bool isOnTheGround) noexcept;
 
-        irr::core::vector3df velocity;
-        bool clipping;
-        bool sort = true;
+            irr::core::vector3df velocity;
+            bool clipping;
+            bool sort = true;
 
-    private:
-        bool _isOnTheGround = false;
-        TransformComponent &_transform;
-        ColliderComponent &_collider;
+        private:
+            bool _isOnTheGround = false;
+            TransformComponent &_transform;
+            ColliderComponent &_collider;
     };
 
 }

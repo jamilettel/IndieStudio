@@ -30,8 +30,7 @@ namespace is::components
 
 namespace is
 {
-    typedef struct SMouseState
-    {
+    typedef struct SMouseState {
         core::position2di position;
         bool leftButtonDown;
         bool middleButtonDown;
@@ -41,61 +40,59 @@ namespace is
         wheelDelta(0.0) {}
     } mouseState;
 
-    typedef struct SAppContext
-    {
+    typedef struct SAppContext {
         IrrlichtDevice *device;
         s32 counter;
         std::vector<std::shared_ptr<is::components::ButtonComponent>> button;
         SAppContext() : device(nullptr), counter(0) {}
     } appContext;
 
-    class EventManager : public IEventReceiver
-    {
-    public:
-        EventManager();
-        ~EventManager() override;
+    class EventManager : public IEventReceiver {
+        public:
+            EventManager();
+            ~EventManager() override;
 
-        /* IMPORTANT, THEY SHOULDN'T BE CHANGED */
-        bool OnEvent(const SEvent &event) override;
-        [[nodiscard]] bool IsKeyDown(EKEY_CODE keyCode) const;
-        [[nodiscard]] bool IsJoystickButtonDown(u8 id, int key) const;
+            /* IMPORTANT, THEY SHOULDN'T BE CHANGED */
+            bool OnEvent(const SEvent &event) override;
+            [[nodiscard]] bool IsKeyDown(EKEY_CODE keyCode) const;
+            [[nodiscard]] bool IsJoystickButtonDown(u8 id, int key) const;
 
-        /* CONTEXT METHODS */
-        void setDeviceContext(IrrlichtDevice &device);
+            /* CONTEXT METHODS */
+            void setDeviceContext(IrrlichtDevice &device);
 
-        /* OTHER METHODS */
-        [[nodiscard]] std::pair<float, float> getMousePosition() const;
-        [[nodiscard]] bool isRightPressed() const;
-        [[nodiscard]] bool isMiddlePressed() const;
-        [[nodiscard]] bool isLeftPressed() const;
-        [[nodiscard]] float getMouseWheel() const;
+            /* OTHER METHODS */
+            [[nodiscard]] std::pair<float, float> getMousePosition() const;
+            [[nodiscard]] bool isRightPressed() const;
+            [[nodiscard]] bool isMiddlePressed() const;
+            [[nodiscard]] bool isLeftPressed() const;
+            [[nodiscard]] float getMouseWheel() const;
 
-        void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
-        void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
-        void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
-        void removeEventKeyPressed(EKEY_CODE keyCode);
+            void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
+            void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
+            void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
+            void removeEventKeyPressed(EKEY_CODE keyCode);
 
-        void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
-        void removeEventKeyReleased(EKEY_CODE keyCode);
+            void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
+            void removeEventKeyReleased(EKEY_CODE keyCode);
 
-        void addButton(const std::shared_ptr<is::components::ButtonComponent>&);
-        void checkButtonClicked(irr::s32 id);
+            void addButton(const std::shared_ptr<is::components::ButtonComponent>&);
+            void checkButtonClicked(irr::s32 id);
 
-        void removeButton(const std::shared_ptr<is::components::ButtonComponent>&);
-        void removeAllButtons();
+            void removeButton(const std::shared_ptr<is::components::ButtonComponent>&);
+            void removeAllButtons();
 
-        bool isJoystickButtonPressed(u8 joystick, u32 button) const;
-        s16 getAxisValue(u8 joystick, u32 axis) const;
+            [[nodiscard]] bool isJoystickButtonPressed(u8 joystick, u32 button) const;
+            [[nodiscard]] s16 getAxisValue(u8 joystick, u32 axis) const;
 
-    private:
-        appContext _context;
+        private:
+            appContext _context;
 
-        std::map<int, bool> _keyState;
-        std::map<u8, std::pair<u32, s16[6]>> _joystickStates;
-        mouseState _mouse;
+            std::map<int, bool> _keyState;
+            std::map<u8, std::pair<u32, s16[6]>> _joystickStates;
+            mouseState _mouse;
 
-        std::map<std::pair<int, int>, std::function<void()>> _eventKeyPressed;
-        std::map<int, std::function<void()>> _eventKeyReleased;
+            std::map<std::pair<int, int>, std::function<void()>> _eventKeyPressed;
+            std::map<int, std::function<void()>> _eventKeyReleased;
     };
 }
 

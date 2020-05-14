@@ -45,15 +45,15 @@ void is::systems::PowerUpSystem::update()
 }
 
 void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderComponent &trcollider,
-    std::shared_ptr<is::components::WindowComponent> ptr_window,
+    const std::shared_ptr<is::components::WindowComponent>& ptr_window,
     is::components::PowerUpComponent::PowerUpType type)
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
     _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
 
     is::systems::ColliderSystem::precomputeCollisionVariables(trcollider);
-    for (size_t i = 0; i < colliders.size(); i++) {
-        is::components::ColliderComponent *ptr = static_cast<is::components::ColliderComponent *>(colliders[i].get());
+    for (auto & collider : colliders) {
+        auto *ptr = dynamic_cast<is::components::ColliderComponent *>(collider.get());
 
         if (&trcollider == ptr || !trcollider.collidesWith(ptr->getEntity()->layer))
             continue;

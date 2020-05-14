@@ -45,9 +45,6 @@ namespace is::scenes {
 
             void initSystems() override;
             void initEntities() override;
-
-        protected:
-        private:
     };
 
 }

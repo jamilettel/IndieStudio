@@ -60,7 +60,7 @@ void SliderSystem::update()
                 }
             }
             if (!windowFound)
-            throw is::exceptions::Exception("SliderSystem", "Could not found window");
+                throw is::exceptions::Exception("SliderSystem", "Could not found window");
             ptr->setPosition(ptr_window->eventManager.getMousePosition().first);
         }
     }

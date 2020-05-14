@@ -15,45 +15,43 @@
 #include "ECS/Entity.hpp"
 
 namespace is::components {
-
     class ColliderComponent: public is::ecs::Component {
-    public:
-        ColliderComponent(
-            std::shared_ptr<is::ecs::Entity> &e,
-            TransformComponent &transform,
-            const irr::core::vector3df &size = irr::core::vector3df(),
-            const irr::core::vector3df &offset = irr::core::vector3df(),
-            bool check = true
-            );
-        ~ColliderComponent() override = default;
+        public:
+            ColliderComponent(
+                std::shared_ptr<is::ecs::Entity> &e,
+                TransformComponent &transform,
+                const irr::core::vector3df &size = irr::core::vector3df(),
+                const irr::core::vector3df &offset = irr::core::vector3df(),
+                bool check = true
+                );
+            ~ColliderComponent() override = default;
 
-        ColliderComponent(const ColliderComponent &) = delete;
-        ColliderComponent &operator=(const ColliderComponent &) = delete;
+            ColliderComponent(const ColliderComponent &) = delete;
+            ColliderComponent &operator=(const ColliderComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        [[nodiscard]] const TransformComponent &getTransform() const noexcept;
+            [[nodiscard]] const TransformComponent &getTransform() const noexcept;
 
-        irr::core::vector3df offset;
-        irr::core::vector3df size;
+            irr::core::vector3df offset;
+            irr::core::vector3df size;
 
-        bool activeCheck;
+            bool activeCheck;
 
-        std::vector<ColliderComponent *> collisions;
+            std::vector<ColliderComponent *> collisions;
 
-        irr::core::vector3df position;
-        irr::core::vector3df center;
-        float distance;
+            irr::core::vector3df position;
+            irr::core::vector3df center;
+            float distance;
 
-        void addCollisionWithLayer(is::ecs::Entity::Layer layer);
-        void removeCollisionWithLayer(is::ecs::Entity::Layer layer);
-        bool collidesWith(is::ecs::Entity::Layer layer);
+            void addCollisionWithLayer(is::ecs::Entity::Layer layer);
+            void removeCollisionWithLayer(is::ecs::Entity::Layer layer);
+            bool collidesWith(is::ecs::Entity::Layer layer);
 
-    private:
-        std::vector<is::ecs::Entity::Layer> _layers;
-        TransformComponent &_transform;
+        private:
+            std::vector<is::ecs::Entity::Layer> _layers;
+            TransformComponent &_transform;
     };
-
 }
 
 #endif /* !COLLIDERCOMPONENT_HPP_ */

@@ -14,32 +14,31 @@
 namespace is::exceptions {
 
     class Exception: public std::exception {
-    public:
-        Exception(std::string component, std::string message);
-        ~Exception() override = default;
+        public:
+            Exception(std::string component, std::string message);
+            ~Exception() override = default;
 
-        Exception(const Exception &) = default;
-        Exception &operator=(const Exception &) = default;
+            Exception(const Exception &) = default;
+            Exception &operator=(const Exception &) = default;
 
-        [[nodiscard]] const char *what() const noexcept override;
-        [[nodiscard]] const std::string &getComponent() const;
+            [[nodiscard]] const char *what() const noexcept override;
+            [[nodiscard]] const std::string &getComponent() const;
 
-    protected:
-    private:
-        std::string _component;
-        std::string _message;
+        private:
+            std::string _component;
+            std::string _message;
     };
 
     class ECSException: public Exception {
-    public:
-        explicit ECSException(const std::string &message);
-        ~ECSException() override = default;
+        public:
+            explicit ECSException(const std::string &message);
+            ~ECSException() override = default;
     };
 
     class EventManagerException: public Exception {
-    public:
-        explicit EventManagerException(const std::string &message);
-        ~EventManagerException() override = default;
+        public:
+            explicit EventManagerException(const std::string &message);
+            ~EventManagerException() override = default;
     };
 
 }

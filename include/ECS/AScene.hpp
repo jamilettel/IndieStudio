@@ -18,19 +18,19 @@ namespace is::ecs {
 
     class AScene : public IScene {
         public:
-            AScene(Scenes sceneID);
-            virtual ~AScene() = default;
+            explicit AScene(Scenes sceneID);
+            ~AScene() override = default;
 
             void initEntity(std::shared_ptr<Entity> &&entity);
             void initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad);
 
             void initStaticEntities();
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
             void deleteNonStaticEntities();
 

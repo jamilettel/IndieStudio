@@ -35,16 +35,16 @@ namespace is::systems {
     class BombSystem : public is::ecs::ASystem {
         public:
             BombSystem() = default;
-            ~BombSystem() = default;
+            ~BombSystem() override = default;
 
             BombSystem(const BombSystem &) = default;
             BombSystem &operator=(const BombSystem &) = default;
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
             bool dropFire(std::shared_ptr<is::components::BombComponent> ptr,
                          std::shared_ptr<is::components::WindowComponent> ptr_window,
@@ -52,12 +52,11 @@ namespace is::systems {
                          int y);
 
             bool checkFireCollision(is::components::ColliderComponent &trigger,
-                                    std::shared_ptr<is::components::WindowComponent> ptr_window);
+                                    const std::shared_ptr<is::components::WindowComponent>& ptr_window);
  
             void generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
                                        std::shared_ptr<is::components::WindowComponent> ptr_window);
 
-        protected:
         private:
             std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
     };

@@ -33,14 +33,14 @@ void ColliderTriggerSystem::update()
         _componentManager->getComponentsByType(typeid(ColliderComponent).hash_code());
 
     for (std::shared_ptr<Component> &elem: triggers) {
-        ColliderTriggerComponent *trigger = static_cast<ColliderTriggerComponent *>(elem.get());
+        auto *trigger = dynamic_cast<ColliderTriggerComponent *>(elem.get());
 
         if (!trigger->check)
             continue;
 
         ColliderSystem::precomputeCollisionVariables(trigger->collider);
-        for (size_t i = 0; i < colliders.size(); i++) {
-            ColliderComponent *ptr = static_cast<ColliderComponent *>(colliders[i].get());
+        for (auto & collider : colliders) {
+            auto *ptr = dynamic_cast<ColliderComponent *>(collider.get());
 
             if (&trigger->collider == ptr || !trigger->collider.collidesWith(ptr->getEntity()->layer))
                 continue;
@@ -49,7 +49,7 @@ void ColliderTriggerSystem::update()
                 trigger->collider.collisions.emplace_back(ptr);
             }
         }
-        if (trigger->collider.collisions.size()) {
+        if (!trigger->collider.collisions.empty()) {
             trigger->onCollision(trigger->collider.collisions);
             trigger->collider.collisions.clear();
         }

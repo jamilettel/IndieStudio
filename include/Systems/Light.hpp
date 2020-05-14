@@ -27,19 +27,16 @@ namespace is::systems {
     class LightSystem : public is::ecs::ASystem {
         public:
             LightSystem() = default;
-            ~LightSystem() = default;
+            ~LightSystem() override = default;
 
             LightSystem(const LightSystem &) = default;
             LightSystem &operator=(const LightSystem &) = default;
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
-
-        protected:
-        private:
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
     };
 
 }

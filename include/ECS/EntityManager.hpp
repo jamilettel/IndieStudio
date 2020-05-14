@@ -27,10 +27,9 @@ namespace is::ecs {
             void addEntity(std::shared_ptr<Entity> &entity);
             void deleteEntities(std::shared_ptr<is::ecs::ComponentManager> &cm);
         
-            std::vector<std::shared_ptr<Entity>> getEntities() const;
+            [[nodiscard]] std::vector<std::shared_ptr<Entity>> getEntities() const;
 
             bool operator()(std::shared_ptr<is::ecs::Entity> &ent);
-        protected:
         private:
             std::vector<std::shared_ptr<Entity>> _entities;
     };

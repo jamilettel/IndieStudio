@@ -15,22 +15,22 @@
 namespace is::systems {
 
     class JoystickInputSystem: public is::ecs::ASystem {
-    public:
-        JoystickInputSystem() = default;
-        ~JoystickInputSystem() = default;
+        public:
+            JoystickInputSystem() = default;
+            ~JoystickInputSystem() override = default;
 
-        JoystickInputSystem(const JoystickInputSystem &) = default;
-        JoystickInputSystem &operator=(const JoystickInputSystem &) = default;
+            JoystickInputSystem(const JoystickInputSystem &) = default;
+            JoystickInputSystem &operator=(const JoystickInputSystem &) = default;
 
-        void awake() override;
-        void start() override;
-        void update() override;
-        void stop() override;
-        void onTearDown() override;
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
-    private:
-        std::optional<std::reference_wrapper<irr::core::array<irr::SJoystickInfo>>> _joysticks;
-        std::optional<std::reference_wrapper<is::EventManager>> _eventManager;
+        private:
+            std::optional<std::reference_wrapper<irr::core::array<irr::SJoystickInfo>>> _joysticks;
+            std::optional<std::reference_wrapper<is::EventManager>> _eventManager;
     };
 
 }

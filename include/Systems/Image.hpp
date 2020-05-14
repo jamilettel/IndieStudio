@@ -18,7 +18,7 @@ namespace is::systems {
     class ImageSystem: public is::ecs::ASystem {
         public:
             ImageSystem() = default;
-            ~ImageSystem() = default;
+            ~ImageSystem() override = default;
 
             ImageSystem(const ImageSystem &) = default;
             ImageSystem &operator=(const ImageSystem &) = default;

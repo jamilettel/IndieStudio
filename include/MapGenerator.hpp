@@ -8,13 +8,12 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "ECS/AScene.hpp"
 
-class MapGenerator
-{
-public:
-    MapGenerator() = default;
-    MapGenerator(const MapGenerator& other) = default;
-    MapGenerator& operator=(const MapGenerator& rhs) = default;
-    ~MapGenerator() = default;
+class MapGenerator {
+    public:
+        MapGenerator() = default;
+        MapGenerator(const MapGenerator& other) = default;
+        MapGenerator& operator=(const MapGenerator& rhs) = default;
+        ~MapGenerator() = default;
 
-    void generateMap(is::ecs::AScene &sc);
+        void generateMap(is::ecs::AScene &sc);
 };

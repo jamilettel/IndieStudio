@@ -18,7 +18,7 @@ namespace is::systems {
     class SliderSystem: public is::ecs::ASystem {
         public:
             SliderSystem() = default;
-            ~SliderSystem() = default;
+            ~SliderSystem() override = default;
 
             SliderSystem(const SliderSystem &) = default;
             SliderSystem &operator=(const SliderSystem &) = default;
