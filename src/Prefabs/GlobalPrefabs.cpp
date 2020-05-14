@@ -266,32 +266,3 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     e->addComponent<AIControllerComponent>(e, input);
     return (e);
 }
-
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
-{
-    auto e = std::make_shared<is::ecs::Entity>();
-
-    e->addComponent<ButtonComponent>(
-        e,
-        "TEST",
-        "Indie Studio",
-        10, 10, 100, 100,
-        [](){
-            std::cout << "test" << std::endl;
-        }
-    );
-    e->addComponent<is::components::ImageComponent>(
-        e,
-        RESSOURCE("test.png"),
-        "Indie Studio",
-        500, 10, true
-    );
-    e->addComponent<is::components::SliderComponent>(
-        e,
-        "",
-        "Indie Studio",
-        0, 10, 20,
-        1000, 10, 500, 100
-    );
-    return (e);
-}
