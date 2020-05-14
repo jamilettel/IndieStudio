@@ -52,7 +52,7 @@ namespace is
                 const std::vector<std::vector<T>> &map,
                 const std::pair<int, int> &src,
                 const std::pair<int, int> &dest,
-                std::function<bool(T)> isBlock)
+                std::function<bool(const T &)> isBlock)
                 : _map(map), _src(src), _dest(dest), _isBlock(isBlock)
             {
                 _row = map.size();
@@ -86,7 +86,7 @@ namespace is
 
                     // If we are arrive
                     if (*currentNode.get() == *endNode.get()) {
-                        while (currentNode) {
+                        while (currentNode->parent) {
                             _path.push(currentNode->pos);
                             currentNode = currentNode->parent;
                         }
@@ -157,7 +157,7 @@ namespace is
             int _row;
             std::vector<std::shared_ptr<Node>> _openList;
             std::vector<std::shared_ptr<Node>> _closeList;
-            std::function<bool(T)> _isBlock;
+            std::function<bool(const T &)> _isBlock;
             std::stack<std::pair<int, int>> _path;
     };
 } // namespace is

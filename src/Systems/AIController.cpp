@@ -344,56 +344,66 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     // std::cout << "Actual long objective X :" << ai.longObjective.X << ", Y:" << ai.longObjective.Y << std::endl;
     // std::cout << "Actual last short objective X :" << ai.lastShortObjective.X << ", Y:" << ai.lastShortObjective.Y << std::endl;
     // std::cout << "Actual position X :" << aiPos.X << ", Y:" << aiPos.Y << std::endl;
-    int i = aiSearchPath(ai, map, aiPos);
-    if (i == 0) {
+    if (aiSearchPath(ai, map, aiPos) == false) {
         ai.state = AIControllerComponent::NONE;
         // std::cout << "C PAS NORMAL CA !!!!!!" << std::endl; 
         ai.needObjective = true;
         ai.needLongObjective = true;
         return;
     }
-    ai.lastMoves.push_back(ai.lastShortObjective);
-    ai.lastShortObjective = ai.shortObjective;
-    ai.shortObjective.X = aiPos.X + dirX[i - 1];
-    ai.shortObjective.Y = aiPos.Y + dirY[i - 1];
-    // std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
-    ai.needObjective = false;
-    ai.needLongObjective = false;
+    // ai.lastShortObjective = ai.shortObjective;
+    // ai.shortObjective.X = aiPos.X + dirX[i - 1];
+    // ai.shortObjective.Y = aiPos.Y + dirY[i - 1];
+    std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
+    // ai.needObjective = false;
+    // ai.needLongObjective = false;
 }
 
-int AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const
+bool AIControllerSystem::aiSearchPath(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const
 {
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
     int path_finded = 0;
     bool alreadyPass = false;
 
-    for (int i = 0; i < 4; i++) {
-        alreadyPass = false;
-        // std::cout << "Check for X: " << aiPos.X + dirX[i] << " and Y:" << aiPos.Y + dirY[i] << std::endl;
-        for (auto &e : ai.lastMoves)
-            if (e.X == aiPos.X + dirX[i] && e.Y == aiPos.Y + dirY[i]) {
-                alreadyPass = true;
-                // std::cout << "BREAK" << std::endl;
-                break;
-            }
-        // std::cout << "PASS" << std::endl;
-        if (alreadyPass) {
-            // std::cout << "ALREADY PASS" << std::endl;
-            continue;
-        }
-        if (aiPos.X + dirX[i] == ai.lastShortObjective.X && aiPos.Y + dirY[i] == ai.lastShortObjective.Y) {
-            // std::cout << "Same as last short objective" << std::endl;
-            continue;
-        }
-        if (isAirBlock(map[aiPos.X + dirX[i]][aiPos.Y + dirY[i]])) {
-            if (aiSearchPathRecursive(ai, map, aiPos, irr::core::vector2di(dirX[i], dirY[i]))) {
-                path_finded = i + 1;
-                break;
-            }
-        }
-    }
-    return (path_finded);
+    AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
+        return (!isAirBlock(layter));
+    });
+    astar.searchPath();
+    std::optional<std::pair<int, int>> pos = astar.getNextPos();
+    if (!pos.has_value())
+        return (false);
+    std::cout << pos.value().first << " " << pos.value().second << std::endl;
+    ai.lastMoves.push_back(ai.lastShortObjective);
+    ai.lastShortObjective = ai.shortObjective;
+    ai.shortObjective.X = pos.value().first;
+    ai.shortObjective.Y = pos.value().second;
+    // for (int i = 0; i < 4; i++) {
+    //     alreadyPass = false;
+    //     // std::cout << "Check for X: " << aiPos.X + dirX[i] << " and Y:" << aiPos.Y + dirY[i] << std::endl;
+    //     for (auto &e : ai.lastMoves)
+    //         if (e.X == aiPos.X + dirX[i] && e.Y == aiPos.Y + dirY[i]) {
+    //             alreadyPass = true;
+    //             // std::cout << "BREAK" << std::endl;
+    //             break;
+    //         }
+    //     // std::cout << "PASS" << std::endl;
+    //     if (alreadyPass) {
+    //         // std::cout << "ALREADY PASS" << std::endl;
+    //         continue;
+    //     }
+    //     if (aiPos.X + dirX[i] == ai.lastShortObjective.X && aiPos.Y + dirY[i] == ai.lastShortObjective.Y) {
+    //         // std::cout << "Same as last short objective" << std::endl;
+    //         continue;
+    //     }
+    //     if (isAirBlock(map[aiPos.X + dirX[i]][aiPos.Y + dirY[i]])) {
+    //         if (aiSearchPathRecursive(ai, map, aiPos, irr::core::vector2di(dirX[i], dirY[i]))) {
+    //             path_finded = i + 1;
+    //             break;
+    //         }
+    //     }
+    // }
+    return (true);
 }
 
 bool AIControllerSystem::aiSearchPathRecursive(AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos, irr::core::vector2di dir) const

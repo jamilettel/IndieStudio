@@ -14,6 +14,7 @@
 #include "Components/Movement.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Time.hpp"
+#include "AStarAlgorithm.hpp"
 #include <vector>
 
 #include <cmath>
@@ -96,7 +97,7 @@ namespace is::systems {
         ) const;
         bool isAirBlock(is::ecs::Entity::Layer) const;
         bool hasAlreadyPass(std::vector<irr::core::vector2di> &moves, irr::core::vector2di &pos) const noexcept;
-        int aiSearchPath(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const;
+        bool aiSearchPath(is::components::AIControllerComponent &ai, std::vector<std::vector<is::ecs::Entity::Layer>> map, irr::core::vector2di aiPos) const;
         bool aiSearchPathRecursive(
             is::components::AIControllerComponent &ai,
             std::vector<std::vector<is::ecs::Entity::Layer>> map,
