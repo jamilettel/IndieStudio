@@ -45,7 +45,9 @@ void WindowSystem::awake()
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+        #ifndef __APPLE__
+            ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+        #endif
     }
 }
 
