@@ -77,7 +77,9 @@ namespace is
                 while (!_openList.empty()) {
 
                     // Find in open list the node with the smallest f
-                    auto ptr = std::min_element(_openList.begin(), _openList.end());
+                    auto ptr = std::min_element(_openList.begin(), _openList.end(), [](const std::shared_ptr<Node> &first, const std::shared_ptr<Node> &second) {
+                        return (first->f < second->f);
+                    });
                     std::shared_ptr<Node> currentNode = *ptr;
 
                     // Erase of the open list and place it in the close list
@@ -135,11 +137,11 @@ namespace is
                     double f = g + h;
 
                     // if in open list
-                    if (std::find_if(_openList.begin(), _openList.end(), [&successors, &i, &g](const std::shared_ptr<Node> &node) -> bool {
-                        return (successors[i].first == node->pos.first && successors[i].second == node->pos.second && node->g < g);
+                    if (std::find_if(_openList.begin(), _openList.end(), [&successors, &i, &f](const std::shared_ptr<Node> &node) -> bool {
+                        return (successors[i].first == node->pos.first && successors[i].second == node->pos.second && node->f < f);
                     }) != _openList.end())
                         continue;
-
+                    
                     _openList.emplace_back(std::make_shared<Node>(currentNode, successors[i], g, h, f));
                 }
             }
