@@ -191,6 +191,19 @@ void is::EventManager::addButton(const std::shared_ptr<is::components::ButtonCom
     _context.button.push_back(toAdd);
 }
 
+void is::EventManager::removeButton(const std::shared_ptr<is::components::ButtonComponent>& toAdd)
+{
+    auto it = std::find(_context.button.begin(), _context.button.end(), toAdd);
+
+    if (it != _context.button.end())
+        _context.button.erase(it);
+}
+
+void is::EventManager::removeAllButtons()
+{
+    _context.button.clear();
+}
+
 void is::EventManager::checkButtonClicked(irr::s32 id)
 {
     for (auto &it : _context.button) {

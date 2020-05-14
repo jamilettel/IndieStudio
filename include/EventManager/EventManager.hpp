@@ -81,6 +81,9 @@ namespace is
         void addButton(const std::shared_ptr<is::components::ButtonComponent>&);
         void checkButtonClicked(irr::s32 id);
 
+        void removeButton(const std::shared_ptr<is::components::ButtonComponent>&);
+        void removeAllButtons();
+
         bool isJoystickButtonPressed(u8 joystick, u32 button) const;
         s16 getAxisValue(u8 joystick, u32 axis) const;
 
