@@ -6,6 +6,7 @@
 */
 
 #include "Components/ColliderTrigger.hpp"
+#include <utility>
 
 using namespace is::components;
 
@@ -14,7 +15,7 @@ ColliderTriggerComponent::ColliderTriggerComponent(
     ColliderComponent &colliderToCheck,
     std::function<void(std::vector<ColliderComponent *> &)> function
     ):
-    Component(e), collider(colliderToCheck), onCollision(function)
+    Component(e), collider(colliderToCheck), onCollision(std::move(function))
 {}
 
 void ColliderTriggerComponent::deleteComponent()

@@ -25,7 +25,7 @@ void is::systems::JumpSystem::update()
     std::vector<std::shared_ptr<Component>> &components = _componentManager->getComponentsByType(typeid(JumpComponent).hash_code());
 
     std::for_each(components.begin(), components.end(), [](std::shared_ptr<Component> &gravity) {
-        JumpComponent *ptr = static_cast<JumpComponent *>(gravity.get());
+        auto *ptr = dynamic_cast<JumpComponent *>(gravity.get());
 
         if (ptr->isJump()) {
             ptr->setJump(false);

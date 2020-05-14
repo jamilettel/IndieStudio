@@ -14,25 +14,24 @@
 #include "ECS/Component.hpp"
 
 namespace is::components {
-
     class LightComponent : public is::ecs::Component {
-    public:
-        LightComponent(std::shared_ptr<is::ecs::Entity> &e,
-                       const std::string &wn,
-                       irr::core::vector3df position = irr::core::vector3df(0),
-                       irr::video::SColorf color = irr::video::SColorf(0),
-                       float radius = 100.0f);
-        ~LightComponent() override = default;
+        public:
+            LightComponent(std::shared_ptr<is::ecs::Entity> &e,
+                           const std::string &wn,
+                           const irr::core::vector3df& position = irr::core::vector3df(0),
+                           irr::video::SColorf color = irr::video::SColorf(0),
+                           float radius = 100.0f);
+            ~LightComponent() override = default;
 
-        LightComponent(const LightComponent &) = delete;
-        LightComponent &operator=(const LightComponent &) = delete;
+            LightComponent(const LightComponent &) = delete;
+            LightComponent &operator=(const LightComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        std::string windowName;
-        irr::core::vector3df position;
-        irr::video::SColorf color;
-        float radius;
+            std::string windowName;
+            irr::core::vector3df position;
+            irr::video::SColorf color;
+            float radius;
     };
 
 }

@@ -14,26 +14,26 @@
 namespace is::systems {
 
     class ColliderSystem: public is::ecs::ASystem {
-    public:
-        ColliderSystem() = delete;
-        ~ColliderSystem() = default;
+        public:
+            ColliderSystem() = delete;
+            ~ColliderSystem() override = default;
 
-        ColliderSystem(const ColliderSystem &) = default;
-        ColliderSystem &operator=(const ColliderSystem &) = default;
+            ColliderSystem(const ColliderSystem &) = default;
+            ColliderSystem &operator=(const ColliderSystem &) = default;
 
-        void awake() override;
-        void start() override;
-        void update() override;
-        void stop() override;
-        void onTearDown() override;
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
-        static void precomputeCollisionVariables(
-            is::components::ColliderComponent &
-            );
-        static bool checkCollision(
-            is::components::ColliderComponent &collider,
-            is::components::ColliderComponent &collider2
-            );
+            static void precomputeCollisionVariables(
+                is::components::ColliderComponent &
+                );
+            static bool checkCollision(
+                is::components::ColliderComponent &collider,
+                is::components::ColliderComponent &collider2
+                );
     };
 
 }

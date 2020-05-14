@@ -45,7 +45,9 @@ void WindowSystem::awake()
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+        #ifndef __APPLE__
+            ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+        #endif
     }
 }
 
@@ -54,9 +56,9 @@ void WindowSystem::start()
     std::vector<std::shared_ptr<Component>> &time =
         _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
-    if (!time.size())
+    if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
-    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
+    _time.emplace(*dynamic_cast<TimeComponent *>(time[0].get()));
 }
 
 void WindowSystem::manageJoysticks([[maybe_unused]]std::shared_ptr<WindowComponent> &ptr)

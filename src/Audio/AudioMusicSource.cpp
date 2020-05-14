@@ -35,7 +35,10 @@ void AudioMusicSource::stop()
 
 bool AudioMusicSource::isPlaying()
 {
-    if (_music.getStatus() == sf::SoundSource::Status::Playing)
-        return (true);
-    return (false);
+    return _music.getStatus() == sf::SoundSource::Status::Playing;
+}
+
+void AudioMusicSource::setVolume(float volume)
+{
+    _music.setVolume(volume);
 }

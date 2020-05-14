@@ -7,17 +7,18 @@
 
 #include "ECS/SystemManager.hpp"
 
-is::ecs::SystemManager::SystemManager(std::shared_ptr<ComponentManager> componentManager,
+#include <utility>
+
+is::ecs::SystemManager::SystemManager(const std::shared_ptr<ComponentManager>& componentManager,
     std::shared_ptr<EntityManager> entityManager) :
 _componentManager(componentManager),
-_entityManager(entityManager)
+_entityManager(std::move(entityManager))
 {
     std::cout << "SYSTEM : " << componentManager.get() << std::endl; 
 }
 
 is::ecs::SystemManager::~SystemManager()
-{
-}
+= default;
 
 void is::ecs::SystemManager::addSystem(const std::shared_ptr<is::ecs::ISystem> &system)
 {

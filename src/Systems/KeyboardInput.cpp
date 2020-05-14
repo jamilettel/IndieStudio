@@ -18,7 +18,7 @@ void KeyboardInputSystem::start()
 {
     auto window = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
 
-    if (!window.size())
+    if (window.empty())
         throw is::exceptions::Exception(
             "Component missing",
             "Window component required for Keyboard Input System");
@@ -37,7 +37,7 @@ void KeyboardInputSystem::update()
         _componentManager->getComponentsByType(typeid(KeyboardInputComponent).hash_code());
 
     for (std::shared_ptr<Component> &component: keyboardComponents) {
-        KeyboardInputComponent &keyboard = *static_cast<KeyboardInputComponent *>(component.get());
+        KeyboardInputComponent &keyboard = *dynamic_cast<KeyboardInputComponent *>(component.get());
         auto &bindings = keyboard.getBindings();
         auto &manager = keyboard.getInputManager();
 

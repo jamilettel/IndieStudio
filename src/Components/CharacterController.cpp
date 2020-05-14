@@ -7,6 +7,8 @@
 
 #include "Components/CharacterController.hpp"
 
+#include <utility>
+
 using namespace is::components;
 
 CharacterControllerComponent::CharacterControllerComponent(
@@ -14,13 +16,13 @@ CharacterControllerComponent::CharacterControllerComponent(
     TransformComponent &transform,
     MovementComponent &movementComponent,
     AudioComponent &audio,
-    const std::string &wn,
+    std::string wn,
     float ps
     ):
     Component(e),
     rotateY(0),
     playerSpeed(ps),
-    windowName(wn),
+    windowName(std::move(wn)),
     _movementComponent(movementComponent),
     _transform(transform),
     _audioComponent(audio)

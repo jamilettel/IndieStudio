@@ -6,9 +6,9 @@
 */
 
 #ifndef IAUDIOSOURCE_HPP
-#   define IAUDIOSOURCE_HPP
+#define IAUDIOSOURCE_HPP
 
-#   include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 
 namespace is::audio {
 
@@ -19,6 +19,7 @@ namespace is::audio {
             virtual void pause() = 0;
             virtual void stop() = 0;
             virtual bool isPlaying() = 0;
+            virtual void setVolume(float volume) = 0;
     };
 }
 

@@ -27,12 +27,11 @@ namespace is::ecs {
             ComponentManager(const ComponentManager &) = default;
             ComponentManager &operator=(const ComponentManager &) = default;
 
-            void addComponent(std::shared_ptr<Component> component);
+            void addComponent(const std::shared_ptr<Component>& component);
             void removeComponent(std::shared_ptr<Component> &component);
 
             std::vector<std::shared_ptr<Component>> &getComponentsByType(size_t type);
 
-        protected:
         private:
             std::map<size_t, std::vector<std::shared_ptr<Component>>> _components;
     };

@@ -18,7 +18,7 @@ void JoystickInputSystem::start()
 {
     auto windows = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
 
-    if (!windows.size())
+    if (windows.empty())
         throw is::exceptions::Exception(
             "Component missing",
             "Window component required for Keyboard Input System");
@@ -39,8 +39,8 @@ void JoystickInputSystem::update()
         typeid(JoystickInputComponent).hash_code());
     auto joystickArray = _joysticks->get();
 
-    for (auto component: joystickComponents) {
-        auto joystick = static_cast<JoystickInputComponent *>(component.get());
+    for (const auto& component: joystickComponents) {
+        auto joystick = dynamic_cast<JoystickInputComponent *>(component.get());
         auto &buttonBindings = joystick->getButtonBindings();
         auto &axisBindings = joystick->getAxisBindings();
         size_t pos = 0;

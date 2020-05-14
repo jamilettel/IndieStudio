@@ -28,7 +28,6 @@ namespace is {
             static bool isRunning;
             static void setActualScene(is::ecs::Scenes);
 
-        protected:
         private:
             std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
             static is::ecs::Scenes currentScene;

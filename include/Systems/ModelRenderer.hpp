@@ -27,19 +27,16 @@ namespace is::systems {
     class ModelRendererSystem : public is::ecs::ASystem {
         public:
             ModelRendererSystem() = default;
-            ~ModelRendererSystem() = default;
+            ~ModelRendererSystem() override = default;
 
             ModelRendererSystem(const ModelRendererSystem &) = default;
             ModelRendererSystem &operator=(const ModelRendererSystem &) = default;
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
-
-        protected:
-        private:
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
     };
 
 }

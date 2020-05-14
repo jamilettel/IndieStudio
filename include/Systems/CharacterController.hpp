@@ -30,24 +30,21 @@
 namespace is::systems {
 
     class CharacterControllerSystem : public is::ecs::ASystem {
-    public:
-        CharacterControllerSystem() = default;
-        ~CharacterControllerSystem() = default;
+        public:
+            CharacterControllerSystem() = default;
+            ~CharacterControllerSystem() override = default;
 
-        CharacterControllerSystem(const CharacterControllerSystem &) = default;
-        CharacterControllerSystem &operator=(const CharacterControllerSystem &) = default;
+            CharacterControllerSystem(const CharacterControllerSystem &) = default;
+            CharacterControllerSystem &operator=(const CharacterControllerSystem &) = default;
 
-        void awake();
-        void start();
-        void update();
-        void stop();
-        void onTearDown();
-    
-        void rotateToDirection(irr::core::vector3df move, irr::core::vector3df &rotate);
-        void rotateToAngle(irr::core::vector3df &rotate, float angle);
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
-    protected:
-    private:
+            void rotateToDirection(irr::core::vector3df move, irr::core::vector3df &rotate);
+            void rotateToAngle(irr::core::vector3df &rotate, float angle);
     };
 
 }

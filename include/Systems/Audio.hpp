@@ -17,7 +17,7 @@ namespace is::systems {
     class AudioSystem: public is::ecs::ASystem {
         public:
             AudioSystem() = default;
-            ~AudioSystem() = default;
+            ~AudioSystem() override = default;
 
             AudioSystem(const AudioSystem &) = default;
             AudioSystem &operator=(const AudioSystem &) = default;

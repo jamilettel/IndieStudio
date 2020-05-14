@@ -32,24 +32,20 @@ namespace is::systems {
     class PowerUpSystem : public is::ecs::ASystem {
         public:
             PowerUpSystem() = default;
-            ~PowerUpSystem() = default;
+            ~PowerUpSystem() override = default;
 
             PowerUpSystem(const PowerUpSystem &) = default;
             PowerUpSystem &operator=(const PowerUpSystem &) = default;
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
             void checkPowerUpCollision(is::components::ColliderComponent &trcollider,
-                std::shared_ptr<is::components::WindowComponent> ptr_window,
+                const std::shared_ptr<is::components::WindowComponent>& ptr_window,
                 is::components::PowerUpComponent::PowerUpType type);
-
-        protected:
-        private:
-
     };
 
 }

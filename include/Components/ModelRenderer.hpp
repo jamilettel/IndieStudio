@@ -16,7 +16,6 @@
 
 #include "Exception.hpp"
 namespace is::components {
-
     class ModelRendererComponent : public is::ecs::Component {
         public:
             ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
@@ -33,7 +32,7 @@ namespace is::components {
 
             std::string fileName;
             std::string windowName;
-            irr::scene::IAnimatedMeshSceneNode *node;
+            irr::scene::IAnimatedMeshSceneNode *node{};
     };
 
 }

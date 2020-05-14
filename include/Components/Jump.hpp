@@ -17,24 +17,24 @@
 namespace is::components {
 
     class JumpComponent : public is::ecs::Component {
-    public:
-        JumpComponent(std::shared_ptr<is::ecs::Entity> &e, MovementComponent &movement);
-        ~JumpComponent() override = default;
+        public:
+            JumpComponent(std::shared_ptr<is::ecs::Entity> &e, MovementComponent &movement);
+            ~JumpComponent() override = default;
 
-        JumpComponent(const JumpComponent &) = delete;
-        JumpComponent &operator=(const JumpComponent &) = delete;
+            JumpComponent(const JumpComponent &) = delete;
+            JumpComponent &operator=(const JumpComponent &) = delete;
 
-        void deleteComponent() override;
-    
-        void setJump(bool jump);
-        [[nodiscard]] bool isJump() const noexcept;
-        [[nodiscard]] MovementComponent &getMovement() const noexcept;
-        irr::core::vector3df jumpForce;
+            void deleteComponent() override;
 
-    private:
-        MovementComponent &_movement;
+            void setJump(bool jump);
+            [[nodiscard]] bool isJump() const noexcept;
+            [[nodiscard]] MovementComponent &getMovement() const noexcept;
+            irr::core::vector3df jumpForce;
 
-        bool _jump = false;
+        private:
+            MovementComponent &_movement;
+
+            bool _jump = false;
     };
 
 }

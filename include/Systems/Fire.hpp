@@ -12,7 +12,7 @@
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>
-#include <limits.h>
+#include <climits>
 
 #include "Exception.hpp"
 #include "ECS/ASystem.hpp"
@@ -30,21 +30,19 @@ namespace is::systems {
     class FireSystem : public is::ecs::ASystem {
         public:
             FireSystem() = default;
-            ~FireSystem() = default;
+            ~FireSystem() override = default;
 
             FireSystem(const FireSystem &) = default;
             FireSystem &operator=(const FireSystem &) = default;
 
-            void awake();
-            void start();
-            void update();
-            void stop();
-            void onTearDown();
+            void awake() override;
+            void start() override;
+            void update() override;
+            void stop() override;
+            void onTearDown() override;
 
-        protected:
         private:
             std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
-
     };
 
 }

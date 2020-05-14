@@ -17,22 +17,21 @@
 namespace is::components {
 
     class BombComponent : public is::ecs::Component {
-    public:
-        BombComponent(std::shared_ptr<is::ecs::Entity> &e,
-            std::shared_ptr<is::components::BombermanComponent> &bm,
-            float lt = 3,
-            int size = 2);
-        ~BombComponent() override = default;
+        public:
+            BombComponent(std::shared_ptr<is::ecs::Entity> &e,
+                std::shared_ptr<is::components::BombermanComponent> &bm,
+                float lt = 3,
+                int size = 2);
+            ~BombComponent() override = default;
 
-        BombComponent(const BombComponent &) = delete;
-        BombComponent &operator=(const BombComponent &) = delete;
+            BombComponent(const BombComponent &) = delete;
+            BombComponent &operator=(const BombComponent &) = delete;
 
-        void deleteComponent() override;
+            void deleteComponent() override;
 
-        float lifeTime;
-        float bombSize;
-        std::shared_ptr<is::components::BombermanComponent> bomberman;
-
+            float lifeTime;
+            float bombSize;
+            std::shared_ptr<is::components::BombermanComponent> bomberman;
     };
 
 }

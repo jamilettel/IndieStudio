@@ -15,6 +15,7 @@
 #include "Systems/Camera.hpp"
 #include "Systems/Image.hpp"
 #include "Systems/Button.hpp"
+#include "Systems/Text.hpp"
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "ECS/AScene.hpp"
 
@@ -30,8 +31,6 @@ namespace is::scenes {
 
             void initSystems() override;
             void initEntities() override;
-
-        private:
     };
 
 }

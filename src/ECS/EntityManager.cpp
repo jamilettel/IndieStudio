@@ -35,7 +35,7 @@ std::vector<std::shared_ptr<is::ecs::Entity>> is::ecs::EntityManager::getEntitie
 
 bool is::ecs::EntityManager::operator()(std::shared_ptr<is::ecs::Entity> &ent)
 {
-    for (auto tmpEnt : _entities) {
+    for (const auto& tmpEnt : _entities) {
         if (tmpEnt == ent)
             return (true);
     }

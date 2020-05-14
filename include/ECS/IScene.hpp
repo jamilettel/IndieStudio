@@ -18,6 +18,7 @@ namespace is::ecs {
         SCENE_SPLASH_SCREEN,
         SCENE_MAIN_MENU,
         SCENE_SETTINGS,
+        SCENE_CONTROLLERS,
         SCENE_GAME,
         NOTHING
     };

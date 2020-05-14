@@ -13,24 +13,24 @@
 using namespace irr;
 
 is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &text, const std::string &wn, s32 x, s32 y, s32 width, s32 height,
+    std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
     std::function<void()> ft) :
-Component(e), _ft(std::move(ft)), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(), _pressed()
+Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _text(std::move(text)), _dimension(x, y, x + width, y + height), _image(), _pressed()
 {
 }
 
 is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &text, const std::string &wn, s32 x, s32 y, s32 width, s32 height,
-    std::function<void()> ft, const std::string &image, const std::string &pressed) :
-Component(e), _ft(std::move(ft)), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(image), _pressed(pressed)
+    std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
+    std::function<void()> ft, std::string image, std::string pressed) :
+Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _text(std::move(text)), _dimension(x, y, x + width, y + height), _image(std::move(image)), _pressed(std::move(pressed))
 {
 }
 
 is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &text, const std::string &wn, s32 x, s32 y, s32 width, s32 height,
-    std::function<void()> ft, const std::string &image, const std::string &pressed,
-    const std::string &font) :
-Component(e), _ft(std::move(ft)), windowName(wn), _clicked(false), _text(text), _dimension(x, y, x + width, y + height), _image(image), _pressed(pressed), _font(font)
+    std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
+    std::function<void()> ft, std::string image, std::string pressed,
+    std::string font) :
+Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _text(std::move(text)), _dimension(x, y, x + width, y + height), _image(std::move(image)), _pressed(std::move(pressed)), _font(std::move(font))
 {
 }
 
