@@ -15,18 +15,6 @@
 
 using namespace is::components;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab()
-{
-    auto e = std::make_shared<is::ecs::Entity>();
-
-    e->addComponent<TimeComponent>(e);
-    e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
-    e->addComponent<WindowComponent>(e, "Indie Studio");
-    e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
-    e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0));
-    return (e);
-}
-
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df position)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::GROUND);
@@ -312,76 +300,5 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createCanvas()
         0, 10, 20,
         1000, 10, 500, 100
     );
-    return (e);
-}
-
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen()
-{
-    auto e = std::make_shared<is::ecs::Entity>();
-
-    e->addComponent<is::components::ImageComponent>(
-        e,
-        RESSOURCE("background.png"),
-        "Indie Studio",
-        0, 0, true
-    );
-    return (e);
-}
-
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
-{
-    auto e = std::make_shared<is::ecs::Entity>();
-
-    e->addComponent<is::components::ImageComponent>(
-        e,
-        RESSOURCE("background_main_menu.png"),
-        "Indie Studio",
-        0, 0, true
-    );
-    e->addComponent<is::components::ImageComponent>(
-        e,
-        RESSOURCE("ui/logo.png"),
-        "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 541 / 2, 50, true
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2.5,
-        300, 100,
-        [](){
-            is::Game::setActualScene(is::ecs::SCENE_GAME);
-        },
-        RESSOURCE("ui/button_play.png"),
-        RESSOURCE("ui/button_play.png")
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2.5 + 150,
-        300, 100,
-        [](){
-        },
-        RESSOURCE("ui/button_options.png"),
-        RESSOURCE("ui/button_options.png")
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        is::components::WindowComponent::_width / 2 - 300 / 2,
-        is::components::WindowComponent::_height / 2.5 + 300,
-        300, 100,
-        [](){
-            is::Game::isRunning = false;
-        },
-        RESSOURCE("ui/button_quit.png"),
-        RESSOURCE("ui/button_quit.png")
-    );
-
     return (e);
 }

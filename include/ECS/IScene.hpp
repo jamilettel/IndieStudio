@@ -17,6 +17,7 @@ namespace is::ecs {
     enum Scenes {
         SCENE_SPLASH_SCREEN,
         SCENE_MAIN_MENU,
+        SCENE_SETTINGS,
         SCENE_GAME,
         NOTHING
     };

@@ -15,11 +15,11 @@ namespace is::audio {
     
     class AudioMusicSource : public IAudioSource {
         public:
-            AudioMusicSource(const std::string &filename);
-            void play();
-            void pause();
-            void stop();
-            bool isPlaying();
+            explicit AudioMusicSource(const std::string &filename);
+            void play() override;
+            void pause() override;
+            void stop() override;
+            bool isPlaying() override;
         private:
             sf::Music _music;
     };

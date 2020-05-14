@@ -25,14 +25,14 @@ namespace is::components {
             const irr::core::vector3df &offset = irr::core::vector3df(),
             bool check = true
             );
-        ~ColliderComponent() = default;
+        ~ColliderComponent() override = default;
 
         ColliderComponent(const ColliderComponent &) = delete;
         ColliderComponent &operator=(const ColliderComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
-        const TransformComponent &getTransform() const noexcept;
+        [[nodiscard]] const TransformComponent &getTransform() const noexcept;
 
         irr::core::vector3df offset;
         irr::core::vector3df size;

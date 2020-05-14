@@ -19,13 +19,13 @@ namespace is::components {
 
     class BombermanComponent : public is::ecs::Component {
     public:
-        BombermanComponent(std::shared_ptr<is::ecs::Entity> &e);
-        ~BombermanComponent() = default;
+        explicit BombermanComponent(std::shared_ptr<is::ecs::Entity> &e);
+        ~BombermanComponent() override = default;
 
         BombermanComponent(const BombermanComponent &) = delete;
         BombermanComponent &operator=(const BombermanComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         int bombNumber;
         int bombRange;

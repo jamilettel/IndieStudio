@@ -8,6 +8,7 @@
 #include "Game.hpp"
 #include "Scenes/SplashScreenScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
+#include "Scenes/SettingsScene.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Exception.hpp"
 
@@ -18,6 +19,7 @@ int main(int argc, char const *argv[])
     try {
         game.addScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN, std::make_shared<is::scenes::SplashScreenScene>());
         game.addScene(is::ecs::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
+        game.addScene(is::ecs::Scenes::SCENE_SETTINGS, std::make_shared<is::scenes::SettingsScene>());
         game.addScene(is::ecs::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
         game.launchGame(is::ecs::Scenes::SCENE_SPLASH_SCREEN);
     } catch (is::exceptions::Exception &e) {

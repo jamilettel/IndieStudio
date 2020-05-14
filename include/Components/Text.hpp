@@ -28,7 +28,7 @@ namespace is::components {
         TextComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &text, const std::string &wn,
                 irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
                 bool drawBorder, const std::string &font, bool dynamic = false);
-        ~TextComponent() = default;
+        ~TextComponent() override = default;
 
         TextComponent(const TextComponent &) = delete;
         TextComponent &operator=(const TextComponent &) = delete;
@@ -36,11 +36,11 @@ namespace is::components {
         void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
         
         void updateText();
-        std::string getText() const;
+        [[nodiscard]] std::string getText() const;
         void setText(const std::string &string);
         
 
-        void deleteComponent();
+        void deleteComponent() override;
         
         std::string windowName;
     private:

@@ -24,16 +24,16 @@ namespace is::components {
             ColliderComponent &collider,
             bool clip = true
             );
-        ~MovementComponent() = default;
+        ~MovementComponent() override = default;
 
         MovementComponent(const MovementComponent &) = delete;
         MovementComponent &operator=(const MovementComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
-        TransformComponent &getTransform() const noexcept;
-        ColliderComponent &getCollider() const noexcept;
-        bool isOnTheGround() const noexcept;
+        [[nodiscard]] TransformComponent &getTransform() const noexcept;
+        [[nodiscard]] ColliderComponent &getCollider() const noexcept;
+        [[nodiscard]] bool isOnTheGround() const noexcept;
         void setOnTheGround(bool isOnTheGround) noexcept;
 
         irr::core::vector3df velocity;

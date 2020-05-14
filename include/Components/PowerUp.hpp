@@ -25,12 +25,12 @@ namespace is::components {
         };
 
         PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e, PowerUpType tp);
-        ~PowerUpComponent() = default;
+        ~PowerUpComponent() override = default;
 
         PowerUpComponent(const PowerUpComponent &) = delete;
         PowerUpComponent &operator=(const PowerUpComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         PowerUpType type;
     };

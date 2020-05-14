@@ -22,12 +22,12 @@ namespace is::components {
             std::shared_ptr<is::components::BombermanComponent> &bm,
             float lt = 3,
             int size = 2);
-        ~BombComponent() = default;
+        ~BombComponent() override = default;
 
         BombComponent(const BombComponent &) = delete;
         BombComponent &operator=(const BombComponent &) = delete;
 
-        void deleteComponent();
+        void deleteComponent() override;
 
         float lifeTime;
         float bombSize;
