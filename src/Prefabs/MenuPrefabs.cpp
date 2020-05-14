@@ -33,7 +33,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen(
 
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("ui/splashscreen.jpg"),
+        RESSOURCE("ui/splashscreen.png"),
         "Indie Studio",
         0, 0, true
     );
@@ -186,6 +186,75 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Return_BTN.png"),
         RESSOURCE("ui/settings/Return_BTN_pressed.png")
+    );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/settings/Window.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 500, 250, true
+    );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/settings/Music.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 500 + 90, 262, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 500 + 140, 450,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/settings/Sound_no_BTN.png"),
+        RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 500 + 140, 450,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/settings/Sound_high_BTN.png"),
+        RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 500 + 140, 450,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/settings/Sound_low_BTN.png"),
+        RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
+    );
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/settings/Window.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 500 - 336, 250, true
+    );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/settings/Sound.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 260, 265, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 500 - 190, 450,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/settings/Sound_no_BTN.png"),
+        RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
     );
     return e;
 }
