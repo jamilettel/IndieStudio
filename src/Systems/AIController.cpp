@@ -133,8 +133,6 @@ bool AIControllerSystem::canHideFromExplosion(
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map
 ) const
 {
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
     std::vector<irr::core::vector2di> successors;
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
@@ -184,8 +182,6 @@ bool AIControllerSystem::findBombEmplacement(
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map
 ) const
 {
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
     std::vector<irr::core::vector2di> successors;
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
@@ -336,7 +332,7 @@ bool AIControllerSystem::isInDanger(irr::core::vector2di aiPos, std::vector<std:
             if (map[i][a] != is::ecs::Entity::Layer::BOMB) {
                 continue;
             }
-            if (i == aiPos.X || a == aiPos.Y) {
+            if (static_cast<int>(i) == aiPos.X || static_cast<int>(a) == aiPos.Y) {
                 return (true);
             }
         }
@@ -346,9 +342,6 @@ bool AIControllerSystem::isInDanger(irr::core::vector2di aiPos, std::vector<std:
 
 void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
 {
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
-
     if (!ai.path.size())
         return;
     ai.lastShortObjective = ai.shortObjective;
@@ -369,5 +362,5 @@ bool AIControllerSystem::isValid(const irr::core::vector2di &pos, const std::vec
 {
     if (map.size() == 0)
         return (false);
-    return (pos.X >= 0 && pos.X < map.size() && pos.Y >= 0 && pos.Y < map[0].size());
+    return (pos.X >= 0 && pos.X < static_cast<int>(map.size()) && pos.Y >= 0 && pos.Y < static_cast<int>(map[0].size()));
 }
