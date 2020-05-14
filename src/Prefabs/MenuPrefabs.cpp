@@ -33,7 +33,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen(
 
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("background.png"),
+        RESSOURCE("ui/splashscreen.jpg"),
         "Indie Studio",
         0, 0, true
     );
@@ -90,6 +90,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         is::components::WindowComponent::_height - 150,
         50, 50,
         [](){
+            is::Game::setActualScene(is::ecs::SCENE_CONTROLLERS);
         },
         RESSOURCE("ui/main_menu/Controllers_BTN.png"),
         RESSOURCE("ui/main_menu/Controllers_BTN_pressed.png")
@@ -185,6 +186,31 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Return_BTN.png"),
         RESSOURCE("ui/settings/Return_BTN_pressed.png")
+    );
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30, 30,
+        50, 50,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+        },
+        RESSOURCE("ui/controllers/Return_BTN.png"),
+        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
     );
     return e;
 }

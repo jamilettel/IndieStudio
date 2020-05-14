@@ -58,6 +58,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createSplashScreen();
         static std::shared_ptr<is::ecs::Entity> createMainMenu();
         static std::shared_ptr<is::ecs::Entity> createSettings();
+        static std::shared_ptr<is::ecs::Entity> createControllers();
     };
 
 }
