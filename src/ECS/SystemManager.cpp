@@ -60,6 +60,5 @@ void is::ecs::SystemManager::onTearDown()
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
         system->onTearDown();
     });
-    _systems.clear();
 }
 
