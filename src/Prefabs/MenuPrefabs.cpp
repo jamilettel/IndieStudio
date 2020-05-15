@@ -355,3 +355,28 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
     );
     return e;
 }
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30, 30,
+        50, 50,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_GAME);
+        },
+        RESSOURCE("ui/controllers/Return_BTN.png"),
+        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
+    );
+    return e;
+}
