@@ -61,6 +61,7 @@ void is::components::TextComponent::init(const std::shared_ptr<is::components::W
         element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
     element->setOverrideColor(_color);
     element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
+    element->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_CENTER);
 }
 
 std::string is::components::TextComponent::getText() const

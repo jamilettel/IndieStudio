@@ -152,6 +152,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         is::components::WindowComponent::_height - 70,
         50, 50,
         [](){
+            is::Game::setActualScene(is::ecs::SCENE_CREDIT);
         },
         RESSOURCE("ui/main_menu/Info_BTN.png"),
         RESSOURCE("ui/main_menu/Info_BTN_pressed.png")
@@ -377,6 +378,114 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         },
         RESSOURCE("ui/controllers/Return_BTN.png"),
         RESSOURCE("ui/controllers/Return_BTN_pressed.png")
+    );
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/credits/Information.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 606 / 2, 50, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30, 30,
+        50, 50,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+        },
+        RESSOURCE("ui/controllers/Return_BTN.png"),
+        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Epitech Project Tek2",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 150,
+        350, 100,
+        true,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 68, 68, 68)
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Amaury Lecomte",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 280,
+        350, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Benjamin Bourgeois",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 380,
+        350, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Jamil Ettel",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 480,
+        350, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Louis Deschanel",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 580,
+        350, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Nathan Quentel",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 680,
+        350, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Tristan Bouillot",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 - 350 / 2, 780,
+        350, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
     );
     return e;
 }
