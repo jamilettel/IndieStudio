@@ -15,5 +15,12 @@ class MapGenerator {
         MapGenerator& operator=(const MapGenerator& rhs) = default;
         ~MapGenerator() = default;
 
-        void generateMap(is::ecs::AScene &sc);
+        void generateMap(is::ecs::AScene &sc, int seed);
+    
+    private:
+        static std::vector<size_t> permTable;
+        void generatePermTable(int seed);
+        std::vector<std::vector<int>> generateArray();
+        float getVectorPermTable(float x, float y, float x0, float y0, int addX, int);
+        float generatePerlinNoise(float x, float y, float res);
 };
