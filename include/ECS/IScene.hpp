@@ -21,6 +21,7 @@ namespace is::ecs {
         SCENE_CONTROLLERS,
         SCENE_PAUSE,
         SCENE_CREDIT,
+        SCENE_HOWTOPLAY,
         SCENE_GAME,
         NOTHING
     };
