@@ -88,6 +88,7 @@ void WindowSystem::update()
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
         ptr->driver->endScene();
+        is::components::WindowComponent::_windowsDimensions[ptr->windowName] = std::pair<int, int>(ptr->driver->getScreenSize().Width, ptr->driver->getScreenSize().Height);
     }
 }
 

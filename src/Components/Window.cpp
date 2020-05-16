@@ -7,6 +7,8 @@
 
 #include "Components/Window.hpp"
 
+std::map<std::string, std::pair<int, int>> is::components::WindowComponent::_windowsDimensions;
+
 int is::components::WindowComponent::_width = 0;
 int is::components::WindowComponent::_height = 0;
 
@@ -21,6 +23,7 @@ Component(e)
     fullscreen = fs;
     _width = ws.Width;
     _height = ws.Height;
+    _windowsDimensions[wn] = std::pair<int, int>(_width, _height);
 }
 
 void is::components::WindowComponent::deleteComponent()
