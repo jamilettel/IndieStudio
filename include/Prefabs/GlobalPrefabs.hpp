@@ -59,6 +59,7 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createMainMenu();
             static std::shared_ptr<is::ecs::Entity> createPause();
             static std::shared_ptr<is::ecs::Entity> createCredit();
+            static std::shared_ptr<is::ecs::Entity> createHowToPlay();
             static std::shared_ptr<is::ecs::Entity> createSettings();
             static std::shared_ptr<is::ecs::Entity> createControllers();
     };
