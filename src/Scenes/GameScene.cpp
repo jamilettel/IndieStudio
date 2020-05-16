@@ -48,5 +48,4 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
-    //initEntity(prefabs::GlobalPrefabs::createCanvas());
 }

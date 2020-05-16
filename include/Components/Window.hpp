@@ -45,6 +45,7 @@ namespace is::components {
             float joystickRefreshRemainingTime = joystickRefresh;
             bool joystickSupport = true;
 
+            static std::map<std::string, std::pair<int, int>> _windowsDimensions;
             static int _width;
             static int _height;
     };

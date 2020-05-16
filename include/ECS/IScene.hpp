@@ -19,6 +19,8 @@ namespace is::ecs {
         SCENE_MAIN_MENU,
         SCENE_SETTINGS,
         SCENE_CONTROLLERS,
+        SCENE_PAUSE,
+        SCENE_CREDIT,
         SCENE_GAME,
         NOTHING
     };
