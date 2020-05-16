@@ -116,21 +116,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
         50, 50,
         [](){
+            is::Game::setActualScene(is::ecs::SCENE_RECORD);
         },
         RESSOURCE("ui/main_menu/Scores_BTN.png"),
         RESSOURCE("ui/main_menu/Scores_BTN_pressed.png")
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        30,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
-        50, 50,
-        [](){
-        },
-        RESSOURCE("ui/main_menu/FAQ_BTN.png"),
-        RESSOURCE("ui/main_menu/FAQ_BTN_pressed.png")
     );
     e->addComponent<ButtonComponent>(
         e,
@@ -506,6 +495,37 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
         RESSOURCE("ui/HowToPlay/Header.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30, 30,
+        50, 50,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+        },
+        RESSOURCE("ui/controllers/Return_BTN.png"),
+        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
+    );
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        "Indie Studio",
+        0, 0, true
+    );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Record/Record.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
     );
     e->addComponent<ButtonComponent>(
         e,
