@@ -25,7 +25,7 @@ void is::systems::CharacterControllerSystem::start()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
-            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not find bomberman");
     }
     std::vector<std::shared_ptr<is::ecs::Component>> &time =
         _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
@@ -72,7 +72,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
-            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not find bomberman");
         if (bm->get()->dead) {
             bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
             if (bm->get()->deathTimer <= 0) {
@@ -83,7 +83,7 @@ void is::systems::CharacterControllerSystem::update()
         }
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
-            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not find bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
         
@@ -109,10 +109,10 @@ void is::systems::CharacterControllerSystem::update()
                 }
             }
             if (!windowFound)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
+                throw is::exceptions::Exception("CharacterControllerSystem", "Could not find window");
             auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
             if (!bm)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+                throw is::exceptions::Exception("CharacterControllerSystem", "Could not find bomberman");
             if (bm->get()->instantBomb + 1 > bm->get()->bombNumber)
                 return;
             bm->get()->instantBomb++;

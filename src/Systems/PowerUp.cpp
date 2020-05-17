@@ -38,7 +38,7 @@ void is::systems::PowerUpSystem::update()
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
+            throw is::exceptions::Exception("CharacterControllerSystem", "Could not find window");
         auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*ptr->getEntity()->getComponent<is::components::ColliderComponent>());
         checkPowerUpCollision(*cc, ptr_window, ptr->type);
     }
@@ -61,7 +61,7 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
         if (is::systems::ColliderSystem::checkCollision(trcollider, *ptr)) {
             auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
             if (!bm)
-                throw is::exceptions::Exception("PowerUpSystem", "Could not found bomberman");
+                throw is::exceptions::Exception("PowerUpSystem", "Could not find bomberman");
             switch (type) {
             case is::components::PowerUpComponent::BOMB_UP:
                 bm->get()->bombNumber++;

@@ -39,7 +39,7 @@ void TextSystem::awake()
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("TextComponent", "Could not found window");
+            throw is::exceptions::Exception("TextComponent", "Could not find window");
 
         ptr->init(ptr_window);
     }
