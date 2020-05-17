@@ -14,10 +14,10 @@ std::vector<size_t> MapGenerator::permTable;
 
 const std::vector<std::vector<float>> gradientVector
 {
-    {1.0f/sqrt(2), 1.0f/sqrt(2)},
-    {- (1.0f/sqrt(2)), 1.0f/sqrt(2)},
-    {1.0f/sqrt(2), -(1.0f/sqrt(2))},
-    {-(1.0f/sqrt(2)), -(1.0f/sqrt(2))},
+    {static_cast<float>(1.0f/sqrt(2)), static_cast<float>(1.0f/sqrt(2))},
+    {static_cast<float>(- (1.0f/sqrt(2))), static_cast<float>(1.0f/sqrt(2))},
+    {static_cast<float>(1.0f/sqrt(2)), static_cast<float>(-(1.0f/sqrt(2)))},
+    {static_cast<float>(-(1.0f/sqrt(2))), static_cast<float>(-(1.0f/sqrt(2)))},
     {1, 0},
     {-1, 0},
     {0, 1},
