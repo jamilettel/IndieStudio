@@ -127,6 +127,49 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
     }
 }
 
+bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map, const irr::core::vector2di &bombPos) const noexcept
+{
+    if (aiPos.X != bombPos.X && aiPos.Y != bombPos.Y)
+        return (true);
+    if (aiPos.X == bombPos.X && aiPos.Y == bombPos.Y)
+        return (false);
+    if (aiPos.X == bombPos.X) {
+        int incr = (bombPos.Y < aiPos.Y ? -1 : 1);
+
+        for (int tmp = aiPos.Y; tmp != bombPos.Y; tmp += incr) {
+            if (layerIsABlock(map[bombPos.X][tmp]))
+                break;
+        }
+        return (false);
+    } else if (aiPos.Y == bombPos.Y) {
+        int incr = (bombPos.X < aiPos.X ? -1 : 1);
+
+        for (int tmp = aiPos.X; tmp != bombPos.X; tmp += incr) {
+            if (layerIsABlock(map[tmp][bombPos.Y]))
+                break;
+        }
+        return (false);
+    }
+    return (true);
+}
+
+bool AIControllerSystem::posIsHideFromBombs(const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
+{
+    int iSize = map.size();
+
+    for (int i = 0; i < iSize; i++) {
+        int jSize = map[i].size();
+        
+        for (int j = 0; j < jSize; j++) {
+            if (map[i][j] != is::ecs::Entity::BOMB)
+                continue;
+            if (!posIsHideFromABomb(aiPos, map, irr::core::vector2di(i, j)))
+                return (false);
+        }
+    }
+    return (true);
+}
+
 bool AIControllerSystem::canHideFromExplosion(
     AIControllerComponent &ai,
     const irr::core::vector2di &pos,
@@ -145,7 +188,7 @@ bool AIControllerSystem::canHideFromExplosion(
         successors.erase(successors.begin());
         if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
             continue;
-        if (newPos.X != pos.X && newPos.Y != pos.Y) {
+        if (posIsHideFromABomb(newPos, map, pos) && posIsHideFromBombs(newPos, map)) {
             ai.posToEscape = newPos;
             return true;
         } else {
@@ -351,7 +394,7 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
 }
 
-bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer) const
+bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer) const noexcept
 {
     return (layer == is::ecs::Entity::Layer::DEFAULT ||
         layer == is::ecs::Entity::Layer::PLAYER ||
@@ -363,4 +406,9 @@ bool AIControllerSystem::isValid(const irr::core::vector2di &pos, const std::vec
     if (map.size() == 0)
         return (false);
     return (pos.X >= 0 && pos.X < static_cast<int>(map.size()) && pos.Y >= 0 && pos.Y < static_cast<int>(map[0].size()));
+}
+
+bool AIControllerSystem::layerIsABlock(const is::ecs::Entity::Layer &layer) const noexcept
+{
+    return (layer == is::ecs::Entity::Layer::BRKBL_BLK || layer == is::ecs::Entity::Layer::GROUND);
 }
