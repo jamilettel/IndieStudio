@@ -29,6 +29,7 @@ namespace is::components {
             ImageComponent &operator=(const ImageComponent &) = delete;
 
             void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
+            void setPosition(float x, float y);
             void deleteComponent() override;
 
             std::string windowName;
