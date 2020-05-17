@@ -205,7 +205,11 @@ bool AIControllerSystem::canHideFromExplosion(
     return false;
 }
 
-bool AIControllerSystem::bombPosIsUseful(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
+bool AIControllerSystem::bombPosIsUseful(
+    const irr::core::vector2di &bombPos,
+    const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    const irr::core::vector2di &aiPos
+) const
 {
     char dirX[] = {-1, 0, 1, 0};
     char dirY[] = {0, -1, 0, 1};
@@ -213,7 +217,7 @@ bool AIControllerSystem::bombPosIsUseful(const irr::core::vector2di &bombPos, co
     for (int i = 0; i < 4; i++) {
         irr::core::vector2di newPos(bombPos.X + dirX[i], bombPos.Y + dirY[i]);
 
-        if (map[bombPos.X + dirX[i]][bombPos.Y + dirY[i]] == is::ecs::Entity::Layer::BRKBL_BLK)
+        if (map[bombPos.X + dirX[i]][bombPos.Y + dirY[i]] == is::ecs::Entity::Layer::BRKBL_BLK || bombPosAimForPlayer(bombPos, map, aiPos))
             return (true);
     }
     return (false);
@@ -237,7 +241,7 @@ bool AIControllerSystem::findBombEmplacement(
         successors.erase(successors.begin());
         if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
             continue;
-        if (bombPosIsUseful(newPos, map) && canHideFromExplosion(ai, newPos, map)) {
+        if (bombPosIsUseful(newPos, map, pos) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
             ai.longObjective = newPos;
             return true;
@@ -411,4 +415,48 @@ bool AIControllerSystem::isValid(const irr::core::vector2di &pos, const std::vec
 bool AIControllerSystem::layerIsABlock(const is::ecs::Entity::Layer &layer) const noexcept
 {
     return (layer == is::ecs::Entity::Layer::BRKBL_BLK || layer == is::ecs::Entity::Layer::GROUND);
+}
+
+bool AIControllerSystem::bombPosAimForPlayer(
+    const irr::core::vector2di &bombPos,
+    const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    const irr::core::vector2di &aiPos
+) const noexcept
+{
+    int width = map.size();
+    int height = map[bombPos.X].size();
+
+    for (int i = bombPos.X; i < width; i++) {
+        if (layerIsABlock(map[i][bombPos.Y]))
+            break;
+        if (i == aiPos.X && bombPos.Y == aiPos.Y)
+            continue;
+        if (map[i][bombPos.Y] == is::ecs::Entity::Layer::PLAYER)
+            return true;
+    }
+    for (int i = bombPos.X; i > 0; i--) {
+        if (layerIsABlock(map[i][bombPos.Y]))
+            break;
+        if (i == aiPos.X && bombPos.Y == aiPos.Y)
+            continue;
+        if (map[i][bombPos.Y] == is::ecs::Entity::Layer::PLAYER)
+            return true;
+    }
+    for (int i = bombPos.Y; i < height; i++) {
+        if (layerIsABlock(map[bombPos.X][i]))
+            break;
+        if (bombPos.X == aiPos.X && i == aiPos.Y)
+            continue;
+        if (map[bombPos.X][i] == is::ecs::Entity::Layer::PLAYER)
+            return true;
+    }
+    for (int i = bombPos.Y; i > 0; i--) {
+        if (layerIsABlock(map[bombPos.X][i]))
+            break;
+        if (bombPos.X == aiPos.X && i == aiPos.Y)
+            continue;
+        if (map[bombPos.X][i] == is::ecs::Entity::Layer::PLAYER)
+            return true;
+    }
+    return (false);
 }
