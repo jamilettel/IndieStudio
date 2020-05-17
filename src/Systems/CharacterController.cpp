@@ -58,6 +58,8 @@ void is::systems::CharacterControllerSystem::rotateToDirection(irr::core::vector
 
 void is::systems::CharacterControllerSystem::update()
 {
+    int countWin = 0;
+
     for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
@@ -70,14 +72,15 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
+        ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Idle");
         
         //  other function
-        if (im->get()->getInput("Jump") == 1) {
-            std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
-            if (!jump.has_value())
-                return;
-            jump.value()->setJump(true);
-        }
+        //if (im->get()->getInput("Jump") == 1) {
+        //    std::optional<std::shared_ptr<JumpComponent>> jump = ptr->getEntity()->getComponent<JumpComponent>();
+        //    if (!jump.has_value())
+        //        return;
+        //    jump.value()->setJump(true);
+        //}
 
         //other function
         if (im->get()->getInput("DropBomb") == 1) {
@@ -111,9 +114,15 @@ void is::systems::CharacterControllerSystem::update()
         }
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed * bm->get()->speedMult;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
-        if (ptr->move.X != 0 || ptr->move.Z != 0)
+        if (ptr->move.X != 0 || ptr->move.Z != 0) {
             ptr->getAudioComponent().toPlay();
+            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Walk");
+        }
         im->get()->resetValues();
+        countWin++;
+    }
+    if (countWin == 1) {
+        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
     }
 }
 
