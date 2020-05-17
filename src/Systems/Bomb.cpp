@@ -23,7 +23,7 @@ void is::systems::BombSystem::start()
 
     if (time.empty())
         throw is::exceptions::Exception("Bomb", "No time component in scene");
-    _time.emplace(*dynamic_cast<is::components::TimeComponent *>(time[0].get()));
+    _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
 void is::systems::BombSystem::update()
@@ -86,7 +86,7 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
 
     is::systems::ColliderSystem::precomputeCollisionVariables(trcollider);
     for (auto & collider : colliders) {
-        auto *ptr = dynamic_cast<is::components::ColliderComponent *>(collider.get());
+        auto *ptr = static_cast<is::components::ColliderComponent *>(collider.get());
 
         if (&trcollider == ptr || (!trcollider.collidesWith(ptr->getEntity()->layer) && ptr->getEntity()->layer != is::ecs::Entity::BRKBL_BLK))
             continue;
