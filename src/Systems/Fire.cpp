@@ -21,7 +21,7 @@ void is::systems::FireSystem::start()
 
     if (time.empty())
         throw is::exceptions::Exception("Fire", "No time component in scene");
-    _time.emplace(*dynamic_cast<is::components::TimeComponent *>(time[0].get()));
+    _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
 void is::systems::FireSystem::update()

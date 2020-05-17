@@ -173,7 +173,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
         e,
         pos,
         irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(3.5, 3.5, 3.5)
+        irr::core::vector3df(0.7f)
         );
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -190,6 +190,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
         RESSOURCE("footstep.wav"),
         is::components::SOUND
     );
+    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
@@ -219,6 +220,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     joystick.bindButton(2, "DropBomb", 1);
     joystick.bindButton(0, "Jump", 1);
     joystick.assignJoystick(0);
+    animator.animators.push_back({0, 25, "Walk"});
+    animator.animators.push_back({26, 41, "DropBomb"});
+    animator.animators.push_back({41, 60, "Death"});
+    animator.animators.push_back({61, 86, "Idle"});
     return (e);
 }
 
@@ -230,7 +235,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
         e,
         pos,
         irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(3.5, 3.5, 3.5)
+        irr::core::vector3df(0.7f)
         );
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -255,6 +260,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
         "Indie Studio",
         0.1
     );
+    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
@@ -264,5 +270,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
     e->addComponent<AIControllerComponent>(e, input);
+    animator.animators.push_back({0, 24, "Walk"});
+    animator.animators.push_back({25, 40, "DropBomb"});
+    animator.animators.push_back({41, 60, "Death"});
+    animator.animators.push_back({61, 86, "Idle"});
     return (e);
 }

@@ -16,6 +16,8 @@ Component(e)
     bombNumber = 1;
     speedMult = 1;
     wallPass = false;
+    dead = false;
+    deathTimer = 0.7f;
 }
 
 void is::components::BombermanComponent::deleteComponent()

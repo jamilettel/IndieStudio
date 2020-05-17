@@ -33,6 +33,9 @@ namespace is::components {
             bool wallPass;
 
             int instantBomb;
+
+            bool dead;
+            float deathTimer;
     };
 
 }
