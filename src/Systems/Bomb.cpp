@@ -88,13 +88,17 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
     for (auto & collider : colliders) {
         auto *ptr = dynamic_cast<is::components::ColliderComponent *>(collider.get());
 
-        if (&trcollider == ptr || (!trcollider.collidesWith(ptr->getEntity()->layer) && ptr->getEntity()->layer != is::ecs::Entity::BRKBL_BLK))
+        if (&trcollider == ptr || (!trcollider.collidesWith(ptr->getEntity()->layer) && ptr->getEntity()->layer != is::ecs::Entity::BRKBL_BLK && ptr->getEntity()->layer != is::ecs::Entity::PLAYER))
             continue;
         is::systems::ColliderSystem::precomputeCollisionVariables(*ptr);
         if (is::systems::ColliderSystem::checkCollision(trcollider, *ptr)) {
             if (ptr->getEntity()->layer == is::ecs::Entity::BRKBL_BLK) {
                 ptr->getEntity()->setDelete(true);
                 generateRandomPowerUp(ptr, ptr_window);
+            }
+            if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
+                ptr->getEntity()->setDelete(true);
+                return (false);
             }
             return (true);
         }
