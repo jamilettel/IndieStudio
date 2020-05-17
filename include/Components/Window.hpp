@@ -41,8 +41,6 @@ namespace is::components {
             bool fullscreen;
 
             irr::core::array<irr::SJoystickInfo> joysticks;
-            float joystickRefresh = 2;
-            float joystickRefreshRemainingTime = joystickRefresh;
             bool joystickSupport = true;
 
             static std::map<std::string, std::pair<int, int>> _windowsDimensions;

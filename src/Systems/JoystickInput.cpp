@@ -40,7 +40,7 @@ void JoystickInputSystem::update()
     auto joystickArray = _joysticks->get();
 
     for (const auto& component: joystickComponents) {
-        auto joystick = dynamic_cast<JoystickInputComponent *>(component.get());
+        auto joystick = static_cast<JoystickInputComponent *>(component.get());
         auto &buttonBindings = joystick->getButtonBindings();
         auto &axisBindings = joystick->getAxisBindings();
         size_t pos = 0;
