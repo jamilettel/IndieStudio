@@ -62,18 +62,34 @@ float MapGenerator::generatePerlinNoise(float x, float y, float res)
     return (L1 + (Cy * (L2 - L1)));
 }
 
-std::vector<std::vector<int>> MapGenerator::generateArray()
+bool MapGenerator::checkSpawnBlock(int x, int y, int width, int height)
+{
+    if ((x == 1 && y == 1) || (x == 2 && y == 1) ||
+        (x == 1 && y == 2))
+        return (true);
+    if  ((x == width - 2 && y == 1) || (x == width - 3 && y == 1) || 
+         (x == width - 2 && y == 2))
+        return (true);
+    if ((x == 1 && y == height - 2) || (x == 2 && y == height - 2) || 
+        (x == 1 && y == height - 3))
+        return (true);
+    if ((x == width - 2 && y == height - 2) || (x == width - 3 && y == height - 2) ||
+        (x == width - 2 && y == height - 3))
+        return (true);
+    return (false);
+}
+
+std::vector<std::vector<int>> MapGenerator::generateArray(int width, int height)
 {
     std::vector<std::vector<int>> toReturn;
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < height; i++) {
         toReturn.push_back(std::vector<int>(15));
-        for (int j = 0; j < 15; j++) {
-            if (i == 0 || j == 0 || j == 14 || i == 12)
+        for (int j = 0; j < width; j++) {
+            if (i == 0 || j == 0 || j == width - 1 || i == height -1)
                 toReturn[i][j] = 3;
             else if (!(i % 2) && !(j % 2))
                 toReturn[i][j] = 2;
-            else if ((i == 1 && j == 1) || (i == 1 && j == 13) ||
-                    (i == 11 && j == 1) || (i == 11 && j == 13))
+            else if (checkSpawnBlock(j, i, width, height))
                 toReturn[i][j] = 0;
             else
                 toReturn[i][j] = round((generatePerlinNoise(j, i, 1.1) + 1) * 0.5);
@@ -82,14 +98,13 @@ std::vector<std::vector<int>> MapGenerator::generateArray()
     return (toReturn);
 }
 
-void MapGenerator::generateMap(ecs::AScene &sc, int seed)
+void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height)
 {
-    int width = 15, height = 13;
     int mid_w = width / 2;
     int mid_h = height / 2;
 
     generatePermTable(seed);
-    std::vector<std::vector<int>> arrayMap = generateArray();
+    std::vector<std::vector<int>> arrayMap = generateArray(width, height);
 
     for (int i = -mid_w; i < mid_w + 1; i++) {
         for (int j = -mid_h; j < mid_h + 1; j++) {
