@@ -97,7 +97,7 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
                 generateRandomPowerUp(ptr, ptr_window);
             }
             if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
-                ptr->getEntity()->setDelete(true);
+                ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get()->dead = true;
                 return (false);
             }
             return (true);

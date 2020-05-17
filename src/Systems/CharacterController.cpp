@@ -27,6 +27,12 @@ void is::systems::CharacterControllerSystem::start()
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
     }
+    std::vector<std::shared_ptr<is::ecs::Component>> &time =
+        _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
+
+    if (!time.size())
+        throw is::exceptions::Exception("Movement", "No time component in scene");
+    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
 void is::systems::CharacterControllerSystem::rotateToAngle(irr::core::vector3df &rotate,
@@ -67,6 +73,14 @@ void is::systems::CharacterControllerSystem::update()
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+        if (bm->get()->dead) {
+            bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
+            if (bm->get()->deathTimer <= 0) {
+                ptr->getEntity()->setDelete(true);
+            }
+            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
+            continue;
+        }
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
