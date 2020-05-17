@@ -22,10 +22,13 @@ void is::components::AnimatorComponent::changeAnimation(const std::string &anim)
 {
     bool animFound = false;
 
+    if (anim == currentAnim)
+        return;
     for (auto &elem : animators) {
         if (elem.name == anim) {
             getEntity()->getComponent<is::components::ModelRendererComponent>()->get()->node->setFrameLoop(elem.start, elem.end);
             animFound = true;
+            currentAnim = anim;
         }
     }
     if (!animFound)

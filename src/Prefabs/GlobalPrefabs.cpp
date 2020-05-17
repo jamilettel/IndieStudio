@@ -173,7 +173,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
         e,
         pos,
         irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(3.5, 3.5, 3.5)
+        irr::core::vector3df(0.7f)
         );
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -235,7 +235,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
         e,
         pos,
         irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(3.5, 3.5, 3.5)
+        irr::core::vector3df(0.7f)
         );
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -270,8 +270,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
     e->addComponent<AIControllerComponent>(e, input);
-    animator.animators.push_back({0, 25, "Walk"});
-    animator.animators.push_back({26, 41, "DropBomb"});
+    animator.animators.push_back({0, 24, "Walk"});
+    animator.animators.push_back({25, 40, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     return (e);

@@ -39,6 +39,7 @@ namespace is::components {
             void changeAnimation(const std::string &anim);
 
             std::vector<AnimatorElem> animators;
+            std::string currentAnim;
     };
 
 }
