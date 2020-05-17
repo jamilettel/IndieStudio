@@ -23,7 +23,7 @@ void MovementSystem::start()
 
     if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
-    _time.emplace(*dynamic_cast<TimeComponent *>(time[0].get()));
+    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
 void MovementSystem::stop()
@@ -39,7 +39,7 @@ void MovementSystem::checkCollisions(
 {
     ColliderSystem::precomputeCollisionVariables(collider);
     for (auto & i : colliders) {
-        auto *ptr = dynamic_cast<ColliderComponent *>(i.get());
+        auto *ptr = static_cast<ColliderComponent *>(i.get());
 
         if (&collider == ptr || !collider.collidesWith(ptr->getEntity()->layer))
             continue;
@@ -107,7 +107,7 @@ void MovementSystem::update()
     irr::core::vector3df zero;
 
     for (auto & movement : movements) {
-        auto *ptr = dynamic_cast<MovementComponent *>(movement.get());
+        auto *ptr = static_cast<MovementComponent *>(movement.get());
 
         if (ptr->velocity == zero)
             continue;
