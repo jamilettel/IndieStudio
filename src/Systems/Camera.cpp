@@ -60,33 +60,55 @@ void is::systems::CameraSystem::update()
         }
         if (points.size() <= 0)
             continue;
-        for (i=0; i<points.size()-1; ++i)
-        {
+        else if (points.size() == 1) {
+            centroid.X = points[0].X;
+            centroid.Y = points[0].Y;
+        }
+        else if (points.size() == 2) {
+            centroid.X = (points[0].X + points[1].X) / 2;
+            centroid.Y = (points[0].Y + points[1].Y) / 2;
+        }
+        else {
+            for (i=0; i<points.size()-1; ++i)
+            {
+                x0 = points[i].X;
+                y0 = points[i].Y;
+                x1 = points[i+1].X;
+                y1 = points[i+1].Y;
+                a = x0*y1 - x1*y0;
+                signedArea += a;
+                centroid.X += (x0 + x1)*a;
+                centroid.Y += (y0 + y1)*a;
+            }
+
             x0 = points[i].X;
             y0 = points[i].Y;
-            x1 = points[i+1].X;
-            y1 = points[i+1].Y;
+            x1 = points[0].X;
+            y1 = points[0].Y;
             a = x0*y1 - x1*y0;
             signedArea += a;
             centroid.X += (x0 + x1)*a;
             centroid.Y += (y0 + y1)*a;
+
+            signedArea *= 0.5;
+            centroid.X /= (6.0*signedArea);
+            centroid.Y /= (6.0*signedArea);
         }
+        irr::core::vector3df pos = ptr->node->getPosition();
+        pos.X += 15;
+        irr::core::vector2df npos;
 
-        x0 = points[i].X;
-        y0 = points[i].Y;
-        x1 = points[0].X;
-        y1 = points[0].Y;
-        a = x0*y1 - x1*y0;
-        signedArea += a;
-        centroid.X += (x0 + x1)*a;
-        centroid.Y += (y0 + y1)*a;
+        if (centroid.X > pos.X)
+            npos.X = pos.X + 0.02f;
+        else if (centroid.X < pos.X)
+            npos.X = pos.X - 0.02f;
+        if (centroid.Y < pos.Z)
+            npos.Y = pos.Z - 0.02f;
+        else if (centroid.Y > pos.Z)
+            npos.Y = pos.Z + 0.02f;
+        ptr->node->setPosition(irr::core::vector3df(npos.X - 15, ptr->node->getPosition().Y, npos.Y));
+        ptr->node->setTarget(irr::core::vector3df(npos.X, ptr->node->getTarget().Y, npos.Y));
 
-        signedArea *= 0.5;
-        centroid.X /= (6.0*signedArea);
-        centroid.Y /= (6.0*signedArea);
-
-        ptr->node->setTarget(irr::core::vector3df(centroid.X, ptr->node->getTarget().Y, centroid.Y));
-        ptr->node->setPosition(irr::core::vector3df(centroid.X - 15, ptr->node->getPosition().Y, centroid.Y));
     }
 }
 
