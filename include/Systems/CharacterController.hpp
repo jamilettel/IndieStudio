@@ -45,6 +45,10 @@ namespace is::systems {
 
             void rotateToDirection(irr::core::vector3df move, irr::core::vector3df &rotate);
             void rotateToAngle(irr::core::vector3df &rotate, float angle);
+
+        private:
+            std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
+
     };
 
 }

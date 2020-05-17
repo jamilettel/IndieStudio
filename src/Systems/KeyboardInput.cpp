@@ -37,7 +37,7 @@ void KeyboardInputSystem::update()
         _componentManager->getComponentsByType(typeid(KeyboardInputComponent).hash_code());
 
     for (std::shared_ptr<Component> &component: keyboardComponents) {
-        KeyboardInputComponent &keyboard = *dynamic_cast<KeyboardInputComponent *>(component.get());
+        KeyboardInputComponent &keyboard = *static_cast<KeyboardInputComponent *>(component.get());
         auto &bindings = keyboard.getBindings();
         auto &manager = keyboard.getInputManager();
 

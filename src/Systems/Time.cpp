@@ -29,7 +29,7 @@ void TimeSystem::start()
 void TimeSystem::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code())) {
-        auto ptr = dynamic_cast<is::components::TimeComponent *>(elem.get());
+        auto ptr = static_cast<is::components::TimeComponent *>(elem.get());
         ptr->update();
     }
 }

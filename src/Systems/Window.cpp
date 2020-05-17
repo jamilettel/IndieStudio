@@ -1,4 +1,4 @@
- /*
+/*
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
@@ -45,9 +45,9 @@ void WindowSystem::awake()
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-        #ifndef __APPLE__
-            ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
-        #endif
+#ifndef __APPLE__
+        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
+#endif
     }
 }
 
@@ -58,17 +58,11 @@ void WindowSystem::start()
 
     if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
-    _time.emplace(*dynamic_cast<TimeComponent *>(time[0].get()));
+    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
 void WindowSystem::manageJoysticks([[maybe_unused]]std::shared_ptr<WindowComponent> &ptr)
 {
-    // ptr->joystickRefreshRemainingTime += _time->get().getCurrentIntervalSeconds();
-    // if (ptr->joystickRefreshRemainingTime < ptr->joystickRefresh)
-    //     return;
-    // ptr->joystickRefreshRemainingTime = 0;
-    // for (size_t i = 0; i < ptr->joysticks.size(); i++) {
-    // }
 }
 
 void WindowSystem::update()
