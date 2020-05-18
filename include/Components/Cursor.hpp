@@ -1,3 +1,4 @@
+
 /*
 ** EPITECH PROJECT, 2020
 ** IndieStudio
@@ -31,6 +32,8 @@ namespace is::components {
         void move(float x, float y);
 
         [[nodiscard]] const irr::core::vector2df &getPosition() const noexcept;
+
+        [[nodiscard]] ImageComponent &getImage() const noexcept;
 
     private:
         ImageComponent &_cursorImage;

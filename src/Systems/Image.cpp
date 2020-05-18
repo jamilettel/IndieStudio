@@ -13,6 +13,7 @@
 
 using namespace is::systems;
 using namespace is::components;
+using namespace is::ecs;
 
 //
 #include <irrlicht.h>
@@ -20,13 +21,21 @@ using namespace is::components;
 
 void ImageSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(ImageComponent).hash_code())) {
+    auto &images = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
+
+    std::sort(
+        images.begin(), images.end(),
+        [] (const std::shared_ptr<Component> &img1, const std::shared_ptr<Component> &img2)->bool {
+            return static_cast<ImageComponent *>(img1.get())->layer < static_cast<ImageComponent *>(img2.get())->layer;
+        });
+
+    for (auto &elem : images) {
         if (elem->getEntity()->isInit())
             continue;
         auto ptr = std::dynamic_pointer_cast<ImageComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("ImageSystem", "Could not getImageComponent pointer");
-        
+
         std::shared_ptr<WindowComponent> ptr_window;
         bool windowFound = false;
         for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {

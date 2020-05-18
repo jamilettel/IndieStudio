@@ -37,3 +37,8 @@ void CursorComponent::setPosition(float x, float y)
     _pos.X = x;
     _pos.Y = y;
 }
+
+ImageComponent &CursorComponent::getImage() const noexcept
+{
+    return _cursorImage;
+}
