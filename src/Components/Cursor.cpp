@@ -42,3 +42,8 @@ ImageComponent &CursorComponent::getImage() const noexcept
 {
     return _cursorImage;
 }
+
+WindowComponent &CursorComponent::getWindow() const noexcept
+{
+    return _window;
+}

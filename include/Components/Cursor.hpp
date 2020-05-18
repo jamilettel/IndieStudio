@@ -34,6 +34,7 @@ namespace is::components {
         [[nodiscard]] const irr::core::vector2df &getPosition() const noexcept;
 
         [[nodiscard]] ImageComponent &getImage() const noexcept;
+        [[nodiscard]] WindowComponent &getWindow() const noexcept;
 
     private:
         ImageComponent &_cursorImage;

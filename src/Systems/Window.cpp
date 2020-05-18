@@ -48,6 +48,7 @@ void WindowSystem::awake()
 #ifndef __APPLE__
         ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
 #endif
+        ptr->device->getCursorControl()->setVisible(false);
     }
 }
 
