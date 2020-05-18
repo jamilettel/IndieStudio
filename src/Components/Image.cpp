@@ -36,6 +36,11 @@ void is::components::ImageComponent::init(std::shared_ptr<is::components::Window
     }
 }
 
+void is::components::ImageComponent::setPosition(float x, float y)
+{
+    element->setRelativePosition(irr::core::vector2di(x, y));
+}
+
 void is::components::ImageComponent::deleteComponent()
 {
     element->remove();

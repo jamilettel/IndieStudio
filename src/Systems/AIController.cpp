@@ -110,9 +110,9 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
     std::vector<irr::core::vector2di> lastMove;
 
     if (findBombEmplacement(ai, aiPos, map)) {
-        std::cout << "FIND EMPLACEMENT FOR BOMB" << std::endl;
-        std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
-        std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
+        // std::cout << "FIND EMPLACEMENT FOR BOMB" << std::endl;
+        // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
+        // std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
 
         AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
             return (!isAirBlock(layter));
@@ -126,7 +126,7 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
 
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
     } else {
-        std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
+        // std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
         ai.state = AIControllerComponent::NONE;
     }
 }
@@ -304,7 +304,7 @@ void AIControllerSystem::putBombState(is::components::AIControllerComponent &ai,
             ai.bombPos = ai.longObjective;
             ai.state = AIControllerComponent::ESCAPE_EXPLOSION;
             ai.longObjective = ai.posToEscape;
-            std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
+            // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             ai.lastShortObjective = ai.shortObjective;
 
             AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
@@ -332,11 +332,11 @@ void AIControllerSystem::waitingState(is::components::AIControllerComponent &ai,
 {
     // std::cout << "WAITING STATE" << std::endl;
     if (!posIsHideFromBombs(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
-        std::cout << "I am not hide" << std::endl;
+        // std::cout << "I am not hide" << std::endl;
         if (canHideFromExplosion(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
             ai.longObjective = ai.posToEscape;
             ai.state = AIControllerComponent::AIState::ESCAPE_EXPLOSION;
-            std::cout << "Hide to position Y: " << ai.longObjective.Y << ", X: " << ai.longObjective.X << std::endl;
+            // std::cout << "Hide to position Y: " << ai.longObjective.Y << ", X: " << ai.longObjective.X << std::endl;
             AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
                 return (!isAirBlock(layter));
             });
@@ -349,7 +349,7 @@ void AIControllerSystem::waitingState(is::components::AIControllerComponent &ai,
             setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
             return;
         }
-        std::cout << "SHIT I AM DEAD" << std::endl;
+        // std::cout << "SHIT I AM DEAD" << std::endl;
     }
     if (map[ai.bombPos.X][ai.bombPos.Y] != is::ecs::Entity::Layer::BOMB)
         ai.state = AIControllerComponent::NONE;
@@ -365,7 +365,7 @@ void AIControllerSystem::waitingState(is::components::AIControllerComponent &ai,
 void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df &aiPos) const
 {
     if (ai.state == AIControllerComponent::WAITING || ai.state == AIControllerComponent::NONE) {
-        std::cout << "STOP" << std::endl;
+        // std::cout << "STOP" << std::endl;
         ai.state = AIControllerComponent::NONE;
         return;
     }
@@ -414,7 +414,7 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     ai.shortObjective.X = ai.path[0].first;
     ai.shortObjective.Y = ai.path[0].second;
     ai.path.erase(ai.path.begin());
-    std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
+    // std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
 }
 
 bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer) const noexcept

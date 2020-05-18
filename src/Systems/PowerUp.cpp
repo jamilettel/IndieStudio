@@ -53,7 +53,7 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
 
     is::systems::ColliderSystem::precomputeCollisionVariables(trcollider);
     for (auto & collider : colliders) {
-        auto *ptr = dynamic_cast<is::components::ColliderComponent *>(collider.get());
+        auto *ptr = static_cast<is::components::ColliderComponent *>(collider.get());
 
         if (&trcollider == ptr || !trcollider.collidesWith(ptr->getEntity()->layer))
             continue;
