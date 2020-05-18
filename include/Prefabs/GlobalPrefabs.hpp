@@ -37,6 +37,7 @@
 #include "Components/AIController.hpp"
 #include "Components/JoystickInput.hpp"
 #include "Components/Animator.hpp"
+#include "Components/Particule.hpp"
 
 namespace is::prefabs {
 

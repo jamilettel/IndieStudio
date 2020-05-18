@@ -80,6 +80,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::cor
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
     e->addComponent<BombComponent>(e, bm, 3, range);
+    e->addComponent<is::components::ParticuleComponent>(
+        e,
+        "Indie Studio",
+        irr::core::vector3df(position.X, position.Y + 3, position.Z),
+        PARTICULE::WICK
+    );
     return (e);
 }
 
@@ -152,12 +158,18 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::cor
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::FIRE);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
+    //e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
     e->addComponent<FireComponent>(e);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
         irr::core::vector3df(3, 3, 3)
+    );
+    e->addComponent<is::components::ParticuleComponent>(
+        e,
+        "Indie Studio",
+        irr::core::vector3df(position.X, position.Y + 3, position.Z),
+        PARTICULE::FIRE
     );
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BOMB);

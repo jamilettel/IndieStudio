@@ -37,6 +37,7 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
 }
 
 void is::scenes::GameScene::initEntities()

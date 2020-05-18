@@ -32,6 +32,7 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "MapGenerator.hpp"
 #include "Systems/JoystickInput.hpp"
+#include "Systems/Particule.hpp"
 
 namespace is::scenes {
 
