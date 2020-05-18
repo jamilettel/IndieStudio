@@ -176,7 +176,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            is::Game::setActualScene(is::Game::getPreviousScene());
         },
         RESSOURCE("ui/settings/Return_BTN.png"),
         RESSOURCE("ui/settings/Return_BTN_pressed.png")
@@ -342,7 +342,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            is::Game::setActualScene(is::Game::getPreviousScene());
         },
         RESSOURCE("ui/controllers/Return_BTN.png"),
         RESSOURCE("ui/controllers/Return_BTN_pressed.png")
@@ -360,17 +360,24 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         "Indie Studio",
         0, 0, true
     );
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Pause/Pause.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 300 / 2, 50, true
+    );
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        30, 30,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_GAME);
+            is::Game::setActualScene(is::ecs::SCENE_RECORD);
         },
-        RESSOURCE("ui/controllers/Return_BTN.png"),
-        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
+        RESSOURCE("ui/main_menu/Scores_BTN.png"),
+        RESSOURCE("ui/main_menu/Scores_BTN_pressed.png")
     );
     return e;
 }
@@ -398,7 +405,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            is::Game::setActualScene(is::Game::getPreviousScene());
         },
         RESSOURCE("ui/controllers/Return_BTN.png"),
         RESSOURCE("ui/controllers/Return_BTN_pressed.png")
@@ -506,7 +513,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            is::Game::setActualScene(is::Game::getPreviousScene());
         },
         RESSOURCE("ui/controllers/Return_BTN.png"),
         RESSOURCE("ui/controllers/Return_BTN_pressed.png")
@@ -537,7 +544,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            is::Game::setActualScene(is::Game::getPreviousScene());
         },
         RESSOURCE("ui/controllers/Return_BTN.png"),
         RESSOURCE("ui/controllers/Return_BTN_pressed.png")
