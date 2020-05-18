@@ -6,17 +6,20 @@
 */
 
 #include "Components/Window.hpp"
+using namespace is::components;
 
-std::map<std::string, std::pair<int, int>> is::components::WindowComponent::_windowsDimensions;
+std::map<std::string, std::pair<int, int>> WindowComponent::_windowsDimensions;
 
-int is::components::WindowComponent::_width = 0;
-int is::components::WindowComponent::_height = 0;
+int WindowComponent::_width = 0;
+int WindowComponent::_height = 0;
 
-is::components::WindowComponent::WindowComponent(std::shared_ptr<is::ecs::Entity> &e,
-                                                 const std::string &wn,
-                                                 irr::core::dimension2d<u32> ws,
-                                                 bool fs) :
-Component(e)
+WindowComponent::WindowComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    const std::string &wn,
+    irr::core::dimension2d<u32> ws,
+    bool fs
+    ):
+    Component(e)
 {
     windowName = wn;
     windowSize = ws;
@@ -27,6 +30,4 @@ Component(e)
 }
 
 void is::components::WindowComponent::deleteComponent()
-{
-    
-}
+{}

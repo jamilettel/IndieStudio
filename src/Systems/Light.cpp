@@ -30,7 +30,7 @@ void is::systems::LightSystem::awake()
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("LightSystem", "Could not found window");
+            throw is::exceptions::Exception("LightSystem", "Could not find window");
         ptr_window->scenemgr->addLightSceneNode(nullptr, ptr->position, ptr->color, ptr->radius);
     }
 }

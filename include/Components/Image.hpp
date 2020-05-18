@@ -33,11 +33,17 @@ namespace is::components {
             void deleteComponent() override;
 
             std::string windowName;
+
+            int layer = 0;
+
+            void bringToFront();
+
         private:
             irr::core::vector2d<int> _dimension;
             std::string _filename;
             irr::gui::IGUIImage *element{};
             bool _scale;
+        std::shared_ptr<WindowComponent> _window;
     };
 
 }

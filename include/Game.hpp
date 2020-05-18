@@ -27,10 +27,13 @@ namespace is {
 
             static bool isRunning;
             static void setActualScene(is::ecs::Scenes);
+            static is::ecs::Scenes getPreviousScene();
+            static is::ecs::Scenes getCurrentScene();
 
         private:
             std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
             static is::ecs::Scenes currentScene;
+            static is::ecs::Scenes _previousScene;
             is::ecs::Scenes changeScene;
     };
 

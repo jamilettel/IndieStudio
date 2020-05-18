@@ -22,7 +22,8 @@ namespace is::components {
                             const std::string &cameraName = "MainCamera",
                             const std::string &windowName = "MainWindow",
                             const irr::core::vector3df& pos = irr::core::vector3df(0),
-                            const irr::core::vector3df& rot = irr::core::vector3df(0));
+                            const irr::core::vector3df& rot = irr::core::vector3df(0),
+                            bool gm = false);
             ~CameraComponent() override = default;
 
             CameraComponent(const CameraComponent &) = delete;
@@ -35,6 +36,10 @@ namespace is::components {
 
             std::string cameraName;
             std::string windowName;
+
+            irr::scene::ICameraSceneNode *node;
+
+            bool gameCamera;
     };
 
 }

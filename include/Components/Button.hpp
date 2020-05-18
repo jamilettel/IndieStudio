@@ -40,7 +40,11 @@ namespace is::components {
             void setClicked(bool);
             [[nodiscard]] irr::s32 getId() const;
 
+            void bringToFront();
+
             std::string windowName;
+
+            int layer = 0;
         private:
             bool _clicked;
             std::string _text;
@@ -49,6 +53,7 @@ namespace is::components {
             const std::string _image;
             const std::string _pressed;
             const std::string _font;
+            std::shared_ptr<WindowComponent> _window;
     };
 
 }

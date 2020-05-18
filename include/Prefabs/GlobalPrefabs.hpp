@@ -38,6 +38,7 @@
 #include "Components/JoystickInput.hpp"
 #include "Components/Animator.hpp"
 #include "Components/Particule.hpp"
+#include "Components/Cursor.hpp"
 
 namespace is::prefabs {
 

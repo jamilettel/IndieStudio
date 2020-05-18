@@ -46,7 +46,7 @@ void is::systems::BombSystem::update()
                 }
             }
             if (!windowFound)
-                throw is::exceptions::Exception("BombComponent", "Could not found window");
+                throw is::exceptions::Exception("BombComponent", "Could not find window");
             for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, i + 1); i++);
             for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, i + 1, 0); i++);
             for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, -(i + 1)); i++);
