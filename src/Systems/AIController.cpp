@@ -63,7 +63,11 @@ void AIControllerSystem::update()
         TransformComponent &tr = *static_cast<TransformComponent *>(component.get());
         if (tr.position.Y < 0)
             continue;
-        map[(tr.position.X) / 3 + (int)(mapX / 2)][(tr.position.Z) / 3 + (int)(mapY / 2)] = tr.getEntity()->layer;
+        int x = (tr.position.X) / 3 + (int)(mapX / 2);
+        int y = (tr.position.Z) / 3 + (int)(mapY / 2);
+        if (!isValid(irr::core::vector2di(x, y), map))
+            continue;
+        map[x][y] = tr.getEntity()->layer;
     }
 
     for (std::shared_ptr<Component> &component: aiComponents) {
