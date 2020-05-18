@@ -16,6 +16,7 @@
 #include "Components/Time.hpp"
 #include "AStarAlgorithm.hpp"
 #include <vector>
+#include <list>
 
 #include <cmath>
 
@@ -59,7 +60,9 @@ namespace is::systems {
             const irr::core::vector2di &pos,
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map
         ) const;
-        bool bombPosIsUseful(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+        bool bombPosIsUseful(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map, const irr::core::vector2di &aiPos) const;
+        bool posIsHideFromBombs(const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+        bool posIsHideFromABomb(const irr::core::vector2di &aiPOs, const std::vector<std::vector<is::ecs::Entity::Layer>> &map, const irr::core::vector2di &bombPos) const noexcept;
 
         // ESCAPE EXPLOSION STATE
         void escapeExplosionState(
@@ -90,9 +93,11 @@ namespace is::systems {
             irr::core::vector2di aiPos,
             std::vector<std::vector<is::ecs::Entity::Layer>> &map
         ) const;
-        bool isAirBlock(is::ecs::Entity::Layer) const;
+        bool isAirBlock(is::ecs::Entity::Layer) const noexcept;
         bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
         bool isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept;
+        bool layerIsABlock(const is::ecs::Entity::Layer &layer) const noexcept;
+        bool bombPosAimForPlayer(const irr::core::vector2di &bombPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map, const irr::core::vector2di &aiPos) const noexcept;
 
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
