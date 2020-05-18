@@ -122,7 +122,7 @@ void AIControllerSystem::setNewLongObjective(AIControllerComponent &ai, irr::cor
 
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
     } else {
-        // std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
+        std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
         ai.state = AIControllerComponent::NONE;
     }
 }
@@ -138,7 +138,7 @@ bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, c
 
         for (int tmp = aiPos.Y; tmp != bombPos.Y; tmp += incr) {
             if (layerIsABlock(map[bombPos.X][tmp]))
-                break;
+                return (true);
         }
         return (false);
     } else if (aiPos.Y == bombPos.Y) {
@@ -146,7 +146,7 @@ bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, c
 
         for (int tmp = aiPos.X; tmp != bombPos.X; tmp += incr) {
             if (layerIsABlock(map[tmp][bombPos.Y]))
-                break;
+                return (true);
         }
         return (false);
     }
@@ -274,12 +274,8 @@ void AIControllerSystem::escapeExplosionState(
     moveAI(ai, aiPos);
     if (hasReachedObjective(ai, aiPos)) {
         if (ai.shortObjective == ai.longObjective) {
-            ai.state = AIControllerComponent::NONE;
-            std::cout << "NONE" << std::endl;
-            ai.timeBeforeBegin = 3.5f;
+            ai.state = AIControllerComponent::WAITING;
             ai.lastShortObjective = ai.shortObjective;
-            ai.getInputManager().setValue("MoveVerticalAxis", 0);
-            ai.getInputManager().setValue("MoveHorizontalAxis", 0);
             return;
         }
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
@@ -301,6 +297,7 @@ void AIControllerSystem::putBombState(is::components::AIControllerComponent &ai,
     if (hasReachedObjective(ai, aiPos)) {
         if (ai.shortObjective == ai.longObjective) {
             ai.getInputManager().setValue("DropBomb", 1);
+            ai.bombPos = ai.longObjective;
             ai.state = AIControllerComponent::ESCAPE_EXPLOSION;
             ai.longObjective = ai.posToEscape;
             std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
@@ -330,8 +327,28 @@ void AIControllerSystem::putBombState(is::components::AIControllerComponent &ai,
 void AIControllerSystem::waitingState(is::components::AIControllerComponent &ai, irr::core::vector2df &aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
 {
     // std::cout << "WAITING STATE" << std::endl;
-    ai.getInputManager().setValue("MoveVerticalAxis", 0);
-    ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+    if (!posIsHideFromBombs(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+        std::cout << "I am not hide" << std::endl;
+        if (canHideFromExplosion(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.longObjective = ai.posToEscape;
+            ai.state = AIControllerComponent::AIState::ESCAPE_EXPLOSION;
+            std::cout << "Hide to position Y: " << ai.longObjective.Y << ", X: " << ai.longObjective.X << std::endl;
+            AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
+                return (!isAirBlock(layter));
+            });
+            astar.searchPath();
+            std::optional<std::pair<int, int>> pos;
+            ai.path.clear();
+            while ((pos = astar.getNextPos()).has_value()) {
+                ai.path.emplace_back(pos.value());
+            }
+            setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+            return;
+        }
+        std::cout << "SHIT I AM DEAD" << std::endl;
+    }
+    if (map[ai.bombPos.X][ai.bombPos.Y] != is::ecs::Entity::Layer::BOMB)
+        ai.state = AIControllerComponent::NONE;
 }
 
 
