@@ -13,6 +13,7 @@
 #include "Scenes/CreditScene.hpp"
 #include "Scenes/RecordScene.hpp"
 #include "Scenes/HowToPlayScene.hpp"
+#include "Scenes/PauseScene.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Exception.hpp"
 
@@ -28,6 +29,7 @@ int main(int argc, char const *argv[])
         game.addScene(is::ecs::Scenes::SCENE_CREDIT, std::make_shared<is::scenes::CreditScene>());
         game.addScene(is::ecs::Scenes::SCENE_RECORD, std::make_shared<is::scenes::RecordScene>());
         game.addScene(is::ecs::Scenes::SCENE_HOWTOPLAY, std::make_shared<is::scenes::HowToPlayScene>());
+        game.addScene(is::ecs::Scenes::SCENE_PAUSE, std::make_shared<is::scenes::PauseScene>());
         game.addScene(is::ecs::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
         game.launchGame(is::ecs::Scenes::SCENE_SPLASH_SCREEN);
     } catch (is::exceptions::Exception &e) {
