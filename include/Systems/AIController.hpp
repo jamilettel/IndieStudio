@@ -16,6 +16,7 @@
 #include "Components/Time.hpp"
 #include "AStarAlgorithm.hpp"
 #include <vector>
+#include <list>
 
 #include <cmath>
 

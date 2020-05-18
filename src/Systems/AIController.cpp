@@ -177,6 +177,7 @@ bool AIControllerSystem::canHideFromExplosion(
 ) const
 {
     std::vector<irr::core::vector2di> successors;
+    std::list<irr::core::vector2di> closeList;
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
@@ -186,21 +187,19 @@ bool AIControllerSystem::canHideFromExplosion(
         irr::core::vector2di newPos = successors[0];
 
         successors.erase(successors.begin());
+        if (std::find_if(closeList.begin(), closeList.end(), [&newPos](const irr::core::vector2di &pos) -> bool {return pos == newPos;}) != closeList.end())
+            continue;
         if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
             continue;
         if (posIsHideFromABomb(newPos, map, pos) && posIsHideFromBombs(newPos, map)) {
             ai.posToEscape = newPos;
             return true;
-        } else {
-            if (pos.X - newPos.X >= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
-            if (pos.X - newPos.X <= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
-            if (pos.Y - newPos.Y >= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
-            if (pos.Y - newPos.Y <= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
         }
+        closeList.emplace_back(newPos);
+        successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
+        successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
+        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
+        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
     }
     return false;
 }
@@ -230,6 +229,7 @@ bool AIControllerSystem::findBombEmplacement(
 ) const
 {
     std::vector<irr::core::vector2di> successors;
+    std::list<irr::core::vector2di> closeList;
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
@@ -239,22 +239,20 @@ bool AIControllerSystem::findBombEmplacement(
         irr::core::vector2di newPos = successors[0];
 
         successors.erase(successors.begin());
+        if (std::find_if(closeList.begin(), closeList.end(), [&newPos](const irr::core::vector2di &pos) -> bool {return pos == newPos;}) != closeList.end())
+            continue;
         if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
             continue;
         if (bombPosIsUseful(newPos, map, pos) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
             ai.longObjective = newPos;
             return true;
-        } else {
-            if (pos.X - newPos.X >= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
-            if (pos.X - newPos.X <= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
-            if (pos.Y - newPos.Y >= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
-            if (pos.Y - newPos.Y <= 0)
-                successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
         }
+        closeList.emplace_back(newPos);
+        successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
+        successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
+        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
+        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
     }
     return false;
 }
@@ -426,7 +424,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
     int width = map.size();
     int height = map[bombPos.X].size();
 
-    for (int i = bombPos.X; i < width; i++) {
+    for (int i = bombPos.X; i < width && i - bombPos.X <= 1; i++) {
         if (layerIsABlock(map[i][bombPos.Y]))
             break;
         if (i == aiPos.X && bombPos.Y == aiPos.Y)
@@ -434,7 +432,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
         if (map[i][bombPos.Y] == is::ecs::Entity::Layer::PLAYER)
             return true;
     }
-    for (int i = bombPos.X; i > 0; i--) {
+    for (int i = bombPos.X; i > 0 && bombPos.X - i <= 1; i--) {
         if (layerIsABlock(map[i][bombPos.Y]))
             break;
         if (i == aiPos.X && bombPos.Y == aiPos.Y)
@@ -442,7 +440,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
         if (map[i][bombPos.Y] == is::ecs::Entity::Layer::PLAYER)
             return true;
     }
-    for (int i = bombPos.Y; i < height; i++) {
+    for (int i = bombPos.Y; i < height && i - bombPos.Y <= 1; i++) {
         if (layerIsABlock(map[bombPos.X][i]))
             break;
         if (bombPos.X == aiPos.X && i == aiPos.Y)
@@ -450,7 +448,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
         if (map[bombPos.X][i] == is::ecs::Entity::Layer::PLAYER)
             return true;
     }
-    for (int i = bombPos.Y; i > 0; i--) {
+    for (int i = bombPos.Y; i > 0 && bombPos.Y - i <= 1; i--) {
         if (layerIsABlock(map[bombPos.X][i]))
             break;
         if (bombPos.X == aiPos.X && i == aiPos.Y)
