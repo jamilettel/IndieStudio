@@ -23,7 +23,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
     e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
     auto &window = e->addComponent<WindowComponent>(e, "Indie Studio");
     auto &cursor = e->addComponent<ImageComponent>(e, RESSOURCE("/ui/cursor/cursor.png"), "Indie Studio", 0, 0);
-    cursor.layer = 1;
+    cursor.layer = 10;
     e->addComponent<CursorComponent>(e, cursor, window);
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
     e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0), true);
@@ -39,7 +39,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen(
         RESSOURCE("ui/splashscreen.png"),
         "Indie Studio",
         0, 0, true
-    ).layer = 2;
+    ).layer = 9999;
     return (e);
 }
 
@@ -168,7 +168,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         RESSOURCE("ui/settings/Header.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 435 / 2, 50, true
-    );
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -180,19 +180,19 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Return_BTN.png"),
         RESSOURCE("ui/settings/Return_BTN_pressed.png")
-    );
+    ).layer = 3;
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/settings/Window.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500, 250, true
-    );
+    ).layer = 2;
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/settings/Music.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 90, 262, true
-    );
+    ).layer = 2;
     std::string volumeMusic = std::to_string(is::components::AudioComponent::_volumeMusic);
     std::string volumeSound = std::to_string(is::components::AudioComponent::_volumeSound);
     auto &volumeMusicText = e->addComponent<is::components::TextComponent>(
@@ -230,7 +230,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
-    );
+    ).layer = 3;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -246,7 +246,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
-    );
+    ).layer = 3;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -262,20 +262,20 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
-    );
+    ).layer = 3;
 
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/settings/Window.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 336, 250, true
-    );
+    ).layer = 1;
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/settings/Sound.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 260, 265, true
-    );
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -289,7 +289,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
-    );
+    ).layer = 3;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -305,7 +305,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
-    );
+    ).layer = 3;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -321,7 +321,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         },
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
-    );
+    ).layer = 3;
     return e;
 }
 

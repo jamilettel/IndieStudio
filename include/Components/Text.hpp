@@ -45,6 +45,8 @@ namespace is::components {
             void deleteComponent() override;
 
             std::string windowName;
+
+            int layer = 0;
         private:
             std::string _text;
             irr::core::rect<irr::s32> _dimension;

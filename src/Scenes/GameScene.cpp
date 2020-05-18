@@ -54,24 +54,22 @@ void is::scenes::GameScene::initEntities()
 void is::scenes::GameScene::awake()
 {
     AScene::awake();
-    auto &wc = _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
-    if (wc.empty())
-        throw is::exceptions::Exception("GameScene", "Could not get WindowComponent pointer");
-    WindowComponent &window = *static_cast<WindowComponent *>(wc[0].get());
-    window.eventManager.addEventKeyReleased(EKEY_CODE::KEY_KEY_P, [](){
-        if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
-            is::Game::setActualScene(is::ecs::SCENE_PAUSE);
-        else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
-            is::Game::setActualScene(is::ecs::SCENE_GAME);
-    });
+    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
+        window.eventManager.addEventKeyReleased(EKEY_CODE::KEY_KEY_P, []() {
+            if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
+                is::Game::setActualScene(is::ecs::SCENE_PAUSE);
+            else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
+                is::Game::setActualScene(is::ecs::SCENE_GAME);
+        });
+    }
 }
 
 void is::scenes::GameScene::onTearDown()
 {
     AScene::onTearDown();
-    auto &wc = _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
-    if (wc.empty())
-        throw is::exceptions::Exception("GameScene", "Could not get WindowComponent pointer");
-    WindowComponent &window = *static_cast<WindowComponent *>(wc[0].get());
-    window.eventManager.removeEventKeyReleased(EKEY_CODE::KEY_KEY_P);
+    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
+        window.eventManager.removeEventKeyReleased(EKEY_CODE::KEY_KEY_P);
+    }
 }
