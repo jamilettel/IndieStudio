@@ -49,3 +49,28 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
 }
+
+void is::scenes::GameScene::awake()
+{
+    AScene::awake();
+    auto &wc = _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
+    if (wc.empty())
+        throw is::exceptions::Exception("GameScene", "Could not get WindowComponent pointer");
+    WindowComponent &window = *static_cast<WindowComponent *>(wc[0].get());
+    window.eventManager.addEventKeyReleased(EKEY_CODE::KEY_KEY_P, [](){
+        if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
+            is::Game::setActualScene(is::ecs::SCENE_PAUSE);
+        else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
+            is::Game::setActualScene(is::ecs::SCENE_GAME);
+    });
+}
+
+void is::scenes::GameScene::onTearDown()
+{
+    AScene::onTearDown();
+    auto &wc = _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
+    if (wc.empty())
+        throw is::exceptions::Exception("GameScene", "Could not get WindowComponent pointer");
+    WindowComponent &window = *static_cast<WindowComponent *>(wc[0].get());
+    window.eventManager.removeEventKeyReleased(EKEY_CODE::KEY_KEY_P);
+}

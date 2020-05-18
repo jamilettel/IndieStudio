@@ -43,6 +43,9 @@ namespace is::scenes {
             GameScene(const GameScene &) = default;
             GameScene &operator=(const GameScene &) = default;
 
+            void awake() override;
+            void onTearDown() override;
+
             void initSystems() override;
             void initEntities() override;
     };

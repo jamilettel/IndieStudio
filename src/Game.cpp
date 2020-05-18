@@ -52,3 +52,8 @@ is::ecs::Scenes is::Game::getPreviousScene()
 {
     return _previousScene;
 }
+
+is::ecs::Scenes is::Game::getCurrentScene()
+{
+    return currentScene;
+}
