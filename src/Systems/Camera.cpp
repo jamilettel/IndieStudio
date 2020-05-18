@@ -98,16 +98,16 @@ void is::systems::CameraSystem::update()
         pos.X += 15;
         irr::core::vector2df npos;
 
-        if (centroid.X > pos.X)
+        if (centroid.X > pos.X - 0.05f)
             npos.X = pos.X + 0.02f;
-        else if (centroid.X < pos.X)
+        else if (centroid.X < pos.X + 0.05f)
             npos.X = pos.X - 0.02f;
-        if (centroid.Y < pos.Z)
+        if (centroid.Y < pos.Z + 0.05f)
             npos.Y = pos.Z - 0.02f;
-        else if (centroid.Y > pos.Z)
+        else if (centroid.Y > pos.Z - 0.05f)
             npos.Y = pos.Z + 0.02f;
         ptr->node->setPosition(irr::core::vector3df(npos.X - 15, ptr->node->getPosition().Y, npos.Y));
-        ptr->node->setTarget(irr::core::vector3df(npos.X, ptr->node->getTarget().Y, npos.Y));
+        ptr->node->setTarget(irr::core::vector3df(npos.X - 3, ptr->node->getTarget().Y, npos.Y));
 
     }
 }
