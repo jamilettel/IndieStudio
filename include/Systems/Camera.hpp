@@ -18,6 +18,7 @@
 
 #include "Components/Camera.hpp"
 #include "Components/Window.hpp"
+#include "Components/CharacterController.hpp"
 
 namespace is::systems {
 

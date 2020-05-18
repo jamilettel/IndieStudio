@@ -46,6 +46,7 @@ namespace is::components {
 
         AIState state = NONE;
         irr::core::vector2di posToEscape;
+        irr::core::vector2di bombPos = irr::core::vector2di(-1);
 
     private:
         InputManagerComponent &_inputManager;
