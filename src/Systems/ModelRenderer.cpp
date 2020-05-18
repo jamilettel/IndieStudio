@@ -30,7 +30,7 @@ void is::systems::ModelRendererSystem::awake()
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("ModelRendererSystem", "Could not found window");
+            throw is::exceptions::Exception("ModelRendererSystem", "Could not find window");
         ptr->initModelRenderer(ptr_window);
     }
 }

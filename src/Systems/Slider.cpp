@@ -33,7 +33,7 @@ void SliderSystem::awake()
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("SliderComponent", "Could not found window");
+            throw is::exceptions::Exception("SliderComponent", "Could not find window");
 
         ptr->init(ptr_window);
     }
@@ -60,7 +60,7 @@ void SliderSystem::update()
                 }
             }
             if (!windowFound)
-                throw is::exceptions::Exception("SliderSystem", "Could not found window");
+                throw is::exceptions::Exception("SliderSystem", "Could not find window");
             ptr->setPosition(ptr_window->eventManager.getMousePosition().first);
         }
     }

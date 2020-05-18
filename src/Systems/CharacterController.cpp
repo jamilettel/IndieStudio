@@ -86,7 +86,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
-        
+
         if (im->get()->getInput("DropBomb") == 1 && ptr->canPlaceBomb) {
             auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
             if (!bm)

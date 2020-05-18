@@ -33,6 +33,9 @@ namespace is::components {
             void deleteComponent() override;
 
             std::string windowName;
+
+            int layer = 0;
+
         private:
             irr::core::vector2d<int> _dimension;
             std::string _filename;
