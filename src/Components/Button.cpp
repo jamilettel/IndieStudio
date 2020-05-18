@@ -6,7 +6,6 @@
 */
 
 #include "Components/Button.hpp"
-
 #include <utility>
 #include "IDGenerator.hpp"
 
@@ -36,6 +35,7 @@ Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _t
 
 void is::components::ButtonComponent::init(std::shared_ptr<is::components::WindowComponent> &ptr_window)
 {
+    _window = ptr_window;
     element = ptr_window->canvas->addButton(_dimension, nullptr, IDGenerator::getNewID(), std::wstring(_text.begin(), _text.end()).c_str());
     if (!element)
         throw is::exceptions::Exception("ButtonCompononent", "Could not create node from model");
@@ -69,4 +69,10 @@ s32 is::components::ButtonComponent::getId() const
 void is::components::ButtonComponent::deleteComponent()
 {
     element->remove();
+}
+
+void is::components::ButtonComponent::bringToFront()
+{
+    if (element)
+        _window->canvas->getRootGUIElement()->bringToFront(element);
 }

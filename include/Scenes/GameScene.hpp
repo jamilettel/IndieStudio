@@ -32,6 +32,7 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "MapGenerator.hpp"
 #include "Systems/JoystickInput.hpp"
+#include "Systems/Cursor.hpp"
 
 namespace is::scenes {
 
