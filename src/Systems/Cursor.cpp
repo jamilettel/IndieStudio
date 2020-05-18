@@ -25,8 +25,8 @@ void CursorSystem::update()
         CursorComponent *cursor = static_cast<CursorComponent *>(elem.get());
         auto pos = cursor->getWindow().eventManager.getMousePosition();
 
-        cursor->setPosition(pos.first, pos.second);
-        cursor->getImage().setPosition(pos.first, pos.second);
+        cursor->setPosition(pos.first + 1, pos.second + 1);
+        cursor->getImage().setPosition(pos.first + 1, pos.second + 1);
     }
 }
 
