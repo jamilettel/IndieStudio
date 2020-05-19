@@ -118,14 +118,15 @@ void AIControllerSystem::setNewLongObjective(
 ) const
 {
     std::vector<irr::core::vector2di> lastMove;
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     if (findBombEmplacement(ai, aiPos, map, aiComponents)) {
         // std::cout << "FIND EMPLACEMENT FOR BOMB" << std::endl;
         // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
         // std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
 
-        AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
-            return (!isAirBlock(layter));
+        AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this, &bomberman](const is::ecs::Entity::Layer &layter) ->bool {
+            return (!isAirBlock(layter, bomberman));
         });
         astar.searchPath();
         std::optional<std::pair<int, int>> pos;
@@ -141,7 +142,12 @@ void AIControllerSystem::setNewLongObjective(
     }
 }
 
-bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map, const irr::core::vector2di &bombPos) const noexcept
+bool AIControllerSystem::posIsHideFromABomb(
+    const irr::core::vector2di &aiPos,
+    const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    const irr::core::vector2di &bombPos,
+    const BombermanComponent &bomberman
+) const noexcept
 {
     if (aiPos.X != bombPos.X && aiPos.Y != bombPos.Y)
         return (true);
@@ -151,7 +157,7 @@ bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, c
         int incr = (bombPos.Y < aiPos.Y ? -1 : 1);
 
         for (int tmp = aiPos.Y; tmp != bombPos.Y; tmp += incr) {
-            if (layerIsABlock(map[bombPos.X][tmp]))
+            if (layerIsABlock(map[bombPos.X][tmp], bomberman))
                 return (true);
         }
         return (false);
@@ -159,7 +165,7 @@ bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, c
         int incr = (bombPos.X < aiPos.X ? -1 : 1);
 
         for (int tmp = aiPos.X; tmp != bombPos.X; tmp += incr) {
-            if (layerIsABlock(map[tmp][bombPos.Y]))
+            if (layerIsABlock(map[tmp][bombPos.Y], bomberman))
                 return (true);
         }
         return (false);
@@ -167,9 +173,10 @@ bool AIControllerSystem::posIsHideFromABomb(const irr::core::vector2di &aiPos, c
     return (true);
 }
 
-bool AIControllerSystem::posIsHideFromBombs(const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
+bool AIControllerSystem::posIsHideFromBombs(const AIControllerComponent &ai, const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
 {
     int iSize = map.size();
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     for (int i = 0; i < iSize; i++) {
         int jSize = map[i].size();
@@ -177,7 +184,7 @@ bool AIControllerSystem::posIsHideFromBombs(const irr::core::vector2di &aiPos, c
         for (int j = 0; j < jSize; j++) {
             if (map[i][j] != is::ecs::Entity::BOMB)
                 continue;
-            if (!posIsHideFromABomb(aiPos, map, irr::core::vector2di(i, j)))
+            if (!posIsHideFromABomb(aiPos, map, irr::core::vector2di(i, j), bomberman))
                 return (false);
         }
     }
@@ -192,6 +199,7 @@ bool AIControllerSystem::canHideFromExplosion(
 {
     std::vector<irr::core::vector2di> successors;
     std::list<irr::core::vector2di> closeList;
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
@@ -203,9 +211,9 @@ bool AIControllerSystem::canHideFromExplosion(
         successors.erase(successors.begin());
         if (std::find_if(closeList.begin(), closeList.end(), [&newPos](const irr::core::vector2di &pos) -> bool {return pos == newPos;}) != closeList.end())
             continue;
-        if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
+        if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y], bomberman))
             continue;
-        if (posIsHideFromABomb(newPos, map, pos) && posIsHideFromBombs(newPos, map)) {
+        if (posIsHideFromABomb(newPos, map, pos, bomberman) && posIsHideFromBombs(ai, newPos, map)) {
             ai.posToEscape = newPos;
             return true;
         }
@@ -265,6 +273,7 @@ bool AIControllerSystem::findBombEmplacement(
 {
     std::vector<irr::core::vector2di> successors;
     std::list<irr::core::vector2di> closeList;
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
@@ -276,7 +285,7 @@ bool AIControllerSystem::findBombEmplacement(
         successors.erase(successors.begin());
         if (std::find_if(closeList.begin(), closeList.end(), [&newPos](const irr::core::vector2di &pos) -> bool {return pos == newPos;}) != closeList.end())
             continue;
-        if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y]))
+        if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y], bomberman))
             continue;
         if (bombPosIsUseful(ai, newPos, map, pos, aiComponents) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
@@ -333,6 +342,7 @@ void AIControllerSystem::putBombState(
 ) const
 {
     // std::cout << "PUT BOMB STATE" << std::endl;
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     moveAI(ai, aiPos);
     if (hasReachedObjective(ai, aiPos)) {
@@ -344,8 +354,8 @@ void AIControllerSystem::putBombState(
             // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             ai.lastShortObjective = ai.shortObjective;
 
-            AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
-                return (!isAirBlock(layter));
+            AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this, &bomberman](const is::ecs::Entity::Layer &layter) ->bool {
+                return (!isAirBlock(layter, bomberman));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
@@ -375,14 +385,14 @@ void AIControllerSystem::waitingState(
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     // std::cout << "WAITING STATE" << std::endl;
-    if (!posIsHideFromBombs(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+    if (!posIsHideFromBombs(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
         // std::cout << "I am not hide" << std::endl;
         if (canHideFromExplosion(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
             ai.longObjective = ai.posToEscape;
             ai.state = AIControllerComponent::AIState::ESCAPE_EXPLOSION;
             // std::cout << "Hide to position Y: " << ai.longObjective.Y << ", X: " << ai.longObjective.X << std::endl;
-            AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this](const is::ecs::Entity::Layer &layter) ->bool {
-                return (!isAirBlock(layter));
+            AStarAlgorithm<is::ecs::Entity::Layer> astar(map, std::pair<int, int>(aiPos.X, aiPos.Y), std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y), [this, &bomberman](const is::ecs::Entity::Layer &layer) ->bool {
+                return (!isAirBlock(layer, bomberman));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
@@ -480,8 +490,11 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     // std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
 }
 
-bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer) const noexcept
+bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer, const BombermanComponent &bomberman) const noexcept
 {
+    if (bomberman.wallPass)
+        if (layer == is::ecs::Entity::BRKBL_BLK)
+            return (true);
     return (layer == is::ecs::Entity::Layer::DEFAULT ||
         layer == is::ecs::Entity::Layer::PLAYER ||
         layer == is::ecs::Entity::Layer::POWERUP);
@@ -494,8 +507,11 @@ bool AIControllerSystem::isValid(const irr::core::vector2di &pos, const std::vec
     return (pos.X >= 0 && pos.X < static_cast<int>(map.size()) && pos.Y >= 0 && pos.Y < static_cast<int>(map[0].size()));
 }
 
-bool AIControllerSystem::layerIsABlock(const is::ecs::Entity::Layer &layer) const noexcept
+bool AIControllerSystem::layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman) const noexcept
 {
+    if (bomberman.wallPass)
+        if (layer == is::ecs::Entity::BRKBL_BLK)
+            return (false);
     return (layer == is::ecs::Entity::Layer::BRKBL_BLK || layer == is::ecs::Entity::Layer::GROUND);
 }
 
@@ -532,34 +548,34 @@ bool AIControllerSystem::bombPosAimForPlayer(
 {
     int width = map.size();
     int height = map[bombPos.X].size();
-    const std::shared_ptr<BombermanComponent> bombermanComponent = ai.getEntity()->getComponent<BombermanComponent>().value();
+    BombermanComponent &bombermanComponent = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    for (int i = bombPos.X; i < width && i - bombPos.X <= bombermanComponent->bombRange; i++) {
-        if (layerIsABlock(map[i][bombPos.Y]))
+    for (int i = bombPos.X; i < width && i - bombPos.X <= bombermanComponent.bombRange; i++) {
+        if (layerIsABlock(map[i][bombPos.Y], bombermanComponent))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (i == aiPos.X && bombPos.Y == aiPos.Y);
         }))
             return (true);
     }
-    for (int i = bombPos.X; i > 0 && bombPos.X - i <= bombermanComponent->bombRange; i--) {
-        if (layerIsABlock(map[i][bombPos.Y]))
+    for (int i = bombPos.X; i > 0 && bombPos.X - i <= bombermanComponent.bombRange; i--) {
+        if (layerIsABlock(map[i][bombPos.Y], bombermanComponent))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (i == aiPos.X && bombPos.Y == aiPos.Y);
         }))
             return (true);
     }
-    for (int i = bombPos.Y; i < height && i - bombPos.Y <= bombermanComponent->bombRange; i++) {
-        if (layerIsABlock(map[bombPos.X][i]))
+    for (int i = bombPos.Y; i < height && i - bombPos.Y <= bombermanComponent.bombRange; i++) {
+        if (layerIsABlock(map[bombPos.X][i], bombermanComponent))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (bombPos.X == aiPos.X && i == aiPos.Y);
         }))
             return (true);
     }
-    for (int i = bombPos.Y; i > 0 && bombPos.Y - i <= bombermanComponent->bombRange; i--) {
-        if (layerIsABlock(map[bombPos.X][i]))
+    for (int i = bombPos.Y; i > 0 && bombPos.Y - i <= bombermanComponent.bombRange; i--) {
+        if (layerIsABlock(map[bombPos.X][i], bombermanComponent))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (bombPos.X == aiPos.X && i == aiPos.Y);
