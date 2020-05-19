@@ -21,7 +21,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
 
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
@@ -195,7 +195,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
 
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
@@ -226,7 +226,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
 
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("ui/main_menu/background_main_menu.png"),
+        RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
