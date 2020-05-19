@@ -55,7 +55,11 @@ void is::systems::CameraSystem::update()
             auto ptr_char = std::dynamic_pointer_cast<is::components::CharacterControllerComponent>(ccc);
             if (!ptr_char)
                 throw is::exceptions::Exception("CameraSystem", "Could not get CharacterControllerComponent pointer");
-            irr::core::vector3df pos = ptr_char->getEntity()->getComponent<is::components::TransformComponent>()->get()->position;
+            auto ptr_tr = ptr_char->getEntity()->getComponent<is::components::TransformComponent>();
+            if (!ptr_tr)
+                throw is::exceptions::Exception("CameraSystem", "Could not get TransformComponent pointer");
+            irr::core::vector3df pos = ptr_tr->get()->position;
+            
             points.push_back({pos.X, pos.Z});
         }
         if (points.size() <= 0)
@@ -80,7 +84,6 @@ void is::systems::CameraSystem::update()
                 centroid.X += (x0 + x1)*a;
                 centroid.Y += (y0 + y1)*a;
             }
-
             x0 = points[i].X;
             y0 = points[i].Y;
             x1 = points[0].X;
@@ -89,15 +92,14 @@ void is::systems::CameraSystem::update()
             signedArea += a;
             centroid.X += (x0 + x1)*a;
             centroid.Y += (y0 + y1)*a;
-
             signedArea *= 0.5;
             centroid.X /= (6.0*signedArea);
             centroid.Y /= (6.0*signedArea);
         }
         irr::core::vector3df pos = ptr->node->getPosition();
-        pos.X += 15;
         irr::core::vector2df npos;
 
+        pos.X += 15;
         if (centroid.X > pos.X - 0.05f)
             npos.X = pos.X + 0.02f;
         else if (centroid.X < pos.X + 0.05f)
