@@ -217,6 +217,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
+    volumeSoundText.layer = 4;
+    volumeMusicText.layer = 4;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -371,13 +373,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         RESSOURCE("ui/Pause/Pause.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 300 / 2, 300, true
-    );
+    ).layer = 1;
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/Pause/logo.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2, 30, true
-    );
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -390,7 +392,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         },
         RESSOURCE("ui/Pause/Continue_BTN.png"),
         RESSOURCE("ui/Pause/Continue_BTN_pressed.png")
-    );
+    ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -403,20 +405,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         },
         RESSOURCE("ui/Pause/button_quit.png"),
         RESSOURCE("ui/Pause/button_quit_pressed.png")
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
-        50, 50,
-        [](){
-            is::Game::setActualScene(is::ecs::SCENE_CONTROLLERS);
-        },
-        RESSOURCE("ui/Pause/Controllers_BTN.png"),
-        RESSOURCE("ui/Pause/Controllers_BTN_pressed.png")
-    );
+    ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -429,7 +418,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         },
         RESSOURCE("ui/Pause/Settings_BTN.png"),
         RESSOURCE("ui/Pause/Settings_BTN_pressed.png")
-    );
+    ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -442,7 +431,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         },
         RESSOURCE("ui/Pause/Scores_BTN.png"),
         RESSOURCE("ui/Pause/Scores_BTN_pressed.png")
-    );
+    ).layer = 2;
     return e;
 }
 
@@ -458,10 +447,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
     ).layer = -9999;
     e->addComponent<is::components::ImageComponent>(
         e,
-        RESSOURCE("ui/credits/Information.png"),
+        RESSOURCE("ui/Credits/Information.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 606 / 2, 50, true
-    );
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -471,9 +460,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
-        RESSOURCE("ui/controllers/Return_BTN.png"),
-        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
-    );
+        RESSOURCE("ui/Credits/Return_BTN.png"),
+        RESSOURCE("ui/Credits/Return_BTN_pressed.png")
+    ).layer = 2;
     e->addComponent<is::components::TextComponent>(
         e,
         "Epitech Project Tek2",
@@ -484,7 +473,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 68, 68, 68)
-    );
+    ).layer = 4;
     e->addComponent<is::components::TextComponent>(
         e,
         "Amaury Lecomte",
@@ -495,7 +484,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
-    );
+    ).layer = 4;
     e->addComponent<is::components::TextComponent>(
         e,
         "Benjamin Bourgeois",
@@ -506,7 +495,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
-    );
+    ).layer = 4;
     e->addComponent<is::components::TextComponent>(
         e,
         "Jamil Ettel",
@@ -517,7 +506,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
-    );
+    ).layer = 4;
     e->addComponent<is::components::TextComponent>(
         e,
         "Louis Deschanel",
@@ -528,7 +517,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
-    );
+    ).layer = 4;
     e->addComponent<is::components::TextComponent>(
         e,
         "Nathan Quentel",
@@ -539,7 +528,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
-    );
+    ).layer = 4;
     e->addComponent<is::components::TextComponent>(
         e,
         "Tristan Bouillot",
@@ -550,7 +539,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
-    );
+    ).layer = 4;
     return e;
 }
 
@@ -569,7 +558,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
         RESSOURCE("ui/HowToPlay/Header.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
-    );
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -579,9 +568,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
-        RESSOURCE("ui/controllers/Return_BTN.png"),
-        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
-    );
+        RESSOURCE("ui/HowToPlay/Return_BTN.png"),
+        RESSOURCE("ui/HowToPlay/Return_BTN_pressed.png")
+    ).layer = 2;
     return e;
 }
 
@@ -600,7 +589,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
         RESSOURCE("ui/Record/Record.png"),
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
-    );
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -610,8 +599,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
-        RESSOURCE("ui/controllers/Return_BTN.png"),
-        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
-    );
+        RESSOURCE("ui/Record/Return_BTN.png"),
+        RESSOURCE("ui/Record/Return_BTN_pressed.png")
+    ).layer = 2;
     return e;
 }
