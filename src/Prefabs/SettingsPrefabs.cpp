@@ -230,6 +230,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        0, 0, true
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
