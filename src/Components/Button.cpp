@@ -11,25 +11,72 @@
 
 using namespace irr;
 
-is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
-    std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
-    std::function<void()> ft) :
-Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _text(std::move(text)), _dimension(x, y, x + width, y + height), _image(), _pressed()
+is::components::ButtonComponent::ButtonComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    std::string text,
+    std::string wn,
+    s32 x,
+    s32 y,
+    s32 width,
+    s32 height,
+    std::function<void()> ft
+    ):
+    GUIElementComponent(e),
+    _ft(std::move(ft)),
+    windowName(std::move(wn)),
+    _clicked(false),
+    _text(std::move(text)),
+    _dimension(x, y, x + width, y + height),
+    _image(),
+    _pressed()
 {
 }
 
-is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
-    std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
-    std::function<void()> ft, std::string image, std::string pressed) :
-Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _text(std::move(text)), _dimension(x, y, x + width, y + height), _image(std::move(image)), _pressed(std::move(pressed))
+is::components::ButtonComponent::ButtonComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    std::string text,
+    std::string wn,
+    s32 x,
+    s32 y,
+    s32 width,
+    s32 height,
+    std::function<void()> ft,
+    std::string image,
+    std::string pressed
+    ):
+    GUIElementComponent(e),
+    _ft(std::move(ft)),
+    windowName(std::move(wn)),
+    _clicked(false),
+    _text(std::move(text)),
+    _dimension(x, y, x + width, y + height),
+    _image(std::move(image)),
+    _pressed(std::move(pressed))
 {
 }
 
-is::components::ButtonComponent::ButtonComponent(std::shared_ptr<is::ecs::Entity> &e,
-    std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
-    std::function<void()> ft, std::string image, std::string pressed,
-    std::string font) :
-Component(e), _ft(std::move(ft)), windowName(std::move(wn)), _clicked(false), _text(std::move(text)), _dimension(x, y, x + width, y + height), _image(std::move(image)), _pressed(std::move(pressed)), _font(std::move(font))
+is::components::ButtonComponent::ButtonComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    std::string text,
+    std::string wn,
+    s32 x,
+    s32 y,
+    s32 width,
+    s32 height,
+    std::function<void()> ft,
+    std::string image,
+    std::string pressed,
+    std::string font
+    ):
+    GUIElementComponent(e),
+    _ft(std::move(ft)),
+    windowName(std::move(wn)),
+    _clicked(false),
+    _text(std::move(text)),
+    _dimension(x, y, x + width, y + height),
+    _image(std::move(image)),
+    _pressed(std::move(pressed)),
+    _font(std::move(font))
 {
 }
 

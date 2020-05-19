@@ -335,6 +335,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Controllers/Controls_title.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -344,9 +350,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
-        RESSOURCE("ui/controllers/Return_BTN.png"),
-        RESSOURCE("ui/controllers/Return_BTN_pressed.png")
-    );
+        RESSOURCE("ui/Controllers/Return_BTN.png"),
+        RESSOURCE("ui/Controllers/Return_BTN_pressed.png")
+    ).layer = 2;
     return e;
 }
 

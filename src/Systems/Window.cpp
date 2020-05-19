@@ -8,6 +8,7 @@
 #include "Systems/Window.hpp"
 #include "Components/Image.hpp"
 #include "Components/Button.hpp"
+#include "Components/Text.hpp"
 
 using namespace irr;
 using namespace is::systems;
@@ -67,36 +68,24 @@ void WindowSystem::start()
 
 void WindowSystem::sortGUIElements()
 {
-    auto &images = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
+    auto guiElements = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
     auto &buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
+    auto &texts = _componentManager->getComponentsByType(typeid(TextComponent).hash_code());
 
+    guiElements.reserve(guiElements.size() + buttons.size() + texts.size());
+    std::for_each(buttons.begin(), buttons.end(), [&guiElements] (auto &elem) {guiElements.push_back(elem);});
+    std::for_each(texts.begin(), texts.end(), [&guiElements] (auto &elem) {guiElements.push_back(elem);});
 
     std::sort(
-        images.begin(), images.end(),
+        guiElements.begin(), guiElements.end(),
         [] (const std::shared_ptr<Component> &img1, const std::shared_ptr<Component> &img2)->bool {
-            return static_cast<ImageComponent *>(img1.get())->layer < static_cast<ImageComponent *>(img2.get())->layer;
+            return static_cast<GUIElementComponent *>(img1.get())->layer < static_cast<GUIElementComponent *>(img2.get())->layer;
         });
-    std::sort(
-        buttons.begin(), buttons.end(),
-        [] (const std::shared_ptr<Component> &btn1, const std::shared_ptr<Component> &btn2)->bool {
-            return static_cast<ButtonComponent *>(btn1.get())->layer < static_cast<ButtonComponent *>(btn2.get())->layer;
+    std::for_each(
+        guiElements.begin(), guiElements.end(),
+        [] (auto &elem) {
+            static_cast<GUIElementComponent *>(elem.get())->bringToFront();
         });
-    for (size_t i = 0, b = 0; b < buttons.size() || i < images.size();) {
-        ButtonComponent *btn = nullptr;
-        ImageComponent *img = nullptr;
-
-        if (buttons.size() > b)
-            btn = static_cast<ButtonComponent *>(buttons[b].get());
-        if (images.size() > i)
-            img = static_cast<ImageComponent *>(images[i].get());
-        if (img && (!btn || img->layer < btn->layer)) {
-            img->bringToFront();
-            i++;
-        } else if (btn) {
-            btn->bringToFront();
-            b++;
-        }
-    }
 }
 
 void WindowSystem::update()
