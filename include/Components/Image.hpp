@@ -14,36 +14,38 @@
 #include <irrlicht.h>
 #include "Components/Window.hpp"
 #include "Exception.hpp"
+#include "Components/GUIElement.hpp"
 
 namespace is::components {
 
-    class ImageComponent: public is::ecs::Component {
-        public:
-            ImageComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, std::string wn,
-                    int x, int y);
-            ImageComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, std::string wn,
-                    int x, int y, bool scale);
-            ~ImageComponent() override = default;
+    class ImageComponent: public GUIElementComponent {
+    public:
+        ImageComponent(
+            std::shared_ptr<is::ecs::Entity> &e,
+            std::string filename,
+            std::string wn,
+            int x,
+            int y,
+            bool scale = false
+            );
+        ~ImageComponent() override = default;
 
-            ImageComponent(const ImageComponent &) = delete;
-            ImageComponent &operator=(const ImageComponent &) = delete;
+        ImageComponent(const ImageComponent &) = delete;
+        ImageComponent &operator=(const ImageComponent &) = delete;
 
-            void init(std::shared_ptr<is::components::WindowComponent> ptr_window);
-            void setPosition(float x, float y);
-            void deleteComponent() override;
+        void init(std::shared_ptr<is::components::WindowComponent> &ptr_window) override;
+        void setPosition(float x, float y);
+        void deleteComponent() override;
 
-            std::string windowName;
+        void bringToFront() override;
 
-            int layer = 0;
+        std::string windowName;
 
-            void bringToFront();
-
-        private:
-            irr::core::vector2d<int> _dimension;
-            std::string _filename;
-            irr::gui::IGUIImage *element{};
-            bool _scale;
-        std::shared_ptr<WindowComponent> _window;
+    private:
+        irr::core::vector2d<int> _dimension;
+        std::string _filename;
+        irr::gui::IGUIImage *element{};
+        bool _scale;
     };
 
 }
