@@ -13,7 +13,7 @@ using namespace irr;
 is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
 std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
 bool drawBorder, bool dynamic) :
-    Component(e),
+    GUIElementComponent(e),
     windowName(std::move(wn)),
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
@@ -27,7 +27,7 @@ bool drawBorder, bool dynamic) :
 is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
 std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
 bool drawBorder, bool dynamic, std::string font) :
-    Component(e),
+    GUIElementComponent(e),
     windowName(std::move(wn)),
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
@@ -41,7 +41,7 @@ bool drawBorder, bool dynamic, std::string font) :
 is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
 std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
 bool drawBorder, bool dynamic, std::string font, irr::video::SColor color) :
-    Component(e),
+    GUIElementComponent(e),
     windowName(std::move(wn)),
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
@@ -52,8 +52,9 @@ bool drawBorder, bool dynamic, std::string font, irr::video::SColor color) :
 {
 }
 
-void is::components::TextComponent::init(const std::shared_ptr<is::components::WindowComponent>& ptr_window)
+void is::components::TextComponent::init(std::shared_ptr<is::components::WindowComponent>& ptr_window)
 {
+    _window = ptr_window;
     element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, IDGenerator::getNewID());
     if (!element)
         throw is::exceptions::Exception("TextCompononent", "Could not create node from model");
@@ -84,4 +85,10 @@ void is::components::TextComponent::updateText()
 void is::components::TextComponent::deleteComponent()
 {
     element->remove();
+}
+
+void is::components::TextComponent::bringToFront()
+{
+    if (element)
+        _window->canvas->getRootGUIElement()->bringToFront(element);
 }

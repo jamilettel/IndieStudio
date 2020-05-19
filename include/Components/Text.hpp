@@ -15,46 +15,46 @@
 #include "Components/Window.hpp"
 #include "Exception.hpp"
 #include "IDGenerator.hpp"
+#include "Components/GUIElement.hpp"
 
 namespace is::components {
-    class TextComponent: public is::ecs::Component {
-        public:
-            TextComponent(std::shared_ptr<is::ecs::Entity> &e, std::string text, std::string wn,
-                    irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
-                    bool drawBorder, bool dynamic);
+    class TextComponent: public GUIElementComponent {
+    public:
+        TextComponent(std::shared_ptr<is::ecs::Entity> &e, std::string text, std::string wn,
+                      irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
+                      bool drawBorder, bool dynamic);
 
-            TextComponent(std::shared_ptr<is::ecs::Entity> &e, std::string text, std::string wn,
-                    irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
-                    bool drawBorder, bool dynamic, std::string font);
+        TextComponent(std::shared_ptr<is::ecs::Entity> &e, std::string text, std::string wn,
+                      irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
+                      bool drawBorder, bool dynamic, std::string font);
 
-            TextComponent(std::shared_ptr<is::ecs::Entity> &e, std::string text, std::string wn,
-                    irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
-                    bool drawBorder, bool dynamic, std::string font, irr::video::SColor color);
-            ~TextComponent() override = default;
+        TextComponent(std::shared_ptr<is::ecs::Entity> &e, std::string text, std::string wn,
+                      irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
+                      bool drawBorder, bool dynamic, std::string font, irr::video::SColor color);
+        ~TextComponent() override = default;
 
-            TextComponent(const TextComponent &) = delete;
-            TextComponent &operator=(const TextComponent &) = delete;
+        TextComponent(const TextComponent &) = delete;
+        TextComponent &operator=(const TextComponent &) = delete;
 
-            void init(const std::shared_ptr<is::components::WindowComponent>& ptr_window);
+        void init(std::shared_ptr<is::components::WindowComponent>& ptr_window) override;
+        void bringToFront() override;
 
-            void updateText();
-            [[nodiscard]] std::string getText() const;
-            void setText(const std::string &string);
+        void updateText();
+        [[nodiscard]] std::string getText() const;
+        void setText(const std::string &string);
 
+        void deleteComponent() override;
 
-            void deleteComponent() override;
+        std::string windowName;
 
-            std::string windowName;
-
-            int layer = 0;
-        private:
-            std::string _text;
-            irr::core::rect<irr::s32> _dimension;
-            irr::gui::IGUIStaticText *element{};
-            bool _drawBorder;
-            std::string _font;
-            bool _dynamic;
-            irr::video::SColor _color;
+    private:
+        std::string _text;
+        irr::core::rect<irr::s32> _dimension;
+        irr::gui::IGUIStaticText *element{};
+        bool _drawBorder;
+        std::string _font;
+        bool _dynamic;
+        irr::video::SColor _color;
     };
 
 }
