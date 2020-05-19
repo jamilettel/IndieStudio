@@ -230,12 +230,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
-        e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
-        "Indie Studio",
-        0, 0, true
-    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -261,5 +255,73 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Return_BTN.png"),
         RESSOURCE("ui/PresetSelection/Return_BTN_pressed.png")
     ).layer = 2;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        100, 180, true
+    ).layer = 1;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 50, 180, true
+    ).layer = 1;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        100, 540, true
+    ).layer = 1;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 50, 540, true
+    ).layer = 1;
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Player 1",
+        "Indie Studio",
+        338, 200,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Player 3",
+        "Indie Studio",
+        338, 560,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Player 2",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 288, 200,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
+    e->addComponent<is::components::TextComponent>(
+        e,
+        "Player 4",
+        "Indie Studio",
+        is::components::WindowComponent::_width / 2 + 288, 560,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
     return e;
 }
