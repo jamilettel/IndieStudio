@@ -372,6 +372,8 @@ void AIControllerSystem::waitingState(
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
 {
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
+
     // std::cout << "WAITING STATE" << std::endl;
     if (!posIsHideFromBombs(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
         // std::cout << "I am not hide" << std::endl;
@@ -393,8 +395,10 @@ void AIControllerSystem::waitingState(
         }
         // std::cout << "SHIT I AM DEAD" << std::endl;
     }
-    if (map[ai.bombPos.X][ai.bombPos.Y] != is::ecs::Entity::Layer::BOMB)
+    if (bomberman.bombNumber != bomberman.instantBomb)
         ai.state = AIControllerComponent::NONE;
+    // if (map[ai.bombPos.X][ai.bombPos.Y] != is::ecs::Entity::Layer::BOMB)
+    //     ai.state = AIControllerComponent::NONE;
 }
 
 
