@@ -16,6 +16,7 @@
 #include "Components/Time.hpp"
 #include "AStarAlgorithm.hpp"
 #include "ECS/Component.hpp"
+#include "Components/Bomberman.hpp"
 #include <vector>
 #include <list>
 
@@ -125,7 +126,6 @@ namespace is::systems {
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
             const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
         ) const noexcept;
-        
 
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;

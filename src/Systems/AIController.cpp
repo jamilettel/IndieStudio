@@ -226,14 +226,32 @@ bool AIControllerSystem::bombPosIsUseful(
     const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
 ) const
 {
-    char dirX[] = {-1, 0, 1, 0};
-    char dirY[] = {0, -1, 0, 1};
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
+    int dirX[] = {-bomberman.bombRange, 0, bomberman.bombRange, 0};
+    int dirY[] = {0, -bomberman.bombRange, 0, bomberman.bombRange};
 
+    if (bombPosAimForPlayer(ai, bombPos, map, aiComponents))
+        return (true);
     for (int i = 0; i < 4; i++) {
-        irr::core::vector2di newPos(bombPos.X + dirX[i], bombPos.Y + dirY[i]);
+        if (dirX[i]) {
+            int incr = dirX[i] < 0 ? -1 : 1;
 
-        if (map[bombPos.X + dirX[i]][bombPos.Y + dirY[i]] == is::ecs::Entity::Layer::BRKBL_BLK || bombPosAimForPlayer(ai, bombPos, map, aiComponents))
-            return (true);
+            for (int x = incr; (dirX[i] < 0 ? x >= dirX[i] : x <= dirX[i]); x += incr) {
+                if (!isValid(irr::core::vector2di(bombPos.X + x, bombPos.Y), map))
+                    break;
+                if (map[bombPos.X + x][bombPos.Y] == is::ecs::Entity::Layer::BRKBL_BLK)
+                    return (true);
+            }
+        } else {
+            int incr = dirY[i] < 0 ? -1 : 1;
+
+            for (int y = incr; (dirY[i] < 0 ? y >= dirY[i] : y <= dirY[i]); y += incr) {
+                if (!isValid(irr::core::vector2di(bombPos.X, bombPos.Y + y), map))
+                    break;
+                if (map[bombPos.X][bombPos.Y + y] == is::ecs::Entity::Layer::BRKBL_BLK)
+                    return (true);
+            }
+        }
     }
     return (false);
 }
@@ -510,8 +528,9 @@ bool AIControllerSystem::bombPosAimForPlayer(
 {
     int width = map.size();
     int height = map[bombPos.X].size();
+    const std::shared_ptr<BombermanComponent> bombermanComponent = ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    for (int i = bombPos.X; i < width && i - bombPos.X <= 1; i++) {
+    for (int i = bombPos.X; i < width && i - bombPos.X <= bombermanComponent->bombRange; i++) {
         if (layerIsABlock(map[i][bombPos.Y]))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
@@ -519,7 +538,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
         }))
             return (true);
     }
-    for (int i = bombPos.X; i > 0 && bombPos.X - i <= 1; i--) {
+    for (int i = bombPos.X; i > 0 && bombPos.X - i <= bombermanComponent->bombRange; i--) {
         if (layerIsABlock(map[i][bombPos.Y]))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
@@ -527,7 +546,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
         }))
             return (true);
     }
-    for (int i = bombPos.Y; i < height && i - bombPos.Y <= 1; i++) {
+    for (int i = bombPos.Y; i < height && i - bombPos.Y <= bombermanComponent->bombRange; i++) {
         if (layerIsABlock(map[bombPos.X][i]))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
@@ -535,7 +554,7 @@ bool AIControllerSystem::bombPosAimForPlayer(
         }))
             return (true);
     }
-    for (int i = bombPos.Y; i > 0 && bombPos.Y - i <= 1; i--) {
+    for (int i = bombPos.Y; i > 0 && bombPos.Y - i <= bombermanComponent->bombRange; i--) {
         if (layerIsABlock(map[bombPos.X][i]))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
