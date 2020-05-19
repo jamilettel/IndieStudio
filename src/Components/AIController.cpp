@@ -15,6 +15,9 @@ AIControllerComponent::AIControllerComponent(
     InputManagerComponent &inputManager
     ): Component(e), _inputManager(inputManager)
 {
+    static int id = 0;
+
+    _id = id++;
     shortObjective = irr::core::vector2di(0);
     lastShortObjective = irr::core::vector2di(0);
     longObjective = irr::core::vector2di(0);
@@ -27,4 +30,9 @@ void AIControllerComponent::deleteComponent()
 InputManagerComponent &AIControllerComponent::getInputManager() const
 {
     return _inputManager;
+}
+
+bool AIControllerComponent::operator==(const is::components::AIControllerComponent &ai) const
+{
+    return (_id == ai._id);
 }
