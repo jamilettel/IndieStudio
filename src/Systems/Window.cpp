@@ -88,6 +88,8 @@ void WindowSystem::sortGUIElements()
         });
 }
 
+#include "Components/Texture.hpp"
+
 void WindowSystem::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
@@ -100,6 +102,10 @@ void WindowSystem::update()
             return;
         }
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
+        for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
+            auto t = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
+            ptr->driver->draw2DImage(t->node, irr::core::vector2di(0));
+        }
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
         ptr->driver->endScene();

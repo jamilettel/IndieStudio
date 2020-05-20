@@ -17,6 +17,10 @@
 #include "Systems/Image.hpp"
 #include "Systems/Button.hpp"
 #include "Systems/Cursor.hpp"
+#include "Prefabs/GlobalPrefabs.hpp"
+#include "Prefabs/EndGamePrefabs.hpp"
+#include "Systems/ModelRenderer.hpp"
+#include "Systems/Texture.hpp"
 
 namespace is::scenes {
 
@@ -27,9 +31,6 @@ namespace is::scenes {
 
             EndGameScene(const EndGameScene &) = default;
             EndGameScene &operator=(const EndGameScene &) = default;
-
-            void awake() override;
-            void onTearDown() override;
 
             void initSystems() override;
             void initEntities() override;
