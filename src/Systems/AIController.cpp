@@ -291,6 +291,8 @@ bool AIControllerSystem::findBombEmplacement(
             continue;
         if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y], bomberman))
             continue;
+        if (!posIsHideFromBombs(ai, newPos, map))
+            continue;
         if (bombPosIsUseful(ai, newPos, map, pos, aiComponents) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
             ai.longObjective = newPos;
