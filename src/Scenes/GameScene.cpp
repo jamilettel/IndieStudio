@@ -19,7 +19,7 @@ void is::scenes::GameScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
+    // _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());

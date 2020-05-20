@@ -108,6 +108,10 @@ void is::systems::CameraSystem::update()
             npos.Y = pos.Z - 0.02f;
         else if (centroid.Y > pos.Z - 0.05f)
             npos.Y = pos.Z + 0.02f;
+        // std::cout << "npos.x = " << npos.X << std::endl;
+        // std::cout << "npos.y = " << npos.Y << std::endl;
+        // std::cout << "ptr->node->getPosition().Y = " << ptr->node->getPosition().Y << std::endl;
+        // std::cout << std::flush;
         ptr->node->setPosition(irr::core::vector3df(npos.X - 15, ptr->node->getPosition().Y, npos.Y));
         ptr->node->setTarget(irr::core::vector3df(npos.X - 3, ptr->node->getTarget().Y, npos.Y));
 
