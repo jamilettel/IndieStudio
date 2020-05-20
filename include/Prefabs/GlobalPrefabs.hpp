@@ -39,12 +39,14 @@
 #include "Components/Animator.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
+#include "Components/Network.hpp"
 
 namespace is::prefabs {
 
     class GlobalPrefabs {
         public:
             static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
+            static std::shared_ptr<is::ecs::Entity> createGlobalPrefabMultiplayer();
             static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
             static std::shared_ptr<is::ecs::Entity> createCenterBlock(irr::core::vector3df position);
             static std::shared_ptr<is::ecs::Entity> createGrassBlock(irr::core::vector3df position);
@@ -64,6 +66,7 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createCredit();
             static std::shared_ptr<is::ecs::Entity> createHowToPlay();
             static std::shared_ptr<is::ecs::Entity> createRecord();
+            static std::shared_ptr<is::ecs::Entity> createMultiplayer();
 
             static std::shared_ptr<is::ecs::Entity> createSettings();
             static std::shared_ptr<is::ecs::Entity> createControllers();

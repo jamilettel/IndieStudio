@@ -279,3 +279,4 @@ bomberman
 bomberman.build
 bomberman.xcodeproj
 Debug
+src/Network/server/__pycache__/*
