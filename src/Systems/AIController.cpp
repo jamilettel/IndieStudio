@@ -247,6 +247,8 @@ bool AIControllerSystem::bombPosIsUseful(
             for (int x = incr; (dirX[i] < 0 ? x >= dirX[i] : x <= dirX[i]); x += incr) {
                 if (!isValid(irr::core::vector2di(bombPos.X + x, bombPos.Y), map))
                     break;
+                if (map[bombPos.X + x][bombPos.Y] == is::ecs::Entity::Layer::GROUND)
+                    break;
                 if (map[bombPos.X + x][bombPos.Y] == is::ecs::Entity::Layer::BRKBL_BLK)
                     return (true);
             }
@@ -255,6 +257,8 @@ bool AIControllerSystem::bombPosIsUseful(
 
             for (int y = incr; (dirY[i] < 0 ? y >= dirY[i] : y <= dirY[i]); y += incr) {
                 if (!isValid(irr::core::vector2di(bombPos.X, bombPos.Y + y), map))
+                    break;
+                if (map[bombPos.X][bombPos.Y + y] == is::ecs::Entity::Layer::GROUND)
                     break;
                 if (map[bombPos.X][bombPos.Y + y] == is::ecs::Entity::Layer::BRKBL_BLK)
                     return (true);
