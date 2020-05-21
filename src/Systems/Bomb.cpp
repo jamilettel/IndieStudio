@@ -46,7 +46,7 @@ void is::systems::BombSystem::update()
                 }
             }
             if (!windowFound)
-                throw is::exceptions::Exception("BombComponent", "Could not found window");
+                throw is::exceptions::Exception("BombComponent", "Could not find window");
             for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, i + 1); i++);
             for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, i + 1, 0); i++);
             for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, -(i + 1)); i++);
@@ -68,8 +68,10 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
     f.Y = 0;
     f.Z = ((int)((f.Z + 1.5f) / 3) + y - (f.Z < 0)) * 3;
     auto e = this->initRuntimeEntity(is::prefabs::GlobalPrefabs::createFire(f));
-    auto mr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
-    mr->initModelRenderer(ptr_window);
+    //auto mr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
+    auto part = std::dynamic_pointer_cast<is::components::ParticuleComponent>(*e->getComponent<is::components::ParticuleComponent>());
+    //mr->initModelRenderer(ptr_window);
+    part->init(ptr_window);
     auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*e->getComponent<is::components::ColliderComponent>());
     if (checkFireCollision(*cc, ptr_window)) {
         e->setDelete(true);

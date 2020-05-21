@@ -6,6 +6,9 @@
 */
 
 #include "Systems/Window.hpp"
+#include "Components/Image.hpp"
+#include "Components/Button.hpp"
+#include "Components/Text.hpp"
 
 using namespace irr;
 using namespace is::systems;
@@ -48,6 +51,7 @@ void WindowSystem::awake()
 #ifndef __APPLE__
         ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
 #endif
+        ptr->device->getCursorControl()->setVisible(false);
     }
 }
 
@@ -59,10 +63,29 @@ void WindowSystem::start()
     if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
+    sortGUIElements();
 }
 
-void WindowSystem::manageJoysticks([[maybe_unused]]std::shared_ptr<WindowComponent> &ptr)
+void WindowSystem::sortGUIElements()
 {
+    auto guiElements = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
+    auto &buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
+    auto &texts = _componentManager->getComponentsByType(typeid(TextComponent).hash_code());
+
+    guiElements.reserve(guiElements.size() + buttons.size() + texts.size());
+    std::for_each(buttons.begin(), buttons.end(), [&guiElements] (auto &elem) {guiElements.push_back(elem);});
+    std::for_each(texts.begin(), texts.end(), [&guiElements] (auto &elem) {guiElements.push_back(elem);});
+
+    std::sort(
+        guiElements.begin(), guiElements.end(),
+        [] (const std::shared_ptr<Component> &img1, const std::shared_ptr<Component> &img2)->bool {
+            return static_cast<GUIElementComponent *>(img1.get())->layer < static_cast<GUIElementComponent *>(img2.get())->layer;
+        });
+    std::for_each(
+        guiElements.begin(), guiElements.end(),
+        [] (auto &elem) {
+            static_cast<GUIElementComponent *>(elem.get())->bringToFront();
+        });
 }
 
 void WindowSystem::update()
@@ -76,8 +99,6 @@ void WindowSystem::update()
             is::Game::isRunning = false;
             return;
         }
-        if (ptr->joystickSupport)
-            manageJoysticks(ptr);
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();

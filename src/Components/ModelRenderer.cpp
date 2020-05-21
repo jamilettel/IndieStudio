@@ -23,6 +23,11 @@ void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<i
         throw is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
 }
 
+irr::scene::IAnimatedMeshSceneNode *is::components::ModelRendererComponent::getElement() const
+{
+    return (node);
+}
+
 void is::components::ModelRendererComponent::deleteComponent()
 {
     node->remove();

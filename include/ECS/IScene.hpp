@@ -17,12 +17,14 @@ namespace is::ecs {
     enum Scenes {
         SCENE_SPLASH_SCREEN,
         SCENE_MAIN_MENU,
-        SCENE_SETTINGS,
-        SCENE_CONTROLLERS,
         SCENE_PAUSE,
         SCENE_CREDIT,
         SCENE_HOWTOPLAY,
         SCENE_RECORD,
+        SCENE_SETTINGS,
+        SCENE_CONTROLLERS,
+        SCENE_PRESETSELECTION,
+        SCENE_MULTIPLAYER,
         SCENE_GAME,
         NOTHING
     };

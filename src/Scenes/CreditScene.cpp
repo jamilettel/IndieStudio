@@ -25,6 +25,7 @@ void is::scenes::CreditScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
 }
 
 void is::scenes::CreditScene::initEntities()

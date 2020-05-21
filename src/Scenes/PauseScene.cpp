@@ -25,6 +25,7 @@ void is::scenes::PauseScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
 }
 
 void is::scenes::PauseScene::initEntities()

@@ -29,7 +29,7 @@ namespace is::components {
             void deleteComponent() override;
 
             void initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window);
-
+            irr::scene::IAnimatedMeshSceneNode *getElement() const;
             std::string fileName;
             std::string windowName;
             irr::scene::IAnimatedMeshSceneNode *node{};

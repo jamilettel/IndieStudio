@@ -37,6 +37,8 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
 }
 
 void is::scenes::GameScene::initEntities()
@@ -48,4 +50,27 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
+}
+
+void is::scenes::GameScene::awake()
+{
+    AScene::awake();
+    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
+        window.eventManager.addEventKeyReleased(EKEY_CODE::KEY_KEY_P, []() {
+            if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
+                is::Game::setActualScene(is::ecs::SCENE_PAUSE);
+            else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
+                is::Game::setActualScene(is::ecs::SCENE_GAME);
+        });
+    }
+}
+
+void is::scenes::GameScene::onTearDown()
+{
+    AScene::onTearDown();
+    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
+        window.eventManager.removeEventKeyReleased(EKEY_CODE::KEY_KEY_P);
+    }
 }

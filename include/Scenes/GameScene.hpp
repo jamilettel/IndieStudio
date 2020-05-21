@@ -32,6 +32,8 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "MapGenerator.hpp"
 #include "Systems/JoystickInput.hpp"
+#include "Systems/Particule.hpp"
+#include "Systems/Cursor.hpp"
 
 namespace is::scenes {
 
@@ -42,6 +44,9 @@ namespace is::scenes {
 
             GameScene(const GameScene &) = default;
             GameScene &operator=(const GameScene &) = default;
+
+            void awake() override;
+            void onTearDown() override;
 
             void initSystems() override;
             void initEntities() override;

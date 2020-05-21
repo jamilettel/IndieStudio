@@ -34,7 +34,7 @@ void ButtonSystem::awake()
             }
         }
         if (!windowFound)
-            throw is::exceptions::Exception("ButtonComponent", "Could not found window");
+            throw is::exceptions::Exception("ButtonComponent", "Could not find window");
 
         ptr->init(ptr_window);
         ptr_window->eventManager.addButton(ptr);

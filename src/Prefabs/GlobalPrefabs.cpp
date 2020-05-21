@@ -80,6 +80,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::cor
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
     e->addComponent<BombComponent>(e, bm, 3, range);
+    e->addComponent<is::components::ParticuleComponent>(
+        e,
+        "Indie Studio",
+        irr::core::vector3df(position.X, position.Y + 3, position.Z),
+        PARTICULE::WICK
+    );
     return (e);
 }
 
@@ -87,8 +93,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBombUpPowerUp
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Lollipop.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::BOMB_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -103,8 +109,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSpeedUpPowerU
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Star.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::SPEED_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -119,8 +125,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFireUpPowerUp
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Mushroom_1.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::FIRE_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -135,8 +141,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallPassPower
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Mushroom_2.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::WALL_PASS);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -152,12 +158,18 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::cor
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::FIRE);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
+    //e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
     e->addComponent<FireComponent>(e);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
         irr::core::vector3df(3, 3, 3)
+    );
+    e->addComponent<is::components::ParticuleComponent>(
+        e,
+        "Indie Studio",
+        irr::core::vector3df(position.X, position.Y + 3, position.Z),
+        PARTICULE::FIRE
     );
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BOMB);

@@ -86,7 +86,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
-        
+
         if (im->get()->getInput("DropBomb") == 1 && ptr->canPlaceBomb) {
             auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
             if (!bm)
@@ -108,7 +108,9 @@ void is::systems::CharacterControllerSystem::update()
                 bm->get()->instantBomb++;
                 auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
                 auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
+                auto ptr_part = std::dynamic_pointer_cast<ParticuleComponent>(*e->getComponent<ParticuleComponent>());
                 ptr_mr->initModelRenderer(ptr_window);
+                ptr_part->init(ptr_window);
                 ptr->canPlaceBomb = false;
             }
         } else if (im->get()->getInput("DropBomb") != 1 && (ptr->move.X != 0 || ptr->move.Z != 0)) {
