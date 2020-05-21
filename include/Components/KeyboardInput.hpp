@@ -11,37 +11,39 @@
 #include <string>
 
 #include "Components/InputManager.hpp"
-#include "EventManager/EventManager.hpp"
+#include "Components/KeyboardPreset.hpp"
 
 namespace is::components {
     class KeyboardInputComponent: public is::ecs::Component {
-        public:
-            KeyboardInputComponent(
-                std::shared_ptr<is::ecs::Entity> &e,
-                InputManagerComponent &inputManager
-                );
-            ~KeyboardInputComponent() override = default;
+    public:
+        KeyboardInputComponent(
+            std::shared_ptr<is::ecs::Entity> &e,
+            InputManagerComponent &inputManager
+            );
+        ~KeyboardInputComponent() override = default;
 
-            KeyboardInputComponent(const KeyboardInputComponent &) = delete;
-            KeyboardInputComponent &operator=(const KeyboardInputComponent &) = delete;
+        KeyboardInputComponent(const KeyboardInputComponent &) = delete;
+        KeyboardInputComponent &operator=(const KeyboardInputComponent &) = delete;
 
-            void deleteComponent() override;
+        void deleteComponent() override;
 
-            [[nodiscard]] bool isBound(EKEY_CODE key) const;
+        [[nodiscard]] bool isBound(EKEY_CODE key) const;
 
-            void bind(EKEY_CODE key, const std::string &action, float target);
-            void unbind(EKEY_CODE key);
-            bool changeKey(EKEY_CODE from, EKEY_CODE to);
-            bool changeTarget(EKEY_CODE key, float target);
+        void bind(EKEY_CODE key, const std::string &action, float target);
+        void unbind(EKEY_CODE key);
+        bool changeKey(EKEY_CODE from, EKEY_CODE to);
+        bool changeTarget(EKEY_CODE key, float target);
 
-            std::map<EKEY_CODE, std::pair<std::string, float>> &getBindings();
-            [[nodiscard]] InputManagerComponent &getInputManager() const;
+        void setPreset(const KeyboardPresetComponent &preset);
 
-            void unbindAll();
+        std::map<EKEY_CODE, std::pair<std::string, float>> &getBindings();
+        [[nodiscard]] InputManagerComponent &getInputManager() const;
 
-        private:
-            InputManagerComponent &_inputManager;
-            std::map<EKEY_CODE, std::pair<std::string, float>> _bindings;
+        void unbindAll();
+
+    private:
+        InputManagerComponent &_inputManager;
+        std::map<EKEY_CODE, std::pair<std::string, float>> _bindings;
     };
 
 }
