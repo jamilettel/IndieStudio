@@ -67,7 +67,8 @@ namespace is::prefabs {
 
             static std::shared_ptr<is::ecs::Entity> createSettings();
             static std::shared_ptr<is::ecs::Entity> createControllers();
-            static std::shared_ptr<is::ecs::Entity> createPresetSelection();
+            static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
+            static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions();
     };
 
 }

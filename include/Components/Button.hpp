@@ -62,23 +62,28 @@ namespace is::components {
 
             void init(std::shared_ptr<is::components::WindowComponent> &ptr_window) override;
             void deleteComponent() override;
-            std::function<void()> _ft;
-            [[nodiscard]] bool isClicked() const;
-            void setClicked(bool);
             [[nodiscard]] irr::s32 getId() const;
 
+            [[nodiscard]] bool isClicked() const;
+            void setClicked(bool);
+
+            void setCallback(std::function<void()> ft);
+            void callCallback() const;
+
             void bringToFront() override;
+            void setVisible(bool visible);
 
             std::string windowName;
 
         private:
-            bool _clicked;
-            std::string _text;
-            irr::core::rect<irr::s32> _dimension;
-            irr::gui::IGUIButton *element{};
             const std::string _image;
             const std::string _pressed;
             const std::string _font;
+            std::string _text;
+            irr::core::rect<irr::s32> _dimension;
+            irr::gui::IGUIButton *element{};
+            bool _clicked;
+            std::function<void()> _ft;
     };
 
 }

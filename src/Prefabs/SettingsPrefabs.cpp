@@ -217,19 +217,34 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
         RESSOURCE("ui/Controllers/Return_BTN.png"),
         RESSOURCE("ui/Controllers/Return_BTN_pressed.png")
     ).layer = 2;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Controllers/Controller.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first - 350, 200,
+        true
+    ).layer = 1;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Controllers/Keyboard.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 180,
+        true
+    ).layer = 1;
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelection()
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
+    /* BACKGROUND AND RETURN BUTTON */
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
-    ).layer = -9999;
+    ).layer = -1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -243,6 +258,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/button_play.png"),
         RESSOURCE("ui/PresetSelection/button_play_pressed.png")
     );
+
+    /* BUTTON PLAY */
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -255,6 +272,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Return_BTN.png"),
         RESSOURCE("ui/PresetSelection/Return_BTN_pressed.png")
     ).layer = 2;
+
+    /* BACKGROUND FOR EACH PLAYER */
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/Box.png"),
@@ -279,6 +298,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         "Indie Studio",
         is::components::WindowComponent::_width / 2 + 50, 540, true
     ).layer = 1;
+
+    /* TITLE PLAYER */
     e->addComponent<is::components::TextComponent>(
         e,
         "Player 1",
@@ -305,7 +326,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "Player 2",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 + 288, 200,
+        is::components::WindowComponent::_width / 2 + 298, 200,
         150, 40,
         false,
         true,
@@ -316,12 +337,170 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "Player 4",
         "Indie Studio",
-        is::components::WindowComponent::_width / 2 + 288, 560,
+        is::components::WindowComponent::_width / 2 + 298, 560,
         150, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
+
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    /* AI FOR EACH PLAYER */
+    auto &IAImage1 = e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/AI.png"),
+        "Indie Studio",
+        340, 265, true
+    );
+    IAImage1.layer = 2;
+    auto &TextIA1 =e->addComponent<is::components::TextComponent>(
+        e,
+        "AI",
+        "Indie Studio",
+        365, 280,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    );
+    TextIA1.layer = 2;
+
+    auto &IAImage2 = e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/AI.png"),
+        "Indie Studio",
+        1100, 265, true
+    );
+    IAImage2.layer = 2;
+    auto &TextIA2 = e->addComponent<is::components::TextComponent>(
+        e,
+        "AI",
+        "Indie Studio",
+        1125, 280,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    );
+    TextIA2.layer = 2;
+
+    auto &IAImage3 = e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/AI.png"),
+        "Indie Studio",
+        340, 625, true
+    );
+    IAImage3.layer = 2;
+    auto &TextIA3 = e->addComponent<is::components::TextComponent>(
+        e,
+        "AI",
+        "Indie Studio",
+        365, 640,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    );
+    TextIA3.layer = 2;
+
+    auto &IAImage4 = e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/AI.png"),
+        "Indie Studio",
+        1100, 625, true
+    );
+    IAImage4.layer = 2;
+    auto &TextIA4 = e->addComponent<is::components::TextComponent>(
+        e,
+        "AI",
+        "Indie Studio",
+        1125, 640,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    );
+    TextIA4.layer = 2;
+
+    /* BUTTON ACTIVATE PLAYER */
+    auto &activateButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        285, 380,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    activateButton1.layer = 3;
+    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1](){
+        activateButton1.setVisible(false);
+        TextIA1.setVisible(false);
+        IAImage1.setVisible(false);
+    });
+    auto &activateButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1045, 380,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    activateButton2.layer = 3;
+    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2](){
+        activateButton2.setVisible(false);
+        TextIA2.setVisible(false);
+        IAImage2.setVisible(false);
+    });
+    auto &activateButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        285, 740,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    activateButton3.layer = 3;
+    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3](){
+        activateButton3.setVisible(false);
+        TextIA3.setVisible(false);
+        IAImage3.setVisible(false);
+    });
+    auto &activateButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1045, 740,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    activateButton4.layer = 3;
+    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4](){
+        activateButton4.setVisible(false);
+        TextIA4.setVisible(false);
+        IAImage4.setVisible(false);
+    });
     return e;
 }

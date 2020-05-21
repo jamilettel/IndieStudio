@@ -22,13 +22,13 @@ is::components::ButtonComponent::ButtonComponent(
     std::function<void()> ft
     ):
     GUIElementComponent(e),
-    _ft(std::move(ft)),
     windowName(std::move(wn)),
-    _clicked(false),
+    _image(),
+    _pressed(),
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _image(),
-    _pressed()
+    _clicked(false),
+    _ft(std::move(ft))
 {
 }
 
@@ -45,13 +45,13 @@ is::components::ButtonComponent::ButtonComponent(
     std::string pressed
     ):
     GUIElementComponent(e),
-    _ft(std::move(ft)),
     windowName(std::move(wn)),
-    _clicked(false),
+    _image(std::move(image)),
+    _pressed(std::move(pressed)),
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _image(std::move(image)),
-    _pressed(std::move(pressed))
+    _clicked(false),
+    _ft(std::move(ft))
 {
 }
 
@@ -69,14 +69,14 @@ is::components::ButtonComponent::ButtonComponent(
     std::string font
     ):
     GUIElementComponent(e),
-    _ft(std::move(ft)),
     windowName(std::move(wn)),
-    _clicked(false),
-    _text(std::move(text)),
-    _dimension(x, y, x + width, y + height),
     _image(std::move(image)),
     _pressed(std::move(pressed)),
-    _font(std::move(font))
+    _font(std::move(font)),
+    _text(std::move(text)),
+    _dimension(x, y, x + width, y + height),
+    _clicked(false),
+    _ft(std::move(ft))
 {
 }
 
@@ -122,4 +122,19 @@ void is::components::ButtonComponent::bringToFront()
 {
     if (element)
         _window->canvas->getRootGUIElement()->bringToFront(element);
+}
+
+void is::components::ButtonComponent::setCallback(std::function<void()> ft)
+{
+    _ft = std::move(ft);
+}
+
+void is::components::ButtonComponent::callCallback() const
+{
+    _ft();
+}
+
+void is::components::ButtonComponent::setVisible(bool visible)
+{
+    element->setVisible(visible);
 }
