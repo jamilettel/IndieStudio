@@ -34,6 +34,8 @@ namespace is::components {
 
         const std::map<PresetAction, EKEY_CODE> &getBindings() const;
 
+        static void createBasicPreset(KeyboardPresetComponent &preset);
+
     private:
         std::map<PresetAction, EKEY_CODE> _bindings;
     };

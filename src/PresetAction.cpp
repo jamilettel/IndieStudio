@@ -9,6 +9,16 @@
 
 using namespace is;
 
+PresetAction::PresetAction(
+    std::string actionString,
+    float target,
+    std::string desc
+    ):
+    action(actionString),
+    value(target),
+    description(desc)
+{}
+
 bool PresetAction::operator<(const PresetAction &rhs) const
 {
     if (action != rhs.action)

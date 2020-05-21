@@ -54,3 +54,13 @@ const std::map<PresetAction, EKEY_CODE> &KeyboardPresetComponent::getBindings() 
 {
     return _bindings;
 }
+
+void KeyboardPresetComponent::createBasicPreset(KeyboardPresetComponent &preset)
+{
+    preset.bind(irr::KEY_KEY_W, PresetAction("MoveVerticalAxis", 1, "Move forward"));
+    preset.bind(irr::KEY_KEY_S, PresetAction("MoveVerticalAxis", -1, "Move backward"));
+    preset.bind(irr::KEY_KEY_D, PresetAction("MoveHorizontalAxis", -1, "Move right"));
+    preset.bind(irr::KEY_KEY_A, PresetAction("MoveHorizontalAxis", 1, "Move left"));
+    preset.bind(irr::KEY_KEY_E, PresetAction("DropBomb", 1, "Drop bomb"));
+    preset.bind(irr::KEY_SPACE, PresetAction("Jump", 1, "Jump"));
+}
