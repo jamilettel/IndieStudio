@@ -45,10 +45,13 @@ namespace is::components {
 
             bool canPlaceBomb = true;
 
+            bool operator==(const CharacterControllerComponent &character) const noexcept;
+
         private:
             MovementComponent &_movementComponent;
             TransformComponent &_transform;
             AudioComponent &_audioComponent;
+            int _id;
     };
 
 }

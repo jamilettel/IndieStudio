@@ -10,6 +10,7 @@
 
 #include "ECS/ASystem.hpp"
 #include "Components/AIController.hpp"
+#include "Components/CharacterController.hpp"
 #include "Components/Window.hpp"
 #include "Components/Movement.hpp"
 #include "Components/Transform.hpp"
