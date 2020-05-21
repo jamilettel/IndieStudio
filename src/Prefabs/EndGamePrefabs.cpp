@@ -23,12 +23,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackground()
     e->addComponent<is::components::TextureComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
-        "Indie Studio"
-    );
-    e->addComponent<is::components::TransformComponent>(
-        e,
-        irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(10, 45, 0)
+        "Indie Studio",
+        irr::core::vector2di(0),
+        irr::core::vector2di(-1)
     );
     return (e);
 }
@@ -102,5 +99,19 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4()
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<is::components::TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Window.png"),
+        "Indie Studio",
+        irr::core::vector2di(100, 100),
+        irr::core::vector2di(450, 800)
+    );
     return (e);
 }

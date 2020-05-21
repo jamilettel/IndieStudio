@@ -9,24 +9,40 @@
 
 #include "Exception.hpp"
 
-is::components::TextureComponent::TextureComponent(std::shared_ptr<is::ecs::Entity> &e,
-                                                               const std::string &name,
-                                                               const std::string &window) :
-Component(e)
+is::components::TextureComponent::TextureComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    const std::string &name,
+    const std::string &window,
+    const irr::core::vector2di &pos,
+    const irr::core::vector2di &size
+) : Component(e), filename(name), windowName(window), _pos(pos), _size(size)
 {
-    filename = name;
-    windowName = window;
 }
 
 void is::components::TextureComponent::init(std::shared_ptr<is::components::WindowComponent> &ptrWindow)
 {
-    node = ptrWindow->driver->getTexture(filename.c_str());
-    if (!node)
+    _node = ptrWindow->driver->getTexture(filename.c_str());
+    if (!_node)
         throw is::exceptions::Exception("TextureComponent", "Could not create node from model");
-    ptrWindow->driver->makeColorKeyTexture(node, core::position2d<s32>(0,0));
+    ptrWindow->driver->makeColorKeyTexture(_node, core::position2d<s32>(0,0));
 }
 
 void is::components::TextureComponent::deleteComponent()
 {
-    node->drop();
+    _node->drop();
+}
+
+const irr::core::vector2di &is::components::TextureComponent::getPosition() const noexcept
+{
+    return (_pos);
+}
+
+const irr::core::vector2di &is::components::TextureComponent::getSize() const noexcept
+{
+    return (_size);
+}
+
+irr::video::ITexture *is::components::TextureComponent::getNode() const noexcept
+{
+    return (_node);
 }

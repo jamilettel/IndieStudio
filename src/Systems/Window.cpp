@@ -9,6 +9,8 @@
 #include "Components/Image.hpp"
 #include "Components/Button.hpp"
 #include "Components/Text.hpp"
+#include "Components/Texture.hpp"
+#include "Components/Transform.hpp"
 
 using namespace irr;
 using namespace is::systems;
@@ -88,8 +90,6 @@ void WindowSystem::sortGUIElements()
         });
 }
 
-#include "Components/Texture.hpp"
-
 void WindowSystem::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
@@ -103,8 +103,20 @@ void WindowSystem::update()
         }
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
-            auto t = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
-            ptr->driver->draw2DImage(t->node, irr::core::vector2di(0));
+            auto texture = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
+            irr::core::vector2di size = texture->getSize();
+
+            ptr->driver->draw2DImage(
+                texture->getNode(),
+                irr::core::rect<s32>(
+                    texture->getPosition().X,
+                    texture->getPosition().Y,
+                    size.X == -1 ? texture->getNode()->getOriginalSize().Width : texture->getSize().X,
+                    size.Y == -1 ? texture->getNode()->getOriginalSize().Height : texture->getSize().Y
+                ),
+                irr::core::rect<s32>(0, 0, texture->getNode()->getOriginalSize().Width, texture->getNode()->getOriginalSize().Height),
+                0, 0, true
+            );
         }
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
