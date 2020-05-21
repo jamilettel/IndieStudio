@@ -112,7 +112,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow()
 
     e->addComponent<is::components::TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Window.png"),
+        RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
         irr::core::vector2di(50, 100),
         irr::core::vector2di(330, 700)
@@ -126,7 +126,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow2()
 
     e->addComponent<is::components::TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Window.png"),
+        RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
         irr::core::vector2di(430, 100),
         irr::core::vector2di(330, 700)
@@ -140,7 +140,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow3()
 
     e->addComponent<is::components::TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Window.png"),
+        RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
         irr::core::vector2di(830, 100),
         irr::core::vector2di(330, 700)
@@ -154,10 +154,130 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow4()
 
     e->addComponent<is::components::TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Window.png"),
+        RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
         irr::core::vector2di(1230, 100),
         irr::core::vector2di(330, 700)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createContinueButton()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        40,
+        750,
+        350, 100,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        },
+        RESSOURCE("ui/EndGame/continue_button.png"),
+        RESSOURCE("ui/EndGame/continue_button_pressed.png")
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createContinueButton2()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        420,
+        750,
+        350, 100,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        },
+        RESSOURCE("ui/EndGame/continue_button.png"),
+        RESSOURCE("ui/EndGame/continue_button_pressed.png")
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createContinueButton3()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        820,
+        750,
+        350, 100,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        },
+        RESSOURCE("ui/EndGame/continue_button.png"),
+        RESSOURCE("ui/EndGame/continue_button_pressed.png")
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createContinueButton4()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1220,
+        750,
+        350, 100,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        },
+        RESSOURCE("ui/EndGame/continue_button.png"),
+        RESSOURCE("ui/EndGame/continue_button_pressed.png")
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackwardButton()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        80,
+        650,
+        70, 70,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        },
+        RESSOURCE("ui/EndGame/Backward_BTN.png"),
+        RESSOURCE("ui/EndGame/Backward_BTN.png")
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createForwardButton()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        280,
+        650,
+        70, 70,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        },
+        RESSOURCE("ui/EndGame/Forward_BTN.png"),
+        RESSOURCE("ui/EndGame/Forward_BTN.png")
     );
     return (e);
 }

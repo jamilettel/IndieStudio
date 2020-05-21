@@ -40,4 +40,10 @@ void is::scenes::EndGameScene::initEntities()
     initEntity(prefabs::EndGamePrefabs::createWindow2(), false);
     initEntity(prefabs::EndGamePrefabs::createWindow3(), false);
     initEntity(prefabs::EndGamePrefabs::createWindow4(), false);
+    initEntity(prefabs::EndGamePrefabs::createContinueButton(), false);
+    initEntity(prefabs::EndGamePrefabs::createContinueButton2(), false);
+    initEntity(prefabs::EndGamePrefabs::createContinueButton3(), false);
+    initEntity(prefabs::EndGamePrefabs::createContinueButton4(), false);
+    initEntity(prefabs::EndGamePrefabs::createBackwardButton(), false);
+    initEntity(prefabs::EndGamePrefabs::createForwardButton(), false);
 }
