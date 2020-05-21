@@ -39,36 +39,38 @@
 #include "Components/Animator.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
+#include "Components/Character.hpp"
 
 namespace is::prefabs {
 
     class GlobalPrefabs {
-        public:
-            static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
-            static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createCenterBlock(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createGrassBlock(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
-            static std::shared_ptr<is::ecs::Entity> createFire(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createBreakableBlock(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createBombUpPowerUp(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos);
-            static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos);
+    public:
+        static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
+        static std::shared_ptr<is::ecs::Entity> createWallBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createCenterBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createGrassBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
+        static std::shared_ptr<is::ecs::Entity> createFire(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createBreakableBlock(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createBombUpPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
+        static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos);
+        // static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos, const is::components::CharacterComponent &character);
+        static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos);
 
-            static std::shared_ptr<is::ecs::Entity> createSplashScreen();
-            static std::shared_ptr<is::ecs::Entity> createMainMenu();
-            static std::shared_ptr<is::ecs::Entity> createPause();
-            static std::shared_ptr<is::ecs::Entity> createCredit();
-            static std::shared_ptr<is::ecs::Entity> createHowToPlay();
-            static std::shared_ptr<is::ecs::Entity> createRecord();
+        static std::shared_ptr<is::ecs::Entity> createSplashScreen();
+        static std::shared_ptr<is::ecs::Entity> createMainMenu();
+        static std::shared_ptr<is::ecs::Entity> createPause();
+        static std::shared_ptr<is::ecs::Entity> createCredit();
+        static std::shared_ptr<is::ecs::Entity> createHowToPlay();
+        static std::shared_ptr<is::ecs::Entity> createRecord();
 
-            static std::shared_ptr<is::ecs::Entity> createSettings();
-            static std::shared_ptr<is::ecs::Entity> createControllers();
-            static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
-            static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions();
+        static std::shared_ptr<is::ecs::Entity> createSettings();
+        static std::shared_ptr<is::ecs::Entity> createControllers();
+        static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
+        static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions();
     };
 
 }
