@@ -15,12 +15,12 @@ std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
 bool drawBorder, bool dynamic) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
-    _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _drawBorder(drawBorder),
+    _text(std::move(text)),
     _font(),
-    _dynamic(dynamic),
-    _color(irr::video::SColor(0, 0, 0, 1))
+    _color(irr::video::SColor(0, 0, 0, 1)),
+    _drawBorder(drawBorder),
+    _dynamic(dynamic)
 {
 }
 
@@ -29,12 +29,12 @@ std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
 bool drawBorder, bool dynamic, std::string font) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
-    _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _drawBorder(drawBorder),
+    _text(std::move(text)),
     _font(std::move(font)),
-    _dynamic(dynamic),
-    _color(irr::video::SColor(0, 0, 0, 1))
+    _color(irr::video::SColor(0, 0, 0, 1)),
+    _drawBorder(drawBorder),
+    _dynamic(dynamic)
 {
 }
 
@@ -43,12 +43,12 @@ std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
 bool drawBorder, bool dynamic, std::string font, irr::video::SColor color) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
-    _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _drawBorder(drawBorder),
+    _text(std::move(text)),
     _font(std::move(font)),
-    _dynamic(dynamic),
-    _color(color)
+    _color(color),
+    _drawBorder(drawBorder),
+    _dynamic(dynamic)
 {
 }
 
@@ -91,4 +91,9 @@ void is::components::TextComponent::bringToFront()
 {
     if (element)
         _window->canvas->getRootGUIElement()->bringToFront(element);
+}
+
+void is::components::TextComponent::setVisible(bool visible)
+{
+    element->setVisible(visible);
 }

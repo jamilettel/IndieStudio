@@ -34,17 +34,18 @@ namespace is::components {
         ImageComponent &operator=(const ImageComponent &) = delete;
 
         void init(std::shared_ptr<is::components::WindowComponent> &ptr_window) override;
-        void setPosition(float x, float y);
         void deleteComponent() override;
-
         void bringToFront() override;
+
+        void setPosition(float x, float y);
+        void setVisible(bool visible);
 
         std::string windowName;
 
     private:
+        irr::gui::IGUIImage *element{};
         irr::core::vector2d<int> _dimension;
         std::string _filename;
-        irr::gui::IGUIImage *element{};
         bool _scale;
     };
 

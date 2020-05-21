@@ -57,3 +57,8 @@ void is::components::ImageComponent::bringToFront()
     if (element)
         _window->canvas->getRootGUIElement()->bringToFront(element);
 }
+
+void ImageComponent::setVisible(bool visible)
+{
+    element->setVisible(visible);
+}

@@ -234,7 +234,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelection()
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
@@ -244,7 +244,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
-    ).layer = -9999;
+    ).layer = -1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -345,6 +345,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
 
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
     /* AI FOR EACH PLAYER */
     e->addComponent<is::components::ImageComponent>(
         e,
@@ -416,7 +423,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     ).layer = 2;
 
     /* BUTTON ACTIVATE PLAYER */
-    e->addComponent<ButtonComponent>(
+    auto &activateButton1 = e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
@@ -426,7 +433,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         },
         RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
         RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
-    ).layer = 3;
+    );
+    activateButton1.layer = 3;
+    activateButton1.setCallback([&activateButton1](){
+        activateButton1.setVisible(false);
+    });
     e->addComponent<ButtonComponent>(
         e,
         "",
