@@ -104,15 +104,15 @@ void WindowSystem::update()
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
             auto texture = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
-            irr::core::vector2di size = texture->getSize();
+            std::pair<int, int> wDim = is::components::WindowComponent::_windowsDimensions["Indie Studio"];
 
             ptr->driver->draw2DImage(
                 texture->getNode(),
                 irr::core::rect<s32>(
-                    texture->getPosition().X,
-                    texture->getPosition().Y,
-                    size.X == -1 ? texture->getNode()->getOriginalSize().Width : texture->getPosition().X + texture->getSize().X,
-                    size.Y == -1 ? texture->getNode()->getOriginalSize().Height : texture->getPosition().Y + texture->getSize().Y
+                    wDim.first * texture->getPosition().X / 100,
+                    wDim.second * texture->getPosition().Y / 100,
+                    wDim.first * texture->getPosition().X / 100 + wDim.first * texture->getSize().X / 100,
+                    wDim.second * texture->getPosition().Y / 100 + wDim.second * texture->getSize().Y / 100
                 ),
                 irr::core::rect<s32>(0, 0, texture->getNode()->getOriginalSize().Width, texture->getNode()->getOriginalSize().Height),
                 0, 0, true

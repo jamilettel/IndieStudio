@@ -24,8 +24,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackground()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        irr::core::vector2di(0),
-        irr::core::vector2di(-1)
+        irr::core::vector2df(0, -1),
+        irr::core::vector2df(100, 120)
     );
     return (e);
 }
@@ -114,8 +114,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow()
         e,
         RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
-        irr::core::vector2di(50, 100),
-        irr::core::vector2di(330, 700)
+        irr::core::vector2df(2.5, 10),
+        irr::core::vector2df(21.9, 80)
     );
     return (e);
 }
@@ -128,8 +128,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow2()
         e,
         RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
-        irr::core::vector2di(430, 100),
-        irr::core::vector2di(330, 700)
+        irr::core::vector2df(26.3, 10),
+        irr::core::vector2df(21.85, 80)
     );
     return (e);
 }
@@ -142,8 +142,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow3()
         e,
         RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
-        irr::core::vector2di(830, 100),
-        irr::core::vector2di(330, 700)
+        irr::core::vector2df(51.3, 10),
+        irr::core::vector2df(21.85, 80)
     );
     return (e);
 }
@@ -156,8 +156,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow4()
         e,
         RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
-        irr::core::vector2di(1230, 100),
-        irr::core::vector2di(330, 700)
+        irr::core::vector2df(76.3, 10),
+        irr::core::vector2df(21.85, 80)
     );
     return (e);
 }
@@ -278,6 +278,25 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createForwardButto
         },
         RESSOURCE("ui/EndGame/Forward_BTN.png"),
         RESSOURCE("ui/EndGame/Forward_BTN.png")
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createText()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextComponent>(
+        e,
+        "Number player killed",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 1050 / 2,
+        300,
+        1000, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
     );
     return (e);
 }

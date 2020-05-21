@@ -21,9 +21,10 @@ namespace is::components
                 std::shared_ptr<is::ecs::Entity> &e,
                 const std::string &filename,
                 const std::string &windowName,
-                const irr::core::vector2di &pos,
-                const irr::core::vector2di &size
+                const irr::core::vector2df &pos,
+                const irr::core::vector2df &size
             );
+
             ~TextureComponent() override = default;
 
             TextureComponent(const TextureComponent &) = delete;
@@ -33,16 +34,16 @@ namespace is::components
 
             void init(std::shared_ptr<is::components::WindowComponent> &ptrWindow);
 
-            const irr::core::vector2di &getPosition() const noexcept;
-            const irr::core::vector2di &getSize() const noexcept;
+            const irr::core::vector2df &getPosition() const noexcept;
+            const irr::core::vector2df &getSize() const noexcept;
             irr::video::ITexture *getNode() const noexcept;
 
             std::string windowName;
             std::string filename;
        private:
             irr::video::ITexture *_node;
-            irr::core::vector2di _pos;
-            irr::core::vector2di _size;
+            irr::core::vector2df _pos;
+            irr::core::vector2df _size;
     };
 
 }

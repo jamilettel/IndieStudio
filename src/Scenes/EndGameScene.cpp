@@ -27,6 +27,7 @@ void is::scenes::EndGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
 }
 
 void is::scenes::EndGameScene::initEntities()
@@ -46,4 +47,5 @@ void is::scenes::EndGameScene::initEntities()
     initEntity(prefabs::EndGamePrefabs::createContinueButton4(), false);
     initEntity(prefabs::EndGamePrefabs::createBackwardButton(), false);
     initEntity(prefabs::EndGamePrefabs::createForwardButton(), false);
+    initEntity(prefabs::EndGamePrefabs::createText(), false);
 }

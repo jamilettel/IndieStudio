@@ -21,6 +21,7 @@
 #include "Prefabs/EndGamePrefabs.hpp"
 #include "Systems/ModelRenderer.hpp"
 #include "Systems/Texture.hpp"
+#include "Systems/Text.hpp"
 
 namespace is::scenes {
 

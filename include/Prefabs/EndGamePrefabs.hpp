@@ -18,6 +18,7 @@
 #include "Components/Transform.hpp"
 #include "Components/Texture.hpp"
 #include "Components/Button.hpp"
+#include "Components/Text.hpp"
 
 #include <memory>
 
@@ -44,6 +45,7 @@ namespace is::prefabs
 
             static std::shared_ptr<is::ecs::Entity> createBackwardButton();
             static std::shared_ptr<is::ecs::Entity> createForwardButton();
+            static std::shared_ptr<is::ecs::Entity> createText();
     };
 }
 

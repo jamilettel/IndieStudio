@@ -13,8 +13,8 @@ is::components::TextureComponent::TextureComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     const std::string &name,
     const std::string &window,
-    const irr::core::vector2di &pos,
-    const irr::core::vector2di &size
+    const irr::core::vector2df &pos,
+    const irr::core::vector2df &size
 ) : Component(e), filename(name), windowName(window), _pos(pos), _size(size)
 {
 }
@@ -31,12 +31,12 @@ void is::components::TextureComponent::deleteComponent()
 {
 }
 
-const irr::core::vector2di &is::components::TextureComponent::getPosition() const noexcept
+const irr::core::vector2df &is::components::TextureComponent::getPosition() const noexcept
 {
     return (_pos);
 }
 
-const irr::core::vector2di &is::components::TextureComponent::getSize() const noexcept
+const irr::core::vector2df &is::components::TextureComponent::getSize() const noexcept
 {
     return (_size);
 }
