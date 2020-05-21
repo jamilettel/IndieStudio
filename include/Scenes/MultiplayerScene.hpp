@@ -19,6 +19,7 @@
 #include "Systems/Cursor.hpp"
 #include "Systems/Network.hpp" 
 #include "Prefabs/GlobalPrefabs.hpp"
+#include "Components/Network.hpp"
 #include "ECS/AScene.hpp"
 
 namespace is::scenes {

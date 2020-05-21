@@ -423,7 +423,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayer()
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc)
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
@@ -458,8 +458,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayer()
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
-        [](){
-            
+        [nc](){
+            nc->writeQueue.push("create lobby\n");
         },
         RESSOURCE("ui/main_menu/button_play.png"),
         RESSOURCE("ui/main_menu/button_play_pressed.png")

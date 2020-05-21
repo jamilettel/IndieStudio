@@ -6,6 +6,7 @@
 */
 
 #include "Components/Network.hpp"
+#include <iostream>
 
 is::components::NetworkComponent::NetworkComponent(std::shared_ptr<is::ecs::Entity> &e) :
 Component(e)
@@ -25,6 +26,7 @@ void is::components::NetworkComponent::startMultiplayer()
     struct sockaddr_in addr;
     int n = 1;
 
+    std::cout << "czez" << std::endl;
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         throw is::exceptions::Exception("NetworkComponent", "socket exception");
     if (setsockopt(serverSock, SOL_SOCKET, SO_REUSEADDR, (char *) &n, sizeof(n)) == -1)

@@ -42,14 +42,19 @@ void is::systems::NetworkSystem::update()
             throw is::exceptions::Exception("NetworkSystem", "Select exception");
         if (FD_ISSET(ptr->serverSock, &ptr->rfds)) {
             char buff[1024] = {0};
+            std::cout << "sdcskdlcjdlskj" << std::endl;
             if (read(ptr->serverSock, buff, 1024) < 0)
                 throw is::exceptions::Exception("NetworkSystem", "read exception");
-            ptr->readQueue.push(std::string(buff));
+            if (std::string(buff) == "lobby created\n") {
+                is::Game::setActualScene(is::ecs::Scenes::SCENE_CREDIT);
+            }
         }
-        if (FD_ISSET(ptr->serverSock, &ptr->rfds)) {
-            std::string tmp = ptr->writeQueue.front();
-            write(ptr->serverSock, tmp.c_str(), tmp.size());
-            ptr->writeQueue.pop();
+        if (FD_ISSET(ptr->serverSock, &ptr->wfds)) {
+            if (ptr->writeQueue.size() > 0) {
+                std::string tmp = ptr->writeQueue.front();
+                write(ptr->serverSock, tmp.c_str(), tmp.size());
+                ptr->writeQueue.pop();
+            }
         }
         if (FD_ISSET(ptr->serverSock, &ptr->efds)) {
             close(ptr->serverSock);

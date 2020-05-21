@@ -45,7 +45,10 @@ def main():
             except queue.Empty:
                 pass
             else:
+                print(next_msg)
                 s.send(next_msg.encode())
+                print(s)
+
         for s in readable:
             if s is server:
                 connection, client_address = s.accept()
@@ -53,10 +56,11 @@ def main():
                 inputs.append(connection)
                 readCmdQueue[connection] = queue.Queue()
                 writeCmdQueue[connection] = queue.Queue()
+                print(connection)
             else:
                 data = s.recv(1024)
                 if data:
-                    clientCommandHandler(data)
+                    clientCommandHandler(data.decode(), writeCmdQueue[s])
                     readCmdQueue[s].put(data.decode())
                     if s not in outputs:
                         outputs.append(s)
@@ -75,5 +79,6 @@ def main():
             del readCmdQueue[s]
             del writeCmdQueue[s]
 
-def clientCommandHandler(request):
-    print(request)
+def clientCommandHandler(request, queue):
+    if request == "create lobby\n":
+        queue.put("lobby created\n")

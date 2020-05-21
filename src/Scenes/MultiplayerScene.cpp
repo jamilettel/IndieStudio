@@ -31,6 +31,7 @@ void is::scenes::MultiplayerScene::initSystems()
 
 void is::scenes::MultiplayerScene::initEntities()
 {
-    initEntity(prefabs::GlobalPrefabs::createGlobalPrefabMultiplayer(), true);
-    initEntity(prefabs::GlobalPrefabs::createMultiplayer(), false);
+    std::shared_ptr<is::ecs::Entity> &e = initEntity(prefabs::GlobalPrefabs::createGlobalPrefabMultiplayer(), true);
+    auto a = e->getComponent<is::components::NetworkComponent>();
+    initEntity(prefabs::GlobalPrefabs::createMultiplayer(*e->getComponent<is::components::NetworkComponent>()), false);
 }
