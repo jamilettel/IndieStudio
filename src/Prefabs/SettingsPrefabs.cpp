@@ -352,7 +352,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    /* AI FOR EACH PLAYER */
+    /* PLAYER 1 */
     auto &IAImage1 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -372,7 +372,44 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA1.layer = 2;
+    auto &activateButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        285, 380,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    auto &closeButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        670, 210,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+    );
+    activateButton1.layer = 3;
+    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1](){
+        activateButton1.setVisible(false);
+        TextIA1.setVisible(false);
+        IAImage1.setVisible(false);
+        closeButton1.setVisible(true);
+    });
+    closeButton1.layer = 3;
+    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1](){
+        activateButton1.setVisible(true);
+        TextIA1.setVisible(true);
+        IAImage1.setVisible(true);
+        closeButton1.setVisible(false);
+    });
 
+    /* PLAYER 2 */
     auto &IAImage2 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -392,7 +429,44 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA2.layer = 2;
+    auto &activateButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1045, 380,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    auto &closeButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1420, 210,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+    );
+    activateButton2.layer = 3;
+    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2](){
+        activateButton2.setVisible(false);
+        TextIA2.setVisible(false);
+        IAImage2.setVisible(false);
+        closeButton2.setVisible(true);
+    });
+    closeButton2.layer = 3;
+    closeButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2](){
+        activateButton2.setVisible(true);
+        TextIA2.setVisible(true);
+        IAImage2.setVisible(true);
+        closeButton2.setVisible(false);
+    });
 
+    /* PLAYER 3 */
     auto &IAImage3 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -412,7 +486,44 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA3.layer = 2;
+    auto &activateButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        285, 740,
+        250, 70,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+    );
+    auto &closeButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        670, 570,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+    );
+    activateButton3.layer = 3;
+    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3](){
+        activateButton3.setVisible(false);
+        TextIA3.setVisible(false);
+        IAImage3.setVisible(false);
+        closeButton3.setVisible(true);
+    });
+    closeButton3.layer = 3;
+    closeButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3](){
+        activateButton3.setVisible(true);
+        TextIA3.setVisible(true);
+        IAImage3.setVisible(true);
+        closeButton3.setVisible(false);
+    });
 
+    /* PLAYER 5 */
     auto &IAImage4 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -432,59 +543,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA4.layer = 2;
-
-    /* BUTTON ACTIVATE PLAYER */
-    auto &activateButton1 = e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        285, 380,
-        250, 70,
-        [](){
-        },
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
-    );
-    activateButton1.layer = 3;
-    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1](){
-        activateButton1.setVisible(false);
-        TextIA1.setVisible(false);
-        IAImage1.setVisible(false);
-    });
-    auto &activateButton2 = e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        1045, 380,
-        250, 70,
-        [](){
-        },
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
-    );
-    activateButton2.layer = 3;
-    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2](){
-        activateButton2.setVisible(false);
-        TextIA2.setVisible(false);
-        IAImage2.setVisible(false);
-    });
-    auto &activateButton3 = e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        285, 740,
-        250, 70,
-        [](){
-        },
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
-    );
-    activateButton3.layer = 3;
-    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3](){
-        activateButton3.setVisible(false);
-        TextIA3.setVisible(false);
-        IAImage3.setVisible(false);
-    });
     auto &activateButton4 = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -496,11 +554,30 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
         RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
     );
+    auto &closeButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1420, 570,
+        50, 50,
+        [](){
+        },
+        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+    );
     activateButton4.layer = 3;
-    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4](){
+    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4](){
         activateButton4.setVisible(false);
         TextIA4.setVisible(false);
         IAImage4.setVisible(false);
+        closeButton4.setVisible(true);
+    });
+    closeButton4.layer = 3;
+    closeButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4](){
+        activateButton4.setVisible(true);
+        TextIA4.setVisible(true);
+        IAImage4.setVisible(true);
+        closeButton4.setVisible(false);
     });
     return e;
 }
