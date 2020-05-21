@@ -27,11 +27,18 @@ CharacterControllerComponent::CharacterControllerComponent(
     _transform(transform),
     _audioComponent(audio)
 {
+    static int id = 0;
+    _id = id++;
 }
 
 void CharacterControllerComponent::deleteComponent()
 {
     
+}
+
+bool CharacterControllerComponent::operator==(const CharacterControllerComponent &character) const noexcept
+{
+    return (_id == character._id);
 }
 
 MovementComponent &CharacterControllerComponent::getMovementComponent() const noexcept
