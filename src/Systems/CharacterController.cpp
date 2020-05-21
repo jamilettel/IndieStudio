@@ -64,8 +64,6 @@ void is::systems::CharacterControllerSystem::rotateToDirection(irr::core::vector
 
 void is::systems::CharacterControllerSystem::update()
 {
-    int countWin = 0;
-
     for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
@@ -130,10 +128,6 @@ void is::systems::CharacterControllerSystem::update()
 
 
         im->get()->resetValues();
-        countWin++;
-    }
-    if (countWin == 1) {
-        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
     }
 }
 
