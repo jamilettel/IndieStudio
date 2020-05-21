@@ -37,15 +37,32 @@ void is::scenes::EndGameScene::initEntities()
     initEntity(prefabs::EndGamePrefabs::createPlayer2(), false);
     initEntity(prefabs::EndGamePrefabs::createPlayer3(), false);
     initEntity(prefabs::EndGamePrefabs::createPlayer4(), false);
-    initEntity(prefabs::EndGamePrefabs::createWindow(), false);
-    initEntity(prefabs::EndGamePrefabs::createWindow2(), false);
-    initEntity(prefabs::EndGamePrefabs::createWindow3(), false);
-    initEntity(prefabs::EndGamePrefabs::createWindow4(), false);
-    initEntity(prefabs::EndGamePrefabs::createContinueButton(), false);
-    initEntity(prefabs::EndGamePrefabs::createContinueButton2(), false);
-    initEntity(prefabs::EndGamePrefabs::createContinueButton3(), false);
-    initEntity(prefabs::EndGamePrefabs::createContinueButton4(), false);
-    initEntity(prefabs::EndGamePrefabs::createBackwardButton(), false);
-    initEntity(prefabs::EndGamePrefabs::createForwardButton(), false);
-    initEntity(prefabs::EndGamePrefabs::createText(), false);
+    {
+        const double posX[] = {2.5, 26.3, 51.3, 76.3};
+
+        for (size_t i = 0; i < 4; i++)
+            initEntity(prefabs::EndGamePrefabs::createWindow(posX[i]), false);
+    }
+
+    {
+        const int posX[] = {40, 420, 820, 1220};
+
+        for (size_t i = 0; i < 4; i++)
+            initEntity(prefabs::EndGamePrefabs::createContinueButton(posX[i]), false);
+    };
+    
+    {
+        const int posX[] = {80, 450, 850, 1250};
+
+        for (size_t i = 0; i < 4; i++)
+            initEntity(prefabs::EndGamePrefabs::createBackwardButton(posX[i]), false);
+    };
+    
+    {
+        const int posX[] = {280, 670, 1070, 1470};
+
+        for (size_t i = 0; i < 4; i++) {
+            initEntity(prefabs::EndGamePrefabs::createForwardButton(posX[i]), false);
+        }
+    };
 }
