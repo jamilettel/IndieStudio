@@ -29,6 +29,9 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createPlayer4();
 
             static std::shared_ptr<is::ecs::Entity> createWindow();
+            static std::shared_ptr<is::ecs::Entity> createWindow2();
+            static std::shared_ptr<is::ecs::Entity> createWindow3();
+            static std::shared_ptr<is::ecs::Entity> createWindow4();
     };
 }
 

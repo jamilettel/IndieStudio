@@ -29,7 +29,6 @@ void is::components::TextureComponent::init(std::shared_ptr<is::components::Wind
 
 void is::components::TextureComponent::deleteComponent()
 {
-    _node->drop();
 }
 
 const irr::core::vector2di &is::components::TextureComponent::getPosition() const noexcept

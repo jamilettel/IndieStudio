@@ -37,4 +37,7 @@ void is::scenes::EndGameScene::initEntities()
     initEntity(prefabs::EndGamePrefabs::createPlayer3(), false);
     initEntity(prefabs::EndGamePrefabs::createPlayer4(), false);
     initEntity(prefabs::EndGamePrefabs::createWindow(), false);
+    initEntity(prefabs::EndGamePrefabs::createWindow2(), false);
+    initEntity(prefabs::EndGamePrefabs::createWindow3(), false);
+    initEntity(prefabs::EndGamePrefabs::createWindow4(), false);
 }

@@ -111,8 +111,8 @@ void WindowSystem::update()
                 irr::core::rect<s32>(
                     texture->getPosition().X,
                     texture->getPosition().Y,
-                    size.X == -1 ? texture->getNode()->getOriginalSize().Width : texture->getSize().X,
-                    size.Y == -1 ? texture->getNode()->getOriginalSize().Height : texture->getSize().Y
+                    size.X == -1 ? texture->getNode()->getOriginalSize().Width : texture->getPosition().X + texture->getSize().X,
+                    size.Y == -1 ? texture->getNode()->getOriginalSize().Height : texture->getPosition().Y + texture->getSize().Y
                 ),
                 irr::core::rect<s32>(0, 0, texture->getNode()->getOriginalSize().Width, texture->getNode()->getOriginalSize().Height),
                 0, 0, true

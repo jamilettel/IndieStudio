@@ -36,8 +36,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer()
 
     e->addComponent<TransformComponent>(
         e,
-        irr::core::vector3df(-8, 10, 15),
-        irr::core::vector3df(0, -120, -70)
+        irr::core::vector3df(-6, 10, 18),
+        irr::core::vector3df(0, -120, -70),
+        irr::core::vector3df(0.7, 0.7, 0.7)
     );
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
@@ -54,8 +55,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2()
 
     e->addComponent<TransformComponent>(
         e,
-        irr::core::vector3df(-8, 10, 5),
-        irr::core::vector3df(0, -100, -70)
+        irr::core::vector3df(-6, 10, 6),
+        irr::core::vector3df(0, -100, -70),
+        irr::core::vector3df(0.7, 0.7, 0.7)
     );
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
@@ -72,8 +74,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3()
 
     e->addComponent<TransformComponent>(
         e,
-        irr::core::vector3df(-8, 10, -5),
-        irr::core::vector3df(0, -70, -70)
+        irr::core::vector3df(-6, 10, -6),
+        irr::core::vector3df(0, -70, -70),
+        irr::core::vector3df(0.7, 0.7, 0.7)
     );
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
@@ -90,8 +93,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4()
 
     e->addComponent<TransformComponent>(
         e,
-        irr::core::vector3df(-8, 10, -15),
-        irr::core::vector3df(0, -50, -70)
+        irr::core::vector3df(-6, 10, -19),
+        irr::core::vector3df(0, -50, -70),
+        irr::core::vector3df(0.7, 0.7, 0.7)
     );
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
@@ -110,8 +114,50 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow()
         e,
         RESSOURCE("ui/EndGame/Window.png"),
         "Indie Studio",
-        irr::core::vector2di(100, 100),
-        irr::core::vector2di(450, 800)
+        irr::core::vector2di(50, 100),
+        irr::core::vector2di(330, 700)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow2()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<is::components::TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Window.png"),
+        "Indie Studio",
+        irr::core::vector2di(430, 100),
+        irr::core::vector2di(330, 700)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow3()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<is::components::TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Window.png"),
+        "Indie Studio",
+        irr::core::vector2di(830, 100),
+        irr::core::vector2di(330, 700)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow4()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<is::components::TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Window.png"),
+        "Indie Studio",
+        irr::core::vector2di(1230, 100),
+        irr::core::vector2di(330, 700)
     );
     return (e);
 }
