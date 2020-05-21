@@ -27,7 +27,6 @@ namespace is::components {
         KeyboardPresetComponent &operator=(const KeyboardPresetComponent &) = delete;
 
         void deleteComponent() override;
-
         [[nodiscard]] bool isBound(EKEY_CODE key) const;
 
         void bind(EKEY_CODE key, const PresetAction &action);
