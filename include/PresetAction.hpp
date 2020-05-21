@@ -13,7 +13,9 @@
 namespace is {
 
     struct PresetAction {
-        PresetAction();
+        PresetAction() = delete;
+        PresetAction(std::string actionString, float target, std::string desc);
+
         PresetAction(const PresetAction &action) = default;
         ~PresetAction() = default;
 
