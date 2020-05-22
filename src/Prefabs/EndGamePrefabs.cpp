@@ -46,6 +46,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer()
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+    addWindow(e, 2.5);
+    addContinueButton(e, 40);
+    addBackwardButton(e, 80);
+    addForwardButton(e, 280);
+    addHighTable(e, 3.5);
+    addLowTable(e, 3.5);
+    addMedal(e, 10, "ui/EndGame/Star_01.png");
+    addTextHigh(e, 62);
+    addTextLow(e, 62);
     return (e);
 }
 
@@ -65,6 +74,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2()
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+    addWindow(e, 26.3);
+    addContinueButton(e, 420);
+    addBackwardButton(e, 450);
+    addForwardButton(e, 670);
+    addHighTable(e, 27.2);
+    addLowTable(e, 27.2);
+    addMedal(e, 34, "ui/EndGame/Star_01.png");
+    addTextHigh(e, 445);
+    addTextLow(e, 445);
     return (e);
 }
 
@@ -84,6 +102,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3()
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+    addWindow(e, 51.3);
+    addContinueButton(e, 820);
+    addBackwardButton(e, 850);
+    addForwardButton(e, 1070);
+    addHighTable(e, 52.2);
+    addLowTable(e, 52.2);
+    addMedal(e, 58, "ui/EndGame/Star_01.png");
+    addTextHigh(e, 845);
+    addTextLow(e, 845);
     return (e);
 }
 
@@ -103,13 +130,23 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4()
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+    addWindow(e, 76.3);
+    addContinueButton(e, 1220);
+    addBackwardButton(e, 1250);
+    addForwardButton(e, 1470);
+    addHighTable(e, 77.2);
+    addLowTable(e, 77.2);
+    // addMedal(e, 58, RESSOURCE("ui/EndGame/Star_01.png"));
+    addTextHigh(e, 1245);
+    addTextLow(e, 1245);
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow(double posX)
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
+// * PRIVATE METHOD
+
+void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX)
+{
     e->addComponent<is::components::TextureComponent>(
         e,
         RESSOURCE("ui/EndGame/Table_01.png"),
@@ -117,13 +154,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createWindow(doubl
         irr::core::vector2df(posX, 10),
         irr::core::vector2df(21.85, 80)
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createContinueButton(int posX)
+void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -137,13 +171,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createContinueButt
         RESSOURCE("ui/EndGame/continue_button.png"),
         RESSOURCE("ui/EndGame/continue_button_pressed.png")
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackwardButton(int posX)
+void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -157,13 +188,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackwardButt
         RESSOURCE("ui/EndGame/Backward_BTN.png"),
         RESSOURCE("ui/EndGame/Backward_BTN.png")
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createForwardButton(int posX)
+void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -177,13 +205,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createForwardButto
         RESSOURCE("ui/EndGame/Forward_BTN.png"),
         RESSOURCE("ui/EndGame/Forward_BTN.png")
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createHighTable(double posX)
+void is::prefabs::EndGamePrefabs::addHighTable(std::shared_ptr<is::ecs::Entity> &e, double posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/EndGame/Table.png"),
@@ -191,13 +216,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createHighTable(do
         irr::core::vector2df(posX, 50),
         irr::core::vector2df(19.8, 10)
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createLowTable(double posX)
+void is::prefabs::EndGamePrefabs::addLowTable(std::shared_ptr<is::ecs::Entity> &e, double posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/EndGame/Table.png"),
@@ -205,83 +227,46 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createLowTable(dou
         irr::core::vector2df(posX, 60),
         irr::core::vector2df(19.8, 10)
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal1(double posX)
+void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<is::ecs::Entity> &e, double posX, const std::string &filename)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Star_03.png"),
+        RESSOURCE(filename),
         "Indie Studio",
         irr::core::vector2df(posX, 12),
         irr::core::vector2df(7, 10)
     );
-    return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal2(double posX)
+void is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
-    e->addComponent<TextureComponent>(
-        e,
-        RESSOURCE("ui/EndGame/Star_02.png"),
-        "Indie Studio",
-        irr::core::vector2df(posX, 12),
-        irr::core::vector2df(7, 10)
-    );
-    return (e);
-}
-
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal3(double posX)
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
-    e->addComponent<TextureComponent>(
-        e,
-        RESSOURCE("ui/EndGame/Star_01.png"),
-        "Indie Studio",
-        irr::core::vector2df(posX, 12),
-        irr::core::vector2df(7, 10)
-    );
-    return (e);
-}
-
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createTextHigh()
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<TextComponent>(
         e,
         "Number of players killed",
         "Indie Studio",
-        62, 390,
+        posX, 390,
         300, 200,
         false,
         true,
         RESSOURCE("fonts/EndGame/endGameFont.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
-    return (e);
+    // 62
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createTextLow()
+void is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
     e->addComponent<TextComponent>(
         e,
         "6",
         "Indie Studio",
-        62, 480,
+        posX, 480,
         300, 200,
         false,
         true,
         RESSOURCE("fonts/EndGame/endGameFont.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
-    return (e);
 }

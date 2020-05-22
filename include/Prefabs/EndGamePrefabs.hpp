@@ -32,23 +32,17 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createPlayer2();
             static std::shared_ptr<is::ecs::Entity> createPlayer3();
             static std::shared_ptr<is::ecs::Entity> createPlayer4();
-
-            static std::shared_ptr<is::ecs::Entity> createWindow(double posX);
-
-            static std::shared_ptr<is::ecs::Entity> createContinueButton(int posX);
-
-            static std::shared_ptr<is::ecs::Entity> createBackwardButton(int posX);
-            static std::shared_ptr<is::ecs::Entity> createForwardButton(int posX);
-
-            static std::shared_ptr<is::ecs::Entity> createHighTable(double posX);
-            static std::shared_ptr<is::ecs::Entity> createLowTable(double posX);
-
-            static std::shared_ptr<is::ecs::Entity> createMedal1(double posX);
-            static std::shared_ptr<is::ecs::Entity> createMedal2(double posX);
-            static std::shared_ptr<is::ecs::Entity> createMedal3(double posX);
-
-            static std::shared_ptr<is::ecs::Entity> createTextHigh();
-            static std::shared_ptr<is::ecs::Entity> createTextLow();
+        
+        private:
+            static void addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX);
+            static void addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addForwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addHighTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
+            static void addLowTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
+            static void addMedal(std::shared_ptr<is::ecs::Entity> &e, double posX, const std::string &filename);
+            static void addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX);
     };
 }
 
