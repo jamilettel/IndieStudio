@@ -7,7 +7,10 @@
 
 #include "Scenes/GameScene.hpp"
 
-is::scenes::GameScene::GameScene() :
+using namespace is::prefabs;
+using namespace is::scenes;
+
+GameScene::GameScene() :
 AScene(is::ecs::Scenes::SCENE_GAME)
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
@@ -15,7 +18,7 @@ AScene(is::ecs::Scenes::SCENE_GAME)
     _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::GameScene::initSystems()
+void GameScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
@@ -41,18 +44,41 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
 }
 
-void is::scenes::GameScene::initEntities()
+void GameScene::initEntities()
 {
+    auto characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     MapGenerator mg;
 
+    if (characters.size() != 4)
+        throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13);
-    initEntity(prefabs::GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
-    initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
-    initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
-    initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
+    // initEntity(GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+                   irr::core::vector3df(-5 * 3, 0, 6 * 3),
+                   *static_cast<CharacterComponent *>(characters[0].get()),
+                   *_componentManager.get()
+                   ));
+    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+                   irr::core::vector3df(-5 * 3, 0, -6 * 3),
+                   *static_cast<CharacterComponent *>(characters[1].get()),
+                   *_componentManager.get()
+                   ));
+    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+                   irr::core::vector3df(5 * 3, 0, -6 * 3),
+                   *static_cast<CharacterComponent *>(characters[1].get()),
+                   *_componentManager.get()
+                   ));
+    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+                   irr::core::vector3df(5 * 3, 0, 6 * 3),
+                   *static_cast<CharacterComponent *>(characters[1].get()),
+                   *_componentManager.get()
+                   ));
 }
 
-void is::scenes::GameScene::awake()
+void GameScene::awake()
 {
     AScene::awake();
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
@@ -66,7 +92,7 @@ void is::scenes::GameScene::awake()
     }
 }
 
-void is::scenes::GameScene::onTearDown()
+void GameScene::onTearDown()
 {
     AScene::onTearDown();
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
