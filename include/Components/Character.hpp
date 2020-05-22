@@ -12,7 +12,7 @@
 
 namespace is::components {
 
-    class CharacterComponent: is::ecs::Component {
+    class CharacterComponent : public is::ecs::Component {
     public:
         enum Type {
             AI,
@@ -28,6 +28,8 @@ namespace is::components {
 
         CharacterComponent(const CharacterComponent &) = delete;
         CharacterComponent &operator=(const CharacterComponent &) = delete;
+
+        void deleteComponent() override;
 
         int number;
 

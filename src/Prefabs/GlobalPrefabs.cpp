@@ -352,3 +352,32 @@ std::shared_ptr<Entity> GlobalPrefabs::createAI(irr::core::vector3df pos)
     animator.animators.push_back({61, 86, "Idle"});
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<CharacterComponent>(e, 0);
+    e->addComponent<CharacterComponent>(e, 1);
+    e->addComponent<CharacterComponent>(e, 2);
+    e->addComponent<CharacterComponent>(e, 3);
+
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    auto &preset1 = e->addComponent<PresetComponent>(e, 0);
+    auto &preset2 = e->addComponent<PresetComponent>(e, 1);
+    auto &preset3 = e->addComponent<PresetComponent>(e, 2);
+    auto &preset4 = e->addComponent<PresetComponent>(e, 3);
+
+    is::components::KeyboardPresetComponent::createBasicPreset(preset1.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
+    
+    return e;
+}

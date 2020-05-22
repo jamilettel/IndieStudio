@@ -40,6 +40,7 @@
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
 #include "Components/Character.hpp"
+#include "Components/Preset.hpp"
 
 namespace is::prefabs {
 
@@ -71,6 +72,9 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createControllers();
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions();
+
+        static std::shared_ptr<is::ecs::Entity> createCharacter();
+        static std::shared_ptr<is::ecs::Entity> createPresets();
     };
 
 }
