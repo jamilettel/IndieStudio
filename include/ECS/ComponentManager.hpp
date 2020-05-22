@@ -31,6 +31,7 @@ namespace is::ecs {
             void removeComponent(std::shared_ptr<Component> &component);
 
             std::vector<std::shared_ptr<Component>> &getComponentsByType(size_t type);
+            const std::vector<std::shared_ptr<Component>> &getComponentsByType(size_t type) const;
 
         private:
             std::map<size_t, std::vector<std::shared_ptr<Component>>> _components;
