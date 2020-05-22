@@ -370,9 +370,10 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions()
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions(const is::ecs::ComponentManager &manager)
 {
     auto e = std::make_shared<is::ecs::Entity>();
+    const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
 
     /* PLAYER 1 */
     auto &IAImage1 = e->addComponent<is::components::ImageComponent>(
@@ -424,18 +425,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
     activateButton1.layer = 3;
-    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1](){
+    auto characterComponent1 = static_cast<CharacterComponent*>(characterList[0].get());
+    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, characterComponent1](){
         activateButton1.setVisible(false);
         TextIA1.setVisible(false);
         IAImage1.setVisible(false);
         closeButton1.setVisible(true);
+        characterComponent1->presetNumber = 0;
     });
     closeButton1.layer = 3;
-    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1](){
+    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, characterComponent1](){
         activateButton1.setVisible(true);
         TextIA1.setVisible(true);
         IAImage1.setVisible(true);
         closeButton1.setVisible(false);
+        characterComponent1->presetNumber = -1;
     });
 
     /* PLAYER 2 */
