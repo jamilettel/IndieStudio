@@ -27,6 +27,8 @@ void StatsComponent::next() noexcept
     _i++;
     if (_i == _stats.size())
         _i = 0;
+    _highText.setText(_stats[_i].first);
+    _lowText.setText(_stats[_i].second);
 }
 
 void StatsComponent::prev() noexcept
@@ -34,4 +36,10 @@ void StatsComponent::prev() noexcept
     _i--;
     if (_i == -1)
         _i = _stats.size() - 1;
+    _highText.setText(_stats[_i].first);
+    _lowText.setText(_stats[_i].second);
+}
+
+void StatsComponent::deleteComponent()
+{
 }

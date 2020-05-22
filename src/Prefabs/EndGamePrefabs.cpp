@@ -48,14 +48,28 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer()
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 2.5);
     addContinueButton(e, 40);
-    addBackwardButton(e, 80);
-    addForwardButton(e, 280);
     addHighTable(e, 3.5);
     addLowTable(e, 3.5);
     addMedal(e, 10, "ui/EndGame/Star_01.png");
-    addTextHigh(e, 62);
-    addTextLow(e, 62);
+    addStatsPlayer(e, addTextHigh(e, 62), addTextLow(e, 62));
+    addBackwardButton(e, 80);
+    addForwardButton(e, 280);
     return (e);
+}
+
+void is::prefabs::EndGamePrefabs::addStatsPlayer(std::shared_ptr<is::ecs::Entity> &e, TextComponent &textHigh, TextComponent &textLow)
+{
+    std::vector<std::pair<std::string, std::string>> stats = {
+        {"Number of player killed", "6"},
+        {"Time play", "03:00"}
+    };
+
+    e->addComponent<StatsComponent>(
+        e,
+        textHigh,
+        textLow,
+        stats
+    );
 }
 
 std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2()
@@ -182,11 +196,11 @@ void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<is::ecs::Ent
         posX,
         650,
         70, 70,
-        [](){
-            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        [e](){
+            e->getComponent<StatsComponent>().value()->prev();
         },
         RESSOURCE("ui/EndGame/Backward_BTN.png"),
-        RESSOURCE("ui/EndGame/Backward_BTN.png")
+        RESSOURCE("ui/EndGame/Backward_BTN_pressed.png")
     );
 }
 
@@ -199,11 +213,11 @@ void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<is::ecs::Enti
         posX,
         650,
         70, 70,
-        [](){
-            is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        [e](){
+            e->getComponent<StatsComponent>().value()->next();
         },
         RESSOURCE("ui/EndGame/Forward_BTN.png"),
-        RESSOURCE("ui/EndGame/Forward_BTN.png")
+        RESSOURCE("ui/EndGame/Forward_BTN_pressed.png")
     );
 }
 
@@ -240,9 +254,9 @@ void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<is::ecs::Entity> &e, 
     );
 }
 
-void is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    e->addComponent<TextComponent>(
+    return e->addComponent<TextComponent>(
         e,
         "Number of players killed",
         "Indie Studio",
@@ -253,12 +267,11 @@ void is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs::Entity> &
         RESSOURCE("fonts/EndGame/endGameFont.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
-    // 62
 }
 
-void is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX)
 {
-    e->addComponent<TextComponent>(
+    return e->addComponent<TextComponent>(
         e,
         "6",
         "Indie Studio",

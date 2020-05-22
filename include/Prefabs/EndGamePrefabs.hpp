@@ -19,6 +19,7 @@
 #include "Components/Texture.hpp"
 #include "Components/Button.hpp"
 #include "Components/Text.hpp"
+#include "Components/Stats.hpp"
 
 #include <memory>
 
@@ -41,8 +42,9 @@ namespace is::prefabs
             static void addHighTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
             static void addLowTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
             static void addMedal(std::shared_ptr<is::ecs::Entity> &e, double posX, const std::string &filename);
-            static void addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX);
-            static void addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static is::components::TextComponent &addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static is::components::TextComponent &addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addStatsPlayer(std::shared_ptr<is::ecs::Entity> &e, is::components::TextComponent &textHigh, is::components::TextComponent &textLow);
     };
 }
 

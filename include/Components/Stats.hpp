@@ -30,6 +30,8 @@ namespace is::components
             void next() noexcept;
             void prev() noexcept;
 
+            void deleteComponent() override;
+
         private:
             int _i = 0;
             TextComponent &_highText;
