@@ -249,3 +249,39 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal3(doubl
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createTextHigh()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextComponent>(
+        e,
+        "Number of players killed",
+        "Indie Studio",
+        62, 390,
+        300, 200,
+        false,
+        true,
+        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createTextLow()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextComponent>(
+        e,
+        "6",
+        "Indie Studio",
+        62, 480,
+        300, 200,
+        false,
+        true,
+        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    return (e);
+}

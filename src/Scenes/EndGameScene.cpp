@@ -80,4 +80,9 @@ void is::scenes::EndGameScene::initEntities()
         initEntity(prefabs::EndGamePrefabs::createMedal2(34), false);
         initEntity(prefabs::EndGamePrefabs::createMedal3(58), false);
     }
+
+    {
+        initEntity(prefabs::EndGamePrefabs::createTextHigh(), false);
+        initEntity(prefabs::EndGamePrefabs::createTextLow(), false);
+    }
 }
