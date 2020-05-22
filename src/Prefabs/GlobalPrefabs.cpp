@@ -17,7 +17,7 @@ using namespace is::ecs;
 using namespace is::components;
 using namespace is::prefabs;
 
-std::shared_ptr<Entity> GlobalPrefabs::createWallBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createWallBlock(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::GROUND);
 
@@ -31,7 +31,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createWallBlock(irr::core::vector3df posi
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createCenterBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createCenterBlock(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::GROUND);
 
@@ -45,7 +45,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createCenterBlock(irr::core::vector3df po
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createGrassBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createGrassBlock(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::GROUND);
 
@@ -59,7 +59,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createGrassBlock(irr::core::vector3df pos
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::BRKBL_BLK);
 
@@ -91,7 +91,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomb(irr::core::vector3df position,
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
@@ -107,7 +107,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(irr::core::vector3df 
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
@@ -123,7 +123,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(irr::core::vector3df
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
@@ -139,7 +139,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(irr::core::vector3df 
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
@@ -155,7 +155,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(irr::core::vector3d
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createFire(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::FIRE);
 
@@ -179,47 +179,10 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(irr::core::vector3df position)
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs:: createPlayer(irr::core::vector3df pos)
+std::shared_ptr<Entity> GlobalPrefabs::createPlayer(const irr::core::vector3df &pos)
 {
-    auto e = std::make_shared<Entity>(Entity::PLAYER);
+    auto e = createBomberman(pos);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(
-        e,
-        pos,
-        irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(0.7f)
-        );
-    ColliderComponent &collider = e->addComponent<ColliderComponent>(
-        e,
-        transform,
-        irr::core::vector3df(2, 2, 2)
-    );
-    MovementComponent &movement = e->addComponent<MovementComponent>(
-        e,
-        transform,
-        collider
-    );
-    AudioComponent &audio = e->addComponent<is::components::AudioComponent>(
-        e,
-        RESSOURCE("footstep.wav"),
-        is::components::SOUND
-    );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
-    e->addComponent<CharacterControllerComponent>(
-        e,
-        transform,
-        movement,
-        audio,
-        "Indie Studio",
-        0.1
-    );
-    collider.addCollisionWithLayer(Entity::GROUND);
-    collider.addCollisionWithLayer(Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
-    e->addComponent<GravityComponent>(e, movement);
-    transform.position.Y = 10;
-    e->addComponent<BombermanComponent>(e);
-    e->addComponent<JumpComponent>(e, movement);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
     KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
     keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
@@ -228,82 +191,49 @@ std::shared_ptr<Entity> GlobalPrefabs:: createPlayer(irr::core::vector3df pos)
     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
-    JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
-    joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
-    joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
-    joystick.bindButton(2, "DropBomb", 1);
-    joystick.bindButton(0, "Jump", 1);
-    joystick.assignJoystick(0);
-    animator.animators.push_back({0, 25, "Walk"});
-    animator.animators.push_back({26, 41, "DropBomb"});
-    animator.animators.push_back({41, 60, "Death"});
-    animator.animators.push_back({61, 86, "Idle"});
+    // JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+    // joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
+    // joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
+    // joystick.bindButton(2, "DropBomb", 1);
+    // joystick.bindButton(0, "Jump", 1);
+    // joystick.assignJoystick(0);
     return (e);
 }
 
-// std::shared_ptr<Entity> GlobalPrefabs::createPlayer(irr::core::vector3df pos, const CharacterComponent &character)
-// {
-//     auto e = std::make_shared<Entity>(Entity::PLAYER);
+std::shared_ptr<Entity> GlobalPrefabs::createCharacter(
+    const irr::core::vector3df &pos,
+    const is::components::CharacterComponent &character,
+    const is::ecs::ComponentManager &manager
+    )
+{
+    auto e = createBomberman(pos);
+    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
 
-//     TransformComponent &transform = e->addComponent<TransformComponent>(
-//         e,
-//         pos,
-//         irr::core::vector3df(0, 0, 0),
-//         irr::core::vector3df(0.7f)
-//         );
-//     ColliderComponent &collider = e->addComponent<ColliderComponent>(
-//         e,
-//         transform,
-//         irr::core::vector3df(2, 2, 2)
-//     );
-//     MovementComponent &movement = e->addComponent<MovementComponent>(
-//         e,
-//         transform,
-//         collider
-//     );
-//     AudioComponent &audio = e->addComponent<is::components::AudioComponent>(
-//         e,
-//         RESSOURCE("footstep.wav"),
-//         is::components::SOUND
-//     );
-//     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
-//     e->addComponent<CharacterControllerComponent>(
-//         e,
-//         transform,
-//         movement,
-//         audio,
-//         "Indie Studio",
-//         0.1
-//     );
-//     collider.addCollisionWithLayer(Entity::GROUND);
-//     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
-//     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
-//     e->addComponent<GravityComponent>(e, movement);
-//     transform.position.Y = 10;
-//     e->addComponent<BombermanComponent>(e);
-//     e->addComponent<JumpComponent>(e, movement);
-//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-//     KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
-//     keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
-//     keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
-//     keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", -1);
-//     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
-//     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
-//     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
-//     JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
-//     joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
-//     joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
-//     joystick.bindButton(2, "DropBomb", 1);
-//     joystick.bindButton(0, "Jump", 1);
-//     joystick.assignJoystick(0);
-//     animator.animators.push_back({0, 25, "Walk"});
-//     animator.animators.push_back({26, 41, "DropBomb"});
-//     animator.animators.push_back({41, 60, "Death"});
-//     animator.animators.push_back({61, 86, "Idle"});
-//     return (e);
-// }
+    switch (character.characterType) {
+    case CharacterComponent::AI:
+        e->addComponent<AIControllerComponent>(e, input);
+        break;
+    case CharacterComponent::JOYSTICK_PLAYER:
+        break;
+    case CharacterComponent::KEYBOARD_PLAYER:
+        auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
+        auto it = std::find(
+            presets.begin(), presets.end(),
+            [&character] (const std::shared_ptr<is::ecs::Component> &component)->bool {
+                auto preset = static_cast<PresetComponent *>(component.get());
 
-std::shared_ptr<Entity> GlobalPrefabs::createAI(irr::core::vector3df pos)
+                return preset->presetNumber == character.presetNumber;
+            });
+        if (it == presets.end())
+            throw is::exceptions::Exception("Character", "Unable to find preset in components");
+        KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
+        keyboard.setPreset(static_cast<PresetComponent *>(it->get())->getKeyboardPreset());
+        break;
+    }
+    return (e);
+}
+
+std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3df &pos)
 {
     auto e = std::make_shared<Entity>(Entity::PLAYER);
 
@@ -328,6 +258,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createAI(irr::core::vector3df pos)
         RESSOURCE("footstep.wav"),
         is::components::SOUND
     );
+    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
@@ -336,7 +267,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createAI(irr::core::vector3df pos)
         "Indie Studio",
         0.1
     );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
@@ -344,11 +274,18 @@ std::shared_ptr<Entity> GlobalPrefabs::createAI(irr::core::vector3df pos)
     transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
-    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-    e->addComponent<AIControllerComponent>(e, input);
-    animator.animators.push_back({0, 24, "Walk"});
-    animator.animators.push_back({25, 40, "DropBomb"});
+    animator.animators.push_back({0, 25, "Walk"});
+    animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+    return (e);
+}
+
+std::shared_ptr<Entity> GlobalPrefabs::createAI(const irr::core::vector3df &pos)
+{
+    auto e = createBomberman(pos);
+
+    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
+    e->addComponent<AIControllerComponent>(e, input);
     return (e);
 }
