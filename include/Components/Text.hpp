@@ -29,7 +29,8 @@ namespace is::components {
             irr::s32 width,
             irr::s32 height,
             bool drawBorder,
-            bool dynamic);
+            bool dynamic,
+            bool visible = true);
 
         TextComponent(
             std::shared_ptr<is::ecs::Entity> &e,
@@ -41,20 +42,22 @@ namespace is::components {
             irr::s32 height,
             bool drawBorder,
             bool dynamic,
-            std::string font);
+            std::string font,
+            bool visible = true);
 
         TextComponent(
-        std::shared_ptr<is::ecs::Entity> &e,
-        std::string text,
-        std::string wn,
-        irr::s32 x,
-        irr::s32 y,
-        irr::s32 width,
-        irr::s32 height,
-        bool drawBorder,
-        bool dynamic,
-        std::string font,
-        irr::video::SColor color);
+            std::shared_ptr<is::ecs::Entity> &e,
+            std::string text,
+            std::string wn,
+            irr::s32 x,
+            irr::s32 y,
+            irr::s32 width,
+            irr::s32 height,
+            bool drawBorder,
+            bool dynamic,
+            std::string font,
+            irr::video::SColor color,
+            bool visible = true);
 
         ~TextComponent() override = default;
 
@@ -81,6 +84,7 @@ namespace is::components {
         irr::video::SColor _color;
         bool _drawBorder;
         bool _dynamic;
+        bool _visible;
     };
 
 }

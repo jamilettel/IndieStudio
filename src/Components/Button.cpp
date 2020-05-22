@@ -19,7 +19,8 @@ is::components::ButtonComponent::ButtonComponent(
     s32 y,
     s32 width,
     s32 height,
-    std::function<void()> ft
+    std::function<void()> ft,
+    bool visible
     ):
     GUIElementComponent(e),
     windowName(std::move(wn)),
@@ -28,6 +29,7 @@ is::components::ButtonComponent::ButtonComponent(
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
     _clicked(false),
+    _visible(visible),
     _ft(std::move(ft))
 {
 }
@@ -41,6 +43,7 @@ is::components::ButtonComponent::ButtonComponent(
     s32 width,
     s32 height,
     std::function<void()> ft,
+    bool visible,
     std::string image,
     std::string pressed
     ):
@@ -51,6 +54,7 @@ is::components::ButtonComponent::ButtonComponent(
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
     _clicked(false),
+    _visible(visible),
     _ft(std::move(ft))
 {
 }
@@ -64,6 +68,7 @@ is::components::ButtonComponent::ButtonComponent(
     s32 width,
     s32 height,
     std::function<void()> ft,
+    bool visible,
     std::string image,
     std::string pressed,
     std::string font
@@ -76,6 +81,7 @@ is::components::ButtonComponent::ButtonComponent(
     _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
     _clicked(false),
+    _visible(visible),
     _ft(std::move(ft))
 {
 }
@@ -96,6 +102,7 @@ void is::components::ButtonComponent::init(std::shared_ptr<is::components::Windo
     element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
     element->setUseAlphaChannel(true);
     element->setDrawBorder(false);
+    element->setVisible(_visible);
 }
 
 bool is::components::ButtonComponent::isClicked() const
@@ -136,5 +143,6 @@ void is::components::ButtonComponent::callCallback() const
 
 void is::components::ButtonComponent::setVisible(bool visible)
 {
+    _visible = visible;
     element->setVisible(visible);
 }

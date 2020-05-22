@@ -40,6 +40,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/settings/Return_BTN.png"),
         RESSOURCE("ui/settings/Return_BTN_pressed.png")
     ).layer = 3;
@@ -92,6 +93,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
             std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
+        true,
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
     ).layer = 3;
@@ -108,6 +110,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
             std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
+        true,
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
     ).layer = 3;
@@ -124,6 +127,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
             std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
+        true,
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
     ).layer = 3;
@@ -151,6 +155,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
             std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
+        true,
         RESSOURCE("ui/settings/Sound_no_BTN.png"),
         RESSOURCE("ui/settings/Sound_no_BTN_pressed.png")
     ).layer = 3;
@@ -167,6 +172,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
             std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
+        true,
         RESSOURCE("ui/settings/Sound_low_BTN.png"),
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
     ).layer = 3;
@@ -183,6 +189,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
             std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
+        true,
         RESSOURCE("ui/settings/Sound_high_BTN.png"),
         RESSOURCE("ui/settings/Sound_high_BTN_pressed.png")
     ).layer = 3;
@@ -214,6 +221,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllers()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/Controllers/Return_BTN.png"),
         RESSOURCE("ui/Controllers/Return_BTN_pressed.png")
     ).layer = 2;
@@ -255,6 +263,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         [](){
             is::Game::setActualScene(is::ecs::SCENE_GAME);
         },
+        true,
         RESSOURCE("ui/PresetSelection/button_play.png"),
         RESSOURCE("ui/PresetSelection/button_play_pressed.png")
     );
@@ -269,6 +278,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/PresetSelection/Return_BTN.png"),
         RESSOURCE("ui/PresetSelection/Return_BTN_pressed.png")
     ).layer = 2;
@@ -396,6 +406,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         250, 70,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
         RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
     );
@@ -408,6 +419,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
@@ -458,6 +470,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         250, 70,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
         RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
     );
@@ -470,6 +483,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
@@ -520,6 +534,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         250, 70,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
         RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
     );
@@ -532,6 +547,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
@@ -582,6 +598,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         250, 70,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
         RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
     );
@@ -594,6 +611,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
+        true,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );

@@ -19,13 +19,15 @@ is::components::ImageComponent::ImageComponent(
     std::string wn,
     int x,
     int y,
-    bool scale
+    bool scale,
+    bool visible
     ):
     GUIElementComponent(e),
     windowName(std::move(wn)),
     _dimension(x, y),
     _filename(std::move(filename)),
-    _scale(scale)
+    _scale(scale),
+    _visible(visible)
 {
 }
 
@@ -40,6 +42,7 @@ void is::components::ImageComponent::init(std::shared_ptr<is::components::Window
         element->setScaleImage(true);
     }
     element->setUseAlphaChannel(true);
+    element->setVisible(_visible);
 }
 
 void is::components::ImageComponent::setPosition(float x, float y)
@@ -60,5 +63,6 @@ void is::components::ImageComponent::bringToFront()
 
 void ImageComponent::setVisible(bool visible)
 {
+    _visible = visible;
     element->setVisible(visible);
 }

@@ -28,7 +28,8 @@ namespace is::components {
                 irr::s32 y,
                 irr::s32 width,
                 irr::s32 height,
-                std::function<void()> ft
+                std::function<void()> ft,
+                bool visible
                 );
             ButtonComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
@@ -39,6 +40,7 @@ namespace is::components {
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft,
+                bool visible,
                 std::string image,
                 std::string pressed
                 );
@@ -51,6 +53,7 @@ namespace is::components {
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft,
+                bool visible,
                 std::string image,
                 std::string pressed,
                 std::string font
@@ -83,6 +86,7 @@ namespace is::components {
             irr::core::rect<irr::s32> _dimension;
             irr::gui::IGUIButton *element{};
             bool _clicked;
+            bool _visible;
             std::function<void()> _ft;
     };
 

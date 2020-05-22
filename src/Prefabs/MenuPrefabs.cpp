@@ -69,6 +69,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
         },
+        true,
         RESSOURCE("ui/main_menu/button_play.png"),
         RESSOURCE("ui/main_menu/button_play_pressed.png")
     );
@@ -82,6 +83,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::isRunning = false;
         },
+        true,
         RESSOURCE("ui/main_menu/button_quit.png"),
         RESSOURCE("ui/main_menu/button_quit_pressed.png")
     );
@@ -95,6 +97,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_CONTROLLERS);
         },
+        true,
         RESSOURCE("ui/main_menu/Controllers_BTN.png"),
         RESSOURCE("ui/main_menu/Controllers_BTN_pressed.png")
     );
@@ -108,6 +111,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_SETTINGS);
         },
+        true,
         RESSOURCE("ui/main_menu/Settings_BTN.png"),
         RESSOURCE("ui/main_menu/Settings_BTN_pressed.png")
     );
@@ -121,6 +125,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_RECORD);
         },
+        true,
         RESSOURCE("ui/main_menu/Scores_BTN.png"),
         RESSOURCE("ui/main_menu/Scores_BTN_pressed.png")
     );
@@ -134,6 +139,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_HOWTOPLAY);
         },
+        true,
         RESSOURCE("ui/main_menu/FAQ_BTN.png"),
         RESSOURCE("ui/main_menu/FAQ_BTN_pressed.png")
     );
@@ -147,6 +153,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_CREDIT);
         },
+        true,
         RESSOURCE("ui/main_menu/Info_BTN.png"),
         RESSOURCE("ui/main_menu/Info_BTN_pressed.png")
     );
@@ -185,6 +192,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_GAME);
         },
+        true,
         RESSOURCE("ui/Pause/Continue_BTN.png"),
         RESSOURCE("ui/Pause/Continue_BTN_pressed.png")
     ).layer = 2;
@@ -198,6 +206,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         [](){
             is::Game::isRunning = false;
         },
+        true,
         RESSOURCE("ui/Pause/button_quit.png"),
         RESSOURCE("ui/Pause/button_quit_pressed.png")
     ).layer = 2;
@@ -211,6 +220,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_SETTINGS);
         },
+        true,
         RESSOURCE("ui/Pause/Settings_BTN.png"),
         RESSOURCE("ui/Pause/Settings_BTN_pressed.png")
     ).layer = 2;
@@ -224,6 +234,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         [](){
             is::Game::setActualScene(is::ecs::SCENE_RECORD);
         },
+        true,
         RESSOURCE("ui/Pause/Scores_BTN.png"),
         RESSOURCE("ui/Pause/Scores_BTN_pressed.png")
     ).layer = 2;
@@ -255,6 +266,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/Credits/Return_BTN.png"),
         RESSOURCE("ui/Credits/Return_BTN_pressed.png")
     ).layer = 2;
@@ -363,6 +375,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/HowToPlay/Return_BTN.png"),
         RESSOURCE("ui/HowToPlay/Return_BTN_pressed.png")
     ).layer = 2;
@@ -394,6 +407,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/Record/Return_BTN.png"),
         RESSOURCE("ui/Record/Return_BTN_pressed.png")
     ).layer = 2;

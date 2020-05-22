@@ -26,7 +26,8 @@ namespace is::components {
             std::string wn,
             int x,
             int y,
-            bool scale = false
+            bool scale = false,
+            bool visible = true
             );
         ~ImageComponent() override = default;
 
@@ -47,6 +48,7 @@ namespace is::components {
         irr::core::vector2d<int> _dimension;
         std::string _filename;
         bool _scale;
+        bool _visible;
     };
 
 }
