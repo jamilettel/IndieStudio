@@ -43,8 +43,8 @@ void is::ecs::AScene::initStaticEntities()
 void is::ecs::AScene::awake()
 {
     initSystems();
-    initEntities();
     initStaticEntities();
+    initEntities();
     _systemManager->awake();
 }
 
