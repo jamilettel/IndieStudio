@@ -14,7 +14,7 @@ namespace is::components {
 
     class KeyboardPresetComponent;
 
-    class PresetComponent: public is::ecs::Component {
+    class PresetComponent : public is::ecs::Component {
 
     public:
         PresetComponent(
@@ -25,6 +25,8 @@ namespace is::components {
 
         PresetComponent(const PresetComponent &) = delete;
         PresetComponent &operator=(const PresetComponent &) = delete;
+
+        void deleteComponent() override;
 
         [[nodiscard]] KeyboardPresetComponent &getKeyboardPreset();
 

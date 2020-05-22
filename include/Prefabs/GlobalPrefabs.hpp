@@ -59,7 +59,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createPlayer(const irr::core::vector3df &pos);
-        static std::shared_ptr<is::ecs::Entity> createCharacter(
+        static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
             const irr::core::vector3df &pos,
             const is::components::CharacterComponent &character,
             const is::ecs::ComponentManager &manager
@@ -77,6 +77,8 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createControllers();
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions();
+        static std::shared_ptr<is::ecs::Entity> createCharacter();
+        static std::shared_ptr<is::ecs::Entity> createPresets();
 
     private:
         static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos);

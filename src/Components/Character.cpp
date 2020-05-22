@@ -16,3 +16,7 @@ CharacterComponent::CharacterComponent(
     ):
     Component(e), number(characterNumber)
 {}
+
+void CharacterComponent::deleteComponent()
+{
+}

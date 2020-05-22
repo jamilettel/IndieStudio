@@ -419,7 +419,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
-        true,
+        false,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
@@ -483,7 +483,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
-        true,
+        false,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
@@ -547,7 +547,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
-        true,
+        false,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
@@ -611,7 +611,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         50, 50,
         [](){
         },
-        true,
+        false,
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );

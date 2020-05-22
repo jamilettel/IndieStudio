@@ -200,7 +200,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createPlayer(const irr::core::vector3df &
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createCharacter(
+std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     const irr::core::vector3df &pos,
     const is::components::CharacterComponent &character,
     const is::ecs::ComponentManager &manager
@@ -216,11 +216,11 @@ std::shared_ptr<Entity> GlobalPrefabs::createCharacter(
     case CharacterComponent::JOYSTICK_PLAYER:
         break;
     case CharacterComponent::KEYBOARD_PLAYER:
-        auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
-        auto it = std::find(
+        const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
+        const auto it = std::find_if(
             presets.begin(), presets.end(),
-            [&character] (const std::shared_ptr<is::ecs::Component> &component)->bool {
-                auto preset = static_cast<PresetComponent *>(component.get());
+            [&character] (const std::shared_ptr<is::ecs::Component> &component) {
+                const auto *preset = static_cast<PresetComponent *>(component.get());
 
                 return preset->presetNumber == character.presetNumber;
             });
@@ -288,4 +288,33 @@ std::shared_ptr<Entity> GlobalPrefabs::createAI(const irr::core::vector3df &pos)
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
     e->addComponent<AIControllerComponent>(e, input);
     return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<CharacterComponent>(e, 0);
+    e->addComponent<CharacterComponent>(e, 1);
+    e->addComponent<CharacterComponent>(e, 2);
+    e->addComponent<CharacterComponent>(e, 3);
+
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    auto &preset1 = e->addComponent<PresetComponent>(e, 0);
+    auto &preset2 = e->addComponent<PresetComponent>(e, 1);
+    auto &preset3 = e->addComponent<PresetComponent>(e, 2);
+    auto &preset4 = e->addComponent<PresetComponent>(e, 3);
+
+    is::components::KeyboardPresetComponent::createBasicPreset(preset1.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
+
+    return e;
 }

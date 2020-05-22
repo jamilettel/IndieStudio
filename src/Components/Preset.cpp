@@ -20,3 +20,7 @@ KeyboardPresetComponent &PresetComponent::getKeyboardPreset()
 {
     return _keyboardPreset;
 }
+
+void PresetComponent::deleteComponent()
+{
+}
