@@ -74,4 +74,10 @@ void is::scenes::EndGameScene::initEntities()
             initEntity(prefabs::EndGamePrefabs::createLowTable(posX[i]), false);
         }
     };
+
+    {
+        initEntity(prefabs::EndGamePrefabs::createMedal1(10), false);
+        initEntity(prefabs::EndGamePrefabs::createMedal2(34), false);
+        initEntity(prefabs::EndGamePrefabs::createMedal3(58), false);
+    }
 }

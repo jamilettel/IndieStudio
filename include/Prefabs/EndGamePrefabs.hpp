@@ -42,6 +42,10 @@ namespace is::prefabs
 
             static std::shared_ptr<is::ecs::Entity> createHighTable(double posX);
             static std::shared_ptr<is::ecs::Entity> createLowTable(double posX);
+
+            static std::shared_ptr<is::ecs::Entity> createMedal1(double posX);
+            static std::shared_ptr<is::ecs::Entity> createMedal2(double posX);
+            static std::shared_ptr<is::ecs::Entity> createMedal3(double posX);
     };
 }
 

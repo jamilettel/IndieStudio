@@ -207,3 +207,45 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createLowTable(dou
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal1(double posX)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Star_03.png"),
+        "Indie Studio",
+        irr::core::vector2df(posX, 12),
+        irr::core::vector2df(7, 10)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal2(double posX)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Star_02.png"),
+        "Indie Studio",
+        irr::core::vector2df(posX, 12),
+        irr::core::vector2df(7, 10)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createMedal3(double posX)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Star_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(posX, 12),
+        irr::core::vector2df(7, 10)
+    );
+    return (e);
+}
