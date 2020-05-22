@@ -65,4 +65,13 @@ void is::scenes::EndGameScene::initEntities()
             initEntity(prefabs::EndGamePrefabs::createForwardButton(posX[i]), false);
         }
     };
+
+    {
+        const double posX[] = {3.5, 27.2, 52.2, 77.2};
+
+        for (size_t i = 0; i < 4; i++) {
+            initEntity(prefabs::EndGamePrefabs::createHighTable(posX[i]), false);
+            initEntity(prefabs::EndGamePrefabs::createLowTable(posX[i]), false);
+        }
+    };
 }

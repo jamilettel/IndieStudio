@@ -39,6 +39,9 @@ namespace is::prefabs
 
             static std::shared_ptr<is::ecs::Entity> createBackwardButton(int posX);
             static std::shared_ptr<is::ecs::Entity> createForwardButton(int posX);
+
+            static std::shared_ptr<is::ecs::Entity> createHighTable(double posX);
+            static std::shared_ptr<is::ecs::Entity> createLowTable(double posX);
     };
 }
 

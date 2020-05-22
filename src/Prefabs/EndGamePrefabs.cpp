@@ -179,3 +179,31 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createForwardButto
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createHighTable(double posX)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Table.png"),
+        "Indie Studio",
+        irr::core::vector2df(posX, 50),
+        irr::core::vector2df(19.8, 10)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createLowTable(double posX)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/EndGame/Table.png"),
+        "Indie Studio",
+        irr::core::vector2df(posX, 60),
+        irr::core::vector2df(19.8, 10)
+    );
+    return (e);
+}
