@@ -22,6 +22,7 @@
 #include "Systems/ModelRenderer.hpp"
 #include "Systems/Texture.hpp"
 #include "Systems/Text.hpp"
+#include "Components/Stats.hpp"
 
 namespace is::scenes {
 
@@ -35,6 +36,7 @@ namespace is::scenes {
 
             void initSystems() override;
             void initEntities() override;
+            void update() override;
     };
 
 }

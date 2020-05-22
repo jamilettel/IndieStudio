@@ -36,7 +36,7 @@ namespace is::prefabs
         
         private:
             static void addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX);
-            static void addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX, is::components::TextComponent &text);
             static void addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
             static void addForwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
             static void addHighTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
@@ -45,6 +45,7 @@ namespace is::prefabs
             static is::components::TextComponent &addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX);
             static is::components::TextComponent &addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX);
             static void addStatsPlayer(std::shared_ptr<is::ecs::Entity> &e, is::components::TextComponent &textHigh, is::components::TextComponent &textLow);
+            static is::components::TextComponent &addWaitingText(std::shared_ptr<is::ecs::Entity> &e, int posX);
     };
 }
 

@@ -31,12 +31,16 @@ namespace is::components
             void prev() noexcept;
 
             void deleteComponent() override;
+            void setContinue(bool c) noexcept;
+
+            bool isContinue() const noexcept;
 
         private:
             int _i = 0;
             TextComponent &_highText;
             TextComponent &_lowText;
             std::vector<std::pair<std::string, std::string>> _stats;
+            bool _continue = false;
     };
 }
 

@@ -43,3 +43,13 @@ void StatsComponent::prev() noexcept
 void StatsComponent::deleteComponent()
 {
 }
+
+void StatsComponent::setContinue(bool c) noexcept
+{
+    _continue = c;
+}
+
+bool StatsComponent::isContinue() const noexcept
+{
+    return (_continue);
+}

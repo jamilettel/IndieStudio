@@ -22,39 +22,39 @@ namespace is::components {
         public:
             ButtonComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
-                std::string text,
-                std::string wn,
+                const std::string &text,
+                const std::string &wn,
                 irr::s32 x,
                 irr::s32 y,
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft
-                );
+            );
             ButtonComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
-                std::string text,
-                std::string wn,
+                const std::string &text,
+                const std::string &wn,
                 irr::s32 x,
                 irr::s32 y,
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft,
-                std::string image,
-                std::string pressed
-                );
+                const std::string &image,
+                const std::string &pressed
+            );
             ButtonComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
-                std::string text,
-                std::string wn,
+                const std::string &text,
+                const std::string &wn,
                 irr::s32 x,
                 irr::s32 y,
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft,
-                std::string image,
-                std::string pressed,
-                std::string font
-                );
+                const std::string &image,
+                const std::string &pressed,
+                const std::string &font
+            );
             ~ButtonComponent() override = default;
 
             ButtonComponent(const ButtonComponent &) = delete;
