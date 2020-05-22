@@ -432,6 +432,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         IAImage1.setVisible(false);
         closeButton1.setVisible(true);
         characterComponent1->presetNumber = 0;
+        characterComponent1->characterType = CharacterComponent::KEYBOARD_PLAYER;
     });
     closeButton1.layer = 3;
     closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, characterComponent1](){
@@ -440,6 +441,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         IAImage1.setVisible(true);
         closeButton1.setVisible(false);
         characterComponent1->presetNumber = -1;
+        characterComponent1->characterType = CharacterComponent::AI;
     });
 
     /* PLAYER 2 */
