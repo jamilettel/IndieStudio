@@ -96,7 +96,7 @@ bool JoystickInputComponent::changeButtonTarget(u32 button, float target)
     return true;
 }
 
-bool JoystickInputComponent::changeAxisTarget(u32 axis, float min, float max)
+bool JoystickInputComponent::changeAxisTargets(u32 axis, float min, float max)
 {
     auto it = _axes.find(axis);
 
@@ -104,6 +104,20 @@ bool JoystickInputComponent::changeAxisTarget(u32 axis, float min, float max)
         return false;
     it->second.second[0] = min;
     it->second.second[1] = max;
+    return true;
+}
+
+bool JoystickInputComponent::changeAxisTarget(u32 axis, float target, bool max)
+{
+    auto it = _axes.find(axis);
+
+    if (it == _axes.end())
+        return false;
+    if (max) {
+        it->second.second[1] = target;
+    } else {
+        it->second.second[0] = target;
+    }
     return true;
 }
 
@@ -136,4 +150,25 @@ void JoystickInputComponent::unbindAll()
 {
     _buttons.clear();
     _axes.clear();
+}
+
+void JoystickInputComponent::setPreset(const JoystickPresetComponent &preset)
+{
+    for (auto &button: preset.getButtonBindings())
+        bindButton(button.second, button.first.action, button.first.value);
+
+    for (auto &axis: preset.getAxisBindings()) {
+        if (!isAxisBound(axis.second)) {
+            float min = 0;
+            float max = 0;
+
+            if (axis.first.max)
+                max = axis.first.value;
+            else
+                min = axis.first.value;
+            bindAxis(axis.second, axis.first.action, min, max);
+        } else {
+            changeAxisTarget(axis.second, axis.first.value, axis.first.max);
+        }
+    }
 }

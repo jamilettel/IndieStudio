@@ -14,8 +14,12 @@ namespace is {
 
     struct PresetAction {
         PresetAction() = delete;
-        PresetAction(std::string actionString, float target, std::string desc);
-
+        PresetAction(
+            std::string actionString,
+            float target,
+            std::string desc,
+            bool maximum = false
+            );
         PresetAction(const PresetAction &action) = default;
         ~PresetAction() = default;
 
@@ -26,8 +30,9 @@ namespace is {
         bool operator>(const PresetAction &rhs) const;
 
         std::string action;
-        float value = 0;
+        float value;
         std::string description;
+        bool max; // only used for joystick axes
 
     };
 

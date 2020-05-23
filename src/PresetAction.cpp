@@ -12,11 +12,13 @@ using namespace is;
 PresetAction::PresetAction(
     std::string actionString,
     float target,
-    std::string desc
+    std::string desc,
+    bool maximum
     ):
     action(actionString),
     value(target),
-    description(desc)
+    description(desc),
+    max(maximum)
 {}
 
 bool PresetAction::operator<(const PresetAction &rhs) const
@@ -35,5 +37,5 @@ bool PresetAction::operator>(const PresetAction &rhs) const
 
 bool PresetAction::operator==(const PresetAction &rhs) const
 {
-    return action == rhs.action && value == rhs.value && description == rhs.description;
+    return action == rhs.action && value == rhs.value && description == rhs.description && max == rhs.max;
 }
