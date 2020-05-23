@@ -424,25 +424,89 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
-    activateButton1.layer = 3;
+    auto &leftPresetButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &leftTypeButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 100,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightPresetButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto &rightTypeButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 100,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
     auto characterComponent1 = static_cast<CharacterComponent*>(characterList[0].get());
-    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, characterComponent1](){
+    activateButton1.layer = 3;
+    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &leftTypeButton1, &rightPresetButton1, &rightTypeButton1, characterComponent1](){
         activateButton1.setVisible(false);
         TextIA1.setVisible(false);
         IAImage1.setVisible(false);
         closeButton1.setVisible(true);
+        leftPresetButton1.setVisible(true);
+        leftTypeButton1.setVisible(true);
+        rightPresetButton1.setVisible(true);
+        rightTypeButton1.setVisible(true);
         characterComponent1->presetNumber = 0;
         characterComponent1->characterType = CharacterComponent::KEYBOARD_PLAYER;
     });
     closeButton1.layer = 3;
-    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, characterComponent1](){
+    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &leftTypeButton1, &rightPresetButton1, &rightTypeButton1, characterComponent1](){
         activateButton1.setVisible(true);
         TextIA1.setVisible(true);
         IAImage1.setVisible(true);
         closeButton1.setVisible(false);
+        leftPresetButton1.setVisible(false);
+        leftTypeButton1.setVisible(false);
+        rightPresetButton1.setVisible(false);
+        rightTypeButton1.setVisible(false);
         characterComponent1->presetNumber = -1;
         characterComponent1->characterType = CharacterComponent::AI;
     });
+    leftPresetButton1.layer = 3;
+    leftTypeButton1.layer = 3;
+    rightPresetButton1.layer = 3;
+    rightTypeButton1.layer = 3;
 
     /* PLAYER 2 */
     auto &IAImage2 = e->addComponent<is::components::ImageComponent>(
@@ -493,20 +557,89 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
+    auto &leftPresetButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &leftTypeButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 100,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightPresetButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto &rightTypeButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 100,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto characterComponent2 = static_cast<CharacterComponent*>(characterList[1].get());
     activateButton2.layer = 3;
-    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2](){
+    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &leftTypeButton2, &rightPresetButton2, &rightTypeButton2, characterComponent2](){
         activateButton2.setVisible(false);
         TextIA2.setVisible(false);
         IAImage2.setVisible(false);
         closeButton2.setVisible(true);
+        leftPresetButton2.setVisible(true);
+        leftTypeButton2.setVisible(true);
+        rightPresetButton2.setVisible(true);
+        rightTypeButton2.setVisible(true);
+        characterComponent2->presetNumber = 0;
+        characterComponent2->characterType = CharacterComponent::KEYBOARD_PLAYER;
     });
     closeButton2.layer = 3;
-    closeButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2](){
+    closeButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &leftTypeButton2, &rightPresetButton2, &rightTypeButton2, characterComponent2](){
         activateButton2.setVisible(true);
         TextIA2.setVisible(true);
         IAImage2.setVisible(true);
         closeButton2.setVisible(false);
+        leftPresetButton2.setVisible(false);
+        leftTypeButton2.setVisible(false);
+        rightPresetButton2.setVisible(false);
+        rightTypeButton2.setVisible(false);
+        characterComponent2->presetNumber = -1;
+        characterComponent2->characterType = CharacterComponent::AI;
     });
+    leftPresetButton2.layer = 3;
+    leftTypeButton2.layer = 3;
+    rightPresetButton2.layer = 3;
+    rightTypeButton2.layer = 3;
 
     /* PLAYER 3 */
     auto &IAImage3 = e->addComponent<is::components::ImageComponent>(
@@ -557,22 +690,91 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
+    auto &leftPresetButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &leftTypeButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightPresetButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto &rightTypeButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto characterComponent3 = static_cast<CharacterComponent*>(characterList[2].get());
     activateButton3.layer = 3;
-    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3](){
+    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &leftTypeButton3, &rightPresetButton3, &rightTypeButton3, characterComponent3](){
         activateButton3.setVisible(false);
         TextIA3.setVisible(false);
         IAImage3.setVisible(false);
         closeButton3.setVisible(true);
+        leftPresetButton3.setVisible(true);
+        leftTypeButton3.setVisible(true);
+        rightPresetButton3.setVisible(true);
+        rightTypeButton3.setVisible(true);
+        characterComponent3->presetNumber = 0;
+        characterComponent3->characterType = CharacterComponent::KEYBOARD_PLAYER;
     });
     closeButton3.layer = 3;
-    closeButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3](){
+    closeButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &leftTypeButton3, &rightPresetButton3, &rightTypeButton3, characterComponent3](){
         activateButton3.setVisible(true);
         TextIA3.setVisible(true);
         IAImage3.setVisible(true);
         closeButton3.setVisible(false);
+        leftPresetButton3.setVisible(false);
+        leftTypeButton3.setVisible(false);
+        rightPresetButton3.setVisible(false);
+        rightTypeButton3.setVisible(false);
+        characterComponent3->presetNumber = -1;
+        characterComponent3->characterType = CharacterComponent::AI;
     });
+    leftPresetButton3.layer = 3;
+    leftTypeButton3.layer = 3;
+    rightPresetButton3.layer = 3;
+    rightTypeButton3.layer = 3;
 
-    /* PLAYER 5 */
+    /* PLAYER 4 */
     auto &IAImage4 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -621,19 +823,88 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Close_BTN.png"),
         RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
     );
+    auto &leftPresetButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &leftTypeButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightPresetButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto &rightTypeButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
+        50, 50,
+        [](){
+        },
+        false,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
+    auto characterComponent4 = static_cast<CharacterComponent*>(characterList[3].get());
     activateButton4.layer = 3;
-    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4](){
+    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &leftTypeButton4, &rightPresetButton4, &rightTypeButton4, characterComponent4](){
         activateButton4.setVisible(false);
         TextIA4.setVisible(false);
         IAImage4.setVisible(false);
         closeButton4.setVisible(true);
+        leftPresetButton4.setVisible(true);
+        leftTypeButton4.setVisible(true);
+        rightPresetButton4.setVisible(true);
+        rightTypeButton4.setVisible(true);
+        characterComponent4->presetNumber = 0;
+        characterComponent4->characterType = CharacterComponent::KEYBOARD_PLAYER;
     });
     closeButton4.layer = 3;
-    closeButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4](){
+    closeButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &leftTypeButton4, &rightPresetButton4, &rightTypeButton4, characterComponent4](){
         activateButton4.setVisible(true);
         TextIA4.setVisible(true);
         IAImage4.setVisible(true);
         closeButton4.setVisible(false);
+        leftPresetButton4.setVisible(false);
+        leftTypeButton4.setVisible(false);
+        rightPresetButton4.setVisible(false);
+        rightTypeButton4.setVisible(false);
+        characterComponent4->presetNumber = -1;
+        characterComponent4->characterType = CharacterComponent::AI;
     });
+    leftPresetButton4.layer = 3;
+    leftTypeButton4.layer = 3;
+    rightPresetButton4.layer = 3;
+    rightTypeButton4.layer = 3;
     return e;
 }
