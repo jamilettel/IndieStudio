@@ -276,6 +276,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
         is::components::SOUND
     );
     CharacterComponent &character = createCharacterEntity(entitySaver);
+    character.setAI(true);
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,

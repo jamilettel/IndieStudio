@@ -38,6 +38,11 @@ void CharacterComponent::setNbCharactersKilled(size_t nbCharactersKilled) noexce
     _nbCharactersKilled = nbCharactersKilled;
 }
 
+void CharacterComponent::setAI(bool isAI) noexcept
+{
+    _isAI = isAI;
+}
+
 int CharacterComponent::getTimePlaying() const noexcept
 {
     return (_timePlaying);
@@ -60,4 +65,9 @@ int CharacterComponent::getNbCharactersKilled() const noexcept
 
 void CharacterComponent::deleteComponent()
 {
+}
+
+bool CharacterComponent::isAI() const noexcept
+{
+    return (_isAI);
 }

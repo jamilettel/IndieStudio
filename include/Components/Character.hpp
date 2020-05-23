@@ -21,11 +21,13 @@ namespace is::components
             void setNbBombPosed(size_t nbBombPosed) noexcept;
             void setNbBonusCollected(size_t nbBonusCollected) noexcept;
             void setNbCharactersKilled(size_t nbCharactersKilled) noexcept;
+            void setAI(bool isAI) noexcept;
 
-            int getTimePlaying() const noexcept;
-            int getNbBombPosed() const noexcept;
-            int getNbBonueCollected() const noexcept;
-            int getNbCharactersKilled() const noexcept;
+            [[nodiscard]] int getTimePlaying() const noexcept;
+            [[nodiscard]] int getNbBombPosed() const noexcept;
+            [[nodiscard]] int getNbBonueCollected() const noexcept;
+            [[nodiscard]] int getNbCharactersKilled() const noexcept;
+            [[nodiscard]] bool isAI() const noexcept;
 
             void deleteComponent() override;
 
@@ -34,6 +36,7 @@ namespace is::components
             size_t _nbBombPosed = 0;
             size_t _nbBonusCollected = 0;
             size_t _nbCharactersKilled = 0;
+            bool _isAI = false;
     };
 }
 

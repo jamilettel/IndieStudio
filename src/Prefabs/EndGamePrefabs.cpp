@@ -30,7 +30,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -48,7 +48,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 2.5);
     addStatsPlayer(e, addTextHigh(e, 62), addTextLow(e, 62), infos);
-    addContinueButton(e, 40, addWaitingText(e, 100));
+    addContinueButton(e, 40, addWaitingText(e, 100), isAI);
     addHighTable(e, 3.5);
     addLowTable(e, 3.5);
     addMedal(e, 10, "ui/EndGame/Star_01.png");
@@ -57,7 +57,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector<std::pair<std::string, std::string>> &infos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector<std::pair<std::string, std::string>> &infos, bool isAI)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -75,7 +75,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std:
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 26.3);
     addStatsPlayer(e, addTextHigh(e, 445), addTextLow(e, 445), infos);
-    addContinueButton(e, 420, addWaitingText(e, 500));
+    addContinueButton(e, 420, addWaitingText(e, 500), isAI);
     addHighTable(e, 27.2);
     addLowTable(e, 27.2);
     addMedal(e, 34, "ui/EndGame/Star_02.png");
@@ -84,7 +84,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std:
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector<std::pair<std::string, std::string>> &infos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector<std::pair<std::string, std::string>> &infos, bool isAI)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -102,7 +102,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std:
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 51.3);
     addStatsPlayer(e, addTextHigh(e, 845), addTextLow(e, 845), infos);
-    addContinueButton(e, 820, addWaitingText(e, 900));
+    addContinueButton(e, 820, addWaitingText(e, 900), isAI);
     addHighTable(e, 52.2);
     addLowTable(e, 52.2);
     addMedal(e, 58, "ui/EndGame/Star_03.png");
@@ -111,7 +111,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std:
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector<std::pair<std::string, std::string>> &infos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector<std::pair<std::string, std::string>> &infos, bool isAI)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -129,7 +129,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std:
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 76.3);
     addStatsPlayer(e, addTextHigh(e, 1245), addTextLow(e, 1245), infos);
-    addContinueButton(e, 1220, addWaitingText(e, 1300));
+    addContinueButton(e, 1220, addWaitingText(e, 1300), isAI);
     addHighTable(e, 77.2);
     addLowTable(e, 77.2);
     addBackwardButton(e, 1250);
@@ -168,8 +168,13 @@ void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<is::ecs::Entity> &e,
     );
 }
 
-void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX, TextComponent &text)
+void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX, TextComponent &text, bool isAI)
 {
+    if (isAI) {
+        text.setText("Waiting...");
+        e->getComponent<StatsComponent>().value()->setContinue(true);
+        return;
+    }
     ButtonComponent &button = e->addComponent<ButtonComponent>(
         e,
         "",
