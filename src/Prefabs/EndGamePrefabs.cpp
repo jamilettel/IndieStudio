@@ -30,7 +30,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer()
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -47,7 +47,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer()
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 2.5);
-    addStatsPlayer(e, addTextHigh(e, 62), addTextLow(e, 62));
+    addStatsPlayer(e, addTextHigh(e, 62), addTextLow(e, 62), infos);
     addContinueButton(e, 40, addWaitingText(e, 100));
     addHighTable(e, 3.5);
     addLowTable(e, 3.5);
@@ -57,7 +57,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2()
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector<std::pair<std::string, std::string>> &infos)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -74,7 +74,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2()
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 26.3);
-    addStatsPlayer(e, addTextHigh(e, 445), addTextLow(e, 445));
+    addStatsPlayer(e, addTextHigh(e, 445), addTextLow(e, 445), infos);
     addContinueButton(e, 420, addWaitingText(e, 500));
     addHighTable(e, 27.2);
     addLowTable(e, 27.2);
@@ -84,7 +84,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3()
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector<std::pair<std::string, std::string>> &infos)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -101,7 +101,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3()
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 51.3);
-    addStatsPlayer(e, addTextHigh(e, 845), addTextLow(e, 845));
+    addStatsPlayer(e, addTextHigh(e, 845), addTextLow(e, 845), infos);
     addContinueButton(e, 820, addWaitingText(e, 900));
     addHighTable(e, 52.2);
     addLowTable(e, 52.2);
@@ -111,7 +111,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4()
+std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector<std::pair<std::string, std::string>> &infos)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -128,7 +128,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4()
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 76.3);
-    addStatsPlayer(e, addTextHigh(e, 1245), addTextLow(e, 1245));
+    addStatsPlayer(e, addTextHigh(e, 1245), addTextLow(e, 1245), infos);
     addContinueButton(e, 1220, addWaitingText(e, 1300));
     addHighTable(e, 77.2);
     addLowTable(e, 77.2);
@@ -140,18 +140,20 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4()
 
 // * PRIVATE METHOD
 
-void is::prefabs::EndGamePrefabs::addStatsPlayer(std::shared_ptr<is::ecs::Entity> &e, TextComponent &textHigh, TextComponent &textLow)
+void is::prefabs::EndGamePrefabs::addStatsPlayer(
+    std::shared_ptr<is::ecs::Entity> &e,
+    TextComponent &textHigh,
+    TextComponent &textLow,
+    std::vector<std::pair<std::string, std::string>> &infos
+)
 {
-    std::vector<std::pair<std::string, std::string>> stats = {
-        {"Number of player killed", "6"},
-        {"Time play", "03:00"}
-    };
-
+    textHigh.setText((infos.size() > 0 ? infos[0].first : ""));
+    textLow.setText((infos.size() > 0 ? infos[0].second : ""));
     e->addComponent<StatsComponent>(
         e,
         textHigh,
         textLow,
-        stats
+        infos
     );
 }
 

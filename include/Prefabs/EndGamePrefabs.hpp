@@ -29,10 +29,10 @@ namespace is::prefabs
         public:
     
             static std::shared_ptr<is::ecs::Entity> createBackground();
-            static std::shared_ptr<is::ecs::Entity> createPlayer();
-            static std::shared_ptr<is::ecs::Entity> createPlayer2();
-            static std::shared_ptr<is::ecs::Entity> createPlayer3();
-            static std::shared_ptr<is::ecs::Entity> createPlayer4();
+            static std::shared_ptr<is::ecs::Entity> createPlayer(std::vector<std::pair<std::string, std::string>> &infos);
+            static std::shared_ptr<is::ecs::Entity> createPlayer2(std::vector<std::pair<std::string, std::string>> &infos);
+            static std::shared_ptr<is::ecs::Entity> createPlayer3(std::vector<std::pair<std::string, std::string>> &infos);
+            static std::shared_ptr<is::ecs::Entity> createPlayer4(std::vector<std::pair<std::string, std::string>> &infos);
         
         private:
             static void addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX);
@@ -44,7 +44,12 @@ namespace is::prefabs
             static void addMedal(std::shared_ptr<is::ecs::Entity> &e, double posX, const std::string &filename);
             static is::components::TextComponent &addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX);
             static is::components::TextComponent &addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX);
-            static void addStatsPlayer(std::shared_ptr<is::ecs::Entity> &e, is::components::TextComponent &textHigh, is::components::TextComponent &textLow);
+            static void addStatsPlayer(
+                std::shared_ptr<is::ecs::Entity> &e,
+                is::components::TextComponent &textHigh,
+                is::components::TextComponent &textLow,
+                std::vector<std::pair<std::string, std::string>> &infos
+            );
             static is::components::TextComponent &addWaitingText(std::shared_ptr<is::ecs::Entity> &e, int posX);
     };
 }

@@ -35,18 +35,41 @@ void is::scenes::EndGameScene::initEntities()
 {
     auto entities = is::ecs::AScene::_entitySaver->getEntities();
 
-    std::for_each(entities.begin(), entities.end(), [](std::shared_ptr<is::ecs::Entity> &e) {
+    initEntity(prefabs::EndGamePrefabs::createBackground(), false);
+    int i = 0;
+    std::for_each(entities.begin(), entities.end(), [this, &i, &entities](std::shared_ptr<is::ecs::Entity> &e) {
         auto c = e->getComponent<CharacterComponent>();
 
         if (!c.has_value())
             return;
-        std::cout << "Bomb posed : " << c.value()->getNbBombPosed() << std::endl;
+        std::vector<std::pair<std::string, std::string>> infos;
+
+        infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.value()->getNbBombPosed())));
+        infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.value()->getNbBonueCollected())));
+        infos.emplace_back(std::make_pair("Players killed", std::to_string(c.value()->getNbCharactersKilled())));
+        infos.emplace_back(std::make_pair("Time playing", std::to_string(c.value()->getTimePlaying())));
+        switch (i)
+        {
+        case 0:
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos), false);
+            break;
+        case 1:
+            initEntity(prefabs::EndGamePrefabs::createPlayer2(infos), false);
+            break;
+        case 2:
+            initEntity(prefabs::EndGamePrefabs::createPlayer3(infos), false);
+            break;
+        case 3:
+            initEntity(prefabs::EndGamePrefabs::createPlayer4(infos), false);
+            break;
+        default:
+            break;
+        }
+        i++;
     });
-    initEntity(prefabs::EndGamePrefabs::createBackground(), false);
-    initEntity(prefabs::EndGamePrefabs::createPlayer(), false);
-    initEntity(prefabs::EndGamePrefabs::createPlayer2(), false);
-    initEntity(prefabs::EndGamePrefabs::createPlayer3(), false);
-    initEntity(prefabs::EndGamePrefabs::createPlayer4(), false);
+    std::remove_if(entities.begin(), entities.end(), [](std::shared_ptr<is::ecs::Entity> &e) -> bool {
+        return (e->getComponent<CharacterComponent>().has_value());
+    });
 }
 
 void is::scenes::EndGameScene::update()
@@ -61,6 +84,8 @@ void is::scenes::EndGameScene::update()
         if (!stats.isContinue())
             changeScene = false;
     });
-    if (changeScene)
+    if (changeScene) {
+        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
         is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+    }
 }
