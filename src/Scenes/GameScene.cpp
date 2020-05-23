@@ -67,13 +67,13 @@ void GameScene::initEntities()
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
                    irr::core::vector3df(5 * 3, 0, -6 * 3),
-                   *static_cast<CharacterComponent *>(characters[1].get()),
+                   *static_cast<CharacterComponent *>(characters[2].get()),
                    *_componentManager.get()
                    ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
                    irr::core::vector3df(5 * 3, 0, 6 * 3),
-                   *static_cast<CharacterComponent *>(characters[1].get()),
+                   *static_cast<CharacterComponent *>(characters[3].get()),
                    *_componentManager.get()
                    ));
 }
