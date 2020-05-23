@@ -27,6 +27,8 @@ namespace is::components
             int getNbBonueCollected() const noexcept;
             int getNbCharactersKilled() const noexcept;
 
+            void deleteComponent() override;
+
         private:
             size_t _timePlaying = 0;
             size_t _nbBombPosed = 0;

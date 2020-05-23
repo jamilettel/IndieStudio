@@ -33,6 +33,15 @@ void is::scenes::EndGameScene::initSystems()
 
 void is::scenes::EndGameScene::initEntities()
 {
+    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+
+    std::for_each(entities.begin(), entities.end(), [](std::shared_ptr<is::ecs::Entity> &e) {
+        auto c = e->getComponent<CharacterComponent>();
+
+        if (!c.has_value())
+            return;
+        std::cout << "Bomb posed : " << c.value()->getNbBombPosed() << std::endl;
+    });
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     initEntity(prefabs::EndGamePrefabs::createPlayer(), false);
     initEntity(prefabs::EndGamePrefabs::createPlayer2(), false);

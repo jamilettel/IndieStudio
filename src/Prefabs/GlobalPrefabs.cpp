@@ -177,7 +177,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::cor
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::core::vector3df pos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::core::vector3df pos, std::shared_ptr<is::ecs::EntityManager> entitySaver)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
 
@@ -203,11 +203,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
         is::components::SOUND
     );
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    CharacterComponent &character = createCharacterEntity(entitySaver);
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
         movement,
         audio,
+        character,
         "Indie Studio",
         0.1
     );
@@ -239,7 +241,16 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core::vector3df pos)
+is::components::CharacterComponent &is::prefabs::GlobalPrefabs::createCharacterEntity(std::shared_ptr<is::ecs::EntityManager> &entitySaver)
+{
+    std::shared_ptr<is::ecs::Entity> e = std::make_shared<is::ecs::Entity>();
+
+    CharacterComponent &character = e->addComponent<CharacterComponent>(e);
+    entitySaver->addEntity(e);
+    return (character);
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core::vector3df pos, std::shared_ptr<is::ecs::EntityManager> entitySaver)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
 
@@ -264,11 +275,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
         RESSOURCE("footstep.wav"),
         is::components::SOUND
     );
+    CharacterComponent &character = createCharacterEntity(entitySaver);
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
         movement,
         audio,
+        character,
         "Indie Studio",
         0.1
     );

@@ -16,6 +16,7 @@ CharacterControllerComponent::CharacterControllerComponent(
     TransformComponent &transform,
     MovementComponent &movementComponent,
     AudioComponent &audio,
+    CharacterComponent &character,
     std::string wn,
     float ps
     ):
@@ -25,7 +26,8 @@ CharacterControllerComponent::CharacterControllerComponent(
     windowName(std::move(wn)),
     _movementComponent(movementComponent),
     _transform(transform),
-    _audioComponent(audio)
+    _audioComponent(audio),
+    _character(character)
 {
 }
 
@@ -47,4 +49,9 @@ TransformComponent &CharacterControllerComponent::getTransform() const noexcept
 AudioComponent &CharacterControllerComponent::getAudioComponent() const noexcept
 {
     return (_audioComponent);
+}
+
+CharacterComponent &CharacterControllerComponent::getCharacterComponent() const noexcept
+{
+    return (_character);
 }

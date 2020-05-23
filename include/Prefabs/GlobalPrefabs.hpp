@@ -39,6 +39,7 @@
 #include "Components/Animator.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
+#include "ECS/AScene.hpp"
 
 namespace is::prefabs {
 
@@ -55,8 +56,8 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(irr::core::vector3df position);
             static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
             static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos);
-            static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos);
+            static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos, std::shared_ptr<is::ecs::EntityManager> entitySaver);
+            static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos, std::shared_ptr<is::ecs::EntityManager> entitySaver);
 
             static std::shared_ptr<is::ecs::Entity> createSplashScreen();
             static std::shared_ptr<is::ecs::Entity> createMainMenu();
@@ -69,6 +70,9 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createSettings();
             static std::shared_ptr<is::ecs::Entity> createControllers();
             static std::shared_ptr<is::ecs::Entity> createPresetSelection();
+        
+        private:
+            static is::components::CharacterComponent &createCharacterEntity(std::shared_ptr<is::ecs::EntityManager> &entitySaver);
     };
 
 }

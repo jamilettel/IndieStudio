@@ -13,6 +13,7 @@
 
 #include "Components/Movement.hpp"
 #include "Components/Audio.hpp"
+#include "Components/Character.hpp"
 
 namespace is::components {
 
@@ -23,9 +24,10 @@ namespace is::components {
                 TransformComponent &transform,
                 MovementComponent &movementComponent,
                 AudioComponent &audio,
+                CharacterComponent &character,
                 std::string wn = "MainWindow",
                 float ps = 0
-                );
+            );
             ~CharacterControllerComponent() override = default;
 
             CharacterControllerComponent(const CharacterControllerComponent &) = delete;
@@ -36,6 +38,7 @@ namespace is::components {
             [[nodiscard]] MovementComponent &getMovementComponent() const noexcept;
             [[nodiscard]] TransformComponent &getTransform() const noexcept;
             [[nodiscard]] AudioComponent &getAudioComponent() const noexcept;
+            [[nodiscard]] CharacterComponent &getCharacterComponent() const noexcept;
 
             irr::core::vector3df move;
             float rotateY;
@@ -49,6 +52,7 @@ namespace is::components {
             MovementComponent &_movementComponent;
             TransformComponent &_transform;
             AudioComponent &_audioComponent;
+            CharacterComponent &_character;
     };
 
 }

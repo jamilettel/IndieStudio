@@ -57,3 +57,7 @@ int CharacterComponent::getNbCharactersKilled() const noexcept
 {
     return (_nbCharactersKilled);
 }
+
+void CharacterComponent::deleteComponent()
+{
+}
