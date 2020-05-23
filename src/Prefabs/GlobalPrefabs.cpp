@@ -306,10 +306,10 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    auto &preset1 = e->addComponent<PresetComponent>(e, 0);
-    auto &preset2 = e->addComponent<PresetComponent>(e, 1);
-    auto &preset3 = e->addComponent<PresetComponent>(e, 2);
-    auto &preset4 = e->addComponent<PresetComponent>(e, 3);
+    auto &preset1 = e->addComponent<PresetComponent>(e, 1);
+    auto &preset2 = e->addComponent<PresetComponent>(e, 2);
+    auto &preset3 = e->addComponent<PresetComponent>(e, 3);
+    auto &preset4 = e->addComponent<PresetComponent>(e, 4);
 
     is::components::KeyboardPresetComponent::createBasicPreset(preset1.getKeyboardPreset());
     is::components::KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
