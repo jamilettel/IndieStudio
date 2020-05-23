@@ -9,6 +9,7 @@
 #define PRESETCOMPONENT_HPP_
 
 #include "Components/KeyboardPreset.hpp"
+#include "Components/JoystickPreset.hpp"
 
 namespace is::components {
 
@@ -29,9 +30,11 @@ namespace is::components {
         void deleteComponent() override;
 
         [[nodiscard]] KeyboardPresetComponent &getKeyboardPreset();
+        [[nodiscard]] JoystickPresetComponent &getJoystickPreset();
 
     private:
         KeyboardPresetComponent _keyboardPreset;
+        JoystickPresetComponent _joystickPreset;
 
     public:
         int presetNumber;

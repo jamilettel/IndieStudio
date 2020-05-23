@@ -210,12 +210,25 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
 
     switch (character.characterType) {
-    case CharacterComponent::AI:
+    case CharacterComponent::AI: {
         e->addComponent<AIControllerComponent>(e, input);
         break;
-    case CharacterComponent::JOYSTICK_PLAYER:
+    } case CharacterComponent::JOYSTICK_PLAYER: {
+        const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
+        const auto it = std::find_if(
+            presets.begin(), presets.end(),
+            [&character] (const std::shared_ptr<is::ecs::Component> &component) {
+                const auto *preset = static_cast<PresetComponent *>(component.get());
+
+                return preset->presetNumber == character.presetNumber;
+            });
+        if (it == presets.end())
+            throw is::exceptions::Exception("Character", "Unable to find preset in components");
+        JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+        joystick.assignJoystick(character.joystickId);
+        joystick.setPreset(static_cast<PresetComponent *>(it->get())->getJoystickPreset());
         break;
-    case CharacterComponent::KEYBOARD_PLAYER:
+    } case CharacterComponent::KEYBOARD_PLAYER: {
         const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
         const auto it = std::find_if(
             presets.begin(), presets.end(),
@@ -229,6 +242,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
         KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
         keyboard.setPreset(static_cast<PresetComponent *>(it->get())->getKeyboardPreset());
         break;
+      }
     }
     return (e);
 }

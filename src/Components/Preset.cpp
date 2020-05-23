@@ -13,7 +13,10 @@ PresetComponent::PresetComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     int number
     ):
-    Component(e), _keyboardPreset(e), presetNumber(number)
+    Component(e), _keyboardPreset(e), _joystickPreset(e), presetNumber(number)
+{}
+
+void PresetComponent::deleteComponent()
 {}
 
 KeyboardPresetComponent &PresetComponent::getKeyboardPreset()
@@ -21,6 +24,7 @@ KeyboardPresetComponent &PresetComponent::getKeyboardPreset()
     return _keyboardPreset;
 }
 
-void PresetComponent::deleteComponent()
+JoystickPresetComponent &PresetComponent::getJoystickPreset()
 {
+    return _joystickPreset;
 }
