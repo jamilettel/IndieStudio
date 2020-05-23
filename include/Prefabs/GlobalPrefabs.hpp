@@ -42,12 +42,14 @@
 #include "Components/Character.hpp"
 #include "ECS/ComponentManager.hpp"
 #include "Components/Preset.hpp"
+#include "Components/Network.hpp"
 
 namespace is::prefabs {
 
     class GlobalPrefabs {
     public:
         static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
+        static std::shared_ptr<is::ecs::Entity> createGlobalPrefabMultiplayer();
         static std::shared_ptr<is::ecs::Entity> createWallBlock(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createCenterBlock(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createGrassBlock(const irr::core::vector3df &position);
@@ -58,6 +60,9 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(const irr::core::vector3df &position);
+
+        static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
+
         static std::shared_ptr<is::ecs::Entity> createPlayer(const irr::core::vector3df &pos);
         static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
             const irr::core::vector3df &pos,

@@ -95,8 +95,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(const irr::core::vect
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Lollipop.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("bombup.png"));
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::BOMB_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -111,8 +111,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(const irr::core::vec
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Star.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("speedup.png"));
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::SPEED_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -127,8 +127,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(const irr::core::vect
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Mushroom_1.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("fireup.png"));
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::FIRE_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -143,8 +143,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(const irr::core::ve
 {
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(2, 2, 2));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Mushroom_2.obj"), "Indie Studio");
+    TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("wallpass.png"));
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::WALL_PASS);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,

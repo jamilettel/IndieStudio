@@ -53,6 +53,8 @@ void AIControllerSystem::update()
 {
     std::vector<std::shared_ptr<Component>> &aiComponents =
         _componentManager->getComponentsByType(typeid(AIControllerComponent).hash_code());
+    std::vector<std::shared_ptr<Component>> &characterComponents =
+        _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code());
     std::vector<std::shared_ptr<Component>> &trComponents =
         _componentManager->getComponentsByType(typeid(TransformComponent).hash_code());
     int mapX = 13, mapY = 15;
@@ -86,7 +88,7 @@ void AIControllerSystem::update()
         ai.getInputManager().setValue("MoveHorizontalAxis", 0);
         ai.getInputManager().setValue("MoveVerticalAxis", 0);
 
-        (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, aiComponents);
+        (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, characterComponents);
     }
 }
 
@@ -530,9 +532,10 @@ static bool findPlayer(
 )
 {
     return (std::find_if(aiComponents.begin(), aiComponents.end(), [&ai, &i, &bombPos, &fct](const std::shared_ptr<Component> &component) -> bool {
-        AIControllerComponent &aiComponent = *static_cast<AIControllerComponent *>(component.get());
+        CharacterControllerComponent &aiComponent = *static_cast<CharacterControllerComponent *>(component.get());
+        CharacterControllerComponent &character = *ai.getEntity()->getComponent<CharacterControllerComponent>().value();
 
-        if (aiComponent == ai)
+        if (character == aiComponent)
             return (false);
         TransformComponent &tr = *static_cast<TransformComponent *>(aiComponent.getEntity()->getComponent<TransformComponent>()->get());
         irr::core::vector2di aiPos;

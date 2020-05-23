@@ -9,11 +9,13 @@
 
 is::components::ModelRendererComponent::ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
                                                                const std::string &name,
-                                                               const std::string &window) :
+                                                               const std::string &window,
+                                                               const std::string &matName) :
 Component(e)
 {
     fileName = name;
     windowName = window;
+    materialName = matName;
 }
 
 void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window)
@@ -21,6 +23,8 @@ void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<i
     node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(fileName.c_str()));
     if (!node)
         throw is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
+    if (materialName != "")
+        node->setMaterialTexture(0, ptr_window->driver->getTexture(materialName.c_str()));
 }
 
 irr::scene::IAnimatedMeshSceneNode *is::components::ModelRendererComponent::getElement() const
