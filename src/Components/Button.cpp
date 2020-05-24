@@ -13,8 +13,8 @@ using namespace irr;
 
 is::components::ButtonComponent::ButtonComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    std::string text,
-    std::string wn,
+    const std::string &text,
+    const std::string &wn,
     s32 x,
     s32 y,
     s32 width,
@@ -36,17 +36,17 @@ is::components::ButtonComponent::ButtonComponent(
 
 is::components::ButtonComponent::ButtonComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    std::string text,
-    std::string wn,
+    const std::string &text,
+    const std::string &wn,
     s32 x,
     s32 y,
     s32 width,
     s32 height,
     std::function<void()> ft,
     bool visible,
-    std::string image,
-    std::string pressed
-    ):
+    const std::string &image,
+    const std::string &pressed
+) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
     _image(std::move(image)),
@@ -61,18 +61,18 @@ is::components::ButtonComponent::ButtonComponent(
 
 is::components::ButtonComponent::ButtonComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    std::string text,
-    std::string wn,
+    const std::string &text,
+    const std::string &wn,
     s32 x,
     s32 y,
     s32 width,
     s32 height,
     std::function<void()> ft,
     bool visible,
-    std::string image,
-    std::string pressed,
-    std::string font
-    ):
+    const std::string &image,
+    const std::string &pressed,
+    const std::string &font
+):
     GUIElementComponent(e),
     windowName(std::move(wn)),
     _image(std::move(image)),
@@ -117,12 +117,16 @@ void is::components::ButtonComponent::setClicked(bool clicked)
 
 s32 is::components::ButtonComponent::getId() const
 {
-    return element->getID();
+    if (element)
+        return element->getID();
+    return (-1);
 }
 
 void is::components::ButtonComponent::deleteComponent()
 {
-    element->remove();
+    if (element)
+        element->remove();
+    element = nullptr;
 }
 
 void is::components::ButtonComponent::bringToFront()

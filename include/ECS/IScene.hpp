@@ -26,6 +26,7 @@ namespace is::ecs {
         SCENE_PRESETSELECTION,
         SCENE_MULTIPLAYER,
         SCENE_GAME,
+        SCENE_ENDGAME,
         NOTHING
     };
 

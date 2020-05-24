@@ -10,37 +10,47 @@
 
 #include "ECS/Component.hpp"
 
-namespace is::components {
-
+namespace is::components
+{
     class CharacterComponent : public is::ecs::Component {
-    public:
-        enum Type {
-            AI,
-            KEYBOARD_PLAYER,
-            JOYSTICK_PLAYER
-        };
-    public:
-        CharacterComponent(
-            std::shared_ptr<is::ecs::Entity> &e,
-            int characterNumber
-            );
-        ~CharacterComponent() = default;
+        public:
+            enum Type {
+                AI,
+                KEYBOARD_PLAYER,
+                JOYSTICK_PLAYER
+            };
 
-        CharacterComponent(const CharacterComponent &) = delete;
-        CharacterComponent &operator=(const CharacterComponent &) = delete;
+        public:
+            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e, int characterNumber);
+            ~CharacterComponent() override = default;
 
-        void deleteComponent() override;
+            void setTimePlaying(size_t time) noexcept;
+            void setNbBombPosed(size_t nbBombPosed) noexcept;
+            void setNbBonusCollected(size_t nbBonusCollected) noexcept;
+            void setNbCharactersKilled(size_t nbCharactersKilled) noexcept;
 
-        int number;
+            [[nodiscard]] int getTimePlaying() const noexcept;
+            [[nodiscard]] int getNbBombPosed() const noexcept;
+            [[nodiscard]] int getNbBonueCollected() const noexcept;
+            [[nodiscard]] int getNbCharactersKilled() const noexcept;
+            [[nodiscard]] bool isAI() const noexcept;
 
-        Type characterType = AI;
+            void deleteComponent() override;
+            void reset() noexcept;
 
-        int joystickId = -1;
-        int presetNumber = -1;
+            int number;
 
-    private:
+            Type characterType = AI;
+
+            int joystickId = -1;
+            int presetNumber = -1;
+
+        private:
+            size_t _timePlaying = 0;
+            size_t _nbBombPosed = 0;
+            size_t _nbBonusCollected = 0;
+            size_t _nbCharactersKilled = 0;
     };
-
 }
 
 #endif /* !CHARACTERCOMPONENT_HPP_ */
