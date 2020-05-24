@@ -1,4 +1,3 @@
-
 /*
 ** EPITECH PROJECT, 2020
 ** IndieStudio
@@ -19,7 +18,8 @@ namespace is::components {
         CursorComponent(
             std::shared_ptr<is::ecs::Entity> &e,
             ImageComponent &cursorImage,
-            WindowComponent &window
+            WindowComponent &window,
+            bool mouseCursor
             );
         ~CursorComponent() = default;
 
@@ -40,6 +40,10 @@ namespace is::components {
         ImageComponent &_cursorImage;
         WindowComponent &_window;
         irr::core::vector2df _pos;
+
+    public:
+        bool visible = true;
+        bool isMouseCursor;
 
     };
 

@@ -179,27 +179,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &po
     return (e);
 }
 
-// std::shared_ptr<Entity> GlobalPrefabs::createPlayer(const irr::core::vector3df &pos)
-// {
-//     auto e = createBomberman(pos);
-
-//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-//     KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
-//     keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
-//     keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
-//     keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", -1);
-//     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
-//     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
-//     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
-//     // JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
-//     // joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
-//     // joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
-//     // joystick.bindButton(2, "DropBomb", 1);
-//     // joystick.bindButton(0, "Jump", 1);
-//     // joystick.assignJoystick(0);
-//     return (e);
-// }
-
 std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     const irr::core::vector3df &pos,
     is::components::CharacterComponent &character,
@@ -297,15 +276,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     return (e);
 }
 
-// std::shared_ptr<Entity> GlobalPrefabs::createAI(const irr::core::vector3df &pos)
-// {
-//     auto e = createBomberman(pos);
-
-//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-//     e->addComponent<AIControllerComponent>(e, input);
-//     return (e);
-// }
-
 std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
 {
     auto e = std::make_shared<is::ecs::Entity>();
@@ -314,7 +284,6 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
     e->addComponent<CharacterComponent>(e, 1);
     e->addComponent<CharacterComponent>(e, 2);
     e->addComponent<CharacterComponent>(e, 3);
-
     return e;
 }
 
