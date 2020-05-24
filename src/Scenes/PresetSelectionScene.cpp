@@ -30,5 +30,6 @@ void is::scenes::PresetSelectionScene::initSystems()
 
 void is::scenes::PresetSelectionScene::initEntities()
 {
-    initEntity(prefabs::GlobalPrefabs::createPresetSelection(), false);
+    initEntity(prefabs::GlobalPrefabs::createPresetSelectionBase(), false);
+    initEntity(prefabs::GlobalPrefabs::createPresetSelectionOptions(*_componentManager), false);
 }

@@ -30,6 +30,8 @@ void is::scenes::SplashScreenScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createGlobalPrefab(), true);
     initEntity(prefabs::GlobalPrefabs::createSplashScreen(), false);
+    initEntity(prefabs::GlobalPrefabs::createCharacter(), true);
+    initEntity(prefabs::GlobalPrefabs::createPresets(), true);
 }
 
 void is::scenes::SplashScreenScene::start()

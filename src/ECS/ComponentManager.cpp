@@ -28,10 +28,14 @@ void is::ecs::ComponentManager::removeComponent(std::shared_ptr<Component> &comp
                 i++;
         }
     }
-    
 }
 
 std::vector<std::shared_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type)
 {
-    return (_components[type]);
+    return _components[type];
+}
+
+const std::vector<std::shared_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type) const
+{
+    return _components.at(type);
 }

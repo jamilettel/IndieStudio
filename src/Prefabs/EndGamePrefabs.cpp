@@ -47,13 +47,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 2.5);
-    addStatsPlayer(e, addTextHigh(e, 62), addTextLow(e, 62), infos);
-    addContinueButton(e, 40, addWaitingText(e, 100), isAI);
+    addStatsPlayer(e, addTextHigh(e, 102), addTextLow(e, 102), infos);
+    addContinueButton(e, 80, addWaitingText(e, 140), isAI);
     addHighTable(e, 3.5);
     addLowTable(e, 3.5);
     addMedal(e, 10, "ui/EndGame/Star_01.png");
-    addBackwardButton(e, 80);
-    addForwardButton(e, 280);
+    addBackwardButton(e, 100);
+    addForwardButton(e, 340);
     return (e);
 }
 
@@ -74,13 +74,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std:
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 26.3);
-    addStatsPlayer(e, addTextHigh(e, 445), addTextLow(e, 445), infos);
-    addContinueButton(e, 420, addWaitingText(e, 500), isAI);
+    addStatsPlayer(e, addTextHigh(e, 565), addTextLow(e, 565), infos);
+    addContinueButton(e, 540, addWaitingText(e, 600), isAI);
     addHighTable(e, 27.2);
     addLowTable(e, 27.2);
     addMedal(e, 34, "ui/EndGame/Star_02.png");
-    addBackwardButton(e, 450);
-    addForwardButton(e, 670);
+    addBackwardButton(e, 560);
+    addForwardButton(e, 800);
     return (e);
 }
 
@@ -101,13 +101,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std:
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 51.3);
-    addStatsPlayer(e, addTextHigh(e, 845), addTextLow(e, 845), infos);
-    addContinueButton(e, 820, addWaitingText(e, 900), isAI);
+    addStatsPlayer(e, addTextHigh(e, 1045), addTextLow(e, 1045), infos);
+    addContinueButton(e, 1020, addWaitingText(e, 1080), isAI);
     addHighTable(e, 52.2);
     addLowTable(e, 52.2);
     addMedal(e, 58, "ui/EndGame/Star_03.png");
-    addBackwardButton(e, 850);
-    addForwardButton(e, 1070);
+    addBackwardButton(e, 1040);
+    addForwardButton(e, 1280);
     return (e);
 }
 
@@ -128,12 +128,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std:
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 76.3);
-    addStatsPlayer(e, addTextHigh(e, 1245), addTextLow(e, 1245), infos);
-    addContinueButton(e, 1220, addWaitingText(e, 1300), isAI);
+    addStatsPlayer(e, addTextHigh(e, 1525), addTextLow(e, 1525), infos);
+    addContinueButton(e, 1500, addWaitingText(e, 1560), isAI);
     addHighTable(e, 77.2);
     addLowTable(e, 77.2);
-    addBackwardButton(e, 1250);
-    addForwardButton(e, 1470);
+    addBackwardButton(e, 1520);
+    addForwardButton(e, 1760);
     return (e);
 }
 
@@ -180,17 +180,18 @@ void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Ent
         "",
         "Indie Studio",
         posX + 75,
-        730,
+        850,
         200, 60,
         [](){},
+        true,
         RESSOURCE("ui/EndGame/continue_button.png"),
         RESSOURCE("ui/EndGame/continue_button_pressed.png")
     );
-    button._ft = [&button, &text, e]() {
+    button.setCallback([&button, &text, e]() {
         button.deleteComponent();
         text.setText("Waiting...");
         e->getComponent<StatsComponent>().value()->setContinue(true);
-    };
+    });
 }
 
 void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX)
@@ -200,11 +201,12 @@ void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<is::ecs::Ent
         "",
         "Indie Studio",
         posX,
-        650,
+        750,
         70, 70,
         [e](){
             e->getComponent<StatsComponent>().value()->prev();
         },
+        true,
         RESSOURCE("ui/EndGame/Backward_BTN.png"),
         RESSOURCE("ui/EndGame/Backward_BTN_pressed.png")
     );
@@ -217,11 +219,12 @@ void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<is::ecs::Enti
         "",
         "Indie Studio",
         posX,
-        650,
+        750,
         70, 70,
         [e](){
             e->getComponent<StatsComponent>().value()->next();
         },
+        true,
         RESSOURCE("ui/EndGame/Forward_BTN.png"),
         RESSOURCE("ui/EndGame/Forward_BTN_pressed.png")
     );
@@ -266,7 +269,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs:
         e,
         "Number of players killed",
         "Indie Studio",
-        posX, 390,
+        posX, 472,
         300, 200,
         false,
         true,
@@ -281,7 +284,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<is::ecs::
         e,
         "6",
         "Indie Studio",
-        posX, 480,
+        posX, 580,
         300, 200,
         false,
         true,
@@ -296,7 +299,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addWaitingText(std::shared_ptr<is::e
         e,
         "",
         "Indie Studio",
-        posX, 480,
+        posX, 530,
         250, 700,
         false,
         true,

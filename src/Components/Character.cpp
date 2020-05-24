@@ -10,11 +10,10 @@
 using namespace is::components;
 using namespace is::ecs;
 
-CharacterComponent::CharacterComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
-{
-}
-
-CharacterComponent::~CharacterComponent()
+CharacterComponent::CharacterComponent(
+    std::shared_ptr<Entity> &e,
+    int characterNumber
+) : Component(e), number(characterNumber)
 {
 }
 
@@ -36,11 +35,6 @@ void CharacterComponent::setNbBonusCollected(size_t nbBonusCollected) noexcept
 void CharacterComponent::setNbCharactersKilled(size_t nbCharactersKilled) noexcept
 {
     _nbCharactersKilled = nbCharactersKilled;
-}
-
-void CharacterComponent::setAI(bool isAI) noexcept
-{
-    _isAI = isAI;
 }
 
 int CharacterComponent::getTimePlaying() const noexcept
@@ -69,5 +63,13 @@ void CharacterComponent::deleteComponent()
 
 bool CharacterComponent::isAI() const noexcept
 {
-    return (_isAI);
+    return (characterType == Type::AI);
+}
+
+void CharacterComponent::reset() noexcept
+{
+    _timePlaying = 0;
+    _nbBombPosed = 0;
+    _nbBonusCollected = 0;
+    _nbCharactersKilled = 0;
 }

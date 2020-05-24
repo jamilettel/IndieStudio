@@ -21,8 +21,8 @@ namespace is::ecs {
             explicit AScene(Scenes sceneID);
             ~AScene() override = default;
 
-            void initEntity(std::shared_ptr<Entity> &&entity);
-            void initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad);
+            std::shared_ptr<Entity> &initEntity(std::shared_ptr<Entity> &&entity);
+            std::shared_ptr<Entity> &initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad);
 
             void initStaticEntities();
 

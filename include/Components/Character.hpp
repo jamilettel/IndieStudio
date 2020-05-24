@@ -14,14 +14,20 @@ namespace is::components
 {
     class CharacterComponent : public is::ecs::Component {
         public:
-            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e);
-            ~CharacterComponent();
+            enum Type {
+                AI,
+                KEYBOARD_PLAYER,
+                JOYSTICK_PLAYER
+            };
+
+        public:
+            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e, int characterNumber);
+            ~CharacterComponent() override = default;
 
             void setTimePlaying(size_t time) noexcept;
             void setNbBombPosed(size_t nbBombPosed) noexcept;
             void setNbBonusCollected(size_t nbBonusCollected) noexcept;
             void setNbCharactersKilled(size_t nbCharactersKilled) noexcept;
-            void setAI(bool isAI) noexcept;
 
             [[nodiscard]] int getTimePlaying() const noexcept;
             [[nodiscard]] int getNbBombPosed() const noexcept;
@@ -30,15 +36,21 @@ namespace is::components
             [[nodiscard]] bool isAI() const noexcept;
 
             void deleteComponent() override;
+            void reset() noexcept;
+
+            int number;
+
+            Type characterType = AI;
+
+            int joystickId = -1;
+            int presetNumber = -1;
 
         private:
             size_t _timePlaying = 0;
             size_t _nbBombPosed = 0;
             size_t _nbBonusCollected = 0;
             size_t _nbCharactersKilled = 0;
-            bool _isAI = false;
     };
 }
 
-
-#endif /* !CHARACTER_HPP_ */
+#endif /* !CHARACTERCOMPONENT_HPP_ */

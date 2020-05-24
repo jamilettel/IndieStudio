@@ -38,38 +38,39 @@ void is::scenes::EndGameScene::initEntities()
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     int i = 0;
     std::for_each(entities.begin(), entities.end(), [this, &i, &entities](std::shared_ptr<is::ecs::Entity> &e) {
-        auto c = e->getComponent<CharacterComponent>();
+        auto components = e->getComponentsOfType<CharacterComponent>();
 
-        if (!c.has_value())
-            return;
-        std::vector<std::pair<std::string, std::string>> infos;
+        std::for_each(components.begin(), components.end(), [&i, this](std::weak_ptr<Component> &component) {
+            std::vector<std::pair<std::string, std::string>> infos;
+            auto &c = *static_cast<CharacterComponent *>(component.lock().get());
 
-        infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.value()->getNbBombPosed())));
-        infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.value()->getNbBonueCollected())));
-        infos.emplace_back(std::make_pair("Players killed", std::to_string(c.value()->getNbCharactersKilled())));
-        infos.emplace_back(std::make_pair("Time playing", std::to_string(c.value()->getTimePlaying())));
-        switch (i)
-        {
-        case 0:
-            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.value()->isAI()), false);
-            break;
-        case 1:
-            initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.value()->isAI()), false);
-            break;
-        case 2:
-            initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.value()->isAI()), false);
-            break;
-        case 3:
-            initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.value()->isAI()), false);
-            break;
-        default:
-            break;
-        }
-        i++;
+            infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
+            infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
+            infos.emplace_back(std::make_pair("Players killed", std::to_string(c.getNbCharactersKilled())));
+            infos.emplace_back(std::make_pair("Time playing", std::to_string(c.getTimePlaying())));
+            switch (i)
+            {
+            case 0:
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.isAI()), false);
+                break;
+            case 1:
+                initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.isAI()), false);
+                break;
+            case 2:
+                initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.isAI()), false);
+                break;
+            case 3:
+                initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.isAI()), false);
+                break;
+            default:
+                break;
+            }
+            i++;
+        });
     });
-    std::remove_if(entities.begin(), entities.end(), [](std::shared_ptr<is::ecs::Entity> &e) -> bool {
-        return (e->getComponent<CharacterComponent>().has_value());
-    });
+    // std::remove_if(entities.begin(), entities.end(), [](std::shared_ptr<is::ecs::Entity> &e) -> bool {
+    //     return (e->getComponent<CharacterComponent>().has_value());
+    // });
 }
 
 void is::scenes::EndGameScene::update()

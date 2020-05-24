@@ -24,6 +24,7 @@ namespace is::ecs {
         SCENE_SETTINGS,
         SCENE_CONTROLLERS,
         SCENE_PRESETSELECTION,
+        SCENE_MULTIPLAYER,
         SCENE_GAME,
         SCENE_ENDGAME,
         NOTHING
