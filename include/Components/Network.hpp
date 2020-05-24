@@ -15,9 +15,12 @@
 #include "ECS/Component.hpp"
 #include "Exception.hpp"
 
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 
     #include <winsock2.h> 
+    #include <io.h>
+    #include <Ws2tcpip.h>
+    #pragma comment(lib, "ws2_32.lib")
 
 #else
 
