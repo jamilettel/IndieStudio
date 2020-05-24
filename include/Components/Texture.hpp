@@ -38,8 +38,8 @@ namespace is::components
             const irr::core::vector2df &getSize() const noexcept;
             irr::video::ITexture *getNode() const noexcept;
 
-            std::string windowName;
             std::string filename;
+            std::string windowName;
        private:
             irr::video::ITexture *_node;
             irr::core::vector2df _pos;

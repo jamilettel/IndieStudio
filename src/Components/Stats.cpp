@@ -25,7 +25,7 @@ StatsComponent::~StatsComponent()
 void StatsComponent::next() noexcept
 {
     _i++;
-    if (_i == _stats.size())
+    if (_i == static_cast<int>(_stats.size()))
         _i = 0;
     _highText.setText(_stats[_i].first);
     _lowText.setText(_stats[_i].second);
