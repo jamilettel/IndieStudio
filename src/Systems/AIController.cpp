@@ -122,7 +122,6 @@ void AIControllerSystem::setNewLongObjective(
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     if (findBombEmplacement(ai, aiPos, map, aiComponents)) {
-        // std::cout << "FIND EMPLACEMENT FOR BOMB" << std::endl;
         // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
         // std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
 
@@ -131,8 +130,10 @@ void AIControllerSystem::setNewLongObjective(
             _mapY,
             std::pair<int, int>(aiPos.X, aiPos.Y),
             std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
-            [this, &bomberman, &map, &ai](const std::pair<int, int> &pos) ->bool {
-                return (!isAirBlock(map[pos.first][pos.second], bomberman) && posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map));
+            [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) ->bool {
+                if (posIsHideFromBombs(ai, aiPos, map) && !posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map))
+                    return (true);
+                return (!isAirBlock(map[pos.first][pos.second], bomberman));
         });
         astar.searchPath();
         std::optional<std::pair<int, int>> pos;
@@ -143,7 +144,6 @@ void AIControllerSystem::setNewLongObjective(
 
         setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
     } else {
-        // std::cout << "CANT FIND EMPLACEMENT FOR BOMB" << std::endl;
         ai.state = AIControllerComponent::NONE;
     }
 }
@@ -325,7 +325,7 @@ bool AIControllerSystem::findBombEmplacement(
         if (!isValid(newPos, map) || !isAirBlock(map[newPos.X][newPos.Y], bomberman))
             continue;
         // if he is not in danger and the new pos is in danger
-        if (!posIsHideFromBombs(ai, newPos, map))
+        if (posIsHideFromBombs(ai, pos, map) && !posIsHideFromBombs(ai, newPos, map))
             continue;
         if (bombPosIsUseful(ai, newPos, map, pos, aiComponents) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
@@ -376,7 +376,7 @@ void AIControllerSystem::escapeExplosionState(
 
 void AIControllerSystem::putBombState(
     is::components::AIControllerComponent &ai,
-    irr::core::vector2df &aiPos,
+    irr::core::vector2df &aiPosF,
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
@@ -384,9 +384,9 @@ void AIControllerSystem::putBombState(
     // std::cout << "PUT BOMB STATE" << std::endl;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    moveAI(ai, aiPos);
-    if (hasReachedObjective(ai, aiPos)) {
-        if (!bombPosIsUseful(ai, ai.longObjective, map, irr::core::vector2di(aiPos.X, aiPos.Y), aiComponents)) {
+    moveAI(ai, aiPosF);
+    if (hasReachedObjective(ai, aiPosF)) {
+        if (!bombPosIsUseful(ai, ai.longObjective, map, irr::core::vector2di(aiPosF.X, aiPosF.Y), aiComponents)) {
             ai.state = AIControllerComponent::NONE;
             return;
         }
@@ -397,14 +397,17 @@ void AIControllerSystem::putBombState(
             ai.longObjective = ai.posToEscape;
             // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             ai.lastShortObjective = ai.shortObjective;
+            irr::core::vector2di aiPos(aiPosF.X, aiPosF.Y);
 
             AStarAlgorithm astar(
                 _mapX,
                 _mapY,
                 std::pair<int, int>(aiPos.X, aiPos.Y),
                 std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
-                [this, &bomberman, &map, &ai](const std::pair<int, int> &pos) -> bool {
-                    return (!isAirBlock(map[pos.first][pos.second], bomberman) && posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map));
+                [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
+                    if (posIsHideFromBombs(ai, aiPos, map) && !posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map))
+                        return (true);
+                    return (!isAirBlock(map[pos.first][pos.second], bomberman));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
@@ -413,7 +416,7 @@ void AIControllerSystem::putBombState(
                 ai.path.emplace_back(pos.value());
             }
         }
-        setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+        setNewShortObjective(ai, irr::core::vector2di(aiPosF.X, aiPosF.Y), map);
     }
 }
 
@@ -426,12 +429,13 @@ void AIControllerSystem::putBombState(
 
 void AIControllerSystem::waitingState(
     is::components::AIControllerComponent &ai,
-    irr::core::vector2df &aiPos,
+    irr::core::vector2df &aiPosF,
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
 {
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
+    irr::core::vector2di aiPos(aiPosF.X, aiPosF.Y);
 
     // std::cout << "WAITING STATE" << std::endl;
     if (!posIsHideFromBombs(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
@@ -445,8 +449,10 @@ void AIControllerSystem::waitingState(
                 _mapY,
                 std::pair<int, int>(aiPos.X, aiPos.Y),
                 std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
-                [this, &bomberman, &map, &ai](const std::pair<int, int> &pos) -> bool {
-                    return (!isAirBlock(map[pos.first][pos.second], bomberman) && posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map));
+                [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
+                    if (posIsHideFromBombs(ai, aiPos, map) && !posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map))
+                        return (true);
+                    return (!isAirBlock(map[pos.first][pos.second], bomberman));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
