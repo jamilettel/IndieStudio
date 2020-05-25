@@ -63,13 +63,11 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(const irr::core::vector3df &position);
 
             static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
-            // static std::shared_ptr<is::ecs::Entity> createPlayer(const irr::core::vector3df &pos);
             static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
                 const irr::core::vector3df &pos,
                 is::components::CharacterComponent &character,
                 const is::ecs::ComponentManager &manager
             );
-            // static std::shared_ptr<is::ecs::Entity> createAI(const irr::core::vector3df &pos);
 
             static std::shared_ptr<is::ecs::Entity> createSplashScreen();
             static std::shared_ptr<is::ecs::Entity> createMainMenu();

@@ -23,10 +23,18 @@ void CursorSystem::update()
 
     for (auto &elem: list) {
         CursorComponent *cursor = static_cast<CursorComponent *>(elem.get());
-        auto pos = cursor->getWindow().eventManager.getMousePosition();
+        std::pair<float, float> pos;
 
-        cursor->setPosition(pos.first + 1, pos.second + 1);
+        if (cursor->isMouseCursor) {
+            pos = cursor->getWindow().eventManager.getMousePosition();
+            cursor->setPosition(pos.first + 1, pos.second + 1);
+        } else {
+            pos.first = cursor->getPosition().X;
+            pos.second = cursor->getPosition().Y;
+        }
+
         cursor->getImage().setPosition(pos.first + 1, pos.second + 1);
+        cursor->getImage().setVisible(cursor->visible);
     }
 }
 
