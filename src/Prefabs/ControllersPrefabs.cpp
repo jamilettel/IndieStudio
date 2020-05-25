@@ -50,22 +50,27 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersBa
         e,
         RESSOURCE("ui/Controllers/Controller.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first - 350, 200,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 20,
         true
     ).layer = 1;
     e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/Controllers/Keyboard.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 180,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 8 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
         true
     ).layer = 1;
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOptions()
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOptions(const is::ecs::ComponentManager &manager)
 {
     auto e = std::make_shared<is::ecs::Entity>();
+    std::function<void(ButtonComponent &, TextComponent&, TextComponent &)> ft = [&manager](ButtonComponent &button, TextComponent &textKeyboard, TextComponent &textController){
+        auto &characters = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
+    };
 
     selectedPreset = 0;
     auto &TextPresetSelected = e->addComponent<is::components::TextComponent>(
@@ -100,8 +105,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
         },
         true,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        RESSOURCE("ui/Controllers/Forward_BTN.png"),
+        RESSOURCE("ui/Controllers/Forward_BTN_pressed.png")
     );
     changePresetNext.layer = 3;
 
@@ -122,9 +127,42 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
         },
         true,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        RESSOURCE("ui/Controllers/Backward_BTN.png"),
+        RESSOURCE("ui/Controllers/Backward_BTN_pressed.png")
     );
     changePresetPrev.layer = 3;
+
+    for (int i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
+        auto &textAction = e->addComponent<is::components::TextComponent>(
+            e,
+            CharacterComponent::playerActions[i].description,
+            "Indie Studio",
+            is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 1.9 / 20,
+            is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+            300, 100,
+            true,
+            false,
+            RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+            irr::video::SColor(255, 255, 255, 255),
+            true
+        );
+        textAction.layer = 2;
+
+        auto &buttonAction = e->addComponent<ButtonComponent>(
+            e,
+            "",
+            "Indie Studio",
+            is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+            is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+            250, 70,
+            [&textAction](){
+                textAction.setText("Change");
+            },
+            true,
+            RESSOURCE("ui/Controllers/Change_BTN.png"),
+            RESSOURCE("ui/Controllers/Change_BTN_pressed.png")
+        );
+        buttonAction.layer = 3;
+    }
     return e;
 }
