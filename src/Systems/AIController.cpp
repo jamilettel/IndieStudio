@@ -405,8 +405,6 @@ void AIControllerSystem::putBombState(
                 std::pair<int, int>(aiPos.X, aiPos.Y),
                 std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
                 [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
-                    if (posIsHideFromBombs(ai, aiPos, map) && !posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map))
-                        return (true);
                     return (!isAirBlock(map[pos.first][pos.second], bomberman));
             });
             astar.searchPath();
