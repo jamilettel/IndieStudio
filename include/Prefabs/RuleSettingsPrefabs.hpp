@@ -26,6 +26,9 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createReturnButton();
             static std::shared_ptr<is::ecs::Entity> createSettingsBackground();
             static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule();
+            static std::shared_ptr<is::ecs::Entity> createIconsRule();
+            static std::shared_ptr<is::ecs::Entity> createMaxTimeRule();
+            static std::shared_ptr<is::ecs::Entity> createModeFpsRule();
 
         private:
     };
