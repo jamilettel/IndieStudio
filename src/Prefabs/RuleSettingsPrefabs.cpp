@@ -107,3 +107,55 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground()
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Dot_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(11.3, 36),
+        irr::core::vector2df(3, 5)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(15, 35),
+        irr::core::vector2df(20, 8)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(36, 35),
+        irr::core::vector2df(7, 8)
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1200,
+        550,
+        60, 60,
+        [](){},
+        true,
+        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1550,
+        550,
+        60, 60,
+        [](){},
+        true,
+        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+    );
+    return (e);
+}

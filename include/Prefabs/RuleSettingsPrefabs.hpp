@@ -25,6 +25,7 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createSaveButton();
             static std::shared_ptr<is::ecs::Entity> createReturnButton();
             static std::shared_ptr<is::ecs::Entity> createSettingsBackground();
+            static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule();
 
         private:
     };
