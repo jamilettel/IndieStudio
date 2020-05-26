@@ -70,7 +70,15 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createReturnButton()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground()
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createRuleSettings()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<RulesSettingComponent>(e);
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground(is::components::RulesSettingComponent &component)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -88,7 +96,9 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground()
         500,
         250,
         60, 60,
-        [](){},
+        [&component](){
+            component.down();
+        },
         true,
         RESSOURCE("ui/RuleSettings/Upward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Upward_BTN_pressed.png")
@@ -100,7 +110,9 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground()
         500,
         850,
         60, 60,
-        [](){},
+        [&component](){
+            component.up();
+        },
         true,
         RESSOURCE("ui/RuleSettings/Downward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Downward_BTN_pressed.png")
@@ -108,11 +120,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule()
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(is::components::RulesSettingComponent &component)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<TextureComponent>(
+    TextureComponent &dot = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Dot_01.png"),
         "Indie Studio",
@@ -133,7 +145,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         irr::core::vector2df(36, 35),
         irr::core::vector2df(7, 8)
     );
-    e->addComponent<ButtonComponent>(
+    ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
@@ -145,7 +157,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
     );
-    e->addComponent<ButtonComponent>(
+    ButtonComponent &forward = e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
@@ -157,19 +169,31 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
+    component.addRule(
+        [&dot, &backward, &forward](){
+            dot.setVisible(true);
+            backward.setVisible(true);
+            forward.setVisible(true);
+        },
+        [&dot, &backward, &forward](){
+            dot.setVisible(false);
+            backward.setVisible(false);
+            forward.setVisible(false);
+        });
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule()
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::components::RulesSettingComponent &component)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<TextureComponent>(
+    TextureComponent &dot = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Dot_01.png"),
         "Indie Studio",
         irr::core::vector2df(11.3, 46),
-        irr::core::vector2df(3, 5)
+        irr::core::vector2df(3, 5),
+        false
     );
     e->addComponent<TextureComponent>(
         e,
@@ -185,19 +209,27 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule()
         irr::core::vector2df(36, 45),
         irr::core::vector2df(7, 8)
     );
+    component.addRule(
+        [&dot](){
+            dot.setVisible(true);
+        },
+        [&dot](){
+            dot.setVisible(false);
+        });
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule()
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::components::RulesSettingComponent &component)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<TextureComponent>(
+    TextureComponent &dot = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Dot_01.png"),
         "Indie Studio",
         irr::core::vector2df(11.3, 56),
-        irr::core::vector2df(3, 5)
+        irr::core::vector2df(3, 5),
+        false
     );
     e->addComponent<TextureComponent>(
         e,
@@ -213,19 +245,27 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule()
         irr::core::vector2df(36, 55),
         irr::core::vector2df(7, 8)
     );
+    component.addRule(
+        [&dot](){
+            dot.setVisible(true);
+        },
+        [&dot](){
+            dot.setVisible(false);
+        });
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule()
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::components::RulesSettingComponent &component)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<TextureComponent>(
+    TextureComponent &dot = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Dot_01.png"),
         "Indie Studio",
         irr::core::vector2df(11.3, 66),
-        irr::core::vector2df(3, 5)
+        irr::core::vector2df(3, 5),
+        false
     );
     e->addComponent<TextureComponent>(
         e,
@@ -241,5 +281,12 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule()
         irr::core::vector2df(36, 65),
         irr::core::vector2df(7, 8)
     );
+    component.addRule(
+        [&dot](){
+            dot.setVisible(true);
+        },
+        [&dot](){
+            dot.setVisible(false);
+        });
     return (e);
 }

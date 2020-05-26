@@ -9,6 +9,7 @@
 
 using namespace is::ecs;
 using namespace is::scenes;
+using namespace is::components;
 
 RuleSettingsScene::RuleSettingsScene() : AScene(is::ecs::Scenes::SCENE_RULE_SETTINGS)
 {
@@ -36,9 +37,13 @@ void RuleSettingsScene::initEntities()
     initEntity(is::prefabs::RuleSettingsPrefabs::createBackground());
     initEntity(is::prefabs::RuleSettingsPrefabs::createSaveButton());
     initEntity(is::prefabs::RuleSettingsPrefabs::createReturnButton());
-    initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground());
-    initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule());
-    initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule());
-    initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule());
-    initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule());
+    initEntity(is::prefabs::RuleSettingsPrefabs::createRuleSettings(), false);
+
+    RulesSettingComponent &rules = *static_cast<RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(RulesSettingComponent).hash_code())[0].get());
+    
+    initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground(rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rules));
 }

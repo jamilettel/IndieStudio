@@ -22,7 +22,8 @@ namespace is::components
                 const std::string &filename,
                 const std::string &windowName,
                 const irr::core::vector2df &pos,
-                const irr::core::vector2df &size
+                const irr::core::vector2df &size,
+                bool visible = true
             );
 
             ~TextureComponent() override = default;
@@ -37,6 +38,8 @@ namespace is::components
             const irr::core::vector2df &getPosition() const noexcept;
             const irr::core::vector2df &getSize() const noexcept;
             irr::video::ITexture *getNode() const noexcept;
+            bool isVisible() const noexcept;
+            void setVisible(bool visible) noexcept;
 
             std::string filename;
             std::string windowName;
@@ -44,6 +47,7 @@ namespace is::components
             irr::video::ITexture *_node;
             irr::core::vector2df _pos;
             irr::core::vector2df _size;
+            bool _visible;
     };
 
 }

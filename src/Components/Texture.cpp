@@ -14,8 +14,9 @@ is::components::TextureComponent::TextureComponent(
     const std::string &name,
     const std::string &window,
     const irr::core::vector2df &pos,
-    const irr::core::vector2df &size
-) : Component(e), filename(name), windowName(window), _pos(pos), _size(size)
+    const irr::core::vector2df &size,
+    bool visible
+) : Component(e), filename(name), windowName(window), _pos(pos), _size(size), _visible(visible)
 {
 }
 
@@ -44,4 +45,14 @@ const irr::core::vector2df &is::components::TextureComponent::getSize() const no
 irr::video::ITexture *is::components::TextureComponent::getNode() const noexcept
 {
     return (_node);
+}
+
+bool is::components::TextureComponent::isVisible() const noexcept
+{
+    return (_visible);
+}
+
+void is::components::TextureComponent::setVisible(bool visible) noexcept
+{
+    _visible = visible;
 }

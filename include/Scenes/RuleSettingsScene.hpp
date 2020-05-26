@@ -24,6 +24,8 @@
 #include "Systems/Texture.hpp"
 #include "Systems/Text.hpp"
 
+#include "Components/RulesSettingComponent.hpp"
+
 #include "Prefabs/RuleSettingsPrefabs.hpp"
 
 namespace is::scenes
