@@ -22,39 +22,42 @@ namespace is::components {
         public:
             ButtonComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
-                std::string text,
-                std::string wn,
-                irr::s32 x,
-                irr::s32 y,
-                irr::s32 width,
-                irr::s32 height,
-                std::function<void()> ft
-                );
-            ButtonComponent(
-                std::shared_ptr<is::ecs::Entity> &e,
-                std::string text,
-                std::string wn,
+                const std::string &text,
+                const std::string &wn,
                 irr::s32 x,
                 irr::s32 y,
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft,
-                std::string image,
-                std::string pressed
-                );
+                bool visible
+            );
             ButtonComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
-                std::string text,
-                std::string wn,
+                const std::string &text,
+                const std::string &wn,
                 irr::s32 x,
                 irr::s32 y,
                 irr::s32 width,
                 irr::s32 height,
                 std::function<void()> ft,
-                std::string image,
-                std::string pressed,
-                std::string font
-                );
+                bool visible,
+                const std::string &image,
+                const std::string &pressed
+            );
+            ButtonComponent(
+                std::shared_ptr<is::ecs::Entity> &e,
+                const std::string &text,
+                const std::string &wn,
+                irr::s32 x,
+                irr::s32 y,
+                irr::s32 width,
+                irr::s32 height,
+                std::function<void()> ft,
+                bool visible,
+                const std::string &image,
+                const std::string &pressed,
+                const std::string &font
+            );
             ~ButtonComponent() override = default;
 
             ButtonComponent(const ButtonComponent &) = delete;
@@ -62,23 +65,29 @@ namespace is::components {
 
             void init(std::shared_ptr<is::components::WindowComponent> &ptr_window) override;
             void deleteComponent() override;
-            std::function<void()> _ft;
-            [[nodiscard]] bool isClicked() const;
-            void setClicked(bool);
             [[nodiscard]] irr::s32 getId() const;
 
+            [[nodiscard]] bool isClicked() const;
+            void setClicked(bool);
+
+            void setCallback(std::function<void()> ft);
+            void callCallback() const;
+
             void bringToFront() override;
+            void setVisible(bool visible);
 
             std::string windowName;
 
         private:
-            bool _clicked;
-            std::string _text;
-            irr::core::rect<irr::s32> _dimension;
-            irr::gui::IGUIButton *element{};
             const std::string _image;
             const std::string _pressed;
             const std::string _font;
+            std::string _text;
+            irr::core::rect<irr::s32> _dimension;
+            irr::gui::IGUIButton *element{};
+            bool _clicked;
+            bool _visible;
+            std::function<void()> _ft;
     };
 
 }

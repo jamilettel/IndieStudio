@@ -14,10 +14,6 @@
 using namespace is::systems;
 using namespace is::components;
 
-//
-#include <irrlicht.h>
-//
-
 void TextSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {

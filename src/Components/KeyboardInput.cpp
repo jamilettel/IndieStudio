@@ -13,7 +13,9 @@ using namespace is::ecs;
 KeyboardInputComponent::KeyboardInputComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     InputManagerComponent &inputManager
-    ): Component(e), _inputManager(inputManager)
+    ):
+    Component(e),
+    _inputManager(inputManager)
 {}
 
 void KeyboardInputComponent::deleteComponent()
@@ -74,4 +76,10 @@ InputManagerComponent &KeyboardInputComponent::getInputManager() const
 void KeyboardInputComponent::unbindAll()
 {
     _bindings.clear();
+}
+
+void KeyboardInputComponent::setPreset(const KeyboardPresetComponent &preset)
+{
+    for (auto &binding: preset.getBindings())
+        bind(binding.second, binding.first.action, binding.first.value);
 }

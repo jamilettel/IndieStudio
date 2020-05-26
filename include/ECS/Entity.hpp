@@ -52,12 +52,12 @@ namespace is::ecs {
             [[nodiscard]] std::vector<std::shared_ptr<Component>> getComponents() const;
 
             template <class T>
-            std::vector<std::shared_ptr<T>> getComponentsOfType() {
-                std::vector<std::shared_ptr<T>> ret;
+            std::vector<std::weak_ptr<Component>> getComponentsOfType() {
+                std::vector<std::weak_ptr<Component>> ret;
 
                 for (std::shared_ptr<Component> &component: _components) {
                     if (dynamic_cast<T *>(component.get()))
-                        ret.emplace_back(std::shared_ptr<T>(static_cast<T *>(component.get())));
+                        ret.emplace_back(component);
                 }
                 return ret;
             }

@@ -15,6 +15,7 @@
 #include "Components/Movement.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Time.hpp"
+#include "Components/Bomb.hpp"
 #include "AStarAlgorithm.hpp"
 #include "ECS/Component.hpp"
 #include "Components/Bomberman.hpp"
@@ -75,7 +76,13 @@ namespace is::systems {
             const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
         ) const;
         bool posIsHideFromBombs(const AIControllerComponent &ai, const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
-        bool posIsHideFromABomb(const irr::core::vector2di &aiPOs, const std::vector<std::vector<is::ecs::Entity::Layer>> &map, const irr::core::vector2di &bombPos, const BombermanComponent &bomberman) const noexcept;
+        bool posIsHideFromABomb(
+            const irr::core::vector2di &aiPos,
+            const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+            const irr::core::vector2di &bombPos,
+            const BombermanComponent &bomberman,
+            int bombSize
+        ) const noexcept;
 
         // ESCAPE EXPLOSION STATE
         void escapeExplosionState(
@@ -128,6 +135,8 @@ namespace is::systems {
             const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
         ) const noexcept;
 
+        int getSizeBomb(const std::vector<std::shared_ptr<Component>> &bombs, const irr::core::vector2di &pos) const;
+
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
 
@@ -137,6 +146,9 @@ namespace is::systems {
             std::vector<std::vector<is::ecs::Entity::Layer>> &map,
             std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents) const;
         std::map<AIControllerComponent::AIState, state_function_t> _mapFunctionState;
+
+        int _mapX = 13;
+        int _mapY = 15;
     };
 
 }

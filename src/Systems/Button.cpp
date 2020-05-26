@@ -50,7 +50,7 @@ void ButtonSystem::update()
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
         auto ptr = std::dynamic_pointer_cast<ButtonComponent>(elem);
         if (ptr->isClicked()) {
-            ptr->_ft();
+            ptr->callCallback();
             ptr->setClicked(false);
         }
     }
