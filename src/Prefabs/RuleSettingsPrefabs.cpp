@@ -209,12 +209,84 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         irr::core::vector2df(36, 45),
         irr::core::vector2df(7, 8)
     );
+    ButtonComponent &backward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1250,
+        250,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
+    );
+    ButtonComponent &forward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1550,
+        250,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+    );
+    TextureComponent &onOff = e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(71, 23),
+        irr::core::vector2df(7, 8),
+        false
+    );
+    TextureComponent &highBox = e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Box.png"),
+        "Indie Studio",
+        irr::core::vector2df(60, 35),
+        irr::core::vector2df(30, 25),
+        false
+    );
+    ButtonComponent &downward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1400,
+        650,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Downward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Downward_BTN_pressed.png")
+    );
+    TextureComponent &lowBox = e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Box.png"),
+        "Indie Studio",
+        irr::core::vector2df(60, 70),
+        irr::core::vector2df(30, 25),
+        false
+    );
     component.addRule(
-        [&dot](){
+        [&dot, &forward, &backward, &onOff, &highBox, &downward, &lowBox](){
             dot.setVisible(true);
+            forward.setVisible(true);
+            backward.setVisible(true);
+            onOff.setVisible(true);
+            highBox.setVisible(true);
+            downward.setVisible(true);
+            lowBox.setVisible(true);
         },
-        [&dot](){
+        [&dot, &forward, &backward, &onOff, &highBox, &downward, &lowBox](){
             dot.setVisible(false);
+            forward.setVisible(false);
+            backward.setVisible(false);
+            onOff.setVisible(false);
+            highBox.setVisible(false);
+            downward.setVisible(false);
+            lowBox.setVisible(false);
         });
     return (e);
 }
