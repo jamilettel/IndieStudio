@@ -11,6 +11,7 @@
 #include "ECS/Entity.hpp"
 
 #include "Components/Texture.hpp"
+#include "Components/Button.hpp"
 
 #include <irrlicht.h>
 
@@ -21,6 +22,8 @@ namespace is::prefabs
     class RuleSettingsPrefabs {
         public:
             static std::shared_ptr<is::ecs::Entity> createBackground();
+            static std::shared_ptr<is::ecs::Entity> createSaveButton();
+            static std::shared_ptr<is::ecs::Entity> createReturnButton();
 
         private:
     };

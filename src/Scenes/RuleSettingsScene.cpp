@@ -34,4 +34,11 @@ void RuleSettingsScene::initSystems()
 void RuleSettingsScene::initEntities()
 {
     initEntity(is::prefabs::RuleSettingsPrefabs::createBackground());
+    initEntity(is::prefabs::RuleSettingsPrefabs::createSaveButton());
+    initEntity(is::prefabs::RuleSettingsPrefabs::createReturnButton());
+    // initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground());
+    // initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule());
+    // initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule());
+    // initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule());
+    // initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule());
 }
