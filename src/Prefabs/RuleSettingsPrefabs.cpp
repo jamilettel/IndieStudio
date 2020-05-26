@@ -69,3 +69,41 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createReturnButton()
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table.png"),
+        "Indie Studio",
+        irr::core::vector2df(10, 20),
+        irr::core::vector2df(35, 70)
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        500,
+        250,
+        60, 60,
+        [](){},
+        true,
+        RESSOURCE("ui/RuleSettings/Upward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Upward_BTN_pressed.png")
+    );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        500,
+        850,
+        60, 60,
+        [](){},
+        true,
+        RESSOURCE("ui/RuleSettings/Downward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Downward_BTN_pressed.png")
+    );
+    return (e);
+}
