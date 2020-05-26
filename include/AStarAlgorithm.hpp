@@ -16,6 +16,7 @@
 #include <functional>
 #include <memory>
 #include <stack>
+#include <optional>
 
 namespace is
 {

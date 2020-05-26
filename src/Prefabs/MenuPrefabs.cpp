@@ -490,6 +490,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerHu
         [](){
             is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY_CHOICE);
         },
+        true,
         RESSOURCE("ui/main_menu/button_play.png"),
         RESSOURCE("ui/main_menu/button_play_pressed.png")
     );
@@ -521,6 +522,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/Record/Return_BTN.png"),
         RESSOURCE("ui/Record/Return_BTN_pressed.png")
     ).layer = 2;
@@ -535,6 +537,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
             nc->writeQueue.push("join lobby 0\n");
             std::cout << "sdkcjsh" << std::endl;
         },
+        true,
         RESSOURCE("ui/main_menu/button_play.png"),
         RESSOURCE("ui/main_menu/button_play_pressed.png")
     );
@@ -566,6 +569,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
+        true,
         RESSOURCE("ui/Record/Return_BTN.png"),
         RESSOURCE("ui/Record/Return_BTN_pressed.png")
     ).layer = 2;
