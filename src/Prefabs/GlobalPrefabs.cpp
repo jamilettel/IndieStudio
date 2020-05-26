@@ -177,7 +177,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::cor
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::core::vector3df pos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::core::vector3df pos, const std::string &texture)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
 
@@ -213,7 +213,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     );
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture), true);
+    auto tmp = e->getComponent<ModelRendererComponent>();
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e);
@@ -239,7 +240,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core::vector3df pos)
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core::vector3df pos, const std::string &texture)
 {
     auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
 
@@ -275,7 +276,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
     collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
     collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e);

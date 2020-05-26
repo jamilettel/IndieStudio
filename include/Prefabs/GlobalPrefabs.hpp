@@ -57,8 +57,8 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(irr::core::vector3df position);
             static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(irr::core::vector3df position);
             static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(irr::core::vector3df position);
-            static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos);
-            static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos);
+            static std::shared_ptr<is::ecs::Entity> createPlayer(irr::core::vector3df pos, const std::string &texture = "player_white.png");
+            static std::shared_ptr<is::ecs::Entity> createAI(irr::core::vector3df pos, const std::string &texture = "player_black.png");
 
             static std::shared_ptr<is::ecs::Entity> createSplashScreen();
             static std::shared_ptr<is::ecs::Entity> createMainMenu();
