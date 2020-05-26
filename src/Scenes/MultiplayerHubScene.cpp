@@ -5,9 +5,9 @@
 ** SplashScreen
 */
 
-#include "Scenes/MultiplayerScene.hpp"
+#include "Scenes/MultiplayerHubScene.hpp"
 
-is::scenes::MultiplayerScene::MultiplayerScene() :
+is::scenes::MultiplayerHubScene::MultiplayerHubScene() :
 AScene(is::ecs::Scenes::SCENE_PRESETSELECTION)
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
@@ -15,7 +15,7 @@ AScene(is::ecs::Scenes::SCENE_PRESETSELECTION)
     _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::MultiplayerScene::initSystems()
+void is::scenes::MultiplayerHubScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
@@ -29,9 +29,9 @@ void is::scenes::MultiplayerScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
 }
 
-void is::scenes::MultiplayerScene::initEntities()
+void is::scenes::MultiplayerHubScene::initEntities()
 {
     std::shared_ptr<is::ecs::Entity> &e = initEntity(prefabs::GlobalPrefabs::createGlobalPrefabMultiplayer(), true);
     auto a = e->getComponent<is::components::NetworkComponent>();
-    initEntity(prefabs::GlobalPrefabs::createMultiplayer(*e->getComponent<is::components::NetworkComponent>()), false);
+    initEntity(prefabs::GlobalPrefabs::createMultiplayerHub(*e->getComponent<is::components::NetworkComponent>()), false);
 }

@@ -34,6 +34,7 @@
 #include "Components/Jump.hpp"
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardInput.hpp"
+#include "Components/NetworkInput.hpp"
 #include "Components/AIController.hpp"
 #include "Components/JoystickInput.hpp"
 #include "Components/Animator.hpp"
@@ -78,8 +79,10 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createCredit();
             static std::shared_ptr<is::ecs::Entity> createHowToPlay();
             static std::shared_ptr<is::ecs::Entity> createRecord();
+            static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
+            static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
+            static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
             static std::shared_ptr<is::ecs::Entity> createEndGame();
-
             static std::shared_ptr<is::ecs::Entity> createSettings();
             static std::shared_ptr<is::ecs::Entity> createControllers();
             static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();

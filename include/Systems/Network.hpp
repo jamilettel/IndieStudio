@@ -40,6 +40,8 @@ namespace is::systems {
             void update() override;
             void stop() override;
             void onTearDown() override;
+
+            void selectHandling(std::shared_ptr<is::components::NetworkComponent> ptr);
     };
 
 }

@@ -17,7 +17,8 @@ namespace is::components
             enum Type {
                 AI,
                 KEYBOARD_PLAYER,
-                JOYSTICK_PLAYER
+                JOYSTICK_PLAYER,
+                MULTIPLAYER_PLAYER
             };
 
         public:
