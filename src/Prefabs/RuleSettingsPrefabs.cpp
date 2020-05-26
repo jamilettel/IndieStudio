@@ -159,3 +159,87 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Dot_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(11.3, 46),
+        irr::core::vector2df(3, 5)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(15, 45),
+        irr::core::vector2df(20, 8)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(36, 45),
+        irr::core::vector2df(7, 8)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Dot_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(11.3, 56),
+        irr::core::vector2df(3, 5)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(15, 55),
+        irr::core::vector2df(20, 8)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(36, 55),
+        irr::core::vector2df(7, 8)
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Dot_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(11.3, 66),
+        irr::core::vector2df(3, 5)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(15, 65),
+        irr::core::vector2df(20, 8)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(36, 65),
+        irr::core::vector2df(7, 8)
+    );
+    return (e);
+}
