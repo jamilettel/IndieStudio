@@ -34,6 +34,7 @@
 #include "Components/Jump.hpp"
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardInput.hpp"
+#include "Components/NetworkInput.hpp"
 #include "Components/AIController.hpp"
 #include "Components/JoystickInput.hpp"
 #include "Components/Animator.hpp"

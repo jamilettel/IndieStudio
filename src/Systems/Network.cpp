@@ -41,7 +41,7 @@ void is::systems::NetworkSystem::update()
         if (!ptr->isOn)
             continue;
         if (is::Game::getCurrentScene() == is::ecs::Scenes::SCENE_MULTIPLAYER_GAME) {
-            
+
         }
         selectHandling(ptr);
     }
@@ -56,6 +56,21 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
         if (std::string(buff) == "lobby created\n" || std::string(buff) == "lobby joined\n") {
             is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
         } else if (strlen(buff) > 2 && buff[0] == 'p' && isdigit(buff[1])) {
+            ptr->playerIdx = atoi(&buff[1]);
+            if (ptr->playerIdx < 0 || ptr->playerIdx > 3)
+                throw is::exceptions::Exception("NetworkSystem", "init multiplayer game exception");        
+            for (int i = 0; i < 4; i++) {
+                auto characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
+                auto ptr_char = std::dynamic_pointer_cast<is::components::CharacterComponent>(characters[i]);
+                if (!ptr_char)
+                    throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterComponent pointer");
+                if (i == ptr->playerIdx) {
+                    ptr_char->characterType = is::components::CharacterComponent::Type::KEYBOARD_PLAYER;
+                    ptr_char->presetNumber = 1;
+                }
+                else
+                    ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
+            }
             is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME);
         }
     }

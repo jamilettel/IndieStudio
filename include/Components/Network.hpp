@@ -54,6 +54,7 @@ namespace is::components {
             fd_set efds;
             int serverSock;
             bool isOn;
+            int playerIdx;
             std::queue<std::string> writeQueue;
             std::queue<std::string> readQueue;
     };
