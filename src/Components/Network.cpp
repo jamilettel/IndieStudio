@@ -26,6 +26,10 @@ void is::components::NetworkComponent::startMultiplayer()
     struct sockaddr_in addr;
     int n = 1;
 
+    playerPositions.push_back({0, 0});
+    playerPositions.push_back({0, 0});
+    playerPositions.push_back({0, 0});
+    playerPositions.push_back({0, 0});
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         throw is::exceptions::Exception("NetworkComponent", "socket exception");
     if (setsockopt(serverSock, SOL_SOCKET, SO_REUSEADDR, (char *) &n, sizeof(n)) == -1)

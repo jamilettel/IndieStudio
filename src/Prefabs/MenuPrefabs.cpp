@@ -535,7 +535,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         350, 100,
         [nc](){
             nc->writeQueue.push("join lobby 0\n");
-            std::cout << "sdkcjsh" << std::endl;
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),
@@ -578,7 +577,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         "",
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 100,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 500,
         350, 100,
         [nc](){
             nc->writeQueue.push("start game\n");

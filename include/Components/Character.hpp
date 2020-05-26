@@ -45,6 +45,7 @@ namespace is::components
 
             int joystickId = -1;
             int presetNumber = -1;
+            int multiplayerId = -1;
 
         private:
             size_t _timePlaying = 0;

@@ -36,6 +36,7 @@
 #include "Systems/Cursor.hpp"
 #include "Systems/EndGame.hpp"
 #include "Systems/Network.hpp"
+#include "Systems/NetworkInput.hpp"
 
 namespace is::scenes {
 

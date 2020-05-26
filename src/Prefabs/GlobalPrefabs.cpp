@@ -241,12 +241,11 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
             throw is::exceptions::Exception("Character", "Unable to find preset in components");
         KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
         keyboard.setPreset(static_cast<PresetComponent *>(it->get())->getKeyboardPreset());
-        std::cout << "sdcklsjlk" << std::endl;
         break;
       } case CharacterComponent::MULTIPLAYER_PLAYER: {
-        e->addComponent<NetworkInputComponent>(e);
+        e->addComponent<NetworkInputComponent>(e, input, character.multiplayerId);
         break;
-    }   
+    }
     }
     return (e);
 }

@@ -11,6 +11,7 @@
 #include "ECS/ASystem.hpp"
 #include "Components/NetworkInput.hpp"
 #include "Components/Network.hpp"
+#include "Components/Transform.hpp"
 
 namespace is::systems {
 

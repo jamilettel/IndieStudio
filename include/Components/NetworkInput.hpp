@@ -10,12 +10,15 @@
 
 #include <string>
 #include "ECS/Component.hpp"
+#include "Components/InputManager.hpp"
 
 namespace is::components {
     class NetworkInputComponent: public is::ecs::Component {
     public:
         NetworkInputComponent(
-            std::shared_ptr<is::ecs::Entity> &e
+            std::shared_ptr<is::ecs::Entity> &e,
+            InputManagerComponent &inputManager,
+            int mulId
         );
         ~NetworkInputComponent() override = default;
 
@@ -24,7 +27,14 @@ namespace is::components {
 
         void deleteComponent() override;
 
+        [[nodiscard]] InputManagerComponent &getInputManager() const;
+
+        int id;
+
+
     private:
+        InputManagerComponent &_inputManager;
+
     };
 
 }
