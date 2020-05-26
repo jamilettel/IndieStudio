@@ -28,3 +28,12 @@ JoystickPresetComponent &PresetComponent::getJoystickPreset()
 {
     return _joystickPreset;
 }
+
+std::string PresetComponent::getEquivalentKey(EKEY_CODE key)
+{
+    for (int i = 0; PresetComponent::EquivalentKeys[i]._key != EKEY_CODE::KEY_KEY_CODES_COUNT; i++) {
+        if (PresetComponent::EquivalentKeys[i]._key == key)
+            return PresetComponent::EquivalentKeys[i]._name;
+    }
+    return "Unknown";
+}

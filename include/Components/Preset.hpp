@@ -10,6 +10,8 @@
 
 #include "Components/KeyboardPreset.hpp"
 #include "Components/JoystickPreset.hpp"
+#include <vector>
+#include "Text.hpp"
 
 namespace is::components {
 
@@ -67,6 +69,7 @@ namespace is::components {
             {EKEY_CODE::KEY_UP, "Arrow Up"},
             {EKEY_CODE::KEY_RIGHT, "Arrow Right"},
             {EKEY_CODE::KEY_LEFT, "Arrow Left"},
+            {EKEY_CODE::KEY_KEY_CODES_COUNT, "Unknown"},
         };
 
     public:
@@ -83,6 +86,12 @@ namespace is::components {
 
         [[nodiscard]] KeyboardPresetComponent &getKeyboardPreset();
         [[nodiscard]] JoystickPresetComponent &getJoystickPreset();
+
+        static std::string getEquivalentKey(EKEY_CODE key);
+
+        std::vector<std::shared_ptr<TextComponent>> _textPreset;
+        std::vector<std::shared_ptr<ImageComponent>> _imagePreset;
+        std::vector<std::shared_ptr<ButtonComponent>> _buttonPreset;
 
     private:
         KeyboardPresetComponent _keyboardPreset;

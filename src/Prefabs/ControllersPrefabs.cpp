@@ -68,9 +68,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersBa
 std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOptions(const is::ecs::ComponentManager &manager)
 {
     auto e = std::make_shared<is::ecs::Entity>();
-    std::function<void(ButtonComponent &, TextComponent&, TextComponent &)> ft = [&manager](ButtonComponent &button, TextComponent &textKeyboard, TextComponent &textController){
-        auto &characters = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
-    };
+    auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
 
     selectedPreset = 0;
     auto &TextPresetSelected = e->addComponent<is::components::TextComponent>(
@@ -95,14 +93,22 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20,
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
         100, 100,
-        [&TextPresetSelected](){
+        [&manager, &TextPresetSelected](){
+            auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
+            std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
+                text->setVisible(false);
+            });
             if (selectedPreset == 3) {
                 selectedPreset = 0;
                 TextPresetSelected.setText("Preset 1");
-                return;
+            } else {
+                selectedPreset++;
+                TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
             }
-            selectedPreset++;
-            TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
+            p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
+            std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
+                text->setVisible(true);
+            });
         },
         true,
         RESSOURCE("ui/Controllers/Forward_BTN.png"),
@@ -117,14 +123,22 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 1 / 20,
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
         100, 100,
-        [&TextPresetSelected](){
+        [&manager, &TextPresetSelected](){
+            auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
+            std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
+                text->setVisible(false);
+            });
             if (selectedPreset == 0) {
                 selectedPreset = 3;
                 TextPresetSelected.setText("Preset 4");
-                return;
+            } else {
+                selectedPreset--;
+                TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
             }
-            selectedPreset--;
-            TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
+            p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
+            std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
+                text->setVisible(true);
+            });
         },
         true,
         RESSOURCE("ui/Controllers/Backward_BTN.png"),
@@ -133,36 +147,75 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
     changePresetPrev.layer = 3;
 
     for (int i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
+
+        int count = 0;
+
         auto &textAction = e->addComponent<is::components::TextComponent>(
             e,
             CharacterComponent::playerActions[i].description,
             "Indie Studio",
-            is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 1.9 / 20,
-            is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+            is::components::WindowComponent::_windowsDimensions["Indie Studio"].first *
+            1.9 / 20,
+            is::components::WindowComponent::_windowsDimensions["Indie Studio"].second *
+            4 / 20 + 80 + ((i + 1) * 100),
             300, 100,
             true,
             false,
-            RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+            RESSOURCE(
+                "fonts/fontVolumeSettings/fontVolumeSettings.xml"),
             irr::video::SColor(255, 255, 255, 255),
             true
         );
         textAction.layer = 2;
 
-        auto &buttonAction = e->addComponent<ButtonComponent>(
-            e,
-            "",
-            "Indie Studio",
-            is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-            is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
-            250, 70,
-            [&textAction](){
-                textAction.setText("Change");
-            },
-            true,
-            RESSOURCE("ui/Controllers/Change_BTN.png"),
-            RESSOURCE("ui/Controllers/Change_BTN_pressed.png")
-        );
-        buttonAction.layer = 3;
+        for (auto &preset : presets) {
+            auto *p = static_cast<PresetComponent *>(preset.get());
+            auto &keyboardBinds = p->getKeyboardPreset().getBindings();
+            auto &JoystickBinds = p->getJoystickPreset().getButtonBindings();
+
+            auto &keyboardAction = e->addComponent<is::components::TextComponent>(
+                e,
+                PresetComponent::getEquivalentKey(keyboardBinds.at(CharacterComponent::playerActions[i])),
+                "Indie Studio",
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 20,
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+                140, 100,
+                true,
+                false,
+                RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+                irr::video::SColor(255, 255, 255, 255),
+                count == 0
+            );
+            keyboardAction.layer = 2;
+
+            auto &controllerAction = e->addComponent<is::components::ImageComponent>(
+                e,
+                RESSOURCE("ui/Controllers/Controls_title.png"),
+                "Indie Studio",
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+            );
+
+            auto &buttonAction = e->addComponent<ButtonComponent>(
+                e,
+                "",
+                "Indie Studio",
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+                220, 70,
+                []() {
+                },
+                count == 0,
+                RESSOURCE("ui/Controllers/Change_BTN.png"),
+                RESSOURCE("ui/Controllers/Change_BTN_pressed.png")
+            );
+            buttonAction.layer = 3;
+            buttonAction.setCallback([&manager, &buttonAction, &keyboardAction, &controllerAction](){
+
+            });
+            p->_textPreset.emplace_back(&keyboardAction);
+            p->_buttonPreset.emplace_back(&buttonAction);
+            count++;
+        }
     }
     return e;
 }
