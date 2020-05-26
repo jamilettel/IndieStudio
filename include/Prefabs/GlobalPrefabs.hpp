@@ -68,7 +68,8 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
                 const irr::core::vector3df &pos,
                 is::components::CharacterComponent &character,
-                const is::ecs::ComponentManager &manager
+                const is::ecs::ComponentManager &manager,
+                const std::string &texture
             );
             // static std::shared_ptr<is::ecs::Entity> createAI(const irr::core::vector3df &pos);
 
@@ -90,7 +91,7 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createPresets();
         
         private:
-            static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);
+            static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
     };
 
 }

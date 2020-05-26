@@ -203,10 +203,11 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &po
 std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     const irr::core::vector3df &pos,
     is::components::CharacterComponent &character,
-    const is::ecs::ComponentManager &manager
+    const is::ecs::ComponentManager &manager,
+    const std::string &texture
 )
 {
-    auto e = createBomberman(pos, character);
+    auto e = createBomberman(pos, character, texture);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
 
     switch (character.characterType) {
@@ -250,7 +251,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3df &pos, CharacterComponent &character)
+std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3df &pos, CharacterComponent &character, const std::string &texture)
 {
     auto e = std::make_shared<Entity>(Entity::PLAYER);
 
@@ -288,7 +289,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     );
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e);
