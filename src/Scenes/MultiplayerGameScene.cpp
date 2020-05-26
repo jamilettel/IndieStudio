@@ -2,20 +2,20 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** GameScene
+** SplashScreen
 */
 
-#include "Scenes/GameScene.hpp"
+#include "Scenes/MultiplayerGameScene.hpp"
 
-is::scenes::GameScene::GameScene() :
-AScene(is::ecs::Scenes::SCENE_GAME)
+is::scenes::MultiplayerGameScene::MultiplayerGameScene() :
+AScene(is::ecs::Scenes::SCENE_PRESETSELECTION)
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
     _componentManager = std::make_shared<is::ecs::ComponentManager>();
     _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::GameScene::initSystems()
+void is::scenes::MultiplayerGameScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
@@ -39,9 +39,11 @@ void is::scenes::GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
+
 }
 
-void is::scenes::GameScene::initEntities()
+void is::scenes::MultiplayerGameScene::initEntities()
 {
     MapGenerator mg;
 
@@ -52,7 +54,7 @@ void is::scenes::GameScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
 }
 
-void is::scenes::GameScene::awake()
+void is::scenes::MultiplayerGameScene::awake()
 {
     AScene::awake();
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
@@ -66,7 +68,7 @@ void is::scenes::GameScene::awake()
     }
 }
 
-void is::scenes::GameScene::onTearDown()
+void is::scenes::MultiplayerGameScene::onTearDown()
 {
     AScene::onTearDown();
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {

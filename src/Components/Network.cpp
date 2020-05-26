@@ -13,7 +13,7 @@ Component(e)
 {
     isOn = false;
     timeout.tv_sec = 0;
-    timeout.tv_usec = 1;
+    timeout.tv_usec = 10000;
 }
 
 void is::components::NetworkComponent::deleteComponent()
@@ -26,7 +26,6 @@ void is::components::NetworkComponent::startMultiplayer()
     struct sockaddr_in addr;
     int n = 1;
 
-    std::cout << "czez" << std::endl;
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         throw is::exceptions::Exception("NetworkComponent", "socket exception");
     if (setsockopt(serverSock, SOL_SOCKET, SO_REUSEADDR, (char *) &n, sizeof(n)) == -1)

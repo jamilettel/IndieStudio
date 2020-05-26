@@ -66,7 +66,9 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createCredit();
             static std::shared_ptr<is::ecs::Entity> createHowToPlay();
             static std::shared_ptr<is::ecs::Entity> createRecord();
-            static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
+            static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
+            static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
+            static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
 
             static std::shared_ptr<is::ecs::Entity> createSettings();
             static std::shared_ptr<is::ecs::Entity> createControllers();

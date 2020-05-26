@@ -9,19 +9,9 @@ import select
 import socket
 import sys
 import queue
+import uuid
 
-'''
-
-Rentre dans menu multiplayer -> connection au serveur
-
-    -> creer lobby = crée un room dans le serveur
-    -> rejoindre lobby = list des lobby
-
-    -> menu lobby avec le nombre de personnes connectés
-
-    -> lancer game
-
-'''
+lobbys = [] 
 
 def main():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -32,53 +22,53 @@ def main():
     server.listen(5)
 
     inputs = [server]
-    outputs = []
-
-    readCmdQueue = {}
-    writeCmdQueue = {}
 
     while inputs:
-        readable, writable, exceptional = select.select(inputs, outputs, inputs)
-        for s in writable:
-            try:
-                next_msg = writeCmdQueue[s].get_nowait()
-            except queue.Empty:
-                pass
-            else:
-                print(next_msg)
-                s.send(next_msg.encode())
-                print(s)
-
+        readable, writable, exceptional = select.select(inputs, [], inputs)
         for s in readable:
             if s is server:
                 connection, client_address = s.accept()
                 connection.setblocking(0)
                 inputs.append(connection)
-                readCmdQueue[connection] = queue.Queue()
-                writeCmdQueue[connection] = queue.Queue()
-                print(connection)
             else:
-                data = s.recv(1024)
-                if data:
-                    clientCommandHandler(data.decode(), writeCmdQueue[s])
-                    readCmdQueue[s].put(data.decode())
-                    if s not in outputs:
-                        outputs.append(s)
-                else:
-                    if s in outputs:
-                        outputs.remove(s)
-                    inputs.remove(s)
-                    s.close()
-                    del readCmdQueue[s]
-                    del writeCmdQueue[s]
+                try:
+                    data = s.recv(1024)
+                    if data:
+                        clientCommandHandler(data.decode(), s)
+                    else:
+                        inputs.remove(s)
+                        s.close()
+                except:
+                    pass
         for s in exceptional:
             inputs.remove(s)
-            if s in outputs:
-                outputs.remove(s)
             s.close()
-            del readCmdQueue[s]
-            del writeCmdQueue[s]
 
-def clientCommandHandler(request, queue):
+
+def clientCommandHandler(request, connection):
     if request == "create lobby\n":
-        queue.put("lobby created\n")
+        lobbys.append({
+            "uuid": uuid.uuid4(),
+            "players": [connection]
+        })
+        connection.send("lobby created\n".encode())
+    if request == "list lobbys\n":
+        response = ""
+        for lobby in lobbys:
+            response += lobby["uuid"] + " "
+        connection.send(response + "\n".encode())
+    if request.startswith("join lobby"):
+        #idx = int(request.split(" ")[2])
+        lobbys[0]["players"].append(connection)
+        connection.send("lobby joined\n".encode())
+    if request == "start game\n":
+        for lobby in lobbys:
+            for player in lobby["players"]:
+                if (player == connection):
+                    i = 0
+                    for player in lobby["players"]:
+                        print(player)
+                        player.send(("p" + str(i) + "\n").encode())
+                        i += 1
+
+

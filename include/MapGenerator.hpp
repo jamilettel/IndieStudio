@@ -8,6 +8,9 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "ECS/AScene.hpp"
 
+#ifndef MAP_GENERATOR
+#define MAP_GENERATOR
+
 class MapGenerator {
     public:
         MapGenerator() = default;
@@ -25,3 +28,5 @@ class MapGenerator {
         float getVectorPermTable(float x, float y, float x0, float y0, int addX, int);
         float generatePerlinNoise(float x, float y, float res);
 };
+
+#endif

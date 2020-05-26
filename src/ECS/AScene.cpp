@@ -27,9 +27,9 @@ std::shared_ptr<is::ecs::Entity> &is::ecs::AScene::initEntity(std::shared_ptr<En
 {
     for (auto &elem : entity->getComponents())
         _componentManager->addComponent(elem);
-    _entityManager->addEntity(entity);
     if (dontDestroyOnLoad)
         _entitySaver->addEntity(entity);
+    _entityManager->addEntity(entity);
     return (entity);
 }
 
@@ -46,8 +46,8 @@ void is::ecs::AScene::initStaticEntities()
 void is::ecs::AScene::awake()
 {
     initSystems();
-    initEntities();
     initStaticEntities();
+    initEntities();
     _systemManager->awake();
 }
 
