@@ -317,12 +317,40 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         irr::core::vector2df(36, 55),
         irr::core::vector2df(7, 8)
     );
+    ButtonComponent &backward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1200,
+        550,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
+    );
+    ButtonComponent &forward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1550,
+        550,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+    );
     component.addRule(
-        [&dot](){
+        [&dot, &backward, &forward](){
             dot.setVisible(true);
+            backward.setVisible(true);
+            forward.setVisible(true);
         },
-        [&dot](){
+        [&dot, &backward, &forward](){
             dot.setVisible(false);
+            backward.setVisible(false);
+            forward.setVisible(false);
         });
     return (e);
 }
@@ -353,12 +381,40 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         irr::core::vector2df(36, 65),
         irr::core::vector2df(7, 8)
     );
+    ButtonComponent &backward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1200,
+        550,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
+    );
+    ButtonComponent &forward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1550,
+        550,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+    );
     component.addRule(
-        [&dot](){
+        [&dot, &backward, &forward](){
             dot.setVisible(true);
+            backward.setVisible(true);
+            forward.setVisible(true);
         },
-        [&dot](){
+        [&dot, &backward, &forward](){
             dot.setVisible(false);
+            backward.setVisible(false);
+            forward.setVisible(false);
         });
     return (e);
 }
