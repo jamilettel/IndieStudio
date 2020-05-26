@@ -29,6 +29,7 @@ namespace is::ecs {
         SCENE_MULTIPLAYER_LOBBY,
         SCENE_MULTIPLAYER_GAME,
         SCENE_GAME,
+        SCENE_ENDGAME,
         NOTHING
     };
 

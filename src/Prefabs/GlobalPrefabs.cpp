@@ -13,11 +13,13 @@
 
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
+using namespace is::ecs;
 using namespace is::components;
+using namespace is::prefabs;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createWallBlock(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::GROUND);
+    auto e = std::make_shared<Entity>(Entity::GROUND);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ColliderComponent>(
@@ -29,9 +31,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallBlock(irr
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCenterBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createCenterBlock(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::GROUND);
+    auto e = std::make_shared<Entity>(Entity::GROUND);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ColliderComponent>(
@@ -43,9 +45,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCenterBlock(i
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createGrassBlock(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::GROUND);
+    auto e = std::make_shared<Entity>(Entity::GROUND);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ColliderComponent>(
@@ -57,9 +59,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGrassBlock(ir
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::BRKBL_BLK);
+    auto e = std::make_shared<Entity>(Entity::BRKBL_BLK);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ColliderComponent>(
@@ -71,15 +73,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBreakableBloc
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::core::vector3df position,
+std::shared_ptr<Entity> GlobalPrefabs::createBomb(irr::core::vector3df position,
     int range,
     std::shared_ptr<is::components::BombermanComponent> &bm)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::BOMB);
+    auto e = std::make_shared<Entity>(Entity::BOMB);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
-    e->addComponent<BombComponent>(e, bm, 3, range);
+    e->addComponent<BombComponent>(e, bm, position, 3, range);
     e->addComponent<is::components::ParticuleComponent>(
         e,
         "Indie Studio",
@@ -89,9 +91,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBomb(irr::cor
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBombUpPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
+    auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("bombup.png"));
@@ -101,13 +103,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createBombUpPowerUp
         transform,
         irr::core::vector3df(3, 3, 3)
     );
-    collider.addCollisionWithLayer(is::ecs::Entity::PLAYER);
+    collider.addCollisionWithLayer(Entity::PLAYER);
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSpeedUpPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
+    auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("speedup.png"));
@@ -117,13 +119,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSpeedUpPowerU
         transform,
         irr::core::vector3df(3, 3, 3)
     );
-    collider.addCollisionWithLayer(is::ecs::Entity::PLAYER);
+    collider.addCollisionWithLayer(Entity::PLAYER);
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFireUpPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
+    auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("fireup.png"));
@@ -133,13 +135,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFireUpPowerUp
         transform,
         irr::core::vector3df(3, 3, 3)
     );
-    collider.addCollisionWithLayer(is::ecs::Entity::PLAYER);
+    collider.addCollisionWithLayer(Entity::PLAYER);
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallPassPowerUp(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::POWERUP);
+    auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("wallpass.png"));
@@ -149,13 +151,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createWallPassPower
         transform,
         irr::core::vector3df(3, 3, 3)
     );
-    collider.addCollisionWithLayer(is::ecs::Entity::PLAYER);
+    collider.addCollisionWithLayer(Entity::PLAYER);
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::core::vector3df position)
+std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &position)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::FIRE);
+    auto e = std::make_shared<Entity>(Entity::FIRE);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
     //e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
@@ -171,15 +173,83 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createFire(irr::cor
         irr::core::vector3df(position.X, position.Y + 3, position.Z),
         PARTICULE::FIRE
     );
-    collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
-    collider.addCollisionWithLayer(is::ecs::Entity::BOMB);
-    collider.addCollisionWithLayer(is::ecs::Entity::FIRE);
+    collider.addCollisionWithLayer(Entity::GROUND);
+    collider.addCollisionWithLayer(Entity::BOMB);
+    collider.addCollisionWithLayer(Entity::FIRE);
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::core::vector3df pos)
+// std::shared_ptr<Entity> GlobalPrefabs::createPlayer(const irr::core::vector3df &pos)
+// {
+//     auto e = createBomberman(pos);
+
+//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
+//     KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
+//     keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
+//     keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
+//     keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", -1);
+//     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
+//     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
+//     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
+//     // JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+//     // joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
+//     // joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
+//     // joystick.bindButton(2, "DropBomb", 1);
+//     // joystick.bindButton(0, "Jump", 1);
+//     // joystick.assignJoystick(0);
+//     return (e);
+// }
+
+std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
+    const irr::core::vector3df &pos,
+    is::components::CharacterComponent &character,
+    const is::ecs::ComponentManager &manager
+)
 {
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
+    auto e = createBomberman(pos, character);
+    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
+
+    switch (character.characterType) {
+    case CharacterComponent::AI: {
+        e->addComponent<AIControllerComponent>(e, input);
+        break;
+    } case CharacterComponent::JOYSTICK_PLAYER: {
+        const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
+        const auto it = std::find_if(
+            presets.begin(), presets.end(),
+            [&character] (const std::shared_ptr<is::ecs::Component> &component) {
+                const auto *preset = static_cast<PresetComponent *>(component.get());
+
+                return preset->presetNumber == character.presetNumber;
+            });
+        if (it == presets.end())
+            throw is::exceptions::Exception("Character", "Unable to find preset in components");
+        JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
+        joystick.assignJoystick(character.joystickId);
+        joystick.setPreset(static_cast<PresetComponent *>(it->get())->getJoystickPreset());
+        break;
+    } case CharacterComponent::KEYBOARD_PLAYER: {
+        const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
+        const auto it = std::find_if(
+            presets.begin(), presets.end(),
+            [&character] (const std::shared_ptr<is::ecs::Component> &component) {
+                const auto *preset = static_cast<PresetComponent *>(component.get());
+
+                return preset->presetNumber == character.presetNumber;
+            });
+        if (it == presets.end())
+            throw is::exceptions::Exception("Character", "Unable to find preset in components");
+        KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
+        keyboard.setPreset(static_cast<PresetComponent *>(it->get())->getKeyboardPreset());
+        break;
+      }
+    }
+    return (e);
+}
+
+std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3df &pos, CharacterComponent &character)
+{
+    auto e = std::make_shared<Entity>(Entity::PLAYER);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(
         e,
@@ -203,35 +273,23 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
         is::components::SOUND
     );
     AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    character.reset();
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
         movement,
         audio,
+        character,
         "Indie Studio",
         0.1
     );
-    collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
-    collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
+    collider.addCollisionWithLayer(Entity::GROUND);
+    collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e);
     e->addComponent<JumpComponent>(e, movement);
-    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-    KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
-    keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
-    keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
-    keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", -1);
-    keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
-    keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
-    keyboard.bind(irr::KEY_SPACE, "Jump", 1);
-    JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
-    joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
-    joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
-    joystick.bindButton(2, "DropBomb", 1);
-    joystick.bindButton(0, "Jump", 1);
-    joystick.assignJoystick(0);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
@@ -239,52 +297,40 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createPlayer(irr::
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs:: createAI(irr::core::vector3df pos)
-{
-    auto e = std::make_shared<is::ecs::Entity>(is::ecs::Entity::PLAYER);
+// std::shared_ptr<Entity> GlobalPrefabs::createAI(const irr::core::vector3df &pos)
+// {
+//     auto e = createBomberman(pos);
 
-    TransformComponent &transform = e->addComponent<TransformComponent>(
-        e,
-        pos,
-        irr::core::vector3df(0, 0, 0),
-        irr::core::vector3df(0.7f)
-        );
-    ColliderComponent &collider = e->addComponent<ColliderComponent>(
-        e,
-        transform,
-        irr::core::vector3df(2, 2, 2)
-    );
-    MovementComponent &movement = e->addComponent<MovementComponent>(
-        e,
-        transform,
-        collider
-    );
-    AudioComponent &audio = e->addComponent<is::components::AudioComponent>(
-        e,
-        RESSOURCE("footstep.wav"),
-        is::components::SOUND
-    );
-    e->addComponent<CharacterControllerComponent>(
-        e,
-        transform,
-        movement,
-        audio,
-        "Indie Studio",
-        0.1
-    );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
-    collider.addCollisionWithLayer(is::ecs::Entity::GROUND);
-    collider.addCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio");
-    e->addComponent<GravityComponent>(e, movement);
-    transform.position.Y = 10;
-    e->addComponent<BombermanComponent>(e);
-    e->addComponent<JumpComponent>(e, movement);
-    InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-    e->addComponent<AIControllerComponent>(e, input);
-    animator.animators.push_back({0, 24, "Walk"});
-    animator.animators.push_back({25, 40, "DropBomb"});
-    animator.animators.push_back({41, 60, "Death"});
-    animator.animators.push_back({61, 86, "Idle"});
-    return (e);
+//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
+//     e->addComponent<AIControllerComponent>(e, input);
+//     return (e);
+// }
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<CharacterComponent>(e, 0);
+    e->addComponent<CharacterComponent>(e, 1);
+    e->addComponent<CharacterComponent>(e, 2);
+    e->addComponent<CharacterComponent>(e, 3);
+
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    auto &preset1 = e->addComponent<PresetComponent>(e, 1);
+    auto &preset2 = e->addComponent<PresetComponent>(e, 2);
+    auto &preset3 = e->addComponent<PresetComponent>(e, 3);
+    auto &preset4 = e->addComponent<PresetComponent>(e, 4);
+
+    is::components::KeyboardPresetComponent::createBasicPreset(preset1.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
+    is::components::KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
+
+    return e;
 }

@@ -20,8 +20,10 @@ namespace is::components {
         public:
             BombComponent(std::shared_ptr<is::ecs::Entity> &e,
                 std::shared_ptr<is::components::BombermanComponent> &bm,
+                const irr::core::vector3df &pos,
                 float lt = 3,
-                int size = 2);
+                int size = 2
+            );
             ~BombComponent() override = default;
 
             BombComponent(const BombComponent &) = delete;
@@ -32,6 +34,7 @@ namespace is::components {
             float lifeTime;
             float bombSize;
             std::shared_ptr<is::components::BombermanComponent> bomberman;
+            irr::core::vector3df _pos;
     };
 
 }

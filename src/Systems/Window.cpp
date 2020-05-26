@@ -9,6 +9,8 @@
 #include "Components/Image.hpp"
 #include "Components/Button.hpp"
 #include "Components/Text.hpp"
+#include "Components/Texture.hpp"
+#include "Components/Transform.hpp"
 
 using namespace irr;
 using namespace is::systems;
@@ -100,6 +102,22 @@ void WindowSystem::update()
             return;
         }
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
+        for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
+            auto texture = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
+            std::pair<int, int> wDim = is::components::WindowComponent::_windowsDimensions["Indie Studio"];
+
+            ptr->driver->draw2DImage(
+                texture->getNode(),
+                irr::core::rect<s32>(
+                    wDim.first * texture->getPosition().X / 100,
+                    wDim.second * texture->getPosition().Y / 100,
+                    wDim.first * texture->getPosition().X / 100 + wDim.first * texture->getSize().X / 100,
+                    wDim.second * texture->getPosition().Y / 100 + wDim.second * texture->getSize().Y / 100
+                ),
+                irr::core::rect<s32>(0, 0, texture->getNode()->getOriginalSize().Width, texture->getNode()->getOriginalSize().Height),
+                0, 0, true
+            );
+        }
         ptr->scenemgr->drawAll();
         ptr->canvas->drawAll();
         ptr->driver->endScene();

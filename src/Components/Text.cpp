@@ -12,43 +12,46 @@ using namespace irr;
 
 is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
 std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
-bool drawBorder, bool dynamic) :
+bool drawBorder, bool dynamic, bool visible) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
-    _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _drawBorder(drawBorder),
+    _text(std::move(text)),
     _font(),
+    _color(irr::video::SColor(0, 0, 0, 1)),
+    _drawBorder(drawBorder),
     _dynamic(dynamic),
-    _color(irr::video::SColor(0, 0, 0, 1))
+    _visible(visible)
 {
 }
 
 is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
 std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
-bool drawBorder, bool dynamic, std::string font) :
+bool drawBorder, bool dynamic, std::string font, bool visible) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
-    _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _drawBorder(drawBorder),
+    _text(std::move(text)),
     _font(std::move(font)),
+    _color(irr::video::SColor(0, 0, 0, 1)),
+    _drawBorder(drawBorder),
     _dynamic(dynamic),
-    _color(irr::video::SColor(0, 0, 0, 1))
+    _visible(visible)
 {
 }
 
 is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
 std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
-bool drawBorder, bool dynamic, std::string font, irr::video::SColor color) :
+bool drawBorder, bool dynamic, std::string font, irr::video::SColor color, bool visible) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
-    _text(std::move(text)),
     _dimension(x, y, x + width, y + height),
-    _drawBorder(drawBorder),
+    _text(std::move(text)),
     _font(std::move(font)),
+    _color(color),
+    _drawBorder(drawBorder),
     _dynamic(dynamic),
-    _color(color)
+    _visible(visible)
 {
 }
 
@@ -63,6 +66,7 @@ void is::components::TextComponent::init(std::shared_ptr<is::components::WindowC
     element->setOverrideColor(_color);
     element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
     element->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_CENTER);
+    element->setVisible(_visible);
 }
 
 std::string is::components::TextComponent::getText() const
@@ -91,4 +95,10 @@ void is::components::TextComponent::bringToFront()
 {
     if (element)
         _window->canvas->getRootGUIElement()->bringToFront(element);
+}
+
+void is::components::TextComponent::setVisible(bool visible)
+{
+    _visible = visible;
+    element->setVisible(visible);
 }

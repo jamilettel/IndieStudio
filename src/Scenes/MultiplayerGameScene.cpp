@@ -7,6 +7,9 @@
 
 #include "Scenes/MultiplayerGameScene.hpp"
 
+using namespace is::prefabs;
+using namespace is::scenes;
+
 is::scenes::MultiplayerGameScene::MultiplayerGameScene() :
 AScene(is::ecs::Scenes::SCENE_PRESETSELECTION)
 {
@@ -45,13 +48,36 @@ void is::scenes::MultiplayerGameScene::initSystems()
 
 void is::scenes::MultiplayerGameScene::initEntities()
 {
+    auto characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     MapGenerator mg;
 
+    if (characters.size() != 4)
+        throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13);
-    initEntity(prefabs::GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
-    initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
-    initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
-    initEntity(prefabs::GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
+    // initEntity(GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+        irr::core::vector3df(-5 * 3, 0, 6 * 3),
+        *static_cast<CharacterComponent *>(characters[0].get()),
+        *_componentManager.get()
+    ));
+    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+        irr::core::vector3df(-5 * 3, 0, -6 * 3),
+        *static_cast<CharacterComponent *>(characters[1].get()),
+        *_componentManager.get())
+    );
+    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+        irr::core::vector3df(5 * 3, 0, -6 * 3),
+        *static_cast<CharacterComponent *>(characters[2].get()),
+        *_componentManager.get()
+    ));
+    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
+    initEntity(GlobalPrefabs::createBombermanCharacter(
+        irr::core::vector3df(5 * 3, 0, 6 * 3),
+        *static_cast<CharacterComponent *>(characters[3].get()),
+        *_componentManager.get()
+    ));
 }
 
 void is::scenes::MultiplayerGameScene::awake()

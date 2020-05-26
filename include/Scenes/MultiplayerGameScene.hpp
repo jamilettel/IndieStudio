@@ -34,6 +34,7 @@
 #include "Systems/JoystickInput.hpp"
 #include "Systems/Particule.hpp"
 #include "Systems/Cursor.hpp"
+#include "Systems/EndGame.hpp"
 #include "Systems/Network.hpp"
 
 namespace is::scenes {
