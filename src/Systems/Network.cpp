@@ -9,6 +9,7 @@
 #include <algorithm>
 
 using namespace irr;
+using namespace std;
 
 void is::systems::NetworkSystem::awake()
 {
