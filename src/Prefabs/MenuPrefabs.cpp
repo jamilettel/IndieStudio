@@ -26,8 +26,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createJoystickCursor(int joystic
         "Indie Studio",
         0,
         0);
-    cursorJoystick.layer = 10;
-    cursorJoystick.init(window);
+    cursorJoystick.layer = 9;
 
     auto &inputManager = e->addComponent<InputManagerComponent>(e);
     inputManager.setValue("Horizontal", 0);
@@ -68,24 +67,6 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGlobalPrefab()
     e->addComponent<CursorComponent>(e, cursorMouse, window, true);
     e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
     e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0), true);
-
-    // for (size_t i = 0; i < window.joysticks.size(); i++) {
-    //     auto &cursorJoystick = e->addComponent<ImageComponent>(
-    //         e,
-    //         RESSOURCE("/ui/cursor/cursor.png"),
-    //         "Indie Studio",
-    //         0,
-    //         0);
-    //     cursorJoystick.layer = 10;
-    //     auto &cursor = e->addComponent<CursorComponent>(e, cursorJoystick, window, false);
-    //     e->addComponent<JoystickCursorComponent>(
-    //         e,
-    //         cursor,
-    //         window.joysticks[i].Joystick
-    //         );
-
-    // }
-
     return e;
 }
 

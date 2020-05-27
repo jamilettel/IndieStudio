@@ -47,6 +47,7 @@ void JoystickCursorSystem::update()
         else if (pos.Y < 0)
             pos.Y = 0;
         ptr->getCursor().setPosition(pos.X, pos.Y);
+        ptr->clicked = ptr->getJoystickInput().getInputManager().getInput("Click") == 1;
     }
 }
 
