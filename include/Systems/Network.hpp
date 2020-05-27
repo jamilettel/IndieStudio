@@ -37,9 +37,15 @@ namespace is::systems {
 
             void awake() override;
             void start() override;
-            void update() override;
+        void extracted();
+        
+        void update() override;
             void stop() override;
             void onTearDown() override;
+        
+        size_t split(const std::string &txt, std::vector<std::string> &strs, char ch);
+        
+        void selectHandling(std::shared_ptr<is::components::NetworkComponent> ptr);
     };
 
 }

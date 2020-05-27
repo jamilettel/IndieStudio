@@ -11,7 +11,7 @@
 #include "ECS/Component.hpp"
 #include "Components/Window.hpp"
 
-#include <irrlicht/irrlicht.h>
+#include <irrlicht.h>
 
 namespace is::components
 {

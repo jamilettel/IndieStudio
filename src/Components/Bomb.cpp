@@ -9,9 +9,10 @@
 
 is::components::BombComponent::BombComponent(std::shared_ptr<is::ecs::Entity> &e,
     std::shared_ptr<is::components::BombermanComponent> &bm,
+    const irr::core::vector3df &pos,
     float lt,
-    int size) :
-Component(e)
+    int size
+) : Component(e), _pos(pos)
 {
     lifeTime = lt;
     bombSize = size;

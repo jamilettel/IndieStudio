@@ -214,10 +214,14 @@ void is::EventManager::checkButtonClicked(irr::s32 id)
 
 bool is::EventManager::isJoystickButtonPressed(u8 joystick, u32 button) const
 {
-    return (_joystickStates.at(joystick).first & (1 << button)) != 0;
+    if (_joystickStates.count(joystick))
+        return (_joystickStates.at(joystick).first & (1 << button)) != 0;
+    return 0;
 }
 
 s16 is::EventManager::getAxisValue(u8 joystick, u32 axis) const
 {
-    return _joystickStates.at(joystick).second[axis];
+    if (_joystickStates.count(joystick))
+        return _joystickStates.at(joystick).second[axis];
+    return 0;
 }
