@@ -193,8 +193,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
                 //RESSOURCE("ui/Controllers/A_BUTTON.png"),
                 PresetComponent::getEquivalentButton(JoystickBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
                 true,
                 count == 0
             );
