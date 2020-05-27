@@ -18,6 +18,8 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "ECS/AScene.hpp"
 #include "Systems/Cursor.hpp"
+#include "Systems/JoystickInput.hpp"
+#include "Systems/JoystickCursor.hpp"
 
 namespace is::scenes {
 

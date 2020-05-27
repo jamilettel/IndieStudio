@@ -20,7 +20,7 @@ else(MSVC)
 endif(MSVC)
 
 if (NOT APPLE)
-    if(MSVC)
+  if(MSVC)
         if(NOT CMAKE_CL_64)
             set(WINDOWS_VERSION "win32")
         else(NOT CMAKE_CL_64)

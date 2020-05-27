@@ -17,10 +17,12 @@
 #include "Systems/Button.hpp"
 #include "Systems/Text.hpp"
 #include "Systems/Cursor.hpp"
-#include "Systems/Network.hpp" 
+#include "Systems/Network.hpp"
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Components/Network.hpp"
 #include "ECS/AScene.hpp"
+#include "Systems/JoystickInput.hpp"
+#include "Systems/JoystickCursor.hpp"
 
 namespace is::scenes {
 

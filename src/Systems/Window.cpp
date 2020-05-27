@@ -11,6 +11,7 @@
 #include "Components/Text.hpp"
 #include "Components/Texture.hpp"
 #include "Components/Transform.hpp"
+#include "Prefabs/GlobalPrefabs.hpp"
 
 using namespace irr;
 using namespace is::systems;
@@ -50,10 +51,13 @@ void WindowSystem::awake()
         ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
             is::Game::isRunning = false;
         });
-#ifndef __APPLE__
-        ptr->joystickSupport = ptr->device->activateJoysticks(ptr->joysticks);
-#endif
         ptr->device->getCursorControl()->setVisible(false);
+        ptr->device->activateJoysticks(ptr->joysticks);
+
+        for (size_t i = 0; i < ptr->joysticks.size(); i++) {
+            initRuntimeEntity(is::prefabs::GlobalPrefabs::createJoystickCursor(ptr->joysticks[i].Joystick, ptr), true);
+        }
+
     }
 }
 
