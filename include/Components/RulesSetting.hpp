@@ -19,21 +19,36 @@ namespace is::components
         public:
             using onSelectFct = std::function<void()>;
             using onExitFct = std::function<void()>;
+            using onDisappear = std::function<void()>;
+            using onRuleUp = std::function<void()>;
+            using onRuleDown = std::function<void()>;
+            using onAppear = std::function<void()>;
 
         public:
             RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e);
             ~RulesSettingComponent() = default;
 
-            void addRule(std::function<void()> onSelect, std::function<void()> onExit);
+            void addRule(
+                std::function<void()> onSelect,
+                std::function<void()> onExit,
+                std::function<void()> onDisappear,
+                std::function<void()> onRuleUp,
+                std::function<void()> onRuleDown,
+                std::function<void()> onAppear
+            );
             void up();
             void down();
             int getIndex() const noexcept;
+            int getFirst() const noexcept;
+            int getLast() const noexcept;
 
             void deleteComponent() override;
 
         private:
             int _i = 0;
-            std::vector<std::pair<onSelectFct, onExitFct>> _rules;
+            std::vector<std::tuple<onSelectFct, onExitFct, onDisappear, onRuleUp, onRuleDown, onAppear>> _rules;
+            int _first = 0;
+            int _last = 0;
     };
 }
 

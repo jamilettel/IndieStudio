@@ -56,3 +56,8 @@ void is::components::TextureComponent::setVisible(bool visible) noexcept
 {
     _visible = visible;
 }
+
+void is::components::TextureComponent::setPosition(const irr::core::vector2df &position) noexcept
+{
+    _pos = position;
+}

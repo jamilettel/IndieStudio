@@ -35,6 +35,8 @@ namespace is::components
 
             void init(std::shared_ptr<is::components::WindowComponent> &ptrWindow);
 
+            void setPosition(const irr::core::vector2df &position) noexcept;
+
             const irr::core::vector2df &getPosition() const noexcept;
             const irr::core::vector2df &getSize() const noexcept;
             irr::video::ITexture *getNode() const noexcept;

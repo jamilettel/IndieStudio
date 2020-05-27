@@ -132,14 +132,14 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         irr::core::vector2df(11.3, 36),
         irr::core::vector2df(3, 5)
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &firstTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
         irr::core::vector2df(15, 35),
         irr::core::vector2df(20, 8)
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
@@ -171,16 +171,41 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
     component.addRule(
+        // On select
         [&dot, &backward, &forward](){
             dot.setVisible(true);
             backward.setVisible(true);
             forward.setVisible(true);
         },
+        // On exit
         [&dot, &backward, &forward](){
             dot.setVisible(false);
             backward.setVisible(false);
             forward.setVisible(false);
-        });
+        },
+        // On disappear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(false);
+            secondTable.setVisible(false);
+        },
+        // On rule up
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+        },
+        // On rule down
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+        },
+        // On appear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(true);
+            secondTable.setVisible(true);
+        }
+    );
     return (e);
 }
 
@@ -196,14 +221,14 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         irr::core::vector2df(3, 5),
         false
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &firstTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
         irr::core::vector2df(15, 45),
         irr::core::vector2df(20, 8)
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
@@ -396,6 +421,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
     });
 
     component.addRule(
+        // On select
         [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
             dot.setVisible(true);
             forward.setVisible(true);
@@ -415,6 +441,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
             if (!wallPassDisable.isDisabled())
                 wallPassDisable.setVisible(true);
         },
+        // On Exit
         [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
             dot.setVisible(false);
             forward.setVisible(false);
@@ -429,7 +456,30 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
             bombDisable.setVisible(false);
             explosionDisable.setVisible(false);
             wallPassDisable.setVisible(false);
-        });
+        },
+        // On disappear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(false);
+            secondTable.setVisible(false);
+        },
+        // On rule up
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+        },
+        // On rule down
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+        },
+        // On appear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(true);
+            secondTable.setVisible(true);
+        }
+    );
     return (e);
 }
 
@@ -445,14 +495,14 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         irr::core::vector2df(3, 5),
         false
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &firstTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
         irr::core::vector2df(15, 55),
         irr::core::vector2df(20, 8)
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
@@ -484,16 +534,41 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
     component.addRule(
+        // On select
         [&dot, &backward, &forward](){
             dot.setVisible(true);
             backward.setVisible(true);
             forward.setVisible(true);
         },
+        // On exit
         [&dot, &backward, &forward](){
             dot.setVisible(false);
             backward.setVisible(false);
             forward.setVisible(false);
-        });
+        },
+        // On disappear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(false);
+            secondTable.setVisible(false);
+        },
+        // On rule up
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+        },
+        // On rule down
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+        },
+        // On appear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(true);
+            secondTable.setVisible(true);
+        }
+    );
     return (e);
 }
 
@@ -509,14 +584,14 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         irr::core::vector2df(3, 5),
         false
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &firstTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
         irr::core::vector2df(15, 65),
         irr::core::vector2df(20, 8)
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
@@ -548,16 +623,41 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
     component.addRule(
+        // On select
         [&dot, &backward, &forward](){
             dot.setVisible(true);
             backward.setVisible(true);
             forward.setVisible(true);
         },
+        // On exit
         [&dot, &backward, &forward](){
             dot.setVisible(false);
             backward.setVisible(false);
             forward.setVisible(false);
-        });
+        },
+        // On disappear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(false);
+            secondTable.setVisible(false);
+        },
+        // On rule up
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+        },
+        // On rule down
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+        },
+        // On appear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(true);
+            secondTable.setVisible(true);
+        }
+    );
     return (e);
 }
 
@@ -573,27 +673,54 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createEmptyRule(is::compon
         irr::core::vector2df(3, 5),
         false
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &firstTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
         irr::core::vector2df(15, 75),
-        irr::core::vector2df(20, 8)
+        irr::core::vector2df(20, 8),
+        false
     );
-    e->addComponent<TextureComponent>(
+    TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
         irr::core::vector2df(36, 75),
-        irr::core::vector2df(7, 8)
+        irr::core::vector2df(7, 8),
+        false
     );
 
     component.addRule(
+        // On select
         [&dot](){
             dot.setVisible(true);
         },
+        // on exit
         [&dot](){
             dot.setVisible(false);
-        });
+        },
+        // On disappear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(false);
+            secondTable.setVisible(false);
+        },
+        // On rule up
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+        },
+        // On rule down
+        [&dot, &firstTable, &secondTable](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+        },
+        // On appear
+        [&firstTable, &secondTable](){
+            firstTable.setVisible(true);
+            secondTable.setVisible(true);
+        }
+    );
     return (e);
 }
