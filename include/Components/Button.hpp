@@ -76,6 +76,9 @@ namespace is::components {
             void bringToFront() override;
             void setVisible(bool visible);
 
+            bool isDisabled() const noexcept;
+            void setDisabled(bool disabled) noexcept;
+
             std::string windowName;
 
         private:
@@ -88,6 +91,7 @@ namespace is::components {
             bool _clicked;
             bool _visible;
             std::function<void()> _ft;
+            bool _disabled = false;
     };
 
 }

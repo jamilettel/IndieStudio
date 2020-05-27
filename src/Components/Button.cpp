@@ -142,6 +142,8 @@ void is::components::ButtonComponent::setCallback(std::function<void()> ft)
 
 void is::components::ButtonComponent::callCallback() const
 {
+    if (_disabled)
+        return;
     _ft();
 }
 
@@ -149,4 +151,14 @@ void is::components::ButtonComponent::setVisible(bool visible)
 {
     _visible = visible;
     element->setVisible(visible);
+}
+
+void is::components::ButtonComponent::setDisabled(bool disabled) noexcept
+{
+    _disabled = disabled;
+}
+
+bool is::components::ButtonComponent::isDisabled() const noexcept
+{
+    return _disabled;
 }

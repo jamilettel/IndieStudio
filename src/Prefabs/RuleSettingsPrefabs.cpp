@@ -6,6 +6,7 @@
 */
 
 #include "Prefabs/RuleSettingsPrefabs.hpp"
+#include <iostream>
 
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
@@ -214,7 +215,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "",
         "Indie Studio",
         1250,
-        250,
+        360,
         60, 60,
         [](){},
         false,
@@ -226,7 +227,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "",
         "Indie Studio",
         1550,
-        250,
+        360,
         60, 60,
         [](){},
         false,
@@ -237,7 +238,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         e,
         RESSOURCE("ui/RuleSettings/Table_01.png"),
         "Indie Studio",
-        irr::core::vector2df(71, 23),
+        irr::core::vector2df(71, 33),
         irr::core::vector2df(7, 8),
         false
     );
@@ -245,48 +246,189 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         e,
         RESSOURCE("ui/RuleSettings/Box.png"),
         "Indie Studio",
-        irr::core::vector2df(60, 35),
+        irr::core::vector2df(60, 45),
         irr::core::vector2df(30, 25),
         false
     );
-    ButtonComponent &downward = e->addComponent<ButtonComponent>(
+
+    ButtonComponent &acceleratorDisable = e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        1400,
-        650,
+        1200,
+        510,
         60, 60,
         [](){},
         false,
-        RESSOURCE("ui/RuleSettings/Downward_BTN.png"),
-        RESSOURCE("ui/RuleSettings/Downward_BTN_pressed.png")
+        RESSOURCE("ui/RuleSettings/disable.png"),
+        RESSOURCE("ui/RuleSettings/disable.png")
     );
-    TextureComponent &lowBox = e->addComponent<TextureComponent>(
+    acceleratorDisable.setDisabled(true);
+    ButtonComponent &accelerator = e->addComponent<ButtonComponent>(
         e,
-        RESSOURCE("ui/RuleSettings/Box.png"),
+        "",
         "Indie Studio",
-        irr::core::vector2df(60, 70),
-        irr::core::vector2df(30, 25),
-        false
+        1200,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/accelerator.png"),
+        RESSOURCE("ui/RuleSettings/accelerator.png")
     );
+    accelerator.setCallback([&accelerator, &acceleratorDisable](){
+        accelerator.setDisabled(true);
+        acceleratorDisable.setDisabled(false);
+        acceleratorDisable.setVisible(true);
+    });
+    acceleratorDisable.setCallback([&accelerator, &acceleratorDisable](){
+        accelerator.setDisabled(false);
+        acceleratorDisable.setDisabled(true);
+        acceleratorDisable.setVisible(false);
+    });
+
+    ButtonComponent &bombDisable = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1270,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/disable.png"),
+        RESSOURCE("ui/RuleSettings/disable.png")
+    );
+    bombDisable.setDisabled(true);
+    ButtonComponent &bomb = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1270,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/bomb.png"),
+        RESSOURCE("ui/RuleSettings/bomb.png")
+    );
+    bomb.setCallback([&bomb, &bombDisable](){
+        bomb.setDisabled(true);
+        bombDisable.setDisabled(false);
+        bombDisable.setVisible(true);
+    });
+    bombDisable.setCallback([&bomb, &bombDisable](){
+        bomb.setDisabled(false);
+        bombDisable.setDisabled(true);
+        bombDisable.setVisible(false);
+    });
+
+    ButtonComponent &explosionDisable = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1340,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/disable.png"),
+        RESSOURCE("ui/RuleSettings/disable.png")
+    );
+    explosionDisable.setDisabled(true);
+    ButtonComponent &explosion = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1340,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/explosion_expander.png"),
+        RESSOURCE("ui/RuleSettings/explosion_expander.png")
+    );
+    explosion.setCallback([&explosion, &explosionDisable](){
+        explosion.setDisabled(true);
+        explosionDisable.setDisabled(false);
+        explosionDisable.setVisible(true);
+    });
+    explosionDisable.setCallback([&explosion, &explosionDisable](){
+        explosion.setDisabled(false);
+        explosionDisable.setDisabled(true);
+        explosionDisable.setVisible(false);
+    });
+
+    ButtonComponent &wallPassDisable = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1410,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/disable.png"),
+        RESSOURCE("ui/RuleSettings/disable.png")
+    );
+    wallPassDisable.setDisabled(true);
+    ButtonComponent &wallPass = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1410,
+        510,
+        60, 60,
+        [](){},
+        false,
+        RESSOURCE("ui/RuleSettings/wall_pass.png"),
+        RESSOURCE("ui/RuleSettings/wall_pass.png")
+    );
+    wallPass.setCallback([&wallPass, &wallPassDisable](){
+        wallPass.setDisabled(true);
+        wallPassDisable.setDisabled(false);
+        wallPassDisable.setVisible(true);
+    });
+    wallPassDisable.setCallback([&wallPass, &wallPassDisable](){
+        wallPass.setDisabled(false);
+        wallPassDisable.setDisabled(true);
+        wallPassDisable.setVisible(false);
+    });
+
     component.addRule(
-        [&dot, &forward, &backward, &onOff, &highBox, &downward, &lowBox](){
+        [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
             dot.setVisible(true);
             forward.setVisible(true);
             backward.setVisible(true);
             onOff.setVisible(true);
             highBox.setVisible(true);
-            downward.setVisible(true);
-            lowBox.setVisible(true);
+            accelerator.setVisible(true);
+            bomb.setVisible(true);
+            explosion.setVisible(true);
+            wallPass.setVisible(true);
+            if (!acceleratorDisable.isDisabled())
+                acceleratorDisable.setVisible(true);
+            if (!bombDisable.isDisabled())
+                bombDisable.setVisible(true);
+            if (!explosionDisable.isDisabled())
+                explosionDisable.setVisible(true);
+            if (!wallPassDisable.isDisabled())
+                wallPassDisable.setVisible(true);
         },
-        [&dot, &forward, &backward, &onOff, &highBox, &downward, &lowBox](){
+        [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
             dot.setVisible(false);
             forward.setVisible(false);
             backward.setVisible(false);
             onOff.setVisible(false);
             highBox.setVisible(false);
-            downward.setVisible(false);
-            lowBox.setVisible(false);
+            accelerator.setVisible(false);
+            bomb.setVisible(false);
+            explosion.setVisible(false);
+            wallPass.setVisible(false);
+            acceleratorDisable.setVisible(false);
+            bombDisable.setVisible(false);
+            explosionDisable.setVisible(false);
+            wallPassDisable.setVisible(false);
         });
     return (e);
 }
