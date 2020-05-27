@@ -46,7 +46,6 @@ namespace is::components {
         bool fullscreen;
 
         irr::core::array<irr::SJoystickInfo> joysticks;
-        bool joystickSupport = true;
 
         static std::map<std::string, std::pair<int, int>> _windowsDimensions;
         static int _width;

@@ -5,27 +5,27 @@
 ** ASystem
 */
 
-#ifndef ASystem_HPP_
-#define ASystem_HPP_
+#ifndef ASYSTEM_HPP_
+#define ASYSTEM_HPP_
 
 #include "ECS/ISystem.hpp"
 
 namespace is::ecs {
 
     class ASystem : public ISystem {
-        public:
-            ~ASystem() override = default;
+    public:
+        ~ASystem() override = default;
 
-            void setComponentManager(std::shared_ptr<ComponentManager> componentManager) final;
-            void setEntityManager(std::shared_ptr<EntityManager> entityManager) final;
-            std::shared_ptr<Entity> &initRuntimeEntity(std::shared_ptr<Entity> &&entity) final;
+        void setComponentManager(std::shared_ptr<ComponentManager> componentManager) final;
+        void setEntityManager(std::shared_ptr<EntityManager> entityManager) final;
+        std::shared_ptr<Entity> &initRuntimeEntity(std::shared_ptr<Entity> &&entity, bool keep = false) final;
 
-        protected:
-            std::shared_ptr<ComponentManager> _componentManager;
-            std::shared_ptr<EntityManager> _entityManager;
+    protected:
+        std::shared_ptr<ComponentManager> _componentManager;
+        std::shared_ptr<EntityManager> _entityManager;
 
     };
 
 }
 
-#endif /* !ASystem_HPP_ */
+#endif /* !ASYSTEM_HPP_ */

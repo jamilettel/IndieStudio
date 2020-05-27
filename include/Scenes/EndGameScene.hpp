@@ -23,6 +23,8 @@
 #include "Systems/Texture.hpp"
 #include "Systems/Text.hpp"
 #include "Components/Stats.hpp"
+#include "Systems/JoystickInput.hpp"
+#include "Systems/JoystickCursor.hpp"
 
 namespace is::scenes {
 
