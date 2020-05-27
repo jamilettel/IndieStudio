@@ -8,16 +8,29 @@
 #ifndef CHARACTERCOMPONENT_HPP_
 #define CHARACTERCOMPONENT_HPP_
 
+#include "PresetAction.hpp"
 #include "ECS/Component.hpp"
 
 namespace is::components
 {
+
+
     class CharacterComponent : public is::ecs::Component {
         public:
             enum Type {
                 AI,
                 KEYBOARD_PLAYER,
                 JOYSTICK_PLAYER
+            };
+
+            static inline const PresetAction playerActions[7] = {
+                {"MoveVerticalAxis", 1, "Move forward"},
+                {"MoveVerticalAxis", -1, "Move backward"},
+                {"MoveHorizontalAxis", -1, "Move right"},
+                {"MoveHorizontalAxis", 1, "Move left"},
+                {"DropBomb", 1, "Drop bomb"},
+                {"Jump", 1, "Jump"},
+                {"", -9999, ""},
             };
 
         public:

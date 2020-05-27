@@ -33,5 +33,5 @@ void is::scenes::ControllersScene::initSystems()
 void is::scenes::ControllersScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createControllersBase(), false);
-    initEntity(prefabs::GlobalPrefabs::createControllersOptions(), false);
+    initEntity(prefabs::GlobalPrefabs::createControllersOptions(*_componentManager), false);
 }

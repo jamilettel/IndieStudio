@@ -301,5 +301,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
     is::components::KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
     is::components::KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
 
+    preset2.getKeyboardPreset().changeKey(EKEY_CODE::KEY_KEY_W, EKEY_CODE::KEY_KEY_Z);
+
     return e;
 }

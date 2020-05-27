@@ -81,12 +81,12 @@ namespace is::prefabs {
 
         static std::shared_ptr<is::ecs::Entity> createSettings();
         static std::shared_ptr<is::ecs::Entity> createControllersBase();
-        static std::shared_ptr<is::ecs::Entity> createControllersOptions();
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
         static std::shared_ptr<is::ecs::Entity> createCharacter();
         static std::shared_ptr<is::ecs::Entity> createPresets();
         static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, std::shared_ptr<components::WindowComponent> &window);
+        static std::shared_ptr<is::ecs::Entity> createControllersOptions(const is::ecs::ComponentManager &manager);
 
     private:
         static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);
