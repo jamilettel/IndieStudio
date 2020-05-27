@@ -37,5 +37,5 @@ bool PresetAction::operator>(const PresetAction &rhs) const
 
 bool PresetAction::operator==(const PresetAction &rhs) const
 {
-    return action == rhs.action && value == rhs.value && description == rhs.description && max == rhs.max;
+    return action == rhs.action && value == rhs.value && description == rhs.description;
 }
