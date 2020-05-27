@@ -214,7 +214,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
 
             auto &controllerAction = e->addComponent<is::components::ImageComponent>(
                 e,
-                //RESSOURCE("ui/Controllers/A_BUTTON.png"),
                 PresetComponent::getEquivalentButton(JoystickBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
                 is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,

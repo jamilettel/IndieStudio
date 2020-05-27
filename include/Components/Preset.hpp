@@ -83,18 +83,24 @@ namespace is::components {
         };
 
         static inline const EquivalentButton EquivalentButtons[] = {
-            {1, RESSOURCE("ui/Controllers/A_BUTTON.png")},
-            {2, RESSOURCE("ui/Controllers/B_BUTTON.png")},
-            {3, RESSOURCE("ui/Controllers/X_BUTTON.png")},
-            {4, RESSOURCE("ui/Controllers/Y_BUTTON.png")},
-            {5, RESSOURCE("ui/Controllers/LB.png")},
-            {6, RESSOURCE("ui/Controllers/RB.png")},
-            {7, RESSOURCE("ui/Controllers/BACK_BUTTON.png")},
-            {8, RESSOURCE("ui/Controllers/START_BUTTON.png")},
-            {9, RESSOURCE("ui/Controllers/HOME_BUTTON.png")},
-            {10, RESSOURCE("ui/Controllers/RS_BUTTON.png")},
-            {11, RESSOURCE("ui/Controllers/LS_BUTTON.png")},
-            {-1, RESSOURCE("")},
+            {0, RESSOURCE("ui/Controllers/LS_RIGHT.png")},
+            {1, RESSOURCE("ui/Controllers/LS_UP.png")},
+            {2, RESSOURCE("ui/Controllers/LS_BUTTON.png")},
+            {3, RESSOURCE("ui/Controllers/RS_LEFT.png")},
+            {4, RESSOURCE("ui/Controllers/RS_DOWN.png")},
+            {5, RESSOURCE("ui/Controllers/RS_BUTTON.png")},
+            {-1, RESSOURCE("ui/Controllers/A_BUTTON.png")},
+            {-2, RESSOURCE("ui/Controllers/B_BUTTON.png")},
+            {-3, RESSOURCE("ui/Controllers/X_BUTTON.png")},
+            {-4, RESSOURCE("ui/Controllers/Y_BUTTON.png")},
+            {-5, RESSOURCE("ui/Controllers/LB.png")},
+            {-6, RESSOURCE("ui/Controllers/RB.png")},
+            {-7, RESSOURCE("ui/Controllers/BACK_BUTTON.png")},
+            {-8, RESSOURCE("ui/Controllers/START_BUTTON.png")},
+            {-9, RESSOURCE("ui/Controllers/HOME_BUTTON.png")},
+            {-10, RESSOURCE("ui/Controllers/RS_BUTTON.png")},
+            {-11, RESSOURCE("ui/Controllers/LS_BUTTON.png")},
+            {-9999, RESSOURCE("")},
         };
 
     public:
