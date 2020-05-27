@@ -46,4 +46,5 @@ void RuleSettingsScene::initEntities()
     initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rules));
     initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rules));
     initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createEmptyRule(rules));
 }

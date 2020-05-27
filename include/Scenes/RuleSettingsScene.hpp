@@ -24,7 +24,7 @@
 #include "Systems/Texture.hpp"
 #include "Systems/Text.hpp"
 
-#include "Components/RulesSettingComponent.hpp"
+#include "Components/RulesSetting.hpp"
 
 #include "Prefabs/RuleSettingsPrefabs.hpp"
 

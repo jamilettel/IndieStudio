@@ -560,3 +560,40 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         });
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createEmptyRule(is::components::RulesSettingComponent &component)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    TextureComponent &dot = e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Dot_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(11.3, 76),
+        irr::core::vector2df(3, 5),
+        false
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(15, 75),
+        irr::core::vector2df(20, 8)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/RuleSettings/Table_01.png"),
+        "Indie Studio",
+        irr::core::vector2df(36, 75),
+        irr::core::vector2df(7, 8)
+    );
+
+    component.addRule(
+        [&dot](){
+            dot.setVisible(true);
+        },
+        [&dot](){
+            dot.setVisible(false);
+        });
+    return (e);
+}

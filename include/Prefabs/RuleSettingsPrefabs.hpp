@@ -12,7 +12,7 @@
 
 #include "Components/Texture.hpp"
 #include "Components/Button.hpp"
-#include "Components/RulesSettingComponent.hpp"
+#include "Components/RulesSetting.hpp"
 
 #include <irrlicht.h>
 
@@ -31,6 +31,7 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component);
             static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(is::components::RulesSettingComponent &component);
             static std::shared_ptr<is::ecs::Entity> createModeFpsRule(is::components::RulesSettingComponent &component);
+            static std::shared_ptr<is::ecs::Entity> createEmptyRule(is::components::RulesSettingComponent &component);
 
         private:
     };

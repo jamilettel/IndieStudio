@@ -5,7 +5,7 @@
 ** RulesSettingComponent
 */
 
-#include "Components/RulesSettingComponent.hpp"
+#include "Components/RulesSetting.hpp"
 
 using namespace is::components;
 using namespace is::ecs;
