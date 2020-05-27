@@ -102,3 +102,13 @@ void is::components::TextComponent::setVisible(bool visible)
     _visible = visible;
     element->setVisible(visible);
 }
+
+const irr::core::vector2di is::components::TextComponent::getPosition() const noexcept
+{
+    return _dimension.getCenter();
+}
+
+void is::components::TextComponent::setPosition(const irr::core::vector2di &pos) noexcept
+{
+    _dimension = irr::core::rect<irr::s32>(pos.X, pos.Y, pos.X + _dimension.getWidth(), pos.Y + _dimension.getHeight());
+}

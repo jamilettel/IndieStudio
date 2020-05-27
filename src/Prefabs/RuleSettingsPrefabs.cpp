@@ -146,6 +146,28 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         irr::core::vector2df(36, 35),
         irr::core::vector2df(7, 8)
     );
+    TextComponent &title = e->addComponent<TextComponent>(
+        e,
+        "Number of players",
+        "Indie Studio",
+        280, 305,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &value = e->addComponent<TextComponent>(
+        e,
+        "4",
+        "Indie Studio",
+        560, 305,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -184,26 +206,34 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
             forward.setVisible(false);
         },
         // On disappear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(false);
             secondTable.setVisible(false);
+            title.setVisible(false);
+            value.setVisible(false);
         },
         // On rule up
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
         },
         // On rule down
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
         },
         // On appear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(true);
             secondTable.setVisible(true);
+            title.setVisible(true);
+            value.setVisible(true);
         }
     );
     return (e);
@@ -234,6 +264,28 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         irr::core::vector2df(36, 45),
         irr::core::vector2df(7, 8)
+    );
+    TextComponent &title = e->addComponent<TextComponent>(
+        e,
+        "Icons",
+        "Indie Studio",
+        280, 410,
+        190, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &value = e->addComponent<TextComponent>(
+        e,
+        "On",
+        "Indie Studio",
+        560, 410,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
     );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
@@ -458,26 +510,34 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
             wallPassDisable.setVisible(false);
         },
         // On disappear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(false);
             secondTable.setVisible(false);
+            title.setVisible(false);
+            value.setVisible(false);
         },
         // On rule up
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
         },
         // On rule down
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
         },
         // On appear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(true);
             secondTable.setVisible(true);
+            title.setVisible(true);
+            value.setVisible(true);
         }
     );
     return (e);
@@ -509,6 +569,28 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         irr::core::vector2df(36, 55),
         irr::core::vector2df(7, 8)
     );
+    TextComponent &title = e->addComponent<TextComponent>(
+        e,
+        "Max Time",
+        "Indie Studio",
+        280, 515,
+        270, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &value = e->addComponent<TextComponent>(
+        e,
+        "03:00",
+        "Indie Studio",
+        560, 515,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -547,26 +629,34 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
             forward.setVisible(false);
         },
         // On disappear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(false);
             secondTable.setVisible(false);
+            title.setVisible(false);
+            value.setVisible(false);
         },
         // On rule up
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
         },
         // On rule down
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
         },
         // On appear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(true);
             secondTable.setVisible(true);
+            title.setVisible(true);
+            value.setVisible(true);
         }
     );
     return (e);
@@ -598,6 +688,28 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         irr::core::vector2df(36, 65),
         irr::core::vector2df(7, 8)
     );
+    TextComponent &title = e->addComponent<TextComponent>(
+        e,
+        "Mode fps",
+        "Indie Studio",
+        280, 620,
+        270, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &value = e->addComponent<TextComponent>(
+        e,
+        "Off",
+        "Indie Studio",
+        560, 620,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -636,26 +748,34 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
             forward.setVisible(false);
         },
         // On disappear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(false);
             secondTable.setVisible(false);
+            title.setVisible(false);
+            value.setVisible(false);
         },
         // On rule up
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
         },
         // On rule down
-        [&dot, &firstTable, &secondTable](){
+        [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
+            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
         },
         // On appear
-        [&firstTable, &secondTable](){
+        [&firstTable, &secondTable, &title, &value](){
             firstTable.setVisible(true);
             secondTable.setVisible(true);
+            title.setVisible(true);
+            value.setVisible(true);
         }
     );
     return (e);

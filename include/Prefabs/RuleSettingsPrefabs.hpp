@@ -13,6 +13,7 @@
 #include "Components/Texture.hpp"
 #include "Components/Button.hpp"
 #include "Components/RulesSetting.hpp"
+#include "Components/Text.hpp"
 
 #include <irrlicht.h>
 
