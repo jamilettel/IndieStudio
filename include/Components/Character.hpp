@@ -20,7 +20,8 @@ namespace is::components
             enum Type {
                 AI,
                 KEYBOARD_PLAYER,
-                JOYSTICK_PLAYER
+                JOYSTICK_PLAYER,
+                MULTIPLAYER_PLAYER
             };
 
             static inline const PresetAction playerActions[7] = {
@@ -57,6 +58,7 @@ namespace is::components
 
             int joystickId = -1;
             int presetNumber = -1;
+            int multiplayerId = -1;
 
         private:
             size_t _timePlaying = 0;

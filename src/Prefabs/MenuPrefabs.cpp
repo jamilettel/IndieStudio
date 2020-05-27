@@ -40,11 +40,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createJoystickCursor(int joystic
     joystickInput.bindButton(0, "Click", 1);
 
     auto &cursor = e->addComponent<CursorComponent>(e, cursorJoystick, *window.get(), false);
-    e->addComponent<JoystickCursorComponent>(
-        e,
-        cursor,
-        joystickInput
-        );
+    e->addComponent<JoystickCursorComponent>(e, cursor, joystickInput);
 
     return e;
 }
@@ -56,16 +52,10 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGlobalPrefab()
     e->addComponent<TimeComponent>(e);
     e->addComponent<AudioComponent>(e, RESSOURCE("lol.wav"), MUSIC, false);
     auto &window = e->addComponent<WindowComponent>(e, "Indie Studio");
-    auto &cursorMouse = e->addComponent<ImageComponent>(
-        e,
-        RESSOURCE("/ui/cursor/cursor.png"),
-        "Indie Studio",
-        0,
-        0);
-    cursorMouse.layer = 10;
-    e->addComponent<NetworkComponent>(e);
-    e->addComponent<CursorComponent>(e, cursorMouse, window, true);
-    e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(-100, 100, 0), video::SColorf(1.0f, 1.0f, 1.0f, 1.0f), 500.0f);
+    auto &cursor = e->addComponent<ImageComponent>(e, RESSOURCE("/ui/cursor/cursor.png"), "Indie Studio", 0, 0);
+    cursor.layer = 10;
+    e->addComponent<CursorComponent>(e, cursor, window);
+    e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(20, 500, -20), video::SColorf(2.5f, 2.3f, 1.9f, 1.0f), 750.0f);
     e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0), true);
     return e;
 }
@@ -130,7 +120,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMenu()
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MULTIPLAYER);
+            is::Game::setActualScene(is::ecs::SCENE_MULTIPLAYER_HUB);
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),
@@ -477,7 +467,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createRecord()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMultiplayer(std::shared_ptr<NetworkComponent> nc)
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc)
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
@@ -528,6 +518,100 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMultiplayer(std::shared_pt
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
         350, 100,
         [](){
+            is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY_CHOICE);
+        },
+        true,
+        RESSOURCE("ui/main_menu/button_play.png"),
+        RESSOURCE("ui/main_menu/button_play_pressed.png")
+    );
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc)
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/background.jpg"),
+        "Indie Studio",
+        0, 0, true
+    ).layer = -9999;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Record/Record.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
+    ).layer = 1;
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30, 30,
+        50, 50,
+        [](){
+            is::Game::setActualScene(is::Game::getPreviousScene());
+        },
+        true,
+        RESSOURCE("ui/Record/Return_BTN.png"),
+        RESSOURCE("ui/Record/Return_BTN_pressed.png")
+    ).layer = 2;
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
+        350, 100,
+        [nc](){
+            nc->writeQueue.push("join lobby 0\n");
+        },
+        true,
+        RESSOURCE("ui/main_menu/button_play.png"),
+        RESSOURCE("ui/main_menu/button_play_pressed.png")
+    );
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc)
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/background.jpg"),
+        "Indie Studio",
+        0, 0, true
+    ).layer = -9999;
+    e->addComponent<is::components::ImageComponent>(
+        e,
+        RESSOURCE("ui/Record/Record.png"),
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
+    ).layer = 1;
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        30, 30,
+        50, 50,
+        [](){
+            is::Game::setActualScene(is::Game::getPreviousScene());
+        },
+        true,
+        RESSOURCE("ui/Record/Return_BTN.png"),
+        RESSOURCE("ui/Record/Return_BTN_pressed.png")
+    ).layer = 2;
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 500,
+        350, 100,
+        [nc](){
+            nc->writeQueue.push("start game\n");
+
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),

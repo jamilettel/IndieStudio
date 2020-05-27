@@ -12,6 +12,7 @@
 #include <string>
 #include "EventManager/EventManager.hpp"
 #include "PresetAction.hpp"
+#include <algorithm>
 
 namespace is::components {
 
@@ -39,6 +40,7 @@ namespace is::components {
 
         const std::map<PresetAction, u32> &getButtonBindings() const;
         const std::map<PresetAction, u32> &getAxisBindings() const;
+        [[nodiscard]] std::map<PresetAction, u32> getBindings() const;
 
         static void createBasicPreset(JoystickPresetComponent &preset);
 

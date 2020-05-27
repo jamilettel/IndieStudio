@@ -13,6 +13,11 @@
 #include <vector>
 #include "Text.hpp"
 
+#ifndef RESOURCES_PATH
+    #define RESOURCES_PATH "./resources/"
+#endif
+#define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
+
 namespace is::components {
 
     class KeyboardPresetComponent;
@@ -24,6 +29,11 @@ namespace is::components {
             EKEY_CODE _key;
             std::string _name;
         } EquivalentKey;
+
+        typedef struct {
+            int _button;
+            std::string _filename;
+        } EquivalentButton;
 
         static inline const EquivalentKey EquivalentKeys[] = {
             {EKEY_CODE::KEY_KEY_A, "A"},
@@ -72,6 +82,21 @@ namespace is::components {
             {EKEY_CODE::KEY_KEY_CODES_COUNT, "Unknown"},
         };
 
+        static inline const EquivalentButton EquivalentButtons[] = {
+            {1, RESSOURCE("ui/Controllers/A_BUTTON.png")},
+            {2, RESSOURCE("ui/Controllers/B_BUTTON.png")},
+            {3, RESSOURCE("ui/Controllers/X_BUTTON.png")},
+            {4, RESSOURCE("ui/Controllers/Y_BUTTON.png")},
+            {5, RESSOURCE("ui/Controllers/LB.png")},
+            {6, RESSOURCE("ui/Controllers/RB.png")},
+            {7, RESSOURCE("ui/Controllers/BACK_BUTTON.png")},
+            {8, RESSOURCE("ui/Controllers/START_BUTTON.png")},
+            {9, RESSOURCE("ui/Controllers/HOME_BUTTON.png")},
+            {10, RESSOURCE("ui/Controllers/RS_BUTTON.png")},
+            {11, RESSOURCE("ui/Controllers/LS_BUTTON.png")},
+            {-1, RESSOURCE("")},
+        };
+
     public:
         explicit PresetComponent(
             std::shared_ptr<is::ecs::Entity> &e,
@@ -88,6 +113,7 @@ namespace is::components {
         [[nodiscard]] JoystickPresetComponent &getJoystickPreset();
 
         static std::string getEquivalentKey(EKEY_CODE key);
+        static std::string getEquivalentButton(int button);
 
         std::vector<std::shared_ptr<TextComponent>> _textPreset;
         std::vector<std::shared_ptr<ImageComponent>> _imagePreset;

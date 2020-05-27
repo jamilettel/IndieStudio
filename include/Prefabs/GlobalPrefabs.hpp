@@ -34,6 +34,7 @@
 #include "Components/Jump.hpp"
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardInput.hpp"
+#include "Components/NetworkInput.hpp"
 #include "Components/AIController.hpp"
 #include "Components/JoystickInput.hpp"
 #include "Components/Animator.hpp"
@@ -66,9 +67,10 @@ namespace is::prefabs {
 
         static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
         static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
-            const irr::core::vector3df &pos,
-            is::components::CharacterComponent &character,
-            const is::ecs::ComponentManager &manager
+                const irr::core::vector3df &pos,
+                is::components::CharacterComponent &character,
+                const is::ecs::ComponentManager &manager,
+                const std::string &texture
             );
 
         static std::shared_ptr<is::ecs::Entity> createSplashScreen();
@@ -88,8 +90,14 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, std::shared_ptr<components::WindowComponent> &window);
         static std::shared_ptr<is::ecs::Entity> createControllersOptions(const is::ecs::ComponentManager &manager);
 
-    private:
         static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createControllers();
+        
+        private:
+            static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
     };
 
 }

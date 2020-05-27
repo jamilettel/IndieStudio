@@ -21,7 +21,8 @@ namespace is::components {
             ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
                                    const std::string &name,
                                    const std::string &wn,
-                                   const std::string &matName = "");
+                                   const std::string &matName = "",
+                                   bool shadow = false);
             ~ModelRendererComponent() override = default;
 
             ModelRendererComponent(const ModelRendererComponent &) = delete;
@@ -34,6 +35,7 @@ namespace is::components {
             std::string fileName;
             std::string materialName;
             std::string windowName;
+            bool modelShadow;
             irr::scene::IAnimatedMeshSceneNode *node{};
     };
 

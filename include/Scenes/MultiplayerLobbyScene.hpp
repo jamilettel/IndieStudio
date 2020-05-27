@@ -5,8 +5,8 @@
 ** SplashScreen
 */
 
-#ifndef MultiplayerScene_HPP_
-#define MultiplayerScene_HPP_
+#ifndef MultiplayerLobbyScene_HPP_
+#define MultiplayerLobbyScene_HPP_
 
 #include "Systems/Time.hpp"
 #include "Systems/Audio.hpp"
@@ -17,22 +17,20 @@
 #include "Systems/Button.hpp"
 #include "Systems/Text.hpp"
 #include "Systems/Cursor.hpp"
-#include "Systems/Network.hpp"
+#include "Systems/Network.hpp" 
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Components/Network.hpp"
 #include "ECS/AScene.hpp"
-#include "Systems/JoystickInput.hpp"
-#include "Systems/JoystickCursor.hpp"
 
 namespace is::scenes {
 
-    class MultiplayerScene : public is::ecs::AScene {
+    class MultiplayerLobbyScene : public is::ecs::AScene {
         public:
-            MultiplayerScene();
-            ~MultiplayerScene() override = default;
+            MultiplayerLobbyScene();
+            ~MultiplayerLobbyScene() override = default;
 
-            MultiplayerScene(const MultiplayerScene &) = default;
-            MultiplayerScene &operator=(const MultiplayerScene &) = default;
+            MultiplayerLobbyScene(const MultiplayerLobbyScene &) = default;
+            MultiplayerLobbyScene &operator=(const MultiplayerLobbyScene &) = default;
 
             void initSystems() override;
             void initEntities() override;
@@ -40,4 +38,4 @@ namespace is::scenes {
 
 }
 
-#endif /* !MultiplayerScene_HPP_ */
+#endif /* !MultiplayerLobbyScene_HPP_ */

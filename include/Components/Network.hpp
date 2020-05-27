@@ -11,13 +11,17 @@
 #include <irrlicht.h>
 #include <string>
 #include <queue>
+#include <vector>
 
 #include "ECS/Component.hpp"
 #include "Exception.hpp"
 
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 
     #include <winsock2.h> 
+    #include <io.h>
+    #include <Ws2tcpip.h>
+    #pragma comment(lib, "ws2_32.lib")
 
 #else
 
@@ -51,8 +55,9 @@ namespace is::components {
             fd_set efds;
             int serverSock;
             bool isOn;
+            int playerIdx;
             std::queue<std::string> writeQueue;
-            std::queue<std::string> readQueue;
+            std::vector<irr::core::vector2df> playerPositions;
     };
 
 }

@@ -15,7 +15,10 @@
 #include "Scenes/SettingsScene.hpp"
 #include "Scenes/ControllersScene.hpp"
 #include "Scenes/PresetSelectionScene.hpp"
-#include "Scenes/MultiplayerScene.hpp"
+#include "Scenes/MultiplayerHubScene.hpp"
+#include "Scenes/MultiplayerLobbyChoiceScene.hpp"
+#include "Scenes/MultiplayerLobbyScene.hpp"
+#include "Scenes/MultiplayerGameScene.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Scenes/EndGameScene.hpp"
 #include "Exception.hpp"
@@ -24,7 +27,7 @@ int main(int argc, char const *argv[])
 {
     is::Game game;
 
-    try {
+    // try {
         game.addScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN, std::make_shared<is::scenes::SplashScreenScene>());
         game.addScene(is::ecs::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
         game.addScene(is::ecs::Scenes::SCENE_CREDIT, std::make_shared<is::scenes::CreditScene>());
@@ -35,17 +38,20 @@ int main(int argc, char const *argv[])
         game.addScene(is::ecs::Scenes::SCENE_SETTINGS, std::make_shared<is::scenes::SettingsScene>());
         game.addScene(is::ecs::Scenes::SCENE_CONTROLLERS, std::make_shared<is::scenes::ControllersScene>());
         game.addScene(is::ecs::Scenes::SCENE_PRESETSELECTION, std::make_shared<is::scenes::PresetSelectionScene>());
+        game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_HUB, std::make_shared<is::scenes::MultiplayerHubScene>());
+        game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY_CHOICE, std::make_shared<is::scenes::MultiplayerLobbyChoiceScene>());
+        game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY, std::make_shared<is::scenes::MultiplayerLobbyScene>());
+        game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME, std::make_shared<is::scenes::MultiplayerGameScene>());
         game.addScene(is::ecs::Scenes::SCENE_ENDGAME, std::make_shared<is::scenes::EndGameScene>());
-        game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER, std::make_shared<is::scenes::MultiplayerScene>());
         game.launchGame(is::ecs::Scenes::SCENE_SPLASH_SCREEN);
-    } catch (is::exceptions::Exception &e) {
-        std::cerr << "CAUGHT EXCEPTION:" << std::endl;
-        std::cerr << e.getComponent() << ": " << e.what() << std::endl;
-        return 84;
-    } catch (const std::exception &e) {
-        std::cerr << "CAUGHT EXCEPTION:" << std::endl;
-        std::cerr << e.what() << std::endl;
-        return 84;
-    }
+    // } catch (is::exceptions::Exception &e) {
+        // std::cerr << "CAUGHT EXCEPTION:" << std::endl;
+        // std::cerr << e.getComponent() << ": " << e.what() << std::endl;
+        // return 84;
+    // } catch (const std::exception &e) {
+        // std::cerr << "CAUGHT EXCEPTION:" << std::endl;
+        // std::cerr << e.what() << std::endl;
+        // return 84;
+    // }
     return 0;
 }

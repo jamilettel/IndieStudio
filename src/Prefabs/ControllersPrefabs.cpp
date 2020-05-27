@@ -171,7 +171,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         for (auto &preset : presets) {
             auto *p = static_cast<PresetComponent *>(preset.get());
             auto &keyboardBinds = p->getKeyboardPreset().getBindings();
-            auto &JoystickBinds = p->getJoystickPreset().getButtonBindings();
+            auto JoystickBinds = p->getJoystickPreset().getBindings();
 
             auto &keyboardAction = e->addComponent<is::components::TextComponent>(
                 e,
@@ -190,9 +190,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
 
             auto &controllerAction = e->addComponent<is::components::ImageComponent>(
                 e,
-                RESSOURCE("ui/Controllers/Controls_title.png"),
+                //RESSOURCE("ui/Controllers/A_BUTTON.png"),
+                PresetComponent::getEquivalentButton(JoystickBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
+                true,
+                count == 0
             );
 
             auto &buttonAction = e->addComponent<ButtonComponent>(

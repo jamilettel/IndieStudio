@@ -14,7 +14,7 @@
 using namespace is::systems;
 using namespace is::components;
 
-#include <irrlicht/irrlicht.h>
+#include <irrlicht.h>
 
 void TextureSystem::awake()
 {

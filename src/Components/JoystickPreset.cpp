@@ -90,6 +90,17 @@ const std::map<PresetAction, u32> &JoystickPresetComponent::getAxisBindings() co
     return _axes;
 }
 
+std::map<PresetAction, u32> JoystickPresetComponent::getBindings() const
+{
+    std::map<PresetAction, u32> bindings;
+
+    bindings.insert(_buttons.begin(), _buttons.end());
+    bindings.insert(_axes.begin(), _axes.end());
+
+    return bindings;
+}
+
+
 void JoystickPresetComponent::createBasicPreset(JoystickPresetComponent &preset)
 {
     preset.bindAxis(1, PresetAction("MoveVerticalAxis", 1, "Move forward", true));
