@@ -37,3 +37,12 @@ std::string PresetComponent::getEquivalentKey(EKEY_CODE key)
     }
     return "Unknown";
 }
+
+std::string PresetComponent::getEquivalentButton(int button)
+{
+    for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -1; i++) {
+        if (PresetComponent::EquivalentButtons[i]._button == button)
+            return PresetComponent::EquivalentButtons[i]._filename;
+    }
+    return "Unknown";
+}
