@@ -22,7 +22,7 @@ void GameScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    // _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
@@ -56,27 +56,31 @@ void GameScene::initEntities()
     mg.generateMap(*this, 1, 15, 13);
     // initEntity(GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
-                   irr::core::vector3df(-5 * 3, 0, 6 * 3),
-                   *static_cast<CharacterComponent *>(characters[0].get()),
-                   *_componentManager.get()
-                   ));
+        irr::core::vector3df(-5 * 3, 0, 6 * 3),
+        *static_cast<CharacterComponent *>(characters[0].get()),
+        *_componentManager.get(),
+        "player_white.png"
+    ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[1].get()),
-        *_componentManager.get())
-    );
+        *_componentManager.get(),
+        "player_black.png"
+    ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[2].get()),
-        *_componentManager.get()
+        *_componentManager.get(),
+        "player_blue.png"
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[3].get()),
-        *_componentManager.get()
+        *_componentManager.get(),
+        "player_red.png"
     ));
 }
 

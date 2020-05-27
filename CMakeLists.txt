@@ -14,7 +14,7 @@ set(CMAKE_MODULE_PATH cmake-dependencies)
 add_definitions(-DRESOURCES_PATH="${CMAKE_SOURCE_DIR}/resources/")
 
 if(MSVC)
-    set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -W4")
+    #set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -W4")
 else(MSVC)
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall")
 endif(MSVC)

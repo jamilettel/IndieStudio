@@ -33,6 +33,8 @@ namespace is::components {
         [[nodiscard]] WindowComponent &getWindow() const;
         [[nodiscard]] CursorComponent &getCursor() const;
 
+        bool clicked = false;
+
     private:
         JoystickInputComponent &_joystickInput;
         CursorComponent &_cursor;

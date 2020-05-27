@@ -19,7 +19,7 @@ namespace is::components {
             std::shared_ptr<is::ecs::Entity> &e,
             ImageComponent &cursorImage,
             WindowComponent &window,
-            bool mouseCursor
+            bool mouseCursor = true
             );
         ~CursorComponent() = default;
 

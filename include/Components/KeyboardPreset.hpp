@@ -12,6 +12,7 @@
 #include <string>
 #include "EventManager/EventManager.hpp"
 #include "PresetAction.hpp"
+#include <algorithm>
 
 namespace is::components {
 

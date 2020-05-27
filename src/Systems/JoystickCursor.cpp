@@ -22,6 +22,11 @@ void JoystickCursorSystem::awake()
 
     _windowSize.X = ptr->_width;
     _windowSize.Y = ptr->_height;
+
+    auto &timeList = _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
+    if (timeList.size() == 0)
+        throw is::exceptions::Exception("JoystickCursorSystem", "Could not find Time Component");
+    _time = std::dynamic_pointer_cast<TimeComponent>(timeList[0]);
 }
 
 void JoystickCursorSystem::start()
@@ -33,8 +38,8 @@ void JoystickCursorSystem::update()
 
     for (auto cursor: joystickCursors) {
         auto ptr = static_cast<JoystickCursorComponent *>(cursor.get());
-        float horizontal = ptr->getJoystickInput().getInputManager().getInput("Horizontal") * 20.0;
-        float vertical = ptr->getJoystickInput().getInputManager().getInput("Vertical") * 20.0;
+        float horizontal = ptr->getJoystickInput().getInputManager().getInput("Horizontal") * _time->getCurrentIntervalMilliseconds();
+        float vertical = ptr->getJoystickInput().getInputManager().getInput("Vertical") * _time->getCurrentIntervalMilliseconds();
         auto pos = ptr->getCursor().getPosition();
         pos.X += horizontal;
         if (pos.X > _windowSize.X)
@@ -47,6 +52,7 @@ void JoystickCursorSystem::update()
         else if (pos.Y < 0)
             pos.Y = 0;
         ptr->getCursor().setPosition(pos.X, pos.Y);
+        ptr->clicked = ptr->getJoystickInput().getInputManager().getInput("Click") == 1;
     }
 }
 

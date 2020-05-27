@@ -10,6 +10,7 @@
 
 #include "ECS/ASystem.hpp"
 #include "Components/Window.hpp"
+#include "Components/Time.hpp"
 
 namespace is::systems {
 
@@ -29,7 +30,7 @@ namespace is::systems {
 
     private:
         irr::core::vector2df _windowSize;
-        // std::optional<std::reference_wrapper<is::components::WindowComponent>> _window;
+        std::shared_ptr<is::components::TimeComponent> _time;
     };
 
 }
