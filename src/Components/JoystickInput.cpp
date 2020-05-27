@@ -155,7 +155,7 @@ void JoystickInputComponent::unbindAll()
 void JoystickInputComponent::setPreset(const JoystickPresetComponent &preset)
 {
     for (auto &button: preset.getButtonBindings())
-        bindButton(button.second, button.first.action, button.first.value);
+        bindButton((button.second + 1) * -1, button.first.action, button.first.value);
 
     for (auto &axis: preset.getAxisBindings()) {
         if (!isAxisBound(axis.second)) {
