@@ -9,6 +9,7 @@
 #define JOYSTICKCURSORSYSTEM_HPP_
 
 #include "ECS/ASystem.hpp"
+#include "Components/Window.hpp"
 
 namespace is::systems {
 
@@ -26,8 +27,9 @@ namespace is::systems {
         void stop() override;
         void onTearDown() override;
 
-    protected:
     private:
+        irr::core::vector2df _windowSize;
+        // std::optional<std::reference_wrapper<is::components::WindowComponent>> _window;
     };
 
 }
