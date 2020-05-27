@@ -98,6 +98,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
                 text->setVisible(false);
             });
+            std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
+                image->setVisible(false);
+            });
+            std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
+                button->setVisible(false);
+            });
             if (selectedPreset == 3) {
                 selectedPreset = 0;
                 TextPresetSelected.setText("Preset 1");
@@ -108,6 +114,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
                 text->setVisible(true);
+            });
+            std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
+                image->setVisible(true);
+            });
+            std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
+                button->setVisible(true);
             });
         },
         true,
@@ -128,6 +140,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
                 text->setVisible(false);
             });
+            std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
+                image->setVisible(false);
+            });
+            std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
+                button->setVisible(false);
+            });
             if (selectedPreset == 0) {
                 selectedPreset = 3;
                 TextPresetSelected.setText("Preset 4");
@@ -138,6 +156,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
                 text->setVisible(true);
+            });
+            std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
+                image->setVisible(true);
+            });
+            std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
+                button->setVisible(true);
             });
         },
         true,
@@ -194,7 +218,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
                 PresetComponent::getEquivalentButton(JoystickBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
                 is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 90 + ((i + 1) * 100),
                 true,
                 count == 0
             );
@@ -204,7 +228,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
                 "",
                 "Indie Studio",
                 is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
                 220, 70,
                 []() {
                 },
@@ -217,6 +241,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
 
             });
             p->_textPreset.emplace_back(&keyboardAction);
+            p->_imagePreset.emplace_back(&controllerAction);
             p->_buttonPreset.emplace_back(&buttonAction);
             count++;
         }
