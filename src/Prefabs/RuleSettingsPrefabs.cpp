@@ -217,16 +217,16 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
+            title.move(irr::core::vector2di(0, -105));
+            value.move(irr::core::vector2di(0, -105));
         },
         // On rule down
         [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
+            title.move(irr::core::vector2di(0, 105));
+            value.move(irr::core::vector2di(0, 105));
         },
         // On appear
         [&firstTable, &secondTable, &title, &value](){
@@ -521,16 +521,16 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
+            title.move(irr::core::vector2di(0, -105));
+            value.move(irr::core::vector2di(0, -105));
         },
         // On rule down
         [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
+            title.move(irr::core::vector2di(0, 105));
+            value.move(irr::core::vector2di(0, 105));
         },
         // On appear
         [&firstTable, &secondTable, &title, &value](){
@@ -640,16 +640,16 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
+            title.move(irr::core::vector2di(0, -105));
+            value.move(irr::core::vector2di(0, -105));
         },
         // On rule down
         [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
+            title.move(irr::core::vector2di(0, 105));
+            value.move(irr::core::vector2di(0, 105));
         },
         // On appear
         [&firstTable, &secondTable, &title, &value](){
@@ -759,16 +759,16 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y - 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y - 105));
+            title.move(irr::core::vector2di(0, -105));
+            value.move(irr::core::vector2di(0, -105));
         },
         // On rule down
         [&dot, &firstTable, &secondTable, &title, &value](){
             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
-            title.setPosition(irr::core::vector2di(title.getPosition().X, title.getPosition().Y + 105));
-            value.setPosition(irr::core::vector2di(value.getPosition().X, value.getPosition().Y + 105));
+            title.move(irr::core::vector2di(0, 105));
+            value.move(irr::core::vector2di(0, 105));
         },
         // On appear
         [&firstTable, &secondTable, &title, &value](){
