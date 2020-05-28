@@ -18,10 +18,10 @@ namespace is::components {
 
     class JoystickPresetComponent: public is::ecs::Component {
     public:
-        JoystickPresetComponent(
+        explicit JoystickPresetComponent(
             std::shared_ptr<is::ecs::Entity> &e
             );
-        ~JoystickPresetComponent() = default;
+        ~JoystickPresetComponent() override = default;
 
         JoystickPresetComponent(const JoystickPresetComponent &) = delete;
         JoystickPresetComponent &operator=(const JoystickPresetComponent &) = delete;
@@ -38,8 +38,8 @@ namespace is::components {
         void bindAxis(u32 button, const PresetAction &action);
         bool changeAxis(u32 from, u32 to);
 
-        const std::map<PresetAction, u32> &getButtonBindings() const;
-        const std::map<PresetAction, u32> &getAxisBindings() const;
+        [[nodiscard]] const std::map<PresetAction, u32> &getButtonBindings() const;
+        [[nodiscard]] const std::map<PresetAction, u32> &getAxisBindings() const;
         [[nodiscard]] std::map<PresetAction, u32> getBindings() const;
 
         static void createBasicPreset(JoystickPresetComponent &preset);

@@ -19,10 +19,10 @@ namespace is::components {
     class KeyboardPresetComponent: public is::ecs::Component {
     public:
 
-        KeyboardPresetComponent(
+        explicit KeyboardPresetComponent(
             std::shared_ptr<is::ecs::Entity> &e
             );
-        ~KeyboardPresetComponent() = default;
+        ~KeyboardPresetComponent() override = default;
 
         KeyboardPresetComponent(const KeyboardPresetComponent &) = delete;
         KeyboardPresetComponent &operator=(const KeyboardPresetComponent &) = delete;
@@ -33,7 +33,7 @@ namespace is::components {
         void bind(EKEY_CODE key, const PresetAction &action);
         bool changeKey(EKEY_CODE from, EKEY_CODE to);
 
-        const std::map<PresetAction, EKEY_CODE> &getBindings() const;
+        [[nodiscard]] const std::map<PresetAction, EKEY_CODE> &getBindings() const;
 
         static void createBasicPreset(KeyboardPresetComponent &preset);
 

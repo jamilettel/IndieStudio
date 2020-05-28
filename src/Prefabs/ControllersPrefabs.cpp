@@ -236,8 +236,9 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
                 RESSOURCE("ui/Controllers/Change_BTN_pressed.png")
             );
             buttonAction.layer = 3;
-            buttonAction.setCallback([&manager, &buttonAction, &keyboardAction, &controllerAction](){
-
+            buttonAction.setCallback([&buttonAction, &keyboardAction, &controllerAction, p, i](){
+                p->_toChange.emplace(CharacterComponent::playerActions[i]);
+                p->_toChangeUI = std::tuple<TextComponent*, ImageComponent*, ButtonComponent*>(&keyboardAction, &controllerAction, &buttonAction);
             });
             p->_textPreset.emplace_back(&keyboardAction);
             p->_imagePreset.emplace_back(&controllerAction);

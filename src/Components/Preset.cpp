@@ -12,9 +12,9 @@ using namespace is::components;
 PresetComponent::PresetComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     int number
-    ):
-    Component(e), _keyboardPreset(e), _joystickPreset(e), presetNumber(number)
-{}
+    ) : Component(e), _keyboardPreset(e), _joystickPreset(e), presetNumber(number), _toChange(), _toChangeUI()
+{
+}
 
 void PresetComponent::deleteComponent()
 {}

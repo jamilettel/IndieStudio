@@ -131,6 +131,8 @@ namespace is::components {
 
     public:
         int presetNumber;
+        std::optional<PresetAction> _toChange;
+        std::tuple<TextComponent*, ImageComponent*, ButtonComponent*> _toChangeUI;
     };
 
 }
