@@ -11,6 +11,7 @@
 #include <irrlicht.h>
 #include <string>
 #include <queue>
+#include <vector>
 
 #include "ECS/Component.hpp"
 #include "Exception.hpp"
@@ -56,7 +57,7 @@ namespace is::components {
             bool isOn;
             int playerIdx;
             std::queue<std::string> writeQueue;
-            std::queue<std::string> readQueue;
+            std::vector<irr::core::vector2df> playerPositions;
     };
 
 }

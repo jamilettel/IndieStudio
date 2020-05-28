@@ -25,9 +25,13 @@ void is::scenes::ControllersScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
 }
 
 void is::scenes::ControllersScene::initEntities()
 {
-    initEntity(prefabs::GlobalPrefabs::createControllers(), false);
+    initEntity(prefabs::GlobalPrefabs::createControllersBase(), false);
+    initEntity(prefabs::GlobalPrefabs::createControllersOptions(*_componentManager), false);
 }

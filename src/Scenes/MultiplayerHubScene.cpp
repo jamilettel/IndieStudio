@@ -27,6 +27,8 @@ void is::scenes::MultiplayerHubScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
 }
 
 void is::scenes::MultiplayerHubScene::initEntities()

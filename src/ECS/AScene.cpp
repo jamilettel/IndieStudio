@@ -84,3 +84,8 @@ void is::ecs::AScene::deleteNonStaticEntities()
     }
     _entityManager->deleteEntities(_componentManager);
 }
+
+void is::ecs::AScene::saveEntity(std::shared_ptr<Entity> &e)
+{
+    _entitySaver->addEntity(e);
+}

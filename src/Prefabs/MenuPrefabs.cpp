@@ -10,12 +10,42 @@
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
-
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
 using namespace is::components;
+using namespace is::ecs;
+using namespace is::prefabs;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createJoystickCursor(int joystickId, std::shared_ptr<WindowComponent> &window)
+{
+    auto e = std::make_shared<Entity>();
+
+    auto &cursorJoystick = e->addComponent<ImageComponent>(
+        e,
+        RESSOURCE("/ui/cursor/cursor.png"),
+        "Indie Studio",
+        0,
+        0);
+    cursorJoystick.layer = 9;
+
+    auto &inputManager = e->addComponent<InputManagerComponent>(e);
+    inputManager.setValue("Horizontal", 0);
+    inputManager.setValue("Vertical", 0);
+    inputManager.setValue("Click", 0);
+
+    auto &joystickInput = e->addComponent<JoystickInputComponent>(e, inputManager);
+    joystickInput.assignJoystick(joystickId);
+    joystickInput.bindAxis(0, "Horizontal", 1, -1);
+    joystickInput.bindAxis(1, "Vertical", 1, -1);
+    joystickInput.bindButton(0, "Click", 1);
+
+    auto &cursor = e->addComponent<CursorComponent>(e, cursorJoystick, *window.get(), false);
+    e->addComponent<JoystickCursorComponent>(e, cursor, joystickInput);
+
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGlobalPrefab()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
@@ -30,7 +60,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefab(
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefabMultiplayer()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGlobalPrefabMultiplayer()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
@@ -38,11 +68,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createGlobalPrefabM
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createSplashScreen()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/splashscreen.png"),
         "Indie Studio",
@@ -51,28 +81,28 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSplashScreen(
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMenu()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/main_menu/logo.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2, 50, true
     );
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
         350, 100,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
@@ -86,8 +116,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_MULTIPLAYER_HUB);
@@ -100,8 +130,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 200,
         350, 100,
         [](){
             is::Game::isRunning = false;
@@ -114,8 +144,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
+        WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_CONTROLLERS);
@@ -128,8 +158,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 70,
+        WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 70,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_SETTINGS);
@@ -142,8 +172,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_RECORD);
@@ -157,7 +187,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         "",
         "Indie Studio",
         30,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_HOWTOPLAY);
@@ -171,7 +201,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
         "",
         "Indie Studio",
         30,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 70,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 70,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_CREDIT);
@@ -183,34 +213,34 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMainMenu()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPause()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Pause/Pause.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 300 / 2, 300, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 300 / 2, 300, true
     ).layer = 1;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Pause/logo.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2, 30, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2, 30, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 100,
         350, 100,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_GAME);
@@ -223,8 +253,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 250,
         350, 100,
         [](){
             is::Game::isRunning = false;
@@ -237,8 +267,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 70,
+        WindowComponent::_windowsDimensions["Indie Studio"].first - 80,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 70,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_SETTINGS);
@@ -251,8 +281,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
         50, 50,
         [](){
             is::Game::setActualScene(is::ecs::SCENE_RECORD);
@@ -264,21 +294,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPause()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCredit()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Credits/Information.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 606 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 606 / 2, 50, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -293,77 +323,77 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
         RESSOURCE("ui/Credits/Return_BTN.png"),
         RESSOURCE("ui/Credits/Return_BTN_pressed.png")
     ).layer = 2;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Epitech Project Tek2",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 150,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 150,
         350, 100,
         true,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 68, 68, 68)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Amaury Lecomte",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 280,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 280,
         350, 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Benjamin Bourgeois",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 380,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 380,
         350, 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Jamil Ettel",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 480,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 480,
         350, 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Louis Deschanel",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 580,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 580,
         350, 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Nathan Quentel",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 680,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 680,
         350, 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Tristan Bouillot",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 780,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 780,
         350, 100,
         false,
         true,
@@ -373,21 +403,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createCredit()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createHowToPlay()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/HowToPlay/Header.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -405,21 +435,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createHowToPlay()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createRecord()
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createRecord()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Record/Record.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -441,17 +471,17 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerHu
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Record/Record.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -470,8 +500,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerHu
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
         [nc](){
             nc->writeQueue.push("create lobby\n");
@@ -484,8 +514,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerHu
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
         350, 100,
         [](){
             is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY_CHOICE);
@@ -535,7 +565,6 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         350, 100,
         [nc](){
             nc->writeQueue.push("join lobby 0\n");
-            std::cout << "sdkcjsh" << std::endl;
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),
@@ -578,7 +607,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         "",
         "Indie Studio",
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 100,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 500,
         350, 100,
         [nc](){
             nc->writeQueue.push("start game\n");

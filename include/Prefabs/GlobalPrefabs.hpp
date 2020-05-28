@@ -45,50 +45,56 @@
 #include "ECS/ComponentManager.hpp"
 #include "Components/Preset.hpp"
 #include "Components/Network.hpp"
+#include "Components/JoystickCursor.hpp"
+
 
 namespace is::prefabs {
 
     class GlobalPrefabs {
-        public:
-            static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
-            static std::shared_ptr<is::ecs::Entity> createGlobalPrefabMultiplayer();
-            static std::shared_ptr<is::ecs::Entity> createWallBlock(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createCenterBlock(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createGrassBlock(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
-            static std::shared_ptr<is::ecs::Entity> createFire(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createBreakableBlock(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createBombUpPowerUp(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(const irr::core::vector3df &position);
-            static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(const irr::core::vector3df &position);
+    public:
+        static std::shared_ptr<is::ecs::Entity> createGlobalPrefab();
+        static std::shared_ptr<is::ecs::Entity> createGlobalPrefabMultiplayer();
+        static std::shared_ptr<is::ecs::Entity> createWallBlock(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createCenterBlock(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createGrassBlock(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm);
+        static std::shared_ptr<is::ecs::Entity> createFire(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createBreakableBlock(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createBombUpPowerUp(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createSpeedUpPowerUp(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createFireUpPowerUp(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createWallPassPowerUp(const irr::core::vector3df &position);
 
-            static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
-            // static std::shared_ptr<is::ecs::Entity> createPlayer(const irr::core::vector3df &pos);
-            static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
+        static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
                 const irr::core::vector3df &pos,
                 is::components::CharacterComponent &character,
                 const is::ecs::ComponentManager &manager,
                 const std::string &texture
             );
-            // static std::shared_ptr<is::ecs::Entity> createAI(const irr::core::vector3df &pos);
 
-            static std::shared_ptr<is::ecs::Entity> createSplashScreen();
-            static std::shared_ptr<is::ecs::Entity> createMainMenu();
-            static std::shared_ptr<is::ecs::Entity> createPause();
-            static std::shared_ptr<is::ecs::Entity> createCredit();
-            static std::shared_ptr<is::ecs::Entity> createHowToPlay();
-            static std::shared_ptr<is::ecs::Entity> createRecord();
-            static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
-            static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
-            static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
-            static std::shared_ptr<is::ecs::Entity> createEndGame();
-            static std::shared_ptr<is::ecs::Entity> createSettings();
-            static std::shared_ptr<is::ecs::Entity> createControllers();
-            static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
-            static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
-            static std::shared_ptr<is::ecs::Entity> createCharacter();
-            static std::shared_ptr<is::ecs::Entity> createPresets();
+        static std::shared_ptr<is::ecs::Entity> createSplashScreen();
+        static std::shared_ptr<is::ecs::Entity> createMainMenu();
+        static std::shared_ptr<is::ecs::Entity> createPause();
+        static std::shared_ptr<is::ecs::Entity> createCredit();
+        static std::shared_ptr<is::ecs::Entity> createHowToPlay();
+        static std::shared_ptr<is::ecs::Entity> createRecord();
+        static std::shared_ptr<is::ecs::Entity> createEndGame();
+
+        static std::shared_ptr<is::ecs::Entity> createSettings();
+        static std::shared_ptr<is::ecs::Entity> createControllersBase();
+        static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
+        static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
+        static std::shared_ptr<is::ecs::Entity> createCharacter();
+        static std::shared_ptr<is::ecs::Entity> createPresets();
+        static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, std::shared_ptr<components::WindowComponent> &window);
+        static std::shared_ptr<is::ecs::Entity> createControllersOptions(const is::ecs::ComponentManager &manager);
+
+        static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createControllers();
         
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);

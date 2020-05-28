@@ -179,27 +179,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &po
     return (e);
 }
 
-// std::shared_ptr<Entity> GlobalPrefabs::createPlayer(const irr::core::vector3df &pos)
-// {
-//     auto e = createBomberman(pos);
-
-//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-//     KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
-//     keyboard.bind(irr::KEY_KEY_W, "MoveVerticalAxis", 1);
-//     keyboard.bind(irr::KEY_KEY_S, "MoveVerticalAxis", -1);
-//     keyboard.bind(irr::KEY_KEY_D, "MoveHorizontalAxis", -1);
-//     keyboard.bind(irr::KEY_KEY_A, "MoveHorizontalAxis", 1);
-//     keyboard.bind(irr::KEY_KEY_E, "DropBomb", 1);
-//     keyboard.bind(irr::KEY_SPACE, "Jump", 1);
-//     // JoystickInputComponent &joystick = e->addComponent<JoystickInputComponent>(e, input);
-//     // joystick.bindAxis(1, "MoveVerticalAxis", -1, 1);
-//     // joystick.bindAxis(0, "MoveHorizontalAxis", -1, 1);
-//     // joystick.bindButton(2, "DropBomb", 1);
-//     // joystick.bindButton(0, "Jump", 1);
-//     // joystick.assignJoystick(0);
-//     return (e);
-// }
-
 std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     const irr::core::vector3df &pos,
     is::components::CharacterComponent &character,
@@ -242,12 +221,11 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
             throw is::exceptions::Exception("Character", "Unable to find preset in components");
         KeyboardInputComponent &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
         keyboard.setPreset(static_cast<PresetComponent *>(it->get())->getKeyboardPreset());
-        std::cout << "sdcklsjlk" << std::endl;
         break;
       } case CharacterComponent::MULTIPLAYER_PLAYER: {
-        e->addComponent<NetworkInputComponent>(e);
+        e->addComponent<NetworkInputComponent>(e, input, character.multiplayerId);
         break;
-    }   
+    }
     }
     return (e);
 }
@@ -302,15 +280,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     return (e);
 }
 
-// std::shared_ptr<Entity> GlobalPrefabs::createAI(const irr::core::vector3df &pos)
-// {
-//     auto e = createBomberman(pos);
-
-//     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
-//     e->addComponent<AIControllerComponent>(e, input);
-//     return (e);
-// }
-
 std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
 {
     auto e = std::make_shared<is::ecs::Entity>();
@@ -336,6 +305,11 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
     is::components::KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
     is::components::KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
     is::components::KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
+
+    is::components::JoystickPresetComponent::createBasicPreset(preset1.getJoystickPreset());
+    is::components::JoystickPresetComponent::createBasicPreset(preset2.getJoystickPreset());
+    is::components::JoystickPresetComponent::createBasicPreset(preset3.getJoystickPreset());
+    is::components::JoystickPresetComponent::createBasicPreset(preset4.getJoystickPreset());
 
     return e;
 }

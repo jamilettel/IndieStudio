@@ -13,9 +13,10 @@ using namespace is::ecs;
 CursorComponent::CursorComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     ImageComponent &cursorImage,
-    WindowComponent &window
+    WindowComponent &window,
+    bool mouseCursor
     ):
-    Component(e), _cursorImage(cursorImage), _window(window)
+    Component(e), _cursorImage(cursorImage), _window(window), isMouseCursor(mouseCursor)
 {}
 
 void CursorComponent::deleteComponent()

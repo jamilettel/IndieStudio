@@ -34,6 +34,8 @@ namespace is::ecs {
 
             void deleteNonStaticEntities();
 
+            static void saveEntity(std::shared_ptr<Entity> &e);
+
         protected:
             std::shared_ptr<EntityManager> _entityManager;
             static std::shared_ptr<EntityManager> _entitySaver;

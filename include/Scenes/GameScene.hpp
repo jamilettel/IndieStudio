@@ -35,6 +35,7 @@
 #include "Systems/Particule.hpp"
 #include "Systems/Cursor.hpp"
 #include "Systems/EndGame.hpp"
+#include "Systems/JoystickCursor.hpp"
 
 namespace is::scenes {
 

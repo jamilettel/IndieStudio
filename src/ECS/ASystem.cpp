@@ -5,6 +5,7 @@
 ** ASystem
 */
 
+#include "ECS/AScene.hpp"
 #include "ECS/ASystem.hpp"
 
 void is::ecs::ASystem::setComponentManager(std::shared_ptr<ComponentManager> componentManager)
@@ -17,10 +18,12 @@ void is::ecs::ASystem::setEntityManager(std::shared_ptr<EntityManager> entityMan
     _entityManager = entityManager;
 }
 
-std::shared_ptr<is::ecs::Entity> &is::ecs::ASystem::initRuntimeEntity(std::shared_ptr<Entity> &&entity)
+std::shared_ptr<is::ecs::Entity> &is::ecs::ASystem::initRuntimeEntity(std::shared_ptr<Entity> &&entity, bool keep)
 {
     for (auto &elem : entity->getComponents())
         _componentManager->addComponent(elem);
     _entityManager->addEntity(entity);
+    if (keep)
+        AScene::saveEntity(entity);
     return (entity);
 }

@@ -63,6 +63,8 @@ void is::components::ImageComponent::bringToFront()
 
 void ImageComponent::setVisible(bool visible)
 {
-    _visible = visible;
-    element->setVisible(visible);
+    if (visible != _visible) {
+        _visible = visible;
+        element->setVisible(visible);
+    }
 }

@@ -6,6 +6,7 @@
 */
 
 #include "Components/Window.hpp"
+
 using namespace is::components;
 
 std::map<std::string, std::pair<int, int>> WindowComponent::_windowsDimensions;
