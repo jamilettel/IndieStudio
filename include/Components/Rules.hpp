@@ -37,6 +37,15 @@ namespace is::components
             void setFpsMode(bool mode) noexcept;
             void setMaxTime(float time) noexcept;
 
+            int getNumberOfPlayers() const noexcept;
+            float getMaxTime() const noexcept;
+            bool isFpsMode() const noexcept;
+
+            bool noIconUsed() const noexcept;
+            void setAllICons(bool used) noexcept;
+
+            std::string getTimeString() const;
+
 
         private:
             int _numberOfPlayers = 4;

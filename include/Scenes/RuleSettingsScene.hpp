@@ -25,8 +25,11 @@
 #include "Systems/Text.hpp"
 
 #include "Components/RulesSetting.hpp"
+#include "Components/Rules.hpp"
 
 #include "Prefabs/RuleSettingsPrefabs.hpp"
+
+#include "Exception.hpp"
 
 namespace is::scenes
 {
@@ -42,6 +45,7 @@ namespace is::scenes
             void initEntities() override;
 
         private:
+            is::components::RulesComponent &getRulesComponent() const;
     };
 }
 

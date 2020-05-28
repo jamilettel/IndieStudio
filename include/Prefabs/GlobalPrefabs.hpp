@@ -39,6 +39,8 @@
 #include "Components/Animator.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
+#include "Components/Rules.hpp"
+
 #include "ECS/AScene.hpp"
 #include "Components/Character.hpp"
 #include "ECS/ComponentManager.hpp"
@@ -85,6 +87,7 @@ namespace is::prefabs {
             static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
             static std::shared_ptr<is::ecs::Entity> createCharacter();
             static std::shared_ptr<is::ecs::Entity> createPresets();
+            static std::shared_ptr<is::ecs::Entity> createRules();
         
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);

@@ -32,19 +32,34 @@ void RuleSettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
 }
 
+RulesComponent &RuleSettingsScene::getRulesComponent() const
+{
+    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+
+    for (const auto &entity : entities) {
+        auto rules = entity->getComponent<RulesComponent>();
+
+        if (rules.has_value())
+            return (*rules.value().get());
+    }
+    throw is::exceptions::ECSException("Could not found Rules component");
+}
+
 void RuleSettingsScene::initEntities()
 {
+    RulesComponent &rules = getRulesComponent();
+
     initEntity(is::prefabs::RuleSettingsPrefabs::createBackground());
     initEntity(is::prefabs::RuleSettingsPrefabs::createSaveButton());
     initEntity(is::prefabs::RuleSettingsPrefabs::createReturnButton());
     initEntity(is::prefabs::RuleSettingsPrefabs::createRuleSettings(), false);
 
-    RulesSettingComponent &rules = *static_cast<RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(RulesSettingComponent).hash_code())[0].get());
-    
-    initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground(rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createEmptyRule(rules));
+    RulesSettingComponent &rulesSetting = *static_cast<RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(RulesSettingComponent).hash_code())[0].get());
+
+    initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rulesSetting, rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createEmptyRule(rulesSetting, rules));
 }

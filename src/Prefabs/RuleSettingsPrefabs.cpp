@@ -121,7 +121,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground(i
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(is::components::RulesSettingComponent &component)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -159,7 +159,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
-        "4",
+        std::to_string(rules.getNumberOfPlayers()),
         "Indie Studio",
         560, 305,
         400, 200,
@@ -239,7 +239,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::components::RulesSettingComponent &component)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -278,7 +278,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
-        "On",
+        (rules.noIconUsed() ? "Off" : "On"),
         "Indie Studio",
         560, 410,
         400, 200,
@@ -543,7 +543,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::components::RulesSettingComponent &component)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -582,7 +582,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
-        "03:00",
+        rules.getTimeString(),
         "Indie Studio",
         560, 515,
         400, 200,
@@ -662,7 +662,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::components::RulesSettingComponent &component)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -701,7 +701,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
-        "Off",
+        (rules.isFpsMode() ? "On" : "Off"),
         "Indie Studio",
         560, 620,
         400, 200,
@@ -781,7 +781,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createEmptyRule(is::components::RulesSettingComponent &component)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createEmptyRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 

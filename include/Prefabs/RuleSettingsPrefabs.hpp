@@ -14,6 +14,7 @@
 #include "Components/Button.hpp"
 #include "Components/RulesSetting.hpp"
 #include "Components/Text.hpp"
+#include "Components/Rules.hpp"
 
 #include <irrlicht.h>
 
@@ -28,11 +29,11 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createReturnButton();
             static std::shared_ptr<is::ecs::Entity> createRuleSettings();
             static std::shared_ptr<is::ecs::Entity> createSettingsBackground(is::components::RulesSettingComponent &component);
-            static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule(is::components::RulesSettingComponent &component);
-            static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component);
-            static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(is::components::RulesSettingComponent &component);
-            static std::shared_ptr<is::ecs::Entity> createModeFpsRule(is::components::RulesSettingComponent &component);
-            static std::shared_ptr<is::ecs::Entity> createEmptyRule(is::components::RulesSettingComponent &component);
+            static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
+            static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
+            static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
+            static std::shared_ptr<is::ecs::Entity> createModeFpsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
+            static std::shared_ptr<is::ecs::Entity> createEmptyRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
 
         private:
     };
