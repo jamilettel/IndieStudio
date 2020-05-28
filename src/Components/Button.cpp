@@ -140,13 +140,26 @@ void is::components::ButtonComponent::setCallback(std::function<void()> ft)
     _ft = std::move(ft);
 }
 
-void is::components::ButtonComponent::callCallback() const
+void is::components::ButtonComponent::callCallback(int callerId)
 {
+    _callerId = callerId;
     _ft();
+}
+
+int is::components::ButtonComponent::getCallerId() const
+{
+    return _callerId;
 }
 
 void is::components::ButtonComponent::setVisible(bool visible)
 {
     _visible = visible;
     element->setVisible(visible);
+}
+
+bool is::components::ButtonComponent::contains(const irr::core::vector2df &pos) const
+{
+    irr::core::vector2di point(pos.X, pos.Y);
+
+    return _dimension.isPointInside(point);
 }

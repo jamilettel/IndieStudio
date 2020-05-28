@@ -48,12 +48,12 @@ void JoystickInputSystem::update()
         for (; pos < _joysticks->get().size(); pos++)
             if (_joysticks->get()[pos].Joystick == joystick->getJoystickId())
                 break;
-        if (pos == _joysticks->get().size()) // joystick is not connected
-            continue;
+
+        joystick->getInputManager().resetValues();
 
         for (const auto &pair: buttonBindings) {
             if (_eventManager->get().isJoystickButtonPressed(joystick->getJoystickId(), pair.first))
-                joystick->getInputManager().addValue(pair.second.first, pair.second.second);
+                joystick->getInputManager().setValue(pair.second.first, pair.second.second);
         }
         for (const auto &pair: axisBindings) {
             s16 axis = _eventManager->get().getAxisValue(joystick->getJoystickId(), pair.first);
