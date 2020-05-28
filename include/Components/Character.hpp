@@ -9,6 +9,7 @@
 #define CHARACTERCOMPONENT_HPP_
 
 #include "ECS/Component.hpp"
+#include <string>
 
 namespace is::components
 {
@@ -22,7 +23,7 @@ namespace is::components
             };
 
         public:
-            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e, int characterNumber);
+            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e, int characterNumber, const std::string &texture);
             ~CharacterComponent() override = default;
 
             void setTimePlaying(size_t time) noexcept;
@@ -40,6 +41,7 @@ namespace is::components
             void reset() noexcept;
 
             int number;
+            std::string texturePath;
 
             Type characterType = AI;
 

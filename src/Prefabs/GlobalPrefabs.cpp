@@ -315,10 +315,10 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    e->addComponent<CharacterComponent>(e, 0);
-    e->addComponent<CharacterComponent>(e, 1);
-    e->addComponent<CharacterComponent>(e, 2);
-    e->addComponent<CharacterComponent>(e, 3);
+    e->addComponent<CharacterComponent>(e, 0, "player_white.png");
+    e->addComponent<CharacterComponent>(e, 1, "player_black.png");
+    e->addComponent<CharacterComponent>(e, 2, "player_blue.png");
+    e->addComponent<CharacterComponent>(e, 3, "player_red.png");
 
     return e;
 }
