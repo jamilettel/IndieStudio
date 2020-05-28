@@ -261,10 +261,16 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         leftPresetButton1.setVisible(true);
         rightPresetButton1.setVisible(true);
         textPreset1.setVisible(true);
-        textController1.setVisible(false);
         textController1.setVisible(true);
         characterComponent1->presetNumber = 1;
-        characterComponent1->characterType = CharacterComponent::KEYBOARD_PLAYER;
+        if (activateButton1.getCallerId() == -1) {
+            characterComponent1->characterType = CharacterComponent::KEYBOARD_PLAYER;
+            textController1.setText("Keyboard");
+        } else {
+            characterComponent1->characterType = CharacterComponent::JOYSTICK_PLAYER;
+            characterComponent1->joystickId = activateButton1.getCallerId();
+            textController1.setText("Joystick");
+        }
         textPreset1.setText("Preset 1");
     });
     closeButton1.layer = 3;
@@ -279,6 +285,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textController1.setVisible(false);
         characterComponent1->presetNumber = -1;
         characterComponent1->characterType = CharacterComponent::AI;
+        characterComponent1->joystickId = -1;
     });
     rightPresetButton1.setCallback([&textPreset1, characterComponent1](){
         if (characterComponent1->presetNumber == 4) {
@@ -416,7 +423,14 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset2.setVisible(true);
         textController2.setVisible(true);
         characterComponent2->presetNumber = 1;
-        characterComponent2->characterType = CharacterComponent::KEYBOARD_PLAYER;
+        if (activateButton2.getCallerId() == -1) {
+            characterComponent2->characterType = CharacterComponent::KEYBOARD_PLAYER;
+            textController2.setText("Keyboard");
+        } else {
+            characterComponent2->characterType = CharacterComponent::JOYSTICK_PLAYER;
+            characterComponent2->joystickId = activateButton2.getCallerId();
+            textController2.setText("Joystick");
+        }
         textPreset2.setText("Preset 1");
     });
     closeButton2.layer = 3;
@@ -431,6 +445,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textController2.setVisible(false);
         characterComponent2->presetNumber = -1;
         characterComponent2->characterType = CharacterComponent::AI;
+        characterComponent2->joystickId = -1;
     });
     rightPresetButton2.setCallback([&textPreset2, characterComponent2](){
         if (characterComponent2->presetNumber == 4) {
@@ -568,7 +583,14 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset3.setVisible(true);
         textController3.setVisible(true);
         characterComponent3->presetNumber = 1;
-        characterComponent3->characterType = CharacterComponent::KEYBOARD_PLAYER;
+        if (activateButton3.getCallerId() == -1) {
+            characterComponent3->characterType = CharacterComponent::KEYBOARD_PLAYER;
+            textController3.setText("Keyboard");
+        } else {
+            characterComponent3->characterType = CharacterComponent::JOYSTICK_PLAYER;
+            characterComponent3->joystickId = activateButton3.getCallerId();
+            textController3.setText("Joystick");
+        }
         textPreset3.setText("Preset 1");
     });
     closeButton3.layer = 3;
@@ -583,6 +605,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textController3.setVisible(false);
         characterComponent3->presetNumber = -1;
         characterComponent3->characterType = CharacterComponent::AI;
+        characterComponent3->joystickId = -1;
     });
     rightPresetButton3.setCallback([&textPreset3, characterComponent3](){
         if (characterComponent3->presetNumber == 4) {
@@ -720,7 +743,14 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset4.setVisible(true);
         textController4.setVisible(true);
         characterComponent4->presetNumber = 1;
-        characterComponent4->characterType = CharacterComponent::KEYBOARD_PLAYER;
+        if (activateButton4.getCallerId() == -1) {
+            characterComponent4->characterType = CharacterComponent::KEYBOARD_PLAYER;
+            textController4.setText("Keyboard");
+        } else {
+            characterComponent4->characterType = CharacterComponent::JOYSTICK_PLAYER;
+            characterComponent4->joystickId = activateButton4.getCallerId();
+            textController4.setText("Joystick");
+        }
         textPreset4.setText("Preset 1");
     });
     closeButton4.layer = 3;
@@ -735,6 +765,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textController4.setVisible(false);
         characterComponent4->presetNumber = -1;
         characterComponent4->characterType = CharacterComponent::AI;
+        characterComponent4->joystickId = -1;
     });
     rightPresetButton4.setCallback([&textPreset4, characterComponent4](){
         if (characterComponent4->presetNumber == 4) {
