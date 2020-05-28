@@ -40,7 +40,7 @@ std::string PresetComponent::getEquivalentKey(EKEY_CODE key)
 
 std::string PresetComponent::getEquivalentButton(int button)
 {
-    for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -1; i++) {
+    for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
         if (PresetComponent::EquivalentButtons[i]._button == button)
             return PresetComponent::EquivalentButtons[i]._filename;
     }
