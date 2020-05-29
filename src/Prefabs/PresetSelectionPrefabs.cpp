@@ -40,6 +40,20 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/button_play.png"),
         RESSOURCE("ui/PresetSelection/button_play_pressed.png")
     );
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 700,
+        50,
+        60, 60,
+        [](){
+            is::Game::setActualScene(is::ecs::SCENE_RULE_SETTINGS);
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Settings_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Settings_BTN_pressed.png")
+    );
 
     /* BUTTON PLAY */
     e->addComponent<ButtonComponent>(
@@ -49,7 +63,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::Game::getPreviousScene());
+            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
         },
         true,
         RESSOURCE("ui/PresetSelection/Return_BTN.png"),

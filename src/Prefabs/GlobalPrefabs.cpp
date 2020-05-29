@@ -313,3 +313,11 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
 
     return e;
 }
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createRules()
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    e->addComponent<RulesComponent>(e);
+    return (e);
+}

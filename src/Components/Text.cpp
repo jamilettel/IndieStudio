@@ -102,3 +102,8 @@ void is::components::TextComponent::setVisible(bool visible)
     _visible = visible;
     element->setVisible(visible);
 }
+
+void is::components::TextComponent::move(const irr::core::vector2di &pos) noexcept
+{
+    element->move(pos);
+}

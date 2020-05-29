@@ -21,6 +21,8 @@
 #include "Scenes/MultiplayerGameScene.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Scenes/EndGameScene.hpp"
+#include "Scenes/RuleSettingsScene.hpp"
+
 #include "Exception.hpp"
 
 int main(int argc, char const *argv[])
@@ -43,6 +45,7 @@ int main(int argc, char const *argv[])
         game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY, std::make_shared<is::scenes::MultiplayerLobbyScene>());
         game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME, std::make_shared<is::scenes::MultiplayerGameScene>());
         game.addScene(is::ecs::Scenes::SCENE_ENDGAME, std::make_shared<is::scenes::EndGameScene>());
+        game.addScene(is::ecs::Scenes::SCENE_RULE_SETTINGS, std::make_shared<is::scenes::RuleSettingsScene>());
         game.launchGame(is::ecs::Scenes::SCENE_SPLASH_SCREEN);
     // } catch (is::exceptions::Exception &e) {
         // std::cerr << "CAUGHT EXCEPTION:" << std::endl;

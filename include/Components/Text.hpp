@@ -73,6 +73,7 @@ namespace is::components {
         void setText(const std::string &string);
 
         void setVisible(bool visible);
+        void move(const irr::core::vector2di &pos) noexcept;
 
         std::string windowName;
 
@@ -85,6 +86,7 @@ namespace is::components {
         bool _drawBorder;
         bool _dynamic;
         bool _visible;
+        bool _dimensionChange = false;
     };
 
 }

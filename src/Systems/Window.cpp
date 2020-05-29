@@ -109,6 +109,9 @@ void WindowSystem::update()
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
         for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
             auto texture = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
+
+            if (!texture->isVisible())
+                continue;
             std::pair<int, int> wDim = is::components::WindowComponent::_windowsDimensions["Indie Studio"];
 
             ptr->driver->draw2DImage(
