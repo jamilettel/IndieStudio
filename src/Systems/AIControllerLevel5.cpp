@@ -13,14 +13,17 @@ using namespace is::ecs;
 
 void AIControllerLevel5System::awake()
 {
-     std::vector<std::shared_ptr<Component>> &aiComponents =
+    std::vector<std::shared_ptr<Component>> &aiComponents =
         _componentManager->getComponentsByType(typeid(AIControllerComponent).hash_code());
 
     for (std::shared_ptr<Component> &component: aiComponents) {
         if (component->getEntity()->isInit())
             continue;
         AIControllerComponent &ai = *static_cast<AIControllerComponent *>(component.get());
-        
+
+        if (ai.getLevel() != 5)
+            continue;
+
         ai.getInputManager().addValue("MoveHorizontalAxis", 0);
         ai.getInputManager().addValue("MoveVerticalAxis", 0);
         ai.getInputManager().addValue("Jump", 0);
