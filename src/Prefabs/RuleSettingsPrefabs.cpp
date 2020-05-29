@@ -685,6 +685,18 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
+    TextComponent &valueToChange = e->addComponent<TextComponent>(
+        e,
+        rules.getTimeString(),
+        "Indie Studio",
+        1200, 480,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244),
+        false
+    );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -692,7 +704,13 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         1200,
         550,
         60, 60,
-        [](){},
+        [&value, &valueToChange, &rules](){
+            if (rules.getMaxTime() - 5 >= 60) {
+                rules.setMaxTime(rules.getMaxTime() - 5);
+            }
+            value.setText(rules.getTimeString());
+            valueToChange.setText(rules.getTimeString());
+        },
         false,
         RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
@@ -704,23 +722,31 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         1550,
         550,
         60, 60,
-        [](){},
+        [&value, &valueToChange, &rules](){
+            if (rules.getMaxTime() + 5 <= 3600) {
+                rules.setMaxTime(rules.getMaxTime() + 5);
+            }
+            value.setText(rules.getTimeString());
+            valueToChange.setText(rules.getTimeString());
+        },
         false,
         RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
     component.addRule(
         // On select
-        [&dot, &backward, &forward](){
+        [&dot, &backward, &forward, &valueToChange](){
             dot.setVisible(true);
             backward.setVisible(true);
             forward.setVisible(true);
+            valueToChange.setVisible(true);
         },
         // On exit
-        [&dot, &backward, &forward](){
+        [&dot, &backward, &forward, &valueToChange](){
             dot.setVisible(false);
             backward.setVisible(false);
             forward.setVisible(false);
+            valueToChange.setVisible(false);
         },
         // On disappear
         [&firstTable, &secondTable, &title, &value](){
@@ -804,6 +830,18 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
+    TextComponent &valueToChange = e->addComponent<TextComponent>(
+        e,
+        (rules.isFpsMode() ? "On" : "Off"),
+        "Indie Studio",
+        1200, 480,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244),
+        false
+    );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -811,7 +849,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         1200,
         550,
         60, 60,
-        [](){},
+        [&value, &valueToChange, &rules](){
+            rules.setFpsMode(!rules.isFpsMode());
+            value.setText((rules.isFpsMode() ? "On" : "Off"));
+            valueToChange.setText((rules.isFpsMode() ? "On" : "Off"));
+        },
         false,
         RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
@@ -823,23 +865,29 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::comp
         1550,
         550,
         60, 60,
-        [](){},
+        [&value, &valueToChange, &rules](){
+            rules.setFpsMode(!rules.isFpsMode());
+            value.setText((rules.isFpsMode() ? "On" : "Off"));
+            valueToChange.setText((rules.isFpsMode() ? "On" : "Off"));
+        },
         false,
         RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
     component.addRule(
         // On select
-        [&dot, &backward, &forward](){
+        [&dot, &backward, &forward, &valueToChange](){
             dot.setVisible(true);
             backward.setVisible(true);
             forward.setVisible(true);
+            valueToChange.setVisible(true);
         },
         // On exit
-        [&dot, &backward, &forward](){
+        [&dot, &backward, &forward, &valueToChange](){
             dot.setVisible(false);
             backward.setVisible(false);
             forward.setVisible(false);
+            valueToChange.setVisible(false);
         },
         // On disappear
         [&firstTable, &secondTable, &title, &value](){
