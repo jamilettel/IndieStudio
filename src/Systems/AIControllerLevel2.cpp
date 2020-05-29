@@ -30,10 +30,10 @@ void AIControllerLevel2System::awake()
         ai.getInputManager().addValue("DropBomb", 0);
     }
 
-    // _mapFunctionState[AIControllerComponent::AIState::NONE] = &AIControllerLevel5System::noneState;
-    // _mapFunctionState[AIControllerComponent::AIState::ESCAPE_EXPLOSION] = &AIControllerLevel5System::escapeExplosionState;
-    // _mapFunctionState[AIControllerComponent::AIState::PUT_BOMB] = &AIControllerLevel5System::putBombState;
-    // _mapFunctionState[AIControllerComponent::AIState::WAITING] = &AIControllerLevel5System::waitingState;
+    _mapFunctionState[AIControllerComponent::AIState::NONE] = &AIControllerLevel2System::noneState;
+    _mapFunctionState[AIControllerComponent::AIState::ESCAPE_EXPLOSION] = &AIControllerLevel2System::escapeExplosionState;
+    _mapFunctionState[AIControllerComponent::AIState::PUT_BOMB] = &AIControllerLevel2System::putBombState;
+    _mapFunctionState[AIControllerComponent::AIState::WAITING] = &AIControllerLevel2System::waitingState;
 }
 
 void AIControllerLevel2System::start()
@@ -46,11 +46,104 @@ void AIControllerLevel2System::start()
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
-void AIControllerLevel2System::update()
-{}
-
 void AIControllerLevel2System::stop()
 {}
 
 void AIControllerLevel2System::onTearDown()
 {}
+
+void AIControllerLevel2System::update()
+{
+    std::vector<std::shared_ptr<Component>> &aiComponents =
+        _componentManager->getComponentsByType(typeid(AIControllerComponent).hash_code());
+    std::vector<std::shared_ptr<Component>> &characterComponents =
+        _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code());
+    std::vector<std::shared_ptr<Component>> &trComponents =
+        _componentManager->getComponentsByType(typeid(TransformComponent).hash_code());
+    std::vector<std::vector<is::ecs::Entity::Layer>> map(_mapX, std::vector<is::ecs::Entity::Layer>(_mapY, is::ecs::Entity::Layer::DEFAULT)); // get infos from map for size
+
+    // create a map of actual positions
+    for (std::shared_ptr<Component> &component: trComponents) {
+        TransformComponent &tr = *static_cast<TransformComponent *>(component.get());
+        if (tr.position.Y < 0)
+            continue;
+        int x = (tr.position.X) / 3 + (int)(_mapX / 2);
+        int y = (tr.position.Z) / 3 + (int)(_mapY / 2);
+        if (!AIControllerUtils::isValid(irr::core::vector2di(x, y), map))
+            continue;
+        map[x][y] = tr.getEntity()->layer;
+    }
+
+    for (std::shared_ptr<Component> &component: aiComponents) {
+        AIControllerComponent &ai = *static_cast<AIControllerComponent *>(component.get());
+
+        if (ai.getLevel() != 2)
+            continue;
+        ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
+        if (ai.timeBeforeBegin > 0)
+            continue;
+        
+        TransformComponent &tr = *static_cast<TransformComponent *>(ai.getEntity()->getComponent<TransformComponent>()->get());
+        irr::core::vector2df aiPos;
+
+        aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
+        aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
+        ai.getInputManager().setValue("DropBomb", 0);
+        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
+
+        (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, characterComponents);
+    }
+}
+
+void AIControllerLevel2System::noneState(
+    is::components::AIControllerComponent &ai,
+    irr::core::vector2df &aiPos,
+    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+) const
+{
+    
+}
+
+void AIControllerLevel2System::escapeExplosionState(
+    is::components::AIControllerComponent &ai,
+    irr::core::vector2df &aiPos,
+    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+) const
+{
+
+}
+
+void AIControllerLevel2System::putBombState(
+    is::components::AIControllerComponent &ai,
+    irr::core::vector2df &aiPos,
+    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+) const
+{
+
+}
+
+// WAITING STATE
+void AIControllerLevel2System::waitingState(
+    is::components::AIControllerComponent &ai,
+    irr::core::vector2df &aiPos,
+    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+) const
+{
+
+}
+
+// GET POWERUP STATE
+void AIControllerLevel2System::getPowerupState(
+    is::components::AIControllerComponent &ai,
+    irr::core::vector2df &aiPos,
+    std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+    std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+) const
+{
+
+}

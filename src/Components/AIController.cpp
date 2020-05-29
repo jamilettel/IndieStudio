@@ -18,6 +18,8 @@ AIControllerComponent::AIControllerComponent(
 {
     static int id = 0;
 
+    if (level < 1 || level > 5)
+        throw is::exceptions::ECSException("Invalid argument ai controller component");
     _id = id++;
     shortObjective = irr::core::vector2di(0);
     lastShortObjective = irr::core::vector2di(0);

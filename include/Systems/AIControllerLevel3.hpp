@@ -8,10 +8,14 @@
 #ifndef AICONTROLLERLEVEL3_HPP_
 #define AICONTROLLERLEVEL3_HPP_
 
+#include "AIControllerUtils.hpp"
+
 #include "ECS/ASystem.hpp"
 
 #include "Components/AIController.hpp"
 #include "Components/Time.hpp"
+#include "Components/Transform.hpp"
+#include "Components/CharacterController.hpp"
 
 using namespace is::components;
 using namespace is::ecs;
@@ -31,6 +35,44 @@ namespace is::systems
             void update() override;
             void stop() override;
             void onTearDown() override;
+
+        private:
+            void noneState(
+                is::components::AIControllerComponent &ai,
+                irr::core::vector2df &aiPos,
+                std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+
+            void escapeExplosionState(
+                is::components::AIControllerComponent &ai,
+                irr::core::vector2df &aiPos,
+                std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+
+            void putBombState(
+                is::components::AIControllerComponent &ai,
+                irr::core::vector2df &aiPos,
+                std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+
+            // WAITING STATE
+            void waitingState(
+                is::components::AIControllerComponent &ai,
+                irr::core::vector2df &aiPos,
+                std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+
+            // GET POWERUP STATE
+            void getPowerupState(
+                is::components::AIControllerComponent &ai,
+                irr::core::vector2df &aiPos,
+                std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
 
         private:
 

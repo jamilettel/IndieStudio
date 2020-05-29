@@ -12,6 +12,7 @@
 
 #include "Components/InputManager.hpp"
 #include "EventManager/EventManager.hpp"
+#include "Exception.hpp"
 
 namespace is::components {
 
