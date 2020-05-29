@@ -82,8 +82,12 @@ void PresetSystem::update()
             s16 axis = _eventManager->get().getAxisValue(p->_callerID, PresetComponent::EquivalentButtons[i]._button);
             float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE;
 
+            if ((PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5) && axis == -JOYSTICK_MAX_AXIS_VALUE)
+                continue;
+
             if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))
-            && !p->getJoystickPreset().isAxisBound(PresetComponent::EquivalentButtons[i]._button) && value != JOYSTICK_MAX_AXIS_VALUE) {
+            && !p->getJoystickPreset().isAxisBound(PresetComponent::EquivalentButtons[i]._button)) {
+
                 p->getJoystickPreset().bindAxis(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
                 p->_callerID = -1;
