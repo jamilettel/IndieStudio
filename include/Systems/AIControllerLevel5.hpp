@@ -29,13 +29,13 @@ using namespace is::ecs;
 
 namespace is::systems {
 
-    class AIControllerSystem: public is::ecs::ASystem {
+    class AIControllerLevel5System : public is::ecs::ASystem {
     public:
-        AIControllerSystem() = default;
-        ~AIControllerSystem() = default;
+        AIControllerLevel5System() = default;
+        ~AIControllerLevel5System() = default;
 
-        AIControllerSystem(const AIControllerSystem &) = default;
-        AIControllerSystem &operator=(const AIControllerSystem &) = default;
+        AIControllerLevel5System(const AIControllerLevel5System &) = default;
+        AIControllerLevel5System &operator=(const AIControllerLevel5System &) = default;
 
         void awake() override;
         void start() override;
@@ -140,7 +140,7 @@ namespace is::systems {
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
 
-        using state_function_t = void (AIControllerSystem::*)(
+        using state_function_t = void (AIControllerLevel5System::*)(
             is::components::AIControllerComponent &ai,
             irr::core::vector2df &aiPos,
             std::vector<std::vector<is::ecs::Entity::Layer>> &map,

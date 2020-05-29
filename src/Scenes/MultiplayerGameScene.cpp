@@ -39,7 +39,7 @@ void is::scenes::MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::SliderSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel5System>());
     _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());

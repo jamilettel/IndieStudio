@@ -12,8 +12,9 @@ using namespace is::ecs;
 
 AIControllerComponent::AIControllerComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    InputManagerComponent &inputManager
-    ): Component(e), _inputManager(inputManager)
+    InputManagerComponent &inputManager,
+    int level
+) : Component(e), _inputManager(inputManager), _level(level)
 {
     static int id = 0;
 
@@ -35,4 +36,9 @@ InputManagerComponent &AIControllerComponent::getInputManager() const
 bool AIControllerComponent::operator==(const is::components::AIControllerComponent &ai) const
 {
     return (_id == ai._id);
+}
+
+int AIControllerComponent::getLevel() const noexcept
+{
+    return (_level);
 }

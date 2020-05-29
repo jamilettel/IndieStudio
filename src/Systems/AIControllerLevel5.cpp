@@ -5,13 +5,13 @@
 ** AIController
 */
 
-#include "Systems/AIController.hpp"
+#include "Systems/AIControllerLevel5.hpp"
 
 using namespace is::systems;
 using namespace is::components;
 using namespace is::ecs;
 
-void AIControllerSystem::awake()
+void AIControllerLevel5System::awake()
 {
      std::vector<std::shared_ptr<Component>> &aiComponents =
         _componentManager->getComponentsByType(typeid(AIControllerComponent).hash_code());
@@ -27,13 +27,13 @@ void AIControllerSystem::awake()
         ai.getInputManager().addValue("DropBomb", 0);
     }
 
-    _mapFunctionState[AIControllerComponent::AIState::NONE] = &AIControllerSystem::noneState;
-    _mapFunctionState[AIControllerComponent::AIState::ESCAPE_EXPLOSION] = &AIControllerSystem::escapeExplosionState;
-    _mapFunctionState[AIControllerComponent::AIState::PUT_BOMB] = &AIControllerSystem::putBombState;
-    _mapFunctionState[AIControllerComponent::AIState::WAITING] = &AIControllerSystem::waitingState;
+    _mapFunctionState[AIControllerComponent::AIState::NONE] = &AIControllerLevel5System::noneState;
+    _mapFunctionState[AIControllerComponent::AIState::ESCAPE_EXPLOSION] = &AIControllerLevel5System::escapeExplosionState;
+    _mapFunctionState[AIControllerComponent::AIState::PUT_BOMB] = &AIControllerLevel5System::putBombState;
+    _mapFunctionState[AIControllerComponent::AIState::WAITING] = &AIControllerLevel5System::waitingState;
 }
 
-void AIControllerSystem::start()
+void AIControllerLevel5System::start()
 {
     std::vector<std::shared_ptr<Component>> &time =
         _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
@@ -43,13 +43,13 @@ void AIControllerSystem::start()
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
 
-void AIControllerSystem::stop()
+void AIControllerLevel5System::stop()
 {}
 
-void AIControllerSystem::onTearDown()
+void AIControllerLevel5System::onTearDown()
 {}
 
-void AIControllerSystem::update()
+void AIControllerLevel5System::update()
 {
     std::vector<std::shared_ptr<Component>> &aiComponents =
         _componentManager->getComponentsByType(typeid(AIControllerComponent).hash_code());
@@ -98,7 +98,7 @@ void AIControllerSystem::update()
 *
 *****************************/
 
-void AIControllerSystem::noneState(
+void AIControllerLevel5System::noneState(
     is::components::AIControllerComponent &ai,
     irr::core::vector2df &aiPos, 
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -111,7 +111,7 @@ void AIControllerSystem::noneState(
     setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map, aiComponents);
 }
 
-void AIControllerSystem::setNewLongObjective(
+void AIControllerLevel5System::setNewLongObjective(
     AIControllerComponent &ai,
     irr::core::vector2di aiPos,
     std::vector<std::vector<is::ecs::Entity::Layer>> map,
@@ -148,7 +148,7 @@ void AIControllerSystem::setNewLongObjective(
     }
 }
 
-bool AIControllerSystem::posIsHideFromABomb(
+bool AIControllerLevel5System::posIsHideFromABomb(
     const irr::core::vector2di &aiPos,
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
     const irr::core::vector2di &bombPos,
@@ -182,7 +182,7 @@ bool AIControllerSystem::posIsHideFromABomb(
     return (true);
 }
 
-int AIControllerSystem::getSizeBomb(const std::vector<std::shared_ptr<Component>> &bombs, const irr::core::vector2di &pos) const
+int AIControllerLevel5System::getSizeBomb(const std::vector<std::shared_ptr<Component>> &bombs, const irr::core::vector2di &pos) const
 {
     int max = 1;
 
@@ -199,7 +199,7 @@ int AIControllerSystem::getSizeBomb(const std::vector<std::shared_ptr<Component>
     return (max);
 }
 
-bool AIControllerSystem::posIsHideFromBombs(
+bool AIControllerLevel5System::posIsHideFromBombs(
     const AIControllerComponent &ai,
     const irr::core::vector2di &aiPos,
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map
@@ -224,7 +224,7 @@ bool AIControllerSystem::posIsHideFromBombs(
 }
 
 // * pos : the position of the bomb
-bool AIControllerSystem::canHideFromExplosion(
+bool AIControllerLevel5System::canHideFromExplosion(
     AIControllerComponent &ai,
     const irr::core::vector2di &pos,
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map
@@ -259,7 +259,7 @@ bool AIControllerSystem::canHideFromExplosion(
     return false;
 }
 
-bool AIControllerSystem::bombPosIsUseful(
+bool AIControllerLevel5System::bombPosIsUseful(
     const AIControllerComponent &ai,
     const irr::core::vector2di &bombPos,
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -301,7 +301,7 @@ bool AIControllerSystem::bombPosIsUseful(
     return (false);
 }
 
-bool AIControllerSystem::findBombEmplacement(
+bool AIControllerLevel5System::findBombEmplacement(
     AIControllerComponent &ai,
     const irr::core::vector2di &pos,
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -348,7 +348,7 @@ bool AIControllerSystem::findBombEmplacement(
 *
 *****************************/
 
-void AIControllerSystem::escapeExplosionState(
+void AIControllerLevel5System::escapeExplosionState(
     is::components::AIControllerComponent &ai,
     irr::core::vector2df &aiPos,
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -374,7 +374,7 @@ void AIControllerSystem::escapeExplosionState(
 *
 *****************************/
 
-void AIControllerSystem::putBombState(
+void AIControllerLevel5System::putBombState(
     is::components::AIControllerComponent &ai,
     irr::core::vector2df &aiPosF,
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -425,7 +425,7 @@ void AIControllerSystem::putBombState(
 *
 *****************************/
 
-void AIControllerSystem::waitingState(
+void AIControllerLevel5System::waitingState(
     is::components::AIControllerComponent &ai,
     irr::core::vector2df &aiPosF,
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -476,7 +476,7 @@ void AIControllerSystem::waitingState(
 *
 *****************************/
 
-void AIControllerSystem::getPowerupState(
+void AIControllerLevel5System::getPowerupState(
     is::components::AIControllerComponent &ai,
     irr::core::vector2df &aiPos,
     std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -493,7 +493,7 @@ void AIControllerSystem::getPowerupState(
 *
 *****************************/
 
-void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df &aiPos) const
+void AIControllerLevel5System::moveAI(AIControllerComponent &ai, irr::core::vector2df &aiPos) const
 {
     if (ai.state == AIControllerComponent::WAITING || ai.state == AIControllerComponent::NONE) {
         // std::cout << "STOP" << std::endl;
@@ -510,7 +510,7 @@ void AIControllerSystem::moveAI(AIControllerComponent &ai, irr::core::vector2df 
         ai.getInputManager().setValue("MoveVerticalAxis", 1);
 }
 
-bool AIControllerSystem::hasReachedObjective(AIControllerComponent &ai, irr::core::vector2df &aiPos) const noexcept
+bool AIControllerLevel5System::hasReachedObjective(AIControllerComponent &ai, irr::core::vector2df &aiPos) const noexcept
 {
     return (aiPos.X - (0.3333f) >= ai.shortObjective.X &&
         aiPos.X - (0.3333f) <= ai.shortObjective.X + 1 &&
@@ -522,7 +522,7 @@ bool AIControllerSystem::hasReachedObjective(AIControllerComponent &ai, irr::cor
         aiPos.Y + (0.3333f) <= ai.shortObjective.Y + 1);
 }
 
-bool AIControllerSystem::isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const
+bool AIControllerLevel5System::isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const
 {
     for (size_t i = 0; i < map.size(); i++) {
         for (size_t a = 0; a < map[i].size(); a++) {
@@ -537,7 +537,7 @@ bool AIControllerSystem::isInDanger(irr::core::vector2di aiPos, std::vector<std:
     return (false);
 }
 
-void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
+void AIControllerLevel5System::setNewShortObjective(AIControllerComponent &ai, irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> &map) const
 {
     if (!ai.path.size())
         return;
@@ -548,7 +548,7 @@ void AIControllerSystem::setNewShortObjective(AIControllerComponent &ai, irr::co
     // std::cout << "New Short objective X :" << ai.shortObjective.X << ", Y:" << ai.shortObjective.Y << std::endl;
 }
 
-bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer, const BombermanComponent &bomberman) const noexcept
+bool AIControllerLevel5System::isAirBlock(is::ecs::Entity::Layer layer, const BombermanComponent &bomberman) const noexcept
 {
     if (bomberman.wallPass)
         if (layer == is::ecs::Entity::BRKBL_BLK)
@@ -558,14 +558,14 @@ bool AIControllerSystem::isAirBlock(is::ecs::Entity::Layer layer, const Bomberma
         layer == is::ecs::Entity::Layer::POWERUP);
 }
 
-bool AIControllerSystem::isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept
+bool AIControllerLevel5System::isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept
 {
     if (map.size() == 0)
         return (false);
     return (pos.X >= 0 && pos.X < static_cast<int>(map.size()) && pos.Y >= 0 && pos.Y < static_cast<int>(map[0].size()));
 }
 
-bool AIControllerSystem::layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman) const noexcept
+bool AIControllerLevel5System::layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman) const noexcept
 {
     if (bomberman.wallPass)
         if (layer == is::ecs::Entity::BRKBL_BLK)
@@ -598,7 +598,7 @@ static bool findPlayer(
     }) != aiComponents.end());
 }
 
-bool AIControllerSystem::bombPosAimForPlayer(
+bool AIControllerLevel5System::bombPosAimForPlayer(
     const is::components::AIControllerComponent &ai,
     const irr::core::vector2di &bombPos,
     const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
