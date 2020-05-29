@@ -168,6 +168,17 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
+    TextComponent &valueToChange = e->addComponent<TextComponent>(
+        e,
+        std::to_string(rules.getNumberOfPlayers()),
+        "Indie Studio",
+        1200, 480,
+        400, 200,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -175,7 +186,13 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         1200,
         550,
         60, 60,
-        [](){},
+        [&value, &valueToChange, &rules](){
+            if (rules.getNumberOfPlayers() > 2) {
+                rules.setNumberOfPlayers(rules.getNumberOfPlayers() - 1);
+                value.setText(std::to_string(rules.getNumberOfPlayers()));
+                valueToChange.setText(std::to_string(rules.getNumberOfPlayers()));
+            }
+        },
         true,
         RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
@@ -187,23 +204,31 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         1550,
         550,
         60, 60,
-        [](){},
+        [&value, &valueToChange, &rules](){
+            if (rules.getNumberOfPlayers() < 4) {
+                rules.setNumberOfPlayers(rules.getNumberOfPlayers() + 1);
+                value.setText(std::to_string(rules.getNumberOfPlayers()));
+                valueToChange.setText(std::to_string(rules.getNumberOfPlayers()));
+            }
+        },
         true,
         RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
     );
     component.addRule(
         // On select
-        [&dot, &backward, &forward](){
+        [&dot, &backward, &forward, &valueToChange](){
             dot.setVisible(true);
             backward.setVisible(true);
             forward.setVisible(true);
+            valueToChange.setVisible(true);
         },
         // On exit
-        [&dot, &backward, &forward](){
+        [&dot, &backward, &forward, &valueToChange](){
             dot.setVisible(false);
             backward.setVisible(false);
             forward.setVisible(false);
+            valueToChange.setVisible(false);
         },
         // On disappear
         [&firstTable, &secondTable, &title, &value](){
@@ -287,29 +312,17 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
-    ButtonComponent &backward = e->addComponent<ButtonComponent>(
+    TextComponent &valueToChange = e->addComponent<TextComponent>(
         e,
-        "",
+        (rules.noIconUsed() ? "Off" : "On"),
         "Indie Studio",
-        1250,
-        360,
-        60, 60,
-        [](){},
+        1230, 285,
+        400, 200,
         false,
-        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
-        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
-    );
-    ButtonComponent &forward = e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        1550,
-        360,
-        60, 60,
-        [](){},
-        false,
-        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
-        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244),
+        false
     );
     TextureComponent &onOff = e->addComponent<TextureComponent>(
         e,
@@ -353,15 +366,21 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         RESSOURCE("ui/RuleSettings/accelerator.png"),
         RESSOURCE("ui/RuleSettings/accelerator.png")
     );
-    accelerator.setCallback([&accelerator, &acceleratorDisable](){
+    accelerator.setCallback([&accelerator, &acceleratorDisable, &rules, &value, &valueToChange](){
         accelerator.setDisabled(true);
         acceleratorDisable.setDisabled(false);
         acceleratorDisable.setVisible(true);
+        rules.setIconUse(RulesComponent::ACCELERATOR, false);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
-    acceleratorDisable.setCallback([&accelerator, &acceleratorDisable](){
+    acceleratorDisable.setCallback([&accelerator, &acceleratorDisable, &rules, &value, &valueToChange](){
         accelerator.setDisabled(false);
         acceleratorDisable.setDisabled(true);
         acceleratorDisable.setVisible(false);
+        rules.setIconUse(RulesComponent::ACCELERATOR, true);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
 
     ButtonComponent &bombDisable = e->addComponent<ButtonComponent>(
@@ -389,15 +408,21 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         RESSOURCE("ui/RuleSettings/bomb.png"),
         RESSOURCE("ui/RuleSettings/bomb.png")
     );
-    bomb.setCallback([&bomb, &bombDisable](){
+    bomb.setCallback([&bomb, &bombDisable, &rules, &value, &valueToChange](){
         bomb.setDisabled(true);
         bombDisable.setDisabled(false);
         bombDisable.setVisible(true);
+        rules.setIconUse(RulesComponent::BOMB, false);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
-    bombDisable.setCallback([&bomb, &bombDisable](){
+    bombDisable.setCallback([&bomb, &bombDisable, &rules, &value, &valueToChange](){
         bomb.setDisabled(false);
         bombDisable.setDisabled(true);
         bombDisable.setVisible(false);
+        rules.setIconUse(RulesComponent::BOMB, true);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
 
     ButtonComponent &explosionDisable = e->addComponent<ButtonComponent>(
@@ -425,15 +450,21 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         RESSOURCE("ui/RuleSettings/explosion_expander.png"),
         RESSOURCE("ui/RuleSettings/explosion_expander.png")
     );
-    explosion.setCallback([&explosion, &explosionDisable](){
+    explosion.setCallback([&explosion, &explosionDisable, &rules, &value, &valueToChange](){
         explosion.setDisabled(true);
         explosionDisable.setDisabled(false);
         explosionDisable.setVisible(true);
+        rules.setIconUse(RulesComponent::EXPLOSION, false);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
-    explosionDisable.setCallback([&explosion, &explosionDisable](){
+    explosionDisable.setCallback([&explosion, &explosionDisable, &rules, &value, &valueToChange](){
         explosion.setDisabled(false);
         explosionDisable.setDisabled(true);
         explosionDisable.setVisible(false);
+        rules.setIconUse(RulesComponent::EXPLOSION, true);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
 
     ButtonComponent &wallPassDisable = e->addComponent<ButtonComponent>(
@@ -461,23 +492,85 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         RESSOURCE("ui/RuleSettings/wall_pass.png"),
         RESSOURCE("ui/RuleSettings/wall_pass.png")
     );
-    wallPass.setCallback([&wallPass, &wallPassDisable](){
+    wallPass.setCallback([&wallPass, &wallPassDisable, &rules, &value, &valueToChange](){
         wallPass.setDisabled(true);
         wallPassDisable.setDisabled(false);
         wallPassDisable.setVisible(true);
+        rules.setIconUse(RulesComponent::WALL_PASS, false);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
-    wallPassDisable.setCallback([&wallPass, &wallPassDisable](){
+    wallPassDisable.setCallback([&wallPass, &wallPassDisable, &rules, &value, &valueToChange](){
         wallPass.setDisabled(false);
         wallPassDisable.setDisabled(true);
         wallPassDisable.setVisible(false);
+        rules.setIconUse(RulesComponent::WALL_PASS, true);
+        value.setText((rules.noIconUsed() ? "Off" : "On"));
+        valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
+
+    ButtonComponent &backward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1250,
+        360,
+        60, 60,
+        [&value, &valueToChange, &rules, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
+            rules.setAllICons(rules.noIconUsed() ? true : false);
+            value.setText((rules.noIconUsed() ? "Off" : "On"));
+            valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
+            if (rules.noIconUsed()) {
+                wallPass.setClicked(true);
+                accelerator.setClicked(true);
+                bomb.setClicked(true);
+                explosion.setClicked(true);
+            } else {
+                wallPassDisable.setClicked(true);
+                acceleratorDisable.setClicked(true);
+                bombDisable.setClicked(true);
+                explosionDisable.setClicked(true);
+            }
+        },
+        false,
+        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
+    );
+    ButtonComponent &forward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        1550,
+        360,
+        60, 60,
+        [&value, &valueToChange, &rules, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
+            rules.setAllICons(rules.noIconUsed() ? true : false);
+            value.setText((rules.noIconUsed() ? "Off" : "On"));
+            valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
+            if (rules.noIconUsed()) {
+                wallPass.setClicked(true);
+                accelerator.setClicked(true);
+                bomb.setClicked(true);
+                explosion.setClicked(true);
+            } else {
+                wallPassDisable.setClicked(true);
+                acceleratorDisable.setClicked(true);
+                bombDisable.setClicked(true);
+                explosionDisable.setClicked(true);
+            }
+        },
+        false,
+        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
+        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+    );
 
     component.addRule(
         // On select
-        [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
+        [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable, &valueToChange](){
             dot.setVisible(true);
             forward.setVisible(true);
             backward.setVisible(true);
+            valueToChange.setVisible(true);
             onOff.setVisible(true);
             highBox.setVisible(true);
             accelerator.setVisible(true);
@@ -494,10 +587,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
                 wallPassDisable.setVisible(true);
         },
         // On Exit
-        [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
+        [&dot, &forward, &backward, &onOff, &highBox, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable, &valueToChange](){
             dot.setVisible(false);
             forward.setVisible(false);
             backward.setVisible(false);
+            valueToChange.setVisible(false);
             onOff.setVisible(false);
             highBox.setVisible(false);
             accelerator.setVisible(false);
