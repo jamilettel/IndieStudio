@@ -11,6 +11,9 @@
 using namespace is::systems;
 using namespace is::components;
 
+#define JOYSTICK_MAX_AXIS_VALUE 32768.0
+#define AXISDEADZONEMIN 0.50
+
 void PresetSystem::awake()
 {
     auto windows = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
@@ -72,7 +75,22 @@ void PresetSystem::update()
                 p->_toChange.reset();
                 break;
             }
+            if (PresetComponent::EquivalentButtons[i]._button < 0)
+                continue;
+
+            s16 axis = _eventManager->get().getAxisValue(p->_callerID, PresetComponent::EquivalentButtons[i]._button);
+            float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE;
+
+            if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN)) && !p->getJoystickPreset().isAxisBound(PresetComponent::EquivalentButtons[i]._button)) {
+                p->getJoystickPreset().bindAxis(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
+                std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
+                p->_callerID = -1;
+                p->_toChangeUI.reset();
+                p->_toChange.reset();
+                break;
+            }
         }
+        break;
     }
 }
 
