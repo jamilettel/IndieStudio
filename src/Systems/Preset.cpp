@@ -67,11 +67,10 @@ void PresetSystem::update()
             }
         }
         for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
-            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button * -1) - 1)
-            && !p->getJoystickPreset().isButtonBound(PresetComponent::EquivalentButtons[i]._button)
-            && !p->getJoystickPreset().isAxisBound(PresetComponent::EquivalentButtons[i]._button)) {
+            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button))
+            && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
 
-                p->getJoystickPreset().bindButton(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
+                p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
@@ -89,9 +88,9 @@ void PresetSystem::update()
                 continue;
 
             if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))
-            && !p->getJoystickPreset().isAxisBound(PresetComponent::EquivalentButtons[i]._button) && !p->getJoystickPreset().isButtonBound(PresetComponent::EquivalentButtons[i]._button)) {
+            && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button) && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
 
-                p->getJoystickPreset().bindAxis(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
+                p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
