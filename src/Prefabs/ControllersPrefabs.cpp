@@ -96,14 +96,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         [&manager, &TextPresetSelected](){
             auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
-                text->setVisible(false);
+                text.get().setVisible(false);
             });
             std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
-                image->setVisible(false);
+                image.get().setVisible(false);
             });
             std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
-                button->setVisible(false);
+                button.get().setVisible(false);
             });
+            p->_onSelect = false;
             if (selectedPreset == 3) {
                 selectedPreset = 0;
                 TextPresetSelected.setText("Preset 1");
@@ -113,14 +114,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             }
             p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
-                text->setVisible(true);
+                text.get().setVisible(true);
             });
             std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
-                image->setVisible(true);
+                image.get().setVisible(true);
             });
             std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
-                button->setVisible(true);
+                button.get().setVisible(true);
             });
+            p->_onSelect = true;
         },
         true,
         RESSOURCE("ui/Controllers/Forward_BTN.png"),
@@ -138,14 +140,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         [&manager, &TextPresetSelected](){
             auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
-                text->setVisible(false);
+                text.get().setVisible(false);
             });
             std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
-                image->setVisible(false);
+                image.get().setVisible(false);
             });
             std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
-                button->setVisible(false);
+                button.get().setVisible(false);
             });
+            p->_onSelect = false;
             if (selectedPreset == 0) {
                 selectedPreset = 3;
                 TextPresetSelected.setText("Preset 4");
@@ -155,14 +158,15 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             }
             p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
-                text->setVisible(true);
+                text.get().setVisible(true);
             });
             std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
-                image->setVisible(true);
+                image.get().setVisible(true);
             });
             std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
-                button->setVisible(true);
+                button.get().setVisible(true);
             });
+            p->_onSelect = true;
         },
         true,
         RESSOURCE("ui/Controllers/Backward_BTN.png"),
@@ -205,7 +209,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
                 is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
                 140, 100,
                 true,
-                false,
+                true,
                 RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
                 irr::video::SColor(255, 255, 255, 255),
                 count == 0
@@ -238,11 +242,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             buttonAction.layer = 3;
             buttonAction.setCallback([&buttonAction, &keyboardAction, &controllerAction, p, i](){
                 p->_toChange.emplace(CharacterComponent::playerActions[i]);
-                p->_toChangeUI = std::tuple<TextComponent*, ImageComponent*, ButtonComponent*>(&keyboardAction, &controllerAction, &buttonAction);
+                p->_toChangeUI = std::tuple<std::reference_wrapper<TextComponent>, std::reference_wrapper<ImageComponent>, std::reference_wrapper<ButtonComponent>>(keyboardAction, controllerAction, buttonAction);
             });
-            p->_textPreset.emplace_back(&keyboardAction);
-            p->_imagePreset.emplace_back(&controllerAction);
-            p->_buttonPreset.emplace_back(&buttonAction);
+            p->_textPreset.emplace_back(keyboardAction);
+            p->_imagePreset.emplace_back(controllerAction);
+            p->_buttonPreset.emplace_back(buttonAction);
             count++;
         }
     }

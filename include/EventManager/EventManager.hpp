@@ -66,6 +66,8 @@ namespace is
             [[nodiscard]] bool isMiddlePressed() const;
             [[nodiscard]] bool isLeftPressed() const;
             [[nodiscard]] float getMouseWheel() const;
+            [[nodiscard]] EKEY_CODE getLastKeyPressed() const;
+            void resetLastKeyPressed();
 
             void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
             void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
@@ -93,6 +95,7 @@ namespace is
 
             std::map<std::pair<int, int>, std::function<void()>> _eventKeyPressed;
             std::map<int, std::function<void()>> _eventKeyReleased;
+            EKEY_CODE _lastKeyPressed;
     };
 }
 

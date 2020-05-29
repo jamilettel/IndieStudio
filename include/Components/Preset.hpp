@@ -14,7 +14,7 @@
 #include "Text.hpp"
 
 #ifndef RESOURCES_PATH
-    #define RESOURCES_PATH "./resources/"
+#define RESOURCES_PATH "./resources/"
 #endif
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
@@ -121,9 +121,9 @@ namespace is::components {
         static std::string getEquivalentKey(EKEY_CODE key);
         static std::string getEquivalentButton(int button);
 
-        std::vector<std::shared_ptr<TextComponent>> _textPreset;
-        std::vector<std::shared_ptr<ImageComponent>> _imagePreset;
-        std::vector<std::shared_ptr<ButtonComponent>> _buttonPreset;
+        std::vector<std::reference_wrapper<TextComponent>> _textPreset;
+        std::vector<std::reference_wrapper<ImageComponent>> _imagePreset;
+        std::vector<std::reference_wrapper<ButtonComponent>> _buttonPreset;
 
     private:
         KeyboardPresetComponent _keyboardPreset;
@@ -132,7 +132,8 @@ namespace is::components {
     public:
         int presetNumber;
         std::optional<PresetAction> _toChange;
-        std::tuple<TextComponent*, ImageComponent*, ButtonComponent*> _toChangeUI;
+        std::optional<std::tuple<std::reference_wrapper<TextComponent>, std::reference_wrapper<ImageComponent>, std::reference_wrapper<ButtonComponent>>> _toChangeUI;
+        bool _onSelect;
     };
 
 }

@@ -28,6 +28,7 @@ void is::scenes::ControllersScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::PresetSystem>());
 }
 
 void is::scenes::ControllersScene::initEntities()
