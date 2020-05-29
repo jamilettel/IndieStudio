@@ -49,6 +49,7 @@ namespace is::components {
         void bind(s32 binding, const PresetAction &action);
         bool changeBinding(s32 from, s32 to);
 
+        void bindAxis(s32 binding, const PresetAction &action);
 
         [[nodiscard]] const std::map<PresetAction, s32> &getBindings() const;
 

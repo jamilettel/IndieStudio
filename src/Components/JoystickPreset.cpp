@@ -148,6 +148,19 @@ const std::map<PresetAction, s32> &JoystickPresetComponent::getBindings() const
     return _bindings;
 }
 
+void JoystickPresetComponent::bindAxis(s32 binding, const PresetAction &action)
+{
+    auto other = std::find_if(
+        _bindings.begin(), _bindings.end(),
+        [&action] (const std::pair<PresetAction, s32> &pair)-> bool {
+            return action.action == pair.first.action && action.max != pair.first.max;
+        });
+
+    bind(binding, action);
+    if (other != _bindings.end()) {
+        bind(binding, other->first);
+    }
+}
 
 void JoystickPresetComponent::createBasicPreset(JoystickPresetComponent &preset)
 {
