@@ -154,21 +154,24 @@ void JoystickInputComponent::unbindAll()
 
 void JoystickInputComponent::setPreset(const JoystickPresetComponent &preset)
 {
-    for (auto &button: preset.getButtonBindings())
-        bindButton((button.second + 1) * -1, button.first.action, button.first.value);
+    for (auto &binding: preset.getBindings()) {
 
-    for (auto &axis: preset.getAxisBindings()) {
-        if (!isAxisBound(axis.second)) {
+        if (binding.second < 0) {
+            bindButton((binding.second + 1) * -1, binding.first.action, binding.first.value);
+            continue;
+        }
+
+        if (!isAxisBound(binding.second)) {
             float min = 0;
             float max = 0;
 
-            if (axis.first.max)
-                max = axis.first.value;
+            if (binding.first.max)
+                max = binding.first.value;
             else
-                min = axis.first.value;
-            bindAxis(axis.second, axis.first.action, min, max);
+                min = binding.first.value;
+            bindAxis(binding.second, binding.first.action, min, max);
         } else {
-            changeAxisTarget(axis.second, axis.first.value, axis.first.max);
+            changeAxisTarget(binding.second, binding.first.value, binding.first.max);
         }
     }
 }

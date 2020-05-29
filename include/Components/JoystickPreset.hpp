@@ -28,27 +28,36 @@ namespace is::components {
 
         void deleteComponent() override;
 
-        [[nodiscard]] bool isButtonBound(u32 button) const;
+        // [[nodiscard]] bool isButtonBound(u32 button) const;
 
-        void unbindButton(u32 button);
-        void bindButton(u32 button, const PresetAction &action);
-        bool changeButton(u32 from, u32 to);
+        // void unbindButton(u32 button);
+        // void bindButton(u32 button, const PresetAction &action);
+        // bool changeButton(u32 from, u32 to);
 
-        [[nodiscard]] bool isAxisBound(u32 button) const;
+        // [[nodiscard]] bool isAxisBound(u32 button) const;
 
-        void unbindAxis(u32 axis);
-        void bindAxis(u32 axis, const PresetAction &action);
-        bool changeAxis(u32 from, u32 to);
+        // void unbindAxis(u32 axis);
+        // void bindAxis(u32 axis, const PresetAction &action);
+        // bool changeAxis(u32 from, u32 to);
 
-        [[nodiscard]] const std::map<PresetAction, u32> &getButtonBindings() const;
-        [[nodiscard]] const std::map<PresetAction, u32> &getAxisBindings() const;
-        [[nodiscard]] std::map<PresetAction, u32> getBindings() const;
+        // [[nodiscard]] const std::map<PresetAction, u32> &getButtonBindings() const;
+        // [[nodiscard]] const std::map<PresetAction, u32> &getAxisBindings() const;
+
+        [[nodiscard]] bool isBound(u32 binding) const;
+
+        // void unbind(u32 button);
+        void bind(s32 binding, const PresetAction &action);
+        bool changeBinding(s32 from, u32 to);
+
+
+        [[nodiscard]] std::map<PresetAction, s32> getBindings() const;
 
         static void createBasicPreset(JoystickPresetComponent &preset);
 
     private:
-        std::map<PresetAction, u32> _buttons;
-        std::map<PresetAction, u32> _axes;
+        // std::map<PresetAction, u32> _buttons;
+        // std::map<PresetAction, u32> _axes;
+        std::map<PresetAction, s32> _bindings;
 
     };
 
