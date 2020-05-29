@@ -7,6 +7,7 @@
 
 #include "Systems/JoystickCursor.hpp"
 #include "Components/JoystickCursor.hpp"
+#include "Components/Button.hpp"
 
 using namespace is::ecs;
 using namespace is::systems;
@@ -35,6 +36,7 @@ void JoystickCursorSystem::start()
 void JoystickCursorSystem::update()
 {
     auto joystickCursors = _componentManager->getComponentsByType(typeid(JoystickCursorComponent).hash_code());
+    auto buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
 
     for (auto cursor: joystickCursors) {
         auto ptr = static_cast<JoystickCursorComponent *>(cursor.get());
@@ -52,7 +54,18 @@ void JoystickCursorSystem::update()
         else if (pos.Y < 0)
             pos.Y = 0;
         ptr->getCursor().setPosition(pos.X, pos.Y);
-        ptr->clicked = ptr->getJoystickInput().getInputManager().getInput("Click") == 1;
+
+        bool click = ptr->getJoystickInput().getInputManager().getInput("Click") == 1;
+        if (!click && ptr->clicked) {
+            for (auto &button: buttons) {
+                auto buttonPtr = static_cast<ButtonComponent*>(button.get());
+
+                if (buttonPtr->contains(ptr->getCursor().getPosition())) {
+                    buttonPtr->callCallback(ptr->getJoystickId());
+                }
+            }
+        }
+        ptr->clicked = click;
     }
 }
 

@@ -63,7 +63,7 @@ namespace is::components {
             ButtonComponent(const ButtonComponent &) = delete;
             ButtonComponent &operator=(const ButtonComponent &) = delete;
 
-            void init(std::shared_ptr<is::components::WindowComponent> &ptr_window) override;
+            void init(std::shared_ptr<is::components::WindowComponent> &ptrWindow) override;
             void deleteComponent() override;
             [[nodiscard]] irr::s32 getId() const;
 
@@ -71,7 +71,7 @@ namespace is::components {
             void setClicked(bool);
 
             void setCallback(std::function<void()> ft);
-            void callCallback() const;
+            void callCallback(int cursorId = -1);
 
             void bringToFront() override;
             void setVisible(bool visible);
@@ -80,6 +80,9 @@ namespace is::components {
             void setDisabled(bool disabled) noexcept;
 
             std::string windowName;
+
+            [[nodiscard]] bool contains(const irr::core::vector2df &pos) const;
+            [[nodiscard]] int getCallerId() const;
 
         private:
             const std::string _image;
@@ -92,6 +95,7 @@ namespace is::components {
             bool _visible;
             std::function<void()> _ft;
             bool _disabled = false;
+           int _callerId = -1;
     };
 
 }

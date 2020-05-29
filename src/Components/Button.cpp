@@ -140,11 +140,17 @@ void is::components::ButtonComponent::setCallback(std::function<void()> ft)
     _ft = std::move(ft);
 }
 
-void is::components::ButtonComponent::callCallback() const
+void is::components::ButtonComponent::callCallback(int callerId)
 {
     if (_disabled)
         return;
+    _callerId = callerId;
     _ft();
+}
+
+int is::components::ButtonComponent::getCallerId() const
+{
+    return _callerId;
 }
 
 void is::components::ButtonComponent::setVisible(bool visible)
@@ -161,4 +167,11 @@ void is::components::ButtonComponent::setDisabled(bool disabled) noexcept
 bool is::components::ButtonComponent::isDisabled() const noexcept
 {
     return _disabled;
+}
+
+bool is::components::ButtonComponent::contains(const irr::core::vector2df &pos) const
+{
+    irr::core::vector2di point(pos.X, pos.Y);
+
+    return _dimension.isPointInside(point);
 }

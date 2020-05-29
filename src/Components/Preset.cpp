@@ -12,9 +12,9 @@ using namespace is::components;
 PresetComponent::PresetComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     int number
-    ):
-    Component(e), _keyboardPreset(e), _joystickPreset(e), presetNumber(number)
-{}
+    ) : Component(e), _keyboardPreset(e), _joystickPreset(e), presetNumber(number), _toChange(), _toChangeUI(), _onSelect(false), _callerID(-1)
+{
+}
 
 void PresetComponent::deleteComponent()
 {}
@@ -40,7 +40,7 @@ std::string PresetComponent::getEquivalentKey(EKEY_CODE key)
 
 std::string PresetComponent::getEquivalentButton(int button)
 {
-    for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -1; i++) {
+    for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
         if (PresetComponent::EquivalentButtons[i]._button == button)
             return PresetComponent::EquivalentButtons[i]._filename;
     }

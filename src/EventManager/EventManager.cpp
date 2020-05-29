@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Components/Button.hpp"
 
-is::EventManager::EventManager()
+is::EventManager::EventManager() : _lastKeyPressed(EKEY_CODE::KEY_KEY_CODES_COUNT), _lastControlPressed(-9999)
 {
     for (int i = 0; i < KEY_KEY_CODES_COUNT; i++)
         _keyState[i] = false;
@@ -71,6 +71,7 @@ bool is::EventManager::OnEvent(const SEvent &event)
     // Check whether each key is down or up and run ft associated
     if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
         _keyState[event.KeyInput.Key] = event.KeyInput.PressedDown;
+        _lastKeyPressed = event.KeyInput.Key;
         // run ft associated with key released
         if (!event.KeyInput.PressedDown) {
             if (_eventKeyReleased.find(event.KeyInput.Key) != _eventKeyReleased.end()) {
@@ -224,4 +225,24 @@ s16 is::EventManager::getAxisValue(u8 joystick, u32 axis) const
     if (_joystickStates.count(joystick))
         return _joystickStates.at(joystick).second[axis];
     return 0;
+}
+
+EKEY_CODE is::EventManager::getLastKeyPressed() const
+{
+    return _lastKeyPressed;
+}
+
+void is::EventManager::resetLastKeyPressed()
+{
+    _lastKeyPressed = EKEY_CODE::KEY_KEY_CODES_COUNT;
+}
+
+int is::EventManager::getLastControlPressed() const
+{
+    return _lastControlPressed;
+}
+
+void is::EventManager::resetLastControlPressed()
+{
+    _lastControlPressed = -9999;
 }
