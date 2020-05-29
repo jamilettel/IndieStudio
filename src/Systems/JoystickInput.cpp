@@ -53,7 +53,7 @@ void JoystickInputSystem::update()
 
         for (const auto &pair: buttonBindings) {
             if (_eventManager->get().isJoystickButtonPressed(joystick->getJoystickId(), pair.first))
-                joystick->getInputManager().setValue(pair.second.first, pair.second.second);
+                joystick->getInputManager().addValue(pair.second.first, pair.second.second);
         }
         for (const auto &pair: axisBindings) {
             s16 axis = _eventManager->get().getAxisValue(joystick->getJoystickId(), pair.first);
@@ -66,9 +66,12 @@ void JoystickInputSystem::update()
                 value = 1;
             else if (value < 0 && -value >= joystick->axisDeadzoneMax)
                 value = -1;
-            value = (value + 1.0) / 2.0; // value between 0 and 1
-            value = pair.second.second[1] + (pair.second.second[0] - pair.second.second[1]) * value;
-            joystick->getInputManager().setValue(pair.second.first, value);
+            if (value < 0)
+                value = -value * pair.second.second[1];
+            else if (value > 0)
+                value = value * pair.second.second[0];
+
+            joystick->getInputManager().addValue(pair.second.first, value);
         }
     }
 }

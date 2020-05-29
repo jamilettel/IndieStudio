@@ -67,7 +67,7 @@ void PresetSystem::update()
             }
         }
         for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
-            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button))
+            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button + 1) * -1)
             && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
 
                 p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
