@@ -25,10 +25,10 @@ namespace is::components
             };
 
             static inline const PresetAction playerActions[7] = {
-                {"MoveVerticalAxis", 1, "Move forward"},
-                {"MoveVerticalAxis", -1, "Move backward"},
-                {"MoveHorizontalAxis", -1, "Move right"},
-                {"MoveHorizontalAxis", 1, "Move left"},
+                {"MoveVerticalAxis", 1, "Move forward", true},
+                {"MoveVerticalAxis", -1, "Move backward", false},
+                {"MoveHorizontalAxis", -1, "Move right", false},
+                {"MoveHorizontalAxis", 1, "Move left", true},
                 {"DropBomb", 1, "Drop bomb"},
                 {"Jump", 1, "Jump"},
                 {"", -9999, ""},
