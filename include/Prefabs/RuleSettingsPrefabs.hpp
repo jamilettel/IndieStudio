@@ -9,6 +9,7 @@
 #define RULESETTINGSPREFABS_HPP_
 
 #include "ECS/Entity.hpp"
+#include "Game.hpp"
 
 #include "Components/Texture.hpp"
 #include "Components/Button.hpp"

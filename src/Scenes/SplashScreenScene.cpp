@@ -50,7 +50,7 @@ void is::scenes::SplashScreenScene::update()
 {
     AScene::update();
     if (_time->get().getElapsedTime() > 3000) {
-        is::Game::setActualScene(is::ecs::SCENE_RULE_SETTINGS);
+        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
         return;
     }
 }

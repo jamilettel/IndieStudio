@@ -44,7 +44,9 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createReturnButton()
         60,
         60,
         60, 60,
-        [](){},
+        [](){
+            is::Game::setActualScene(is::Game::getPreviousScene());
+        },
         true,
         RESSOURCE("ui/RuleSettings/Return_BTN.png"),
         RESSOURCE("ui/RuleSettings/Return_BTN_pressed.png")
