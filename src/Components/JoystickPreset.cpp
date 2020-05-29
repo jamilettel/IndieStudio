@@ -39,7 +39,7 @@ void JoystickPresetComponent::deleteComponent()
 //     return false;
 // }
 
-bool JoystickPresetComponent::isBound(u32 binding) const
+bool JoystickPresetComponent::isBound(s32 binding) const
 {
     for (auto &elem: _bindings) {
         if (elem.second == binding)
@@ -62,7 +62,7 @@ bool JoystickPresetComponent::isBound(u32 binding) const
 //     _buttons[action] = button;
 // }
 
-void JoystickPresetComponent::bind(u32 binding, const PresetAction &action)
+void JoystickPresetComponent::bind(s32 binding, const PresetAction &action)
 {
     _bindings[action] = binding;
 }
@@ -80,11 +80,11 @@ void JoystickPresetComponent::bind(u32 binding, const PresetAction &action)
 //     _axes[action] = button;
 // }
 
-bool JoystickPresetComponent::changeBinding(u32 from, u32 to)
+bool JoystickPresetComponent::changeBinding(s32 from, s32 to)
 {
     auto it = std::find_if(
         _bindings.begin(), _bindings.end(),
-        [&from] (const std::pair<PresetAction, u32> &pair) {
+        [&from] (const std::pair<PresetAction, s32> &pair) {
             if (pair.second == from)
                 return true;
             return false;
@@ -138,7 +138,7 @@ bool JoystickPresetComponent::changeBinding(u32 from, u32 to)
 //     return _axes;
 // }
 
-std::map<PresetAction, u32> JoystickPresetComponent::getBindings() const
+const std::map<PresetAction, s32> &JoystickPresetComponent::getBindings() const
 {
     // std::map<PresetAction, u32> bindings;
 

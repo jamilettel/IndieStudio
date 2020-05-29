@@ -43,14 +43,14 @@ namespace is::components {
         // [[nodiscard]] const std::map<PresetAction, u32> &getButtonBindings() const;
         // [[nodiscard]] const std::map<PresetAction, u32> &getAxisBindings() const;
 
-        [[nodiscard]] bool isBound(u32 binding) const;
+        [[nodiscard]] bool isBound(s32 binding) const;
 
         // void unbind(u32 button);
         void bind(s32 binding, const PresetAction &action);
-        bool changeBinding(s32 from, u32 to);
+        bool changeBinding(s32 from, s32 to);
 
 
-        [[nodiscard]] std::map<PresetAction, s32> getBindings() const;
+        [[nodiscard]] const std::map<PresetAction, s32> &getBindings() const;
 
         static void createBasicPreset(JoystickPresetComponent &preset);
 
