@@ -41,6 +41,8 @@ namespace is::components {
         void setPosition(float x, float y);
         void setVisible(bool visible);
 
+        void setImage(video::ITexture *image);
+
         std::string windowName;
 
     private:

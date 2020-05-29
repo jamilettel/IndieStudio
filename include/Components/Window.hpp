@@ -17,8 +17,6 @@
 
 namespace is::components {
 
-    class ImageComponent;
-
     class WindowComponent : public is::ecs::Component {
     public:
         explicit WindowComponent(

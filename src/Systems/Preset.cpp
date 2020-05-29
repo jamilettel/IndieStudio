@@ -21,6 +21,8 @@ void PresetSystem::awake()
             "Window component required for Keyboard Input System");
     auto window = std::dynamic_pointer_cast<WindowComponent>(windows[0]);
     _eventManager.emplace(window->eventManager);
+    _joysticks = window->joysticks;
+    _window = window;
 }
 
 void PresetSystem::start()
@@ -51,7 +53,7 @@ void PresetSystem::update()
             _eventManager->get().resetLastKeyPressed();
             continue;
         }
-        for (int i = 0; PresetComponent::EquivalentKeys[i]._key != EKEY_CODE::KEY_KEY_CODES_COUNT; i++) {
+        for (int i = 0; PresetComponent::EquivalentKeys[i]._key != EKEY_CODE::KEY_KEY_CODES_COUNT && p->_callerID == -1; i++) {
             if (PresetComponent::EquivalentKeys[i]._key == _eventManager->get().getLastKeyPressed() && !p->getKeyboardPreset().isBound(PresetComponent::EquivalentKeys[i]._key)) {
                 p->getKeyboardPreset().bind(PresetComponent::EquivalentKeys[i]._key, p->_toChange.value());
                 std::get<0>(p->_toChangeUI.value()).get().setText(PresetComponent::getEquivalentKey(PresetComponent::EquivalentKeys[i]._key));
@@ -61,7 +63,16 @@ void PresetSystem::update()
                 break;
             }
         }
-        break;
+        for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
+            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button * -1) - 1) && !p->getJoystickPreset().isButtonBound(PresetComponent::EquivalentButtons[i]._button)) {
+                p->getJoystickPreset().bindButton(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
+                std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
+                p->_callerID = -1;
+                p->_toChangeUI.reset();
+                p->_toChange.reset();
+                break;
+            }
+        }
     }
 }
 

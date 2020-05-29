@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Components/Button.hpp"
 
-is::EventManager::EventManager() : _lastKeyPressed(EKEY_CODE::KEY_KEY_CODES_COUNT)
+is::EventManager::EventManager() : _lastKeyPressed(EKEY_CODE::KEY_KEY_CODES_COUNT), _lastControlPressed(-9999)
 {
     for (int i = 0; i < KEY_KEY_CODES_COUNT; i++)
         _keyState[i] = false;
@@ -235,4 +235,14 @@ EKEY_CODE is::EventManager::getLastKeyPressed() const
 void is::EventManager::resetLastKeyPressed()
 {
     _lastKeyPressed = EKEY_CODE::KEY_KEY_CODES_COUNT;
+}
+
+int is::EventManager::getLastControlPressed() const
+{
+    return _lastControlPressed;
+}
+
+void is::EventManager::resetLastControlPressed()
+{
+    _lastControlPressed = -9999;
 }

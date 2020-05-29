@@ -9,9 +9,9 @@
 #define PRESETSYSTEM_HPP
 
 #include "ECS/ASystem.hpp"
-
-#   include "Components/Particule.hpp"
-#   include "Exception.hpp"
+#include "Components/Particule.hpp"
+#include "Components/Window.hpp"
+#include "Exception.hpp"
 
 namespace is::systems {
 
@@ -32,6 +32,8 @@ namespace is::systems {
 
         private:
             std::optional<std::reference_wrapper<is::EventManager>> _eventManager;
+            irr::core::array<irr::SJoystickInfo> _joysticks;
+            std::shared_ptr<is::components::WindowComponent> _window;
     };
 }
 

@@ -243,6 +243,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             buttonAction.setCallback([&buttonAction, &keyboardAction, &controllerAction, p, i](){
                 p->_toChange.emplace(CharacterComponent::playerActions[i]);
                 p->_toChangeUI = std::tuple<std::reference_wrapper<TextComponent>, std::reference_wrapper<ImageComponent>, std::reference_wrapper<ButtonComponent>>(keyboardAction, controllerAction, buttonAction);
+                p->_callerID = buttonAction.getCallerId();
             });
             p->_textPreset.emplace_back(keyboardAction);
             p->_imagePreset.emplace_back(controllerAction);

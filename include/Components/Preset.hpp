@@ -10,6 +10,7 @@
 
 #include "Components/KeyboardPreset.hpp"
 #include "Components/JoystickPreset.hpp"
+#include "Components/Image.hpp"
 #include <vector>
 #include "Text.hpp"
 
@@ -134,6 +135,7 @@ namespace is::components {
         std::optional<PresetAction> _toChange;
         std::optional<std::tuple<std::reference_wrapper<TextComponent>, std::reference_wrapper<ImageComponent>, std::reference_wrapper<ButtonComponent>>> _toChangeUI;
         bool _onSelect;
+        int _callerID;
     };
 
 }

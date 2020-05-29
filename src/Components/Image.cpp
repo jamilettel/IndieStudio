@@ -68,3 +68,8 @@ void ImageComponent::setVisible(bool visible)
         element->setVisible(visible);
     }
 }
+
+void ImageComponent::setImage(video::ITexture *image)
+{
+    element->setImage(image);
+}

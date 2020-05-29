@@ -78,8 +78,8 @@ namespace is::components {
 
             std::string windowName;
 
-            bool contains(const irr::core::vector2df &pos) const;
-            int getCallerId() const;
+            [[nodiscard]] bool contains(const irr::core::vector2df &pos) const;
+            [[nodiscard]] int getCallerId() const;
 
         private:
             const std::string _image;
