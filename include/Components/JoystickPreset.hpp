@@ -30,12 +30,14 @@ namespace is::components {
 
         [[nodiscard]] bool isButtonBound(u32 button) const;
 
+        void unbindButton(u32 button);
         void bindButton(u32 button, const PresetAction &action);
         bool changeButton(u32 from, u32 to);
 
         [[nodiscard]] bool isAxisBound(u32 button) const;
 
-        void bindAxis(u32 button, const PresetAction &action);
+        void unbindAxis(u32 axis);
+        void bindAxis(u32 axis, const PresetAction &action);
         bool changeAxis(u32 from, u32 to);
 
         [[nodiscard]] const std::map<PresetAction, u32> &getButtonBindings() const;

@@ -20,6 +20,16 @@ JoystickPresetComponent::JoystickPresetComponent(
 void JoystickPresetComponent::deleteComponent()
 {}
 
+void JoystickPresetComponent::unbindButton(u32 button)
+{
+    for (auto it = _buttons.begin(); it != _buttons.end(); it++) {
+        if (it->second == button) {
+            _buttons.erase(it);
+            return;
+        }
+    }
+}
+
 bool JoystickPresetComponent::isButtonBound(u32 button) const
 {
     for (auto &elem: _buttons) {
@@ -41,6 +51,14 @@ bool JoystickPresetComponent::isAxisBound(u32 axis) const
 void JoystickPresetComponent::bindButton(u32 button, const PresetAction &action)
 {
     _buttons[action] = button;
+}
+
+void JoystickPresetComponent::unbindAxis(u32 axis)
+{
+    for (auto it = _axes.begin(); it != _axes.end(); it++) {
+        if (it->second == axis)
+            _axes.erase(it);
+    }
 }
 
 void JoystickPresetComponent::bindAxis(u32 button, const PresetAction &action)

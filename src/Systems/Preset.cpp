@@ -37,9 +37,9 @@ void PresetSystem::start()
     p->_onSelect = true;
 
     for (auto &preset : components) {
-        auto *p = static_cast<PresetComponent *>(preset.get());
-        p->_toChange.reset();
-        p->_toChangeUI.reset();
+        auto *ptr = static_cast<PresetComponent *>(preset.get());
+        ptr->_toChange.reset();
+        ptr->_toChangeUI.reset();
     }
 }
 
