@@ -25,7 +25,6 @@ namespace is::prefabs
     class RuleSettingsPrefabs {
         public:
             static std::shared_ptr<is::ecs::Entity> createBackground();
-            static std::shared_ptr<is::ecs::Entity> createSaveButton();
             static std::shared_ptr<is::ecs::Entity> createReturnButton();
             static std::shared_ptr<is::ecs::Entity> createRuleSettings();
             static std::shared_ptr<is::ecs::Entity> createSettingsBackground(is::components::RulesSettingComponent &component);
@@ -33,7 +32,6 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createModeFpsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
-            static std::shared_ptr<is::ecs::Entity> createEmptyRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
 
         private:
     };
