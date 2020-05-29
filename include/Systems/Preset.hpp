@@ -8,6 +8,8 @@
 #ifndef PRESETSYSTEM_HPP
 #define PRESETSYSTEM_HPP
 
+#include "Components/Preset.hpp"
+#include "Components/Character.hpp"
 #include "ECS/ASystem.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Window.hpp"
@@ -29,6 +31,9 @@ namespace is::systems {
             void update() override;
             void stop() override;
             void onTearDown() override;
+
+        private:
+            void reloadPresetAxes(is::components::PresetComponent *p);
 
         private:
             std::optional<std::reference_wrapper<is::EventManager>> _eventManager;

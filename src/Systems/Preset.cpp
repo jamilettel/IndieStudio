@@ -88,10 +88,14 @@ void PresetSystem::update()
                 continue;
 
             if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))
-            && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button) && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
+            && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
 
-                p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
+                if (PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5)
+                    p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
+                else
+                    p->getJoystickPreset().bindAxis(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
+                reloadPresetAxes(p);
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
@@ -115,6 +119,18 @@ void PresetSystem::onTearDown()
         p->_imagePreset.clear();
         p->_textPreset.clear();
         p->_buttonPreset.clear();
+    }
+}
+
+void PresetSystem::reloadPresetAxes(is::components::PresetComponent *p)
+{
+    for (int i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
+
+        //verif
+        auto &image = p->_imagePreset[i];
+
+        image.get().setImage(_window->driver->getTexture(PresetComponent::getEquivalentButton(p->getJoystickPreset().getBindings().at(CharacterComponent::playerActions[i])).c_str()));
+
     }
 }
 
