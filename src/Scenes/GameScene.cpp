@@ -39,6 +39,10 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::SliderSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel1System>());
+    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel2System>());
+    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel3System>());
+    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel4System>());
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel5System>());
     _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());

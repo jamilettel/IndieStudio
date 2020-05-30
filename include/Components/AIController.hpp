@@ -21,7 +21,7 @@ namespace is::components {
         AIControllerComponent(
             std::shared_ptr<is::ecs::Entity> &e,
             InputManagerComponent &inputManager,
-            int level = 5
+            int level = 1
             );
         ~AIControllerComponent() override = default;
 
@@ -54,6 +54,7 @@ namespace is::components {
         bool operator==(const is::components::AIControllerComponent &ai) const;
 
         int getLevel() const noexcept;
+        bool waitTime = false;
 
     private:
         InputManagerComponent &_inputManager;

@@ -77,6 +77,8 @@ void AIControllerLevel5System::update()
     for (std::shared_ptr<Component> &component: aiComponents) {
         AIControllerComponent &ai = *static_cast<AIControllerComponent *>(component.get());
 
+        if (ai.getLevel() != 5)
+            continue;
         ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
         if (ai.timeBeforeBegin > 0)
             continue;
@@ -108,7 +110,6 @@ void AIControllerLevel5System::noneState(
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
 {
-    // std::cout << "NONE STATE" << std::endl;
     ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
     ai.shortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
     setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map, aiComponents);
@@ -121,13 +122,9 @@ void AIControllerLevel5System::setNewLongObjective(
     std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
 ) const
 {
-    std::vector<irr::core::vector2di> lastMove;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     if (findBombEmplacement(ai, aiPos, map, aiComponents)) {
-        // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
-        // std::cout << "Escape (after pose the bomb) to X: " << ai.posToEscape.X << ", Y: " << ai.posToEscape.Y << std::endl;
-
         AStarAlgorithm astar(
             _mapX,
             _mapY,
@@ -234,7 +231,7 @@ bool AIControllerLevel5System::canHideFromExplosion(
 ) const
 {
     std::vector<irr::core::vector2di> successors;
-    std::list<irr::core::vector2di> closeList;
+    std::vector<irr::core::vector2di> closeList;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
@@ -312,7 +309,7 @@ bool AIControllerLevel5System::findBombEmplacement(
 ) const
 {
     std::vector<irr::core::vector2di> successors;
-    std::list<irr::core::vector2di> closeList;
+    std::vector<irr::core::vector2di> closeList;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));

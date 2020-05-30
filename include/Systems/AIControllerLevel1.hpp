@@ -17,6 +17,8 @@
 #include "Components/Transform.hpp"
 #include "Components/CharacterController.hpp"
 
+#include "AStarAlgorithm.hpp"
+
 using namespace is::components;
 using namespace is::ecs;
 
@@ -37,11 +39,36 @@ namespace is::systems
             void onTearDown() override;
 
         private:
+            // * NONE STATE
             void noneState(
                 is::components::AIControllerComponent &ai,
                 irr::core::vector2df &aiPos,
                 std::vector<std::vector<is::ecs::Entity::Layer>> &map,
                 std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+            bool findBombEmplacement(
+                is::components::AIControllerComponent &ai,
+                const irr::core::vector2di &aiPos,
+                const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+            bool bombPosIsUseful(
+                const AIControllerComponent &ai,
+                const irr::core::vector2di &bombPos,
+                const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                const irr::core::vector2di &aiPos,
+                const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
+            ) const;
+            bool canHideFromExplosion(
+                AIControllerComponent &ai,
+                const irr::core::vector2di &pos,
+                const std::vector<std::vector<is::ecs::Entity::Layer>> &map
+            ) const;
+            bool posIsHideFromBomb(
+                const AIControllerComponent &ai,
+                const irr::core::vector2di &aiPos,
+                const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
+                const irr::core::vector2di &bombPos
             ) const;
 
             void escapeExplosionState(
