@@ -273,7 +273,7 @@ void AIControllerLevel1System::putBombState(
             return;
         }
         if (ai.shortObjective == ai.longObjective) {
-            ai.timeBeforeBegin = 1.0f;
+            ai.timeBeforeBegin = 2.0f;
             ai.waitTime = true;
             ai.bombPos = ai.longObjective;
             ai.state = AIControllerComponent::ESCAPE_EXPLOSION;
