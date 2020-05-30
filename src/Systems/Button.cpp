@@ -16,9 +16,8 @@ using namespace is::components;
 void ButtonSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
-        if (elem->getEntity()->isInit())
-            continue;
         auto ptr = std::dynamic_pointer_cast<ButtonComponent>(elem);
+
         if (!ptr)
             throw is::exceptions::Exception("ButtonSystem", "Could not getButtonComponent pointer");
 
@@ -36,8 +35,12 @@ void ButtonSystem::awake()
         if (!windowFound)
             throw is::exceptions::Exception("ButtonComponent", "Could not find window");
 
-        ptr->init(ptr_window);
         ptr_window->eventManager.addButton(ptr);
+
+        if (elem->getEntity()->isInit())
+            continue;
+
+        ptr->init(ptr_window);
     }
 }
 

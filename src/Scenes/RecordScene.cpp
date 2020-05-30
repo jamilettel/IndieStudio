@@ -28,6 +28,7 @@ void is::scenes::RecordScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
 }
 
 void is::scenes::RecordScene::initEntities()

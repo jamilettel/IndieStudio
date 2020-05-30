@@ -77,6 +77,7 @@ std::string is::components::TextComponent::getText() const
 void is::components::TextComponent::setText(const std::string &text)
 {
     _text = text;
+    element->setText(std::wstring(_text.begin(), _text.end()).c_str());
 }
 
 void is::components::TextComponent::updateText()

@@ -37,6 +37,7 @@
 #include "Systems/EndGame.hpp"
 #include "Systems/Network.hpp"
 #include "Systems/NetworkInput.hpp"
+#include "Systems/Alert.hpp"
 
 namespace is::scenes {
 

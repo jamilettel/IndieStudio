@@ -31,6 +31,7 @@ void is::scenes::EndGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
 }
 
 void is::scenes::EndGameScene::initEntities()

@@ -27,6 +27,7 @@ void is::scenes::MultiplayerLobbyScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
 }
 
 void is::scenes::MultiplayerLobbyScene::initEntities()

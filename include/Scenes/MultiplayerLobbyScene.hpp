@@ -21,6 +21,7 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Components/Network.hpp"
 #include "ECS/AScene.hpp"
+#include "Systems/Alert.hpp"
 
 namespace is::scenes {
 

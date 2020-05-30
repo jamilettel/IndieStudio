@@ -25,6 +25,7 @@
 #include "Components/Stats.hpp"
 #include "Systems/JoystickInput.hpp"
 #include "Systems/JoystickCursor.hpp"
+#include "Systems/Alert.hpp"
 
 namespace is::scenes {
 

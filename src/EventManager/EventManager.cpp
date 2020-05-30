@@ -208,8 +208,9 @@ void is::EventManager::removeAllButtons()
 void is::EventManager::checkButtonClicked(irr::s32 id)
 {
     for (auto &it : _context.button) {
-        if (it->getId() == id)
+        if (it->getId() == id) {
             it->setClicked(true);
+        }
     }
 }
 

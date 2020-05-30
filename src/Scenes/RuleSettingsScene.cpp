@@ -30,6 +30,7 @@ void RuleSettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
 }
 
 RulesComponent &RuleSettingsScene::getRulesComponent() const

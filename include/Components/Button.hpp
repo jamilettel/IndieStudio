@@ -94,7 +94,7 @@ namespace is::components {
             bool _clicked;
             bool _visible;
             std::function<void()> _ft;
-            bool _disabled = false;
+            int _disabled = 0;
            int _callerId = -1;
     };
 

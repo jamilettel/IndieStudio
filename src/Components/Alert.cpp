@@ -27,7 +27,10 @@ AlertComponent::AlertComponent(
                RESOURCE("ui/Alert/Box.png"),
                "Indie Studio",
                WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 375,
-               WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 230)),
+               WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 230,
+               true,
+               false
+               )),
     _button(e->addComponent<ButtonComponent>(
                 e,
                 "",
@@ -35,14 +38,14 @@ AlertComponent::AlertComponent(
                 WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 361 / 2,
                 _image.getPosition().Y + 290,
                 360, 101,
-                [this] () {acceptAlert();},
-                true,
+                [this] () {this->acceptAlert();},
+                false,
                 RESOURCE("ui/Alert/OkButton.png"),
                 RESOURCE("ui/Alert/OkButtonPressed.png")
                 )),
     _text(e->addComponent<TextComponent>(
               e,
-              "",
+              "test",
               "Indie Studio",
               WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350,
               WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 210,
@@ -50,7 +53,8 @@ AlertComponent::AlertComponent(
               false,
               true,
               RESOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-              irr::video::SColor(255, 255, 255, 255)
+              irr::video::SColor(255, 255, 255, 255),
+              false
               ))
 {
     _image.layer = 5;
@@ -81,6 +85,7 @@ void AlertComponent::acceptAlert()
     _hasAlert = false;
     _image.setVisible(false);
     _button.setVisible(false);
+    _text.setVisible(false);
 }
 
 bool AlertComponent::hasAlert() const
@@ -94,5 +99,14 @@ void AlertComponent::setNextAlert()
         _hasAlert = true;
         _alert = _queue[0];
         _queue.erase(_queue.begin());
+        _image.setVisible(true);
+        _button.setVisible(true);
+        _text.setVisible(true);
+        _text.setText(_alert);
     }
+}
+
+ButtonComponent &AlertComponent::getButton() const noexcept
+{
+    return _button;
 }

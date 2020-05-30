@@ -38,6 +38,8 @@ namespace is::components {
 
         const std::string &getCurrentAlert() const;
 
+        ButtonComponent &getButton() const noexcept;
+
     private:
         ImageComponent &_image;
         ButtonComponent &_button;

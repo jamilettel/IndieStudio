@@ -1,3 +1,4 @@
+
 /*
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
@@ -29,6 +30,7 @@ void is::scenes::ControllersScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::PresetSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
 }
 
 void is::scenes::ControllersScene::initEntities()
