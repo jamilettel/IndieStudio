@@ -22,21 +22,44 @@ AlertComponent::AlertComponent(
     std::shared_ptr<Entity> &e
     ):
     Component(e),
-    _image(e->addComponent<ImageComponent>(e, RESOURCE("ui/Alert/Box.png"), "Indie Studio", 0, 0)),
+    _image(e->addComponent<ImageComponent>(
+               e,
+               RESOURCE("ui/Alert/Box.png"),
+               "Indie Studio",
+               WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 375,
+               WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 230)),
     _button(e->addComponent<ButtonComponent>(
                 e,
-                "Ok",
+                "",
                 "Indie Studio",
-                0, 0,
+                WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 361 / 2,
+                _image.getPosition().Y + 290,
                 360, 101,
                 [this] () {acceptAlert();},
-                false,
+                true,
                 RESOURCE("ui/Alert/OkButton.png"),
                 RESOURCE("ui/Alert/OkButtonPressed.png")
-                ))
+                )),
+    _text(e->addComponent<TextComponent>(
+              e,
+              "",
+              "Indie Studio",
+              WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350,
+              WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 210,
+              700, 260,
+              false,
+              true,
+              RESOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+              irr::video::SColor(255, 255, 255, 255)
+              ))
 {
-    _image.setVisible(false);
+    _image.layer = 5;
+    _text.layer = 6;
+    _button.layer = 6;
 }
+
+void AlertComponent::deleteComponent()
+{}
 
 const std::string &AlertComponent::getCurrentAlert() const
 {

@@ -155,8 +155,10 @@ int is::components::ButtonComponent::getCallerId() const
 
 void is::components::ButtonComponent::setVisible(bool visible)
 {
-    _visible = visible;
-    element->setVisible(visible);
+    if (_visible != visible) {
+        _visible = visible;
+        element->setVisible(visible);
+    }
 }
 
 void is::components::ButtonComponent::setDisabled(bool disabled) noexcept

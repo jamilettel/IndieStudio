@@ -17,6 +17,8 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "ECS/AScene.hpp"
 #include "Systems/Cursor.hpp"
+#include "Systems/Button.hpp"
+#include "Systems/Text.hpp"
 
 namespace is::scenes {
 

@@ -23,7 +23,7 @@ namespace is::components {
             std::shared_ptr<is::ecs::Entity> &e,
             const std::string &windowName = "MainWindow",
             irr::core::dimension2d<u32> ws = irr::core::dimension2d<u32>(1920, 1080),
-            bool fs = false
+            bool fs = true
             );
         ~WindowComponent() override = default;
 

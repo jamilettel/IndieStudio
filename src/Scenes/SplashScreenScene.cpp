@@ -24,6 +24,8 @@ void is::scenes::SplashScreenScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
 }
 
 void is::scenes::SplashScreenScene::initEntities()

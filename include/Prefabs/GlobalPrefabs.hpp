@@ -41,7 +41,7 @@
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
 #include "Components/Rules.hpp"
-
+#include "Components/Alert.hpp"
 #include "ECS/AScene.hpp"
 #include "Components/Character.hpp"
 #include "ECS/ComponentManager.hpp"

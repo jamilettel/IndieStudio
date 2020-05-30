@@ -47,7 +47,14 @@ void is::components::ImageComponent::init(std::shared_ptr<is::components::Window
 
 void is::components::ImageComponent::setPosition(float x, float y)
 {
+    _dimension.X = x;
+    _dimension.Y = y;
     element->setRelativePosition(irr::core::vector2di(x, y));
+}
+
+const irr::core::vector2d<int> &is::components::ImageComponent::getPosition() const
+{
+    return _dimension;
 }
 
 void is::components::ImageComponent::deleteComponent()
