@@ -49,6 +49,7 @@ namespace is::components {
                 float rotationY;
                 bool dropBomb;
                 int powerUpSpawn;
+                int powerUpTake;
             };
 
             explicit NetworkComponent(std::shared_ptr<is::ecs::Entity> &e);

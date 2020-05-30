@@ -25,10 +25,10 @@ void is::components::NetworkComponent::startMultiplayer()
 {
     int n = 1;
 
-    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
-    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
-    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
-    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0, 0});
     timeBeforeSharePos = 0;
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         throw is::exceptions::Exception("NetworkComponent", "socket TCP exception");

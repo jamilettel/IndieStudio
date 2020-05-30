@@ -138,6 +138,13 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
                 ptr->playerStates[idx].positionPowerUp.X = posX;
                 ptr->playerStates[idx].positionPowerUp.Y = posY;
             }
+            if (cmd[1] == "gpu") {            
+                int idx = atoi(cmd[3].c_str());
+                int pu = atoi(cmd[4].c_str());
+
+                std::cout << "GPU" << std::endl;
+                ptr->playerStates[idx].powerUpTake = pu;
+            }
         }
     }
     //if (recv(ptr->serverSockUdp, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT

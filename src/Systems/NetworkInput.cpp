@@ -69,7 +69,6 @@ void NetworkInputSystem::update()
             int i = _network->playerStates[idx].powerUpSpawn - 1;
             std::vector<std::shared_ptr<is::ecs::Component>> &window =
                 _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
-
             if (!window.size())
                 throw is::exceptions::Exception("NetworkInput", "No window component in scene");
             auto ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(window[0]);
@@ -85,6 +84,24 @@ void NetworkInputSystem::update()
             auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
             ptr->initModelRenderer(std::move(ptr_window));
             _network->playerStates[idx].powerUpSpawn = 0;
+        }
+        if (_network->playerStates[idx].powerUpTake) {
+            int i = _network->playerStates[idx].powerUpTake - 1;
+            auto bm = network.getEntity()->getComponent<BombermanComponent>()->get();
+            if (!bm)
+                throw is::exceptions::Exception("NetworkInputSystem", "Could not find bomberman");
+            switch (i) {
+            case is::components::PowerUpComponent::BOMB_UP:
+                bm->bombNumber++;
+                break;
+            case is::components::PowerUpComponent::SPEED_UP:
+                bm->speedMult++;
+                break;
+            case is::components::PowerUpComponent::FIRE_UP:
+                bm->bombRange++;
+                break;
+            }
+            _network->playerStates[idx].powerUpTake = 0;
         }
     }
 }
