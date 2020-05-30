@@ -21,7 +21,7 @@ namespace is::components {
         AIControllerComponent(
             std::shared_ptr<is::ecs::Entity> &e,
             InputManagerComponent &inputManager,
-            int level = 2
+            int level = 3
             );
         ~AIControllerComponent() override = default;
 
