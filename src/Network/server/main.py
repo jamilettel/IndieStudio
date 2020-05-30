@@ -33,8 +33,8 @@ def selectLoop(server, server_udp):
                 try:
                     data = s.recv(1024)
                     if data:
-                        for req in data.split("\n"):
-                            clientCommandHandler(req.decode(), s)
+                        for req in data.decode().split("\n"):
+                            clientCommandHandler(req, s)
                     else:
                         inputs.remove(s)
                         s.close()
