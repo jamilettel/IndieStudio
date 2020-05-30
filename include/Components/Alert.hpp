@@ -8,7 +8,9 @@
 #ifndef ALERTCOMPONENT_HPP_
 #define ALERTCOMPONENT_HPP_
 
-#include "ECS/Component.hpp"
+#include "ECS/Entity.hpp"
+#include "Components/Button.hpp"
+#include "Components/Image.hpp"
 #include <string>
 #include <vector>
 
@@ -34,6 +36,8 @@ namespace is::components {
         const std::string &getCurrentAlert() const;
 
     private:
+        ImageComponent &_image;
+        ButtonComponent &_button;
         std::string _alert;
         std::vector<std::string> _queue;
 

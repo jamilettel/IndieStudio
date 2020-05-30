@@ -10,6 +10,7 @@
 
 #include "ECS/Component.hpp"
 
+#include <string>
 #include <vector>
 #include <map>
 
