@@ -103,6 +103,7 @@ void AIControllerLevel3System::noneState(
     std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
 ) const
 {
+    std::cout << "NONE STATE" << std::endl;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
@@ -146,7 +147,7 @@ bool AIControllerLevel3System::posIsHideFromABomb(
 
         int a = 0;
         for (int tmp = aiPos.Y; tmp != bombPos.Y; tmp += incr, a++) {
-            if (AIControllerUtils::layerIsABlock(map[bombPos.X][tmp], bomberman) || a == bombSize)
+            if (AIControllerUtils::layerIsABlock(map[bombPos.X][tmp], bomberman))
                 return (true);
         }
         return (false);
@@ -155,7 +156,7 @@ bool AIControllerLevel3System::posIsHideFromABomb(
 
         int a = 0;
         for (int tmp = aiPos.X; tmp != bombPos.X; tmp += incr, a++) {
-            if (AIControllerUtils::layerIsABlock(map[tmp][bombPos.Y], bomberman) || a == bombSize)
+            if (AIControllerUtils::layerIsABlock(map[tmp][bombPos.Y], bomberman))
                 return (true);
         }
         return (false);
@@ -250,8 +251,10 @@ bool AIControllerLevel3System::bombPosIsUseful(
     int dirX[] = {-1, 0, 1, 0};
     int dirY[] = {0, -1, 0, 1};
 
-    if (bombPosAimForPlayer(ai, bombPos, map, aiComponents))
+    if (bombPosAimForPlayer(ai, bombPos, map, aiComponents)) {
+        std::cout << "A Y:" << bombPos.Y << " et X:" << bombPos.X << "je vise un jouerus" << std::endl;
         return (true);
+    }
     for (int i = 0; i < 4; i++) {
         if (!AIControllerUtils::isValid(irr::core::vector2di(bombPos.X + dirX[i], bombPos.Y + dirY[i]), map))
             continue;
@@ -378,7 +381,7 @@ void AIControllerLevel3System::waitingState(
 {
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    if (bomberman.bombNumber != bomberman.instantBomb) {
+    if (bomberman.instantBomb == 0) {
         ai.state = AIControllerComponent::NONE;
         ai.timeBeforeBegin = 0.5f;
     }

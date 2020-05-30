@@ -311,7 +311,7 @@ void AIControllerLevel2System::waitingState(
 {
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    if (bomberman.bombNumber != bomberman.instantBomb) {
+    if (bomberman.instantBomb == 0) {
         ai.state = AIControllerComponent::NONE;
         ai.timeBeforeBegin = 1.0f;
     }
