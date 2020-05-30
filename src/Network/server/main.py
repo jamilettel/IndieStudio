@@ -29,12 +29,12 @@ def selectLoop(server, server_udp):
                 inputs.append(connection)
             elif s is server_udp:
                 message, adress = s.recvfrom(1024)
-
             else:
                 try:
                     data = s.recv(1024)
                     if data:
-                        clientCommandHandler(data.decode(), s)
+                        for req in data.split("\n"):
+                            clientCommandHandler(req.decode(), s)
                     else:
                         inputs.remove(s)
                         s.close()

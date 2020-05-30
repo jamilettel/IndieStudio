@@ -31,7 +31,12 @@ void is::systems::NetworkSystem::awake()
 
 void is::systems::NetworkSystem::start()
 {
+    std::vector<std::shared_ptr<is::ecs::Component>> &time =
+        _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
+    if (!time.size())
+        throw is::exceptions::Exception("Movement", "No time component in scene");
+    _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
 void is::systems::NetworkSystem::update()
@@ -59,11 +64,14 @@ void is::systems::NetworkSystem::refreshGameState(std::shared_ptr<is::components
         throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
     
     irr::core::vector3df playerPos = tr->position;
-    // TODO: put time to PS event every X time
-    ptr->writeQueue.push("evt ps " + std::to_string(ptr->lobby) +
-        " " + std::to_string(ptr->playerIdx) + " " +
-        std::to_string(playerPos.X) + " " + std::to_string(playerPos.Z) + " " +
-        std::to_string(tr->rotation.Y) + " \n");
+    ptr->timeBeforeSharePos += _time->get().getCurrentIntervalSeconds();
+    if (ptr_char->lastPos != playerPos && ptr->timeBeforeSharePos >= 0.05f) {    
+        ptr->writeQueue.push("evt ps " + std::to_string(ptr->lobby) +
+            " " + std::to_string(ptr->playerIdx) + " " +
+            std::to_string(playerPos.X) + " " + std::to_string(playerPos.Z) + " " +
+            std::to_string(tr->rotation.Y) + " \n");
+        ptr->timeBeforeSharePos = 0;
+    }
     if (ptr_char->dropBombFrame) {
         ptr->writeQueue.push("evt db " + std::to_string(ptr->lobby) +
         " " + std::to_string(ptr->playerIdx) + " \n");

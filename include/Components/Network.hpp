@@ -73,6 +73,7 @@ namespace is::components {
             int lobby;
             int playerIdx;
             bool isOn;
+            float timeBeforeSharePos;
     };
 
 }

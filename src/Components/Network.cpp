@@ -29,6 +29,7 @@ void is::components::NetworkComponent::startMultiplayer()
     playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
     playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
     playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
+    timeBeforeSharePos = 0;
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         throw is::exceptions::Exception("NetworkComponent", "socket TCP exception");
     if ((serverSockUdp = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
