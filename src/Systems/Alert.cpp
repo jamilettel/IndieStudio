@@ -36,11 +36,6 @@ void AlertSystem::update()
     } else if (_disabledButtons.size() && !ptr->hasAlert()) {
         setDisabledButtons(false, ptr->getButton());
         _disabledButtons.clear();
-    } else {
-        static size_t i = 0;
-
-        if (i<3u)
-            ptr->addAlert("OK " + std::to_string(i++));
     }
 }
 
