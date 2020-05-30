@@ -26,6 +26,7 @@
 #include "Components/ColliderTrigger.hpp"
 #include "Components/Collider.hpp"
 #include "Components/Time.hpp"
+#include "Components/Network.hpp"
 #include "Systems/Collider.hpp"
 
 #include "Prefabs/GlobalPrefabs.hpp"
@@ -54,7 +55,7 @@ namespace is::systems {
             bool checkFireCollision(is::components::ColliderComponent &trigger,
                                     const std::shared_ptr<is::components::WindowComponent>& ptr_window);
  
-            void generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
+            int generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
                                        std::shared_ptr<is::components::WindowComponent> ptr_window);
 
         private:

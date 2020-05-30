@@ -35,11 +35,22 @@
 
 #endif
 
+#define READ_SIZE 1024
+
 
 namespace is::components {
 
     class NetworkComponent : public is::ecs::Component {
         public:
+
+            struct PlayerStates {
+                irr::core::vector2df position;
+                irr::core::vector2df positionPowerUp;
+                float rotationY;
+                bool dropBomb;
+                int powerUpSpawn;
+            };
+
             explicit NetworkComponent(std::shared_ptr<is::ecs::Entity> &e);
             ~NetworkComponent() override = default;
 
@@ -49,15 +60,19 @@ namespace is::components {
             void deleteComponent() override;
             void startMultiplayer();
 
-            struct timeval timeout;
+            std::queue<std::string> writeQueue;
+            std::queue<std::string> writeQueueUdp;
+            std::vector<PlayerStates> playerStates;
             fd_set rfds;
             fd_set wfds;
             fd_set efds;
+            struct timeval timeout;
+            struct sockaddr_in addr;
             int serverSock;
-            bool isOn;
+            int serverSockUdp;
+            int lobby;
             int playerIdx;
-            std::queue<std::string> writeQueue;
-            std::vector<irr::core::vector2df> playerPositions;
+            bool isOn;
     };
 
 }

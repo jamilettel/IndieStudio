@@ -23,18 +23,19 @@ void is::components::NetworkComponent::deleteComponent()
 
 void is::components::NetworkComponent::startMultiplayer()
 {
-    struct sockaddr_in addr;
     int n = 1;
 
-    playerPositions.push_back({0, 0});
-    playerPositions.push_back({0, 0});
-    playerPositions.push_back({0, 0});
-    playerPositions.push_back({0, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
+    playerStates.push_back({{0, 0}, {0, 0}, 0, false, 0});
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-        throw is::exceptions::Exception("NetworkComponent", "socket exception");
+        throw is::exceptions::Exception("NetworkComponent", "socket TCP exception");
+    if ((serverSockUdp = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+        throw is::exceptions::Exception("NetworkComponent", "socket UDP exception");
     if (setsockopt(serverSock, SOL_SOCKET, SO_REUSEADDR, (char *) &n, sizeof(n)) == -1)
         throw is::exceptions::Exception("NetworkComponent", "setsockopt exception");
-    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    addr.sin_addr.s_addr = inet_addr("51.77.211.62");
     addr.sin_family = AF_INET;
     addr.sin_port = htons(8000);
     if (connect(serverSock, (struct sockaddr *)&addr, sizeof(addr)) == -1)
@@ -45,5 +46,8 @@ void is::components::NetworkComponent::startMultiplayer()
     FD_SET(serverSock, &rfds);
     FD_SET(serverSock, &wfds);
     FD_SET(serverSock, &efds);
+    FD_SET(serverSockUdp, &rfds);
+    FD_SET(serverSockUdp, &wfds);
+    FD_SET(serverSockUdp, &efds);
     isOn = true;
 }

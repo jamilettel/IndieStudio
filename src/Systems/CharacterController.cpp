@@ -84,12 +84,13 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
-
+        ptr->dropBombFrame = false;
         if (im->get()->getInput("DropBomb") == 1 && ptr->canPlaceBomb) {
             auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
             if (!bm)
                 throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
             if (bm->get()->instantBomb + 1 <= bm->get()->bombNumber) {
+                ptr->dropBombFrame = true;
                 std::shared_ptr<WindowComponent> ptr_window;
                 bool windowFound = false;
                 for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
@@ -112,13 +113,12 @@ void is::systems::CharacterControllerSystem::update()
                 ptr_part->init(ptr_window);
                 ptr->canPlaceBomb = false;
             }
-        } else if (im->get()->getInput("DropBomb") != 1 && (ptr->move.X != 0 || ptr->move.Z != 0)) {
+        } else if (im->get()->getInput("DropBomb") != 1 && ptr->getTransform().position != ptr->lastPos) {
             ptr->canPlaceBomb = true;
         }
-
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed * bm->get()->speedMult;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
-        if (ptr->move.X != 0 || ptr->move.Z != 0) {
+        if (ptr->getTransform().position != ptr->lastPos) {
             ptr->getAudioComponent().toPlay();
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Walk");
         }
@@ -126,8 +126,7 @@ void is::systems::CharacterControllerSystem::update()
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Idle");
         else
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb");
-
-
+        ptr->lastPos = ptr->getTransform().position;
         im->get()->resetValues();
     }
 }

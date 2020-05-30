@@ -46,6 +46,8 @@ namespace is::systems {
         size_t split(const std::string &txt, std::vector<std::string> &strs, char ch);
         
         void selectHandling(std::shared_ptr<is::components::NetworkComponent> ptr);
+
+        void refreshGameState(std::shared_ptr<is::components::NetworkComponent> ptr);
     };
 
 }
