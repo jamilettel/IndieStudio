@@ -103,7 +103,6 @@ void AIControllerLevel3System::noneState(
     std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
 ) const
 {
-    std::cout << "NONE STATE" << std::endl;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
