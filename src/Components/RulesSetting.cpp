@@ -10,7 +10,7 @@
 using namespace is::components;
 using namespace is::ecs;
 
-RulesSettingComponent::RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e), _aiLevels(std::vector<int>(4, 1))
+RulesSettingComponent::RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
 {
 }
 
@@ -94,16 +94,4 @@ int RulesSettingComponent::getFirst() const noexcept
 int RulesSettingComponent::getLast() const noexcept
 {
     return (_last);
-}
-
-const std::vector<int> &RulesSettingComponent::getAiLevels() const
-{
-    return _aiLevels;
-}
-
-void RulesSettingComponent::setAiLevel(int ai, int level)
-{
-    if (!(0 < ai && ai < 5) || !(0 < level && level < 6))
-        return;
-    _aiLevels.at(ai - 1) = level;
 }

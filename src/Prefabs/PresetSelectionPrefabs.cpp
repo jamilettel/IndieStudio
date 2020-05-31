@@ -161,6 +161,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
 {
     auto e = std::make_shared<is::ecs::Entity>();
     const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
+    auto ruleComponent = static_cast<RulesComponent*>((manager.getComponentsByType(typeid(RulesComponent).hash_code()))[0].get());
 
     /* PLAYER 1 */
     auto &IAImage1 = e->addComponent<is::components::ImageComponent>(
@@ -348,6 +349,26 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         }
         characterComponent1->presetNumber--;
         textPreset1.setText(std::string("Preset ") + std::to_string(characterComponent1->presetNumber));
+    });
+    leftAiLevelButton1.setCallback([ruleComponent, &TextIA1](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(0) == 1) {
+            ruleComponent->setAiLevel(1, 5);
+            TextIA1.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(1, aiLevels.at(0) - 1);
+            TextIA1.setText("AI - Level " + std::to_string(aiLevels.at(0)));
+        }
+    });
+    rightAiLevelButton1.setCallback([ruleComponent, &TextIA1](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(0) == 5) {
+            ruleComponent->setAiLevel(1, 1);
+            TextIA1.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(1, aiLevels.at(0) + 1);
+            TextIA1.setText("AI - Level " + std::to_string(aiLevels.at(0)));
+        }
     });
     leftPresetButton1.layer = 3;
     rightPresetButton1.layer = 3;
@@ -541,6 +562,26 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         characterComponent2->presetNumber--;
         textPreset2.setText(std::string("Preset ") + std::to_string(characterComponent2->presetNumber));
     });
+    leftAiLevelButton2.setCallback([ruleComponent, &TextIA2](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(1) == 1) {
+            ruleComponent->setAiLevel(2, 5);
+            TextIA2.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(2, aiLevels.at(1) - 1);
+            TextIA2.setText("AI - Level " + std::to_string(aiLevels.at(1)));
+        }
+    });
+    rightAiLevelButton2.setCallback([ruleComponent, &TextIA2](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(1) == 5) {
+            ruleComponent->setAiLevel(2, 1);
+            TextIA2.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(2, aiLevels.at(1) + 1);
+            TextIA2.setText("AI - Level " + std::to_string(aiLevels.at(1)));
+        }
+    });
     leftPresetButton2.layer = 3;
     rightPresetButton2.layer = 3;
     leftAiLevelButton2.layer = 3;
@@ -733,6 +774,26 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         characterComponent3->presetNumber--;
         textPreset3.setText(std::string("Preset ") + std::to_string(characterComponent3->presetNumber));
     });
+    leftAiLevelButton3.setCallback([ruleComponent, &TextIA3](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(2) == 1) {
+            ruleComponent->setAiLevel(3, 5);
+            TextIA3.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(3, aiLevels.at(2) - 1);
+            TextIA3.setText("AI - Level " + std::to_string(aiLevels.at(2)));
+        }
+    });
+    rightAiLevelButton3.setCallback([ruleComponent, &TextIA3](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(2) == 5) {
+            ruleComponent->setAiLevel(3, 1);
+            TextIA3.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(3, aiLevels.at(2) + 1);
+            TextIA3.setText("AI - Level " + std::to_string(aiLevels.at(2)));
+        }
+    });
     leftPresetButton3.layer = 3;
     rightPresetButton3.layer = 3;
     leftAiLevelButton3.layer = 3;
@@ -924,6 +985,26 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         }
         characterComponent4->presetNumber--;
         textPreset4.setText(std::string("Preset ") + std::to_string(characterComponent4->presetNumber));
+    });
+    leftAiLevelButton4.setCallback([ruleComponent, &TextIA4](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(3) == 1) {
+            ruleComponent->setAiLevel(4, 5);
+            TextIA4.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(4, aiLevels.at(3) - 1);
+            TextIA4.setText("AI - Level " + std::to_string(aiLevels.at(3)));
+        }
+    });
+    rightAiLevelButton4.setCallback([ruleComponent, &TextIA4](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(3) == 5) {
+            ruleComponent->setAiLevel(4, 1);
+            TextIA4.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(4, aiLevels.at(3) + 1);
+            TextIA4.setText("AI - Level " + std::to_string(aiLevels.at(3)));
+        }
     });
     leftPresetButton4.layer = 3;
     rightPresetButton4.layer = 3;

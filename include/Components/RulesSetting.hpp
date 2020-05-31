@@ -42,9 +42,6 @@ namespace is::components
             [[nodiscard]] int getFirst() const noexcept;
             [[nodiscard]] int getLast() const noexcept;
 
-            [[nodiscard]] const std::vector<int> &getAiLevels() const;
-            void setAiLevel(int ai, int level);
-
             void deleteComponent() override;
 
         private:
@@ -52,7 +49,6 @@ namespace is::components
             int _first = 0;
             int _last = 0;
             std::vector<std::tuple<onSelectFct, onExitFct, onDisappear, onRuleUp, onRuleDown, onAppear>> _rules;
-            std::vector<int> _aiLevels;
     };
 }
 
