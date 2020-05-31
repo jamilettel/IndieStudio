@@ -231,6 +231,8 @@ tramp
 GPATH
 GRTAGS
 GTAGS
+compile_commands.json
+.ccls-cache
 
 # Org-mode
 .org-id-locations
