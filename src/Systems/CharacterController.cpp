@@ -77,6 +77,7 @@ void is::systems::CharacterControllerSystem::update()
             bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
             if (bm->get()->deathTimer <= 0) {
                 ptr->isDead = true;
+                ptr->getTransform().position = {1000, 0, 1000};
                 //ptr->getEntity()->setDelete(true);
             }
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
