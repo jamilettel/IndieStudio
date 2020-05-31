@@ -72,12 +72,13 @@ const std::string &AlertComponent::getCurrentAlert() const
 
 size_t AlertComponent::getQueueLength() const
 {
-    return _queue.size();
+    return _textQueue.size();
 }
 
-void AlertComponent::addAlert(const std::string &alert)
+void AlertComponent::addAlert(const std::string &alert, void (*fct)())
 {
-    _queue.emplace_back(alert);
+    _textQueue.emplace_back(alert);
+    _fctQueue.emplace_back(fct);
 }
 
 void AlertComponent::acceptAlert()
@@ -86,6 +87,8 @@ void AlertComponent::acceptAlert()
     _image.setVisible(false);
     _button.setVisible(false);
     _text.setVisible(false);
+    if (_function)
+        _function();
 }
 
 bool AlertComponent::hasAlert() const
@@ -95,10 +98,12 @@ bool AlertComponent::hasAlert() const
 
 void AlertComponent::setNextAlert()
 {
-    if (_queue.size() && !_hasAlert) {
+    if (_textQueue.size() && !_hasAlert) {
         _hasAlert = true;
-        _alert = _queue[0];
-        _queue.erase(_queue.begin());
+        _alert = _textQueue[0];
+        _function = _fctQueue[0];
+        _textQueue.erase(_textQueue.begin());
+        _fctQueue.erase(_fctQueue.begin());
         _image.setVisible(true);
         _button.setVisible(true);
         _text.setVisible(true);

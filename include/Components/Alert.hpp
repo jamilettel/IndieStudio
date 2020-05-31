@@ -14,6 +14,7 @@
 #include "Components/Text.hpp"
 #include <string>
 #include <vector>
+#include <functional>
 
 namespace is::components {
 
@@ -27,7 +28,7 @@ namespace is::components {
 
         void deleteComponent() override;
 
-        void addAlert(const std::string &alert);
+        void addAlert(const std::string &alert, void (*fct)() = nullptr);
 
         void acceptAlert();
         bool hasAlert() const;
@@ -45,7 +46,9 @@ namespace is::components {
         ButtonComponent &_button;
         TextComponent &_text;
         std::string _alert;
-        std::vector<std::string> _queue;
+        std::function<void ()> _function;
+        std::vector<std::string> _textQueue;
+        std::vector<std::function<void()>> _fctQueue;
 
         bool _hasAlert = false;
     };
