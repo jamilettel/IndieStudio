@@ -51,6 +51,8 @@ namespace is::components {
 
             bool canPlaceBomb = true;
 
+            bool isDead = false;
+
             bool operator==(const CharacterControllerComponent &character) const noexcept;
 
         private:

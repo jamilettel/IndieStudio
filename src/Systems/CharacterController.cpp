@@ -68,13 +68,16 @@ void is::systems::CharacterControllerSystem::update()
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
+        if (ptr->isDead)
+            continue;
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         if (bm->get()->dead) {
             bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
             if (bm->get()->deathTimer <= 0) {
-                ptr->getEntity()->setDelete(true);
+                ptr->isDead = true;
+                //ptr->getEntity()->setDelete(true);
             }
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
             continue;
