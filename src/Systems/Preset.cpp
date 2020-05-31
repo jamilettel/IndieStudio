@@ -46,6 +46,7 @@ void PresetSystem::start()
 void PresetSystem::update()
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
+    const auto &alertComponent = std::static_pointer_cast<AlertComponent>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0]);
 
     for (auto &preset : components) {
         auto *p = static_cast<PresetComponent *>(preset.get());
@@ -63,7 +64,7 @@ void PresetSystem::update()
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
                 _eventManager->get().resetLastKeyPressed();
-                break;
+                return;
             }
         }
         for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
@@ -75,7 +76,7 @@ void PresetSystem::update()
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
-                break;
+                return;
             }
 
             if (PresetComponent::EquivalentButtons[i]._button < 0)
@@ -99,7 +100,7 @@ void PresetSystem::update()
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
-                break;
+                return;
             }
         }
         break;

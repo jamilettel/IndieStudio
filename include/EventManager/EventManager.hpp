@@ -71,7 +71,7 @@ namespace is
             [[nodiscard]] int getLastControlPressed() const;
             void resetLastControlPressed();
 
-        void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
+            void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
             void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
             void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
             void removeEventKeyPressed(EKEY_CODE keyCode);
@@ -87,6 +87,7 @@ namespace is
 
             [[nodiscard]] bool isJoystickButtonPressed(u8 joystick, u32 button) const;
             [[nodiscard]] s16 getAxisValue(u8 joystick, u32 axis) const;
+            bool isJoystickEvent() const;
 
         private:
             appContext _context;

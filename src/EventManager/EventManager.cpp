@@ -247,3 +247,8 @@ void is::EventManager::resetLastControlPressed()
 {
     _lastControlPressed = -9999;
 }
+
+bool is::EventManager::isJoystickEvent() const
+{
+    return false;
+}

@@ -10,6 +10,7 @@
 
 #include "Components/Preset.hpp"
 #include "Components/Character.hpp"
+#include "Components/Alert.hpp"
 #include "ECS/ASystem.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Window.hpp"
