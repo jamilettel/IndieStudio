@@ -127,8 +127,8 @@ namespace is::systems
                 std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents) const;
             std::map<AIControllerComponent::AIState, state_function_t> _mapFunctionState;
 
-            int _mapX = 33;
-            int _mapY = 35;
+            int _mapX = 13;
+            int _mapY = 15;
     };
 
 }

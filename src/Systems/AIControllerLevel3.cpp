@@ -251,10 +251,8 @@ bool AIControllerLevel3System::bombPosIsUseful(
     int dirX[] = {-1, 0, 1, 0};
     int dirY[] = {0, -1, 0, 1};
 
-    if (bombPosAimForPlayer(ai, bombPos, map, aiComponents)) {
-        std::cout << "A Y:" << bombPos.Y << " et X:" << bombPos.X << "je vise un jouerus" << std::endl;
+    if (bombPosAimForPlayer(ai, bombPos, map, aiComponents))
         return (true);
-    }
     for (int i = 0; i < 4; i++) {
         if (!AIControllerUtils::isValid(irr::core::vector2di(bombPos.X + dirX[i], bombPos.Y + dirY[i]), map))
             continue;
