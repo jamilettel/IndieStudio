@@ -25,8 +25,8 @@ namespace is::components
             using onAppear = std::function<void()>;
 
         public:
-            RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e);
-            ~RulesSettingComponent() = default;
+            explicit RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e);
+            ~RulesSettingComponent() override = default;
 
             void addRule(
                 std::function<void()> onSelect,
@@ -38,17 +38,21 @@ namespace is::components
             );
             void up();
             void down();
-            int getIndex() const noexcept;
-            int getFirst() const noexcept;
-            int getLast() const noexcept;
+            [[nodiscard]] int getIndex() const noexcept;
+            [[nodiscard]] int getFirst() const noexcept;
+            [[nodiscard]] int getLast() const noexcept;
+
+            [[nodiscard]] const std::vector<int> &getAiLevels() const;
+            void setAiLevel(int ai, int level);
 
             void deleteComponent() override;
 
         private:
             int _i = 0;
-            std::vector<std::tuple<onSelectFct, onExitFct, onDisappear, onRuleUp, onRuleDown, onAppear>> _rules;
             int _first = 0;
             int _last = 0;
+            std::vector<std::tuple<onSelectFct, onExitFct, onDisappear, onRuleUp, onRuleDown, onAppear>> _rules;
+            std::vector<int> _aiLevels;
     };
 }
 
