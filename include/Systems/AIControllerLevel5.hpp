@@ -8,6 +8,8 @@
 #ifndef AIControllerSYSTEM_HPP_
 #define AIControllerSYSTEM_HPP_
 
+#include "AIControllerUtils.hpp"
+
 #include "ECS/ASystem.hpp"
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
@@ -29,13 +31,13 @@ using namespace is::ecs;
 
 namespace is::systems {
 
-    class AIControllerSystem: public is::ecs::ASystem {
+    class AIControllerLevel5System : public is::ecs::ASystem {
     public:
-        AIControllerSystem() = default;
-        ~AIControllerSystem() = default;
+        AIControllerLevel5System() = default;
+        ~AIControllerLevel5System() = default;
 
-        AIControllerSystem(const AIControllerSystem &) = default;
-        AIControllerSystem &operator=(const AIControllerSystem &) = default;
+        AIControllerLevel5System(const AIControllerLevel5System &) = default;
+        AIControllerLevel5System &operator=(const AIControllerLevel5System &) = default;
 
         void awake() override;
         void start() override;
@@ -117,30 +119,20 @@ namespace is::systems {
         ) const;
 
         // UTILS
-        void moveAI(AIControllerComponent &ai, irr::core::vector2df &aiPos) const;
-        bool hasReachedObjective(AIControllerComponent &ai, irr::core::vector2df &aiPos) const noexcept;
-        void setNewShortObjective(
-            is::components::AIControllerComponent &ai,
-            irr::core::vector2di aiPos,
-            std::vector<std::vector<is::ecs::Entity::Layer>> &map
-        ) const;
-        bool isAirBlock(is::ecs::Entity::Layer, const BombermanComponent &bomberman) const noexcept;
         bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
-        bool isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const noexcept;
-        bool layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman) const noexcept;
         bool bombPosAimForPlayer(
             const is::components::AIControllerComponent &ai,
             const irr::core::vector2di &bombPos,
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
             const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
-        ) const noexcept;
+        ) const;
 
         int getSizeBomb(const std::vector<std::shared_ptr<Component>> &bombs, const irr::core::vector2di &pos) const;
 
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
 
-        using state_function_t = void (AIControllerSystem::*)(
+        using state_function_t = void (AIControllerLevel5System::*)(
             is::components::AIControllerComponent &ai,
             irr::core::vector2df &aiPos,
             std::vector<std::vector<is::ecs::Entity::Layer>> &map,

@@ -50,12 +50,12 @@ namespace is::components {
 
             bool operator==(const CharacterControllerComponent &character) const noexcept;
 
+            int _id;
         private:
             MovementComponent &_movementComponent;
             TransformComponent &_transform;
             AudioComponent &_audioComponent;
             CharacterComponent &_character;
-            int _id;
     };
 
 }
