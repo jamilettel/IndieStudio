@@ -9,7 +9,7 @@
 
 using namespace is::components;
 
-RulesComponent::RulesComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
+RulesComponent::RulesComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e), _aiLevels(std::vector<int>(4, 1))
 {
     _icons[ACCELERATOR] = true;
     _icons[EXPLOSION] = true;
@@ -87,4 +87,16 @@ std::string RulesComponent::getTimeString() const
         (static_cast<int>(_maxTime) % 60 < 10 ? "0" : "") + 
         std::to_string(static_cast<int>(_maxTime) % 60)
     ));
+}
+
+const std::vector<int> &RulesComponent::getAiLevels() const
+{
+    return _aiLevels;
+}
+
+void RulesComponent::setAiLevel(int ai, int level)
+{
+    if (!(0 < ai && ai < 5) || !(0 < level && level < 6))
+        return;
+    _aiLevels.at(ai - 1) = level;
 }

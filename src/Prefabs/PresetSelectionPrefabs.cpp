@@ -161,24 +161,25 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
 {
     auto e = std::make_shared<is::ecs::Entity>();
     const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
+    auto ruleComponent = static_cast<RulesComponent*>((manager.getComponentsByType(typeid(RulesComponent).hash_code()))[0].get());
 
     /* PLAYER 1 */
     auto &IAImage1 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40 + 50,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140 - 100,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
         true
     );
     IAImage1.layer = 2;
     auto &TextIA1 =e->addComponent<is::components::TextComponent>(
         e,
-        "AI",
+        "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40 + 70,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140 - 80,
-        150, 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        200, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -265,12 +266,40 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
+    auto &leftAiLevelButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightAiLevelButton1 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
     auto characterComponent1 = static_cast<CharacterComponent*>(characterList[0].get());
     activateButton1.layer = 3;
-    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &rightPresetButton1, &textPreset1, &textController1, characterComponent1](){
+    activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &rightPresetButton1, &textPreset1, &textController1, characterComponent1, &leftAiLevelButton1, &rightAiLevelButton1](){
         activateButton1.setVisible(false);
         TextIA1.setVisible(false);
         IAImage1.setVisible(false);
+        leftAiLevelButton1.setVisible(false);
+        rightAiLevelButton1.setVisible(false);
         closeButton1.setVisible(true);
         leftPresetButton1.setVisible(true);
         rightPresetButton1.setVisible(true);
@@ -288,10 +317,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset1.setText("Preset 1");
     });
     closeButton1.layer = 3;
-    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &rightPresetButton1, &textPreset1, &textController1, characterComponent1](){
+    closeButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &rightPresetButton1, &textPreset1, &textController1, characterComponent1, &leftAiLevelButton1, &rightAiLevelButton1](){
         activateButton1.setVisible(true);
         TextIA1.setVisible(true);
         IAImage1.setVisible(true);
+        leftAiLevelButton1.setVisible(true);
+        rightAiLevelButton1.setVisible(true);
         closeButton1.setVisible(false);
         leftPresetButton1.setVisible(false);
         rightPresetButton1.setVisible(false);
@@ -319,26 +350,48 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         characterComponent1->presetNumber--;
         textPreset1.setText(std::string("Preset ") + std::to_string(characterComponent1->presetNumber));
     });
+    leftAiLevelButton1.setCallback([ruleComponent, &TextIA1](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(0) == 1) {
+            ruleComponent->setAiLevel(1, 5);
+            TextIA1.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(1, aiLevels.at(0) - 1);
+            TextIA1.setText("AI - Level " + std::to_string(aiLevels.at(0)));
+        }
+    });
+    rightAiLevelButton1.setCallback([ruleComponent, &TextIA1](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(0) == 5) {
+            ruleComponent->setAiLevel(1, 1);
+            TextIA1.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(1, aiLevels.at(0) + 1);
+            TextIA1.setText("AI - Level " + std::to_string(aiLevels.at(0)));
+        }
+    });
     leftPresetButton1.layer = 3;
     rightPresetButton1.layer = 3;
+    leftAiLevelButton1.layer = 3;
+    rightAiLevelButton1.layer = 3;
 
     /* PLAYER 2 */
     auto &IAImage2 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40 + 50,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140 - 100,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
         true
     );
     IAImage2.layer = 2;
     auto &TextIA2 = e->addComponent<is::components::TextComponent>(
         e,
-        "AI",
+        "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40 + 70,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140 - 80,
-        150, 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        200, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -425,12 +478,40 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
+    auto &leftAiLevelButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightAiLevelButton2 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
     auto characterComponent2 = static_cast<CharacterComponent*>(characterList[1].get());
     activateButton2.layer = 3;
-    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &rightPresetButton2, &textPreset2, &textController2, characterComponent2](){
+    activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &rightPresetButton2, &textPreset2, &textController2, characterComponent2, &leftAiLevelButton2, &rightAiLevelButton2](){
         activateButton2.setVisible(false);
         TextIA2.setVisible(false);
         IAImage2.setVisible(false);
+        leftAiLevelButton2.setVisible(false);
+        rightAiLevelButton2.setVisible(false);
         closeButton2.setVisible(true);
         leftPresetButton2.setVisible(true);
         rightPresetButton2.setVisible(true);
@@ -448,10 +529,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset2.setText("Preset 1");
     });
     closeButton2.layer = 3;
-    closeButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &rightPresetButton2, &textPreset2, &textController2, characterComponent2](){
+    closeButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &rightPresetButton2, &textPreset2, &textController2, characterComponent2, &leftAiLevelButton2, &rightAiLevelButton2](){
         activateButton2.setVisible(true);
         TextIA2.setVisible(true);
         IAImage2.setVisible(true);
+        leftAiLevelButton2.setVisible(true);
+        rightAiLevelButton2.setVisible(true);
         closeButton2.setVisible(false);
         leftPresetButton2.setVisible(false);
         rightPresetButton2.setVisible(false);
@@ -479,26 +562,48 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         characterComponent2->presetNumber--;
         textPreset2.setText(std::string("Preset ") + std::to_string(characterComponent2->presetNumber));
     });
+    leftAiLevelButton2.setCallback([ruleComponent, &TextIA2](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(1) == 1) {
+            ruleComponent->setAiLevel(2, 5);
+            TextIA2.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(2, aiLevels.at(1) - 1);
+            TextIA2.setText("AI - Level " + std::to_string(aiLevels.at(1)));
+        }
+    });
+    rightAiLevelButton2.setCallback([ruleComponent, &TextIA2](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(1) == 5) {
+            ruleComponent->setAiLevel(2, 1);
+            TextIA2.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(2, aiLevels.at(1) + 1);
+            TextIA2.setText("AI - Level " + std::to_string(aiLevels.at(1)));
+        }
+    });
     leftPresetButton2.layer = 3;
     rightPresetButton2.layer = 3;
+    leftAiLevelButton2.layer = 3;
+    rightAiLevelButton2.layer = 3;
 
     /* PLAYER 3 */
     auto &IAImage3 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40 + 50,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 200 - 100,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
         true
     );
     IAImage3.layer = 2;
     auto &TextIA3 = e->addComponent<is::components::TextComponent>(
         e,
-        "AI",
+        "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40 + 70,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 200 - 80,
-        150, 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        200, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -585,12 +690,40 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
+    auto &leftAiLevelButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightAiLevelButton3 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
     auto characterComponent3 = static_cast<CharacterComponent*>(characterList[2].get());
     activateButton3.layer = 3;
-    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &rightPresetButton3, &textPreset3, &textController3, characterComponent3](){
+    activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &rightPresetButton3, &textPreset3, &textController3, characterComponent3, &leftAiLevelButton3, &rightAiLevelButton3](){
         activateButton3.setVisible(false);
         TextIA3.setVisible(false);
         IAImage3.setVisible(false);
+        leftAiLevelButton3.setVisible(false);
+        rightAiLevelButton3.setVisible(false);
         closeButton3.setVisible(true);
         leftPresetButton3.setVisible(true);
         rightPresetButton3.setVisible(true);
@@ -608,10 +741,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset3.setText("Preset 1");
     });
     closeButton3.layer = 3;
-    closeButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &rightPresetButton3, &textPreset3, &textController3, characterComponent3](){
+    closeButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &rightPresetButton3, &textPreset3, &textController3, characterComponent3, &leftAiLevelButton3, &rightAiLevelButton3](){
         activateButton3.setVisible(true);
         TextIA3.setVisible(true);
         IAImage3.setVisible(true);
+        leftAiLevelButton3.setVisible(true);
+        rightAiLevelButton3.setVisible(true);
         closeButton3.setVisible(false);
         leftPresetButton3.setVisible(false);
         rightPresetButton3.setVisible(false);
@@ -639,26 +774,48 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         characterComponent3->presetNumber--;
         textPreset3.setText(std::string("Preset ") + std::to_string(characterComponent3->presetNumber));
     });
+    leftAiLevelButton3.setCallback([ruleComponent, &TextIA3](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(2) == 1) {
+            ruleComponent->setAiLevel(3, 5);
+            TextIA3.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(3, aiLevels.at(2) - 1);
+            TextIA3.setText("AI - Level " + std::to_string(aiLevels.at(2)));
+        }
+    });
+    rightAiLevelButton3.setCallback([ruleComponent, &TextIA3](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(2) == 5) {
+            ruleComponent->setAiLevel(3, 1);
+            TextIA3.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(3, aiLevels.at(2) + 1);
+            TextIA3.setText("AI - Level " + std::to_string(aiLevels.at(2)));
+        }
+    });
     leftPresetButton3.layer = 3;
     rightPresetButton3.layer = 3;
+    leftAiLevelButton3.layer = 3;
+    rightAiLevelButton3.layer = 3;
 
     /* PLAYER 4 */
     auto &IAImage4 = e->addComponent<is::components::ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40 + 50,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 200 - 100,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
         true
     );
     IAImage4.layer = 2;
     auto &TextIA4 = e->addComponent<is::components::TextComponent>(
         e,
-        "AI",
+        "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40 + 70,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 200 - 80,
-        150, 40,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        200, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -745,12 +902,40 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
+    auto &leftAiLevelButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+    );
+    auto &rightAiLevelButton4 = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        50, 50,
+        [](){
+        },
+        true,
+        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
+        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+    );
     auto characterComponent4 = static_cast<CharacterComponent*>(characterList[3].get());
     activateButton4.layer = 3;
-    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &rightPresetButton4, &textPreset4, &textController4, characterComponent4](){
+    activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &rightPresetButton4, &textPreset4, &textController4, characterComponent4, &leftAiLevelButton4, &rightAiLevelButton4](){
         activateButton4.setVisible(false);
         TextIA4.setVisible(false);
         IAImage4.setVisible(false);
+        leftAiLevelButton4.setVisible(false);
+        rightAiLevelButton4.setVisible(false);
         closeButton4.setVisible(true);
         leftPresetButton4.setVisible(true);
         rightPresetButton4.setVisible(true);
@@ -768,10 +953,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         textPreset4.setText("Preset 1");
     });
     closeButton4.layer = 3;
-    closeButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &rightPresetButton4, &textPreset4, &textController4, characterComponent4](){
+    closeButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &rightPresetButton4, &textPreset4, &textController4, characterComponent4, &leftAiLevelButton4, &rightAiLevelButton4](){
         activateButton4.setVisible(true);
         TextIA4.setVisible(true);
         IAImage4.setVisible(true);
+        leftAiLevelButton4.setVisible(true);
+        rightAiLevelButton4.setVisible(true);
         closeButton4.setVisible(false);
         leftPresetButton4.setVisible(false);
         rightPresetButton4.setVisible(false);
@@ -799,7 +986,29 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         characterComponent4->presetNumber--;
         textPreset4.setText(std::string("Preset ") + std::to_string(characterComponent4->presetNumber));
     });
+    leftAiLevelButton4.setCallback([ruleComponent, &TextIA4](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(3) == 1) {
+            ruleComponent->setAiLevel(4, 5);
+            TextIA4.setText("AI - Level 5");
+        } else {
+            ruleComponent->setAiLevel(4, aiLevels.at(3) - 1);
+            TextIA4.setText("AI - Level " + std::to_string(aiLevels.at(3)));
+        }
+    });
+    rightAiLevelButton4.setCallback([ruleComponent, &TextIA4](){
+        const auto &aiLevels = ruleComponent->getAiLevels();
+        if (aiLevels.at(3) == 5) {
+            ruleComponent->setAiLevel(4, 1);
+            TextIA4.setText("AI - Level 1");
+        } else {
+            ruleComponent->setAiLevel(4, aiLevels.at(3) + 1);
+            TextIA4.setText("AI - Level " + std::to_string(aiLevels.at(3)));
+        }
+    });
     leftPresetButton4.layer = 3;
     rightPresetButton4.layer = 3;
+    leftAiLevelButton4.layer = 3;
+    rightAiLevelButton4.layer = 3;
     return e;
 }

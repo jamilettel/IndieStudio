@@ -41,6 +41,7 @@
 #include "Components/Particule.hpp"
 #include "Components/Cursor.hpp"
 #include "Components/Rules.hpp"
+#include "Components/RulesSetting.hpp"
 #include "Components/Alert.hpp"
 #include "ECS/AScene.hpp"
 #include "Components/Character.hpp"
@@ -48,7 +49,6 @@
 #include "Components/Preset.hpp"
 #include "Components/Network.hpp"
 #include "Components/JoystickCursor.hpp"
-
 
 namespace is::prefabs {
 

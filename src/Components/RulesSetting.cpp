@@ -30,7 +30,7 @@ void RulesSettingComponent::addRule(
 
 void RulesSettingComponent::up()
 {
-    if (_rules.size() == 0)
+    if (_rules.empty())
         return;
     if (_i + 1 == _rules.size())
         return;
@@ -54,7 +54,7 @@ void RulesSettingComponent::up()
 
 void RulesSettingComponent::down()
 {
-    if (_rules.size() == 0)
+    if (_rules.empty())
         return;
     if (_i - 1 == -1)
         return;
