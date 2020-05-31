@@ -42,6 +42,8 @@ void is::scenes::MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::EndGameSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkInputSystem>());
 
