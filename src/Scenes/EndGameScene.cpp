@@ -53,16 +53,16 @@ void is::scenes::EndGameScene::initEntities()
             switch (i)
             {
             case 0:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.isAI(), c.texturePath), c.characterType == c.MULTIPLAYER_PLAYER);
                 break;
             case 1:
-                initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.isAI(), c.texturePath), c.characterType == c.MULTIPLAYER_PLAYER);
                 break;
             case 2:
-                initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.isAI(), c.texturePath), c.characterType == c.MULTIPLAYER_PLAYER);
                 break;
             case 3:
-                initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.isAI(), c.texturePath), c.characterType == c.MULTIPLAYER_PLAYER);
                 break;
             default:
                 break;

@@ -170,11 +170,11 @@ void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<is::ecs::Entity> &e,
 
 void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX, TextComponent &text, bool isAI)
 {
-    // if (isAI) {
-    text.setText("Waiting...");
-    e->getComponent<StatsComponent>().value()->setContinue(true);
-    //     return;
-    // }
+    if (isAI) {
+        text.setText("Waiting...");
+        e->getComponent<StatsComponent>().value()->setContinue(true);
+        return;
+    }
     ButtonComponent &button = e->addComponent<ButtonComponent>(
         e,
         "",
