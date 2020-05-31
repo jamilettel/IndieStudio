@@ -36,3 +36,23 @@ void is::scenes::PresetSelectionScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createPresetSelectionBase(), false);
     initEntity(prefabs::GlobalPrefabs::createPresetSelectionOptions(*_componentManager), false);
 }
+
+void is::scenes::PresetSelectionScene::awake()
+{
+    AScene::awake();
+    auto &rulesComponents = _componentManager->getComponentsByType(typeid(is::components::RulesComponent).hash_code());
+    for (auto &component : rulesComponents) {
+        auto *c = static_cast<is::components::RulesComponent*>(component.get());
+        c->setAiLevel(1, 1);
+        c->setAiLevel(2, 1);
+        c->setAiLevel(3, 1);
+        c->setAiLevel(4, 1);
+        c->setAiLevel(5, 1);
+    }
+    auto &characterComponents = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
+    for (auto &component : characterComponents) {
+        auto *c = static_cast<is::components::CharacterComponent*>(component.get());
+        c->characterType = components::CharacterComponent::AI;
+        c->presetNumber = -1;
+    }
+}

@@ -33,6 +33,8 @@ namespace is::scenes {
             PresetSelectionScene(const PresetSelectionScene &) = default;
             PresetSelectionScene &operator=(const PresetSelectionScene &) = default;
 
+            void awake() override;
+
             void initSystems() override;
             void initEntities() override;
     };
