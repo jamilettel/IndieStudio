@@ -83,68 +83,92 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
     if (select(ptr->serverSock + 1, &ptr->rfds, &ptr->wfds, &ptr->efds, &ptr->timeout) == -1)
         throw is::exceptions::Exception("NetworkSystem", "Select exception");        
     char buff[READ_SIZE] = {0};
-    if (recv(ptr->serverSock, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT
-        //std::cout << "<- " << buff << std::endl;
+    if (recv(ptr->serverSock, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT        
         std::vector<std::string> cmd;
         split(std::string(buff), cmd, ' ');
-        if (cmd[0] == "res") {
-            if (cmd[1] == "cl" || cmd[1] == "jl") {
-                ptr->lobby = atoi(cmd[2].c_str());
-                is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
-            } else if (cmd[1] == "sg") {
-                ptr->playerIdx = atoi(cmd[2].c_str());
-                if (ptr->playerIdx < 0 || ptr->playerIdx > 3)
-                    throw is::exceptions::Exception("NetworkSystem", "init multiplayer game exception");        
-                for (int i = 0; i < 4; i++) {
-                    auto characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
-                    auto ptr_char = std::dynamic_pointer_cast<is::components::CharacterComponent>(characters[i]);
-                    if (!ptr_char)
-                        throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterComponent pointer");
-                    if (i == ptr->playerIdx) {
-                        ptr_char->characterType = is::components::CharacterComponent::Type::KEYBOARD_PLAYER;
-                        ptr_char->presetNumber = 1;
+        int remove = 0;
+        while (cmd.size() > 1) {
+            std::cout << buff << std::endl;
+            std::cout << cmd.size() << std::endl;
+            if (cmd[0] == "res") {
+                if (cmd[1] == "cl" || cmd[1] == "jl") {
+                    ptr->lobby = atoi(cmd[2].c_str());
+                    is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
+                    remove = 3;
+                } else if (cmd[1] == "sg") {
+                    ptr->playerIdx = atoi(cmd[2].c_str());
+                    if (ptr->playerIdx < 0 || ptr->playerIdx > 3)
+                        throw is::exceptions::Exception("NetworkSystem", "init multiplayer game exception");        
+                    for (int i = 0; i < 4; i++) {
+                        auto characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
+                        auto ptr_char = std::dynamic_pointer_cast<is::components::CharacterComponent>(characters[i]);
+                        if (!ptr_char)
+                            throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterComponent pointer");
+                        if (i == ptr->playerIdx) {
+                            ptr_char->characterType = is::components::CharacterComponent::Type::KEYBOARD_PLAYER;
+                            ptr_char->presetNumber = 1;
+                        }
+                        else {
+                            ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
+                            ptr_char->multiplayerId = i;
+                        }
                     }
-                    else {
-                        ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
-                        ptr_char->multiplayerId = i;
-                    }
+                    is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME);
+                    remove = 3;
                 }
-                is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME);
-            }
-        } else if (cmd[0] == "evt") {
-            if (cmd[1] == "ps") {            
-                int idx = atoi(cmd[3].c_str());
-                float posX = atof(cmd[4].c_str());
-                float posY = atof(cmd[5].c_str());
-                float rotY = atof(cmd[6].c_str());
-            
-                ptr->playerStates[idx].position = irr::core::vector2df(posX, posY);
-                ptr->playerStates[idx].rotationY = rotY;
-            }
-            if (cmd[1] == "db") {            
-                int idx = atoi(cmd[3].c_str());
+            } else if (cmd[0] == "evt") {
+                if (cmd[1] == "ps") {            
+                    int idx = atoi(cmd[3].c_str());
+                    float posX = atof(cmd[4].c_str());
+                    float posY = atof(cmd[5].c_str());
+                    float rotY = atof(cmd[6].c_str());
 
-                std::cout << "DB" << std::endl;
-                ptr->playerStates[idx].dropBomb = true;
-            }
-            if (cmd[1] == "pu") {            
-                int idx = atoi(cmd[3].c_str());
-                int pu = atoi(cmd[4].c_str());
-                int posX = atoi(cmd[5].c_str());
-                int posY = atoi(cmd[6].c_str());
+                    ptr->playerStates[idx].position = irr::core::vector2df(posX, posY);
+                    ptr->playerStates[idx].rotationY = rotY;
+                    remove = 7;
+                }
+                if (cmd[1] == "db") {            
+                    int idx = atoi(cmd[3].c_str());
 
-                std::cout << "PU" << std::endl;
-                ptr->playerStates[idx].powerUpSpawn = pu;
-                ptr->playerStates[idx].positionPowerUp.X = posX;
-                ptr->playerStates[idx].positionPowerUp.Y = posY;
-            }
-            if (cmd[1] == "gpu") {            
-                int idx = atoi(cmd[3].c_str());
-                int pu = atoi(cmd[4].c_str());
+                    std::cout << "DB" << std::endl;
+                    ptr->playerStates[idx].dropBomb = true;
+                    remove = 4;
+                }
+                if (cmd[1] == "pu") {            
+                    int idx = atoi(cmd[3].c_str());
+                    int pu = atoi(cmd[4].c_str());
+                    int posX = atoi(cmd[5].c_str());
+                    int posY = atoi(cmd[6].c_str());
 
-                std::cout << "GPU" << std::endl;
-                ptr->playerStates[idx].powerUpTake = pu;
+                    std::cout << "PU" << std::endl;
+                    ptr->playerStates[idx].powerUpSpawn = pu;
+                    ptr->playerStates[idx].positionPowerUp.X = posX;
+                    ptr->playerStates[idx].positionPowerUp.Y = posY;
+                    remove = 7;
+                }
+                if (cmd[1] == "gpu") {
+                    int idx = atoi(cmd[3].c_str());
+                    int pu = atoi(cmd[4].c_str());
+
+                    std::cout << "GPU" << std::endl;
+                    ptr->playerStates[idx].powerUpTake = pu;
+                    remove = 5;
+                }
+                if (cmd[1] == "bb") {  
+                    float posX = atoi(cmd[3].c_str());
+                    float posY = atoi(cmd[4].c_str());
+                    std::vector<std::shared_ptr<is::ecs::Component>> &window =
+                    _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
+                    if (!window.size())
+                        throw is::exceptions::Exception("Network", "No window component in scene");
+                    auto ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(window[0]);
+                    std::shared_ptr<is::ecs::Entity> e = initRuntimeEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(posX, 0, posY)));
+                    auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
+                    ptr->initModelRenderer(std::move(ptr_window));
+                    remove = 5;
+                }
             }
+            cmd.erase(cmd.begin(), cmd.begin() + remove);
         }
     }
     //if (recv(ptr->serverSockUdp, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT

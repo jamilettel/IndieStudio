@@ -37,6 +37,7 @@ void is::components::NetworkComponent::startMultiplayer()
     if (setsockopt(serverSock, SOL_SOCKET, SO_REUSEADDR, (char *) &n, sizeof(n)) == -1)
         throw is::exceptions::Exception("NetworkComponent", "setsockopt exception");
     addr.sin_addr.s_addr = inet_addr("51.77.211.62");
+    //addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     addr.sin_family = AF_INET;
     addr.sin_port = htons(8000);
     if (connect(serverSock, (struct sockaddr *)&addr, sizeof(addr)) == -1)

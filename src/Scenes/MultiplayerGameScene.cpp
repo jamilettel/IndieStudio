@@ -54,7 +54,7 @@ void is::scenes::MultiplayerGameScene::initEntities()
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    mg.generateMap(*this, 1, 15, 13);
+    mg.generateMap(*this, 1, 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[0].get()),

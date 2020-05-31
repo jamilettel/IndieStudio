@@ -564,7 +564,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createMultiplayerLo
         is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
         350, 100,
         [nc](){
-            nc->writeQueue.push("req jl -1\n");
+            nc->writeQueue.push("req jl -1 \n");
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),

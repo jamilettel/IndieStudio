@@ -91,7 +91,7 @@ def clientCommandHandler(request, connection):
                     i = 0
                     print("Start game for lobby " + str(idx))
                     for player in lobby["players"]:
-                        player.send(("res sg " + str(i) + "\n").encode())
+                        player.send(("res sg " + str(i) + " \n").encode())
                         i += 1
                     exist = True
             if not exist:
@@ -100,7 +100,7 @@ def clientCommandHandler(request, connection):
             print("Lobby " + idx + " not found")
             connection.send("err lnf \n".encode())
 
-    # share event
+    # share events
     elif request.startswith("evt"):
         print("Event received: " + request)
         lobbyIdx = int(request.split(" ")[2])
@@ -108,7 +108,7 @@ def clientCommandHandler(request, connection):
             if (lobbyIdx == lobby["id"]):
                 for player in lobby["players"]:
                     if (player != connection):
-                        player.send(request.encode())
+                        player.send((request).encode())
     
 
 def networkInit():
