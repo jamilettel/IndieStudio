@@ -26,6 +26,7 @@ bool is::EventManager::OnEvent(const SEvent &event)
             sizeof(s16[6])
             );
         _joystickStates[event.JoystickEvent.Joystick].first = event.JoystickEvent.ButtonStates;
+        _eventController = true;
     }
     if (event.EventType == irr::EET_GUI_EVENT) {
         switch(event.GUIEvent.EventType) {
