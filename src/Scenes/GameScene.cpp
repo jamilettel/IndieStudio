@@ -53,7 +53,8 @@ void GameScene::initSystems()
 
 void GameScene::initEntities()
 {
-    auto characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
+    auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
+    auto &rules = getRulesComponent();
     MapGenerator mg;
 
     if (characters.size() != 4)
@@ -64,28 +65,32 @@ void GameScene::initEntities()
         irr::core::vector3df(-5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[0].get()),
         *_componentManager.get(),
-        "player_white.png"
+        "player_white.png",
+        rules.getAiLevels()[0]
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[1].get()),
         *_componentManager.get(),
-        "player_black.png"
+        "player_black.png",
+        rules.getAiLevels()[1]
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[2].get()),
         *_componentManager.get(),
-        "player_blue.png"
+        "player_blue.png",
+        rules.getAiLevels()[2]
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[3].get()),
         *_componentManager.get(),
-        "player_red.png"
+        "player_red.png",
+        rules.getAiLevels()[3]
     ));
 }
 
@@ -110,4 +115,17 @@ void GameScene::onTearDown()
         WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
         window.eventManager.removeEventKeyReleased(EKEY_CODE::KEY_KEY_P);
     }
+}
+
+RulesComponent &GameScene::getRulesComponent() const
+{
+    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+
+    for (const auto &entity : entities) {
+        auto rules = entity->getComponent<RulesComponent>();
+
+        if (rules.has_value())
+            return (*rules.value().get());
+    }
+    throw is::exceptions::ECSException("Could not found Rules component");
 }

@@ -57,6 +57,8 @@ namespace is::scenes {
 
             void initSystems() override;
             void initEntities() override;
+        private:
+            RulesComponent &getRulesComponent() const;
     };
 
 }

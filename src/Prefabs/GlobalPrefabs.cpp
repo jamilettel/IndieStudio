@@ -183,7 +183,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     const irr::core::vector3df &pos,
     is::components::CharacterComponent &character,
     const is::ecs::ComponentManager &manager,
-    const std::string &texture
+    const std::string &texture,
+    int level
 )
 {
     auto e = createBomberman(pos, character, texture);
@@ -191,7 +192,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
 
     switch (character.characterType) {
     case CharacterComponent::AI: {
-        e->addComponent<AIControllerComponent>(e, input);
+        e->addComponent<AIControllerComponent>(e, input, level);
         break;
     } case CharacterComponent::JOYSTICK_PLAYER: {
         const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());

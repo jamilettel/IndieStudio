@@ -72,7 +72,8 @@ namespace is::prefabs {
                 const irr::core::vector3df &pos,
                 is::components::CharacterComponent &character,
                 const is::ecs::ComponentManager &manager,
-                const std::string &texture
+                const std::string &texture,
+                int level = 1
             );
 
         static std::shared_ptr<is::ecs::Entity> createSplashScreen();
