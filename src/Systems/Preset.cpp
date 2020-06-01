@@ -48,9 +48,6 @@ void PresetSystem::update()
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
     const auto &alertComponent = std::static_pointer_cast<AlertComponent>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0]);
 
-    if (_eventManager->get().getLastKeyPressed() == KEY_KEY_CODES_COUNT)
-        return;
-
     for (auto &preset : components) {
         const auto &p = std::static_pointer_cast<PresetComponent>(preset);
 
@@ -109,6 +106,8 @@ void PresetSystem::update()
             if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))) {
                 if (p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
                     alertComponent->addAlert("Key already Bound.");
+                    p->_toChangeUI.reset();
+                    p->_toChange.reset();
                     goto end;
                 }
                 if (PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5)
