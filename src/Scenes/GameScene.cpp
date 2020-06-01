@@ -49,6 +49,8 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::EndGameSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TimerSystem>());
 }
 
 void GameScene::initEntities()
@@ -91,6 +93,10 @@ void GameScene::initEntities()
         *_componentManager.get(),
         "player_red.png",
         rules.getAiLevels()[3]
+    ));
+
+    initEntity(GlobalPrefabs::createTimer(
+        rules.getTimeString()
     ));
 }
 
