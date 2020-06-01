@@ -48,7 +48,7 @@ void PresetSystem::update()
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
     const auto &alertComponent = std::static_pointer_cast<AlertComponent>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0]);
 
-    if (!_eventManager->get().isJoystickEvent() && _eventManager->get().getLastKeyPressed() == KEY_KEY_CODES_COUNT)
+    if (_eventManager->get().getLastKeyPressed() == KEY_KEY_CODES_COUNT)
         return;
 
     for (auto &preset : components) {
@@ -71,7 +71,13 @@ void PresetSystem::update()
             std::get<0>(p->_toChangeUI.value()).get().setText(PresetComponent::getEquivalentKey(PresetComponent::EquivalentKeys[i]._key));
             p->_toChangeUI.reset();
             p->_toChange.reset();
-            _eventManager->get().resetLastKeyPressed();
+            goto end;
+        }
+
+        if (_eventManager->get().getLastKeyPressed() != KEY_KEY_CODES_COUNT) {
+            alertComponent->addAlert("Key already Bound.");
+            p->_toChangeUI.reset();
+            p->_toChange.reset();
             goto end;
         }
 
@@ -117,14 +123,10 @@ void PresetSystem::update()
                 goto end;
             }
         }
-        alertComponent->addAlert("Unknown Key.");
-        p->_toChangeUI.reset();
-        p->_toChange.reset();
         break;
     }
     end:
     _eventManager->get().resetLastKeyPressed();
-    _eventManager->get().resetJoystickEvent();
 }
 
 void PresetSystem::stop()

@@ -87,8 +87,6 @@ namespace is
 
             [[nodiscard]] bool isJoystickButtonPressed(u8 joystick, u32 button) const;
             [[nodiscard]] s16 getAxisValue(u8 joystick, u32 axis) const;
-            bool isJoystickEvent() const;
-            void resetJoystickEvent();
 
         private:
             appContext _context;
@@ -101,7 +99,6 @@ namespace is
             std::map<int, std::function<void()>> _eventKeyReleased;
             EKEY_CODE _lastKeyPressed;
             int _lastControlPressed;
-            bool _eventController;
     };
 }
 
