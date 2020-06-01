@@ -75,7 +75,7 @@ void PresetSystem::update()
         }
 
         if (_eventManager->get().getLastKeyPressed() != KEY_KEY_CODES_COUNT) {
-            alertComponent->addAlert("Key already Bound.");
+            alertComponent->addAlert("Unknown Key.");
             p->_toChangeUI.reset();
             p->_toChange.reset();
             goto end;
