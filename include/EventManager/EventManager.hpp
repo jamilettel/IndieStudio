@@ -71,7 +71,7 @@ namespace is
             [[nodiscard]] int getLastControlPressed() const;
             void resetLastControlPressed();
 
-        void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
+            void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
             void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
             void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
             void removeEventKeyPressed(EKEY_CODE keyCode);
