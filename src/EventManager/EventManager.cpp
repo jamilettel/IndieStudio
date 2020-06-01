@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Components/Button.hpp"
 
-is::EventManager::EventManager() : _lastKeyPressed(EKEY_CODE::KEY_KEY_CODES_COUNT), _lastControlPressed(-9999)
+is::EventManager::EventManager() : _lastKeyPressed(EKEY_CODE::KEY_KEY_CODES_COUNT), _lastControlPressed(-9999), _eventController(false)
 {
     for (int i = 0; i < KEY_KEY_CODES_COUNT; i++)
         _keyState[i] = false;
@@ -250,5 +250,10 @@ void is::EventManager::resetLastControlPressed()
 
 bool is::EventManager::isJoystickEvent() const
 {
-    return false;
+    return _eventController;
+}
+
+void is::EventManager::resetJoystickEvent()
+{
+    _eventController = false;
 }

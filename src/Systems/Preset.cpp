@@ -48,35 +48,43 @@ void PresetSystem::update()
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
     const auto &alertComponent = std::static_pointer_cast<AlertComponent>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0]);
 
+    if (!_eventManager->get().isJoystickEvent() && _eventManager->get().getLastKeyPressed() == KEY_KEY_CODES_COUNT)
+        return;
+
     for (auto &preset : components) {
-        auto *p = static_cast<PresetComponent *>(preset.get());
+        const auto &p = std::static_pointer_cast<PresetComponent>(preset);
+
         if (!p->_onSelect)
             continue;
-        if (!p->_toChange.has_value()) {
+        if (!p->_toChange.has_value())
+            break;
+        for (int i = 0; PresetComponent::EquivalentKeys[i]._key != EKEY_CODE::KEY_KEY_CODES_COUNT && p->_callerID == -1; i++) {
+            if (PresetComponent::EquivalentKeys[i]._key != _eventManager->get().getLastKeyPressed())
+                continue;
+            if (p->getKeyboardPreset().isBound(PresetComponent::EquivalentKeys[i]._key)) {
+                alertComponent->addAlert("Key already Bound.");
+                goto end;
+            }
+            p->getKeyboardPreset().bind(PresetComponent::EquivalentKeys[i]._key, p->_toChange.value());
+            std::get<0>(p->_toChangeUI.value()).get().setText(PresetComponent::getEquivalentKey(PresetComponent::EquivalentKeys[i]._key));
+            p->_toChangeUI.reset();
             p->_toChange.reset();
             _eventManager->get().resetLastKeyPressed();
-            continue;
+            goto end;
         }
-        for (int i = 0; PresetComponent::EquivalentKeys[i]._key != EKEY_CODE::KEY_KEY_CODES_COUNT && p->_callerID == -1; i++) {
-            if (PresetComponent::EquivalentKeys[i]._key == _eventManager->get().getLastKeyPressed() && !p->getKeyboardPreset().isBound(PresetComponent::EquivalentKeys[i]._key)) {
-                p->getKeyboardPreset().bind(PresetComponent::EquivalentKeys[i]._key, p->_toChange.value());
-                std::get<0>(p->_toChangeUI.value()).get().setText(PresetComponent::getEquivalentKey(PresetComponent::EquivalentKeys[i]._key));
-                p->_toChangeUI.reset();
-                p->_toChange.reset();
-                _eventManager->get().resetLastKeyPressed();
-                return;
-            }
-        }
-        for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
-            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button + 1) * -1)
-            && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
 
+        for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
+            if (!_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button + 1) * -1)) {
+                if (p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
+                    alertComponent->addAlert("Key already Bound.");
+                    goto end;
+                }
                 p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
-                return;
+                goto end;
             }
 
             if (PresetComponent::EquivalentButtons[i]._button < 0)
@@ -88,9 +96,11 @@ void PresetSystem::update()
             if ((PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5) && axis == -JOYSTICK_MAX_AXIS_VALUE)
                 continue;
 
-            if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))
-            && !p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
-
+            if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))) {
+                if (p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
+                    alertComponent->addAlert("Key already Bound.");
+                    goto end;
+                }
                 if (PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5)
                     p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 else
@@ -100,11 +110,15 @@ void PresetSystem::update()
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
-                return;
+                goto end;
             }
         }
+        alertComponent->addAlert("Unknown Key.");
         break;
     }
+    end:
+    _eventManager->get().resetLastKeyPressed();
+    _eventManager->get().resetJoystickEvent();
 }
 
 void PresetSystem::stop()
@@ -123,7 +137,7 @@ void PresetSystem::onTearDown()
     }
 }
 
-void PresetSystem::reloadPresetAxes(is::components::PresetComponent *p)
+void PresetSystem::reloadPresetAxes(const std::shared_ptr<is::components::PresetComponent> &p)
 {
     for (int i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
 

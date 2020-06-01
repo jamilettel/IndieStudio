@@ -34,7 +34,7 @@ namespace is::systems {
             void onTearDown() override;
 
         private:
-            void reloadPresetAxes(is::components::PresetComponent *p);
+            void reloadPresetAxes(const std::shared_ptr<is::components::PresetComponent> &p);
 
         private:
             std::optional<std::reference_wrapper<is::EventManager>> _eventManager;
