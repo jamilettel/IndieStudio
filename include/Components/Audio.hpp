@@ -8,10 +8,8 @@
 #ifndef AUDIOCOMPONENT_HPP_
 #define AUDIOCOMPONENT_HPP_
 
-#include <vector>
-#include "ECS/Component.hpp"
 #include "Audio/IAudioSource.hpp"
-#include <memory>
+#include "ECS/Component.hpp"
 
 namespace is::components {
 

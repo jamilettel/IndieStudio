@@ -25,7 +25,7 @@ void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<i
     node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(fileName.c_str()));
     if (!node)
         throw is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
-    if (materialName != "")
+    if (!materialName.empty())
         node->setMaterialTexture(0, ptr_window->driver->getTexture(materialName.c_str()));
     if (modelShadow)
         node->addShadowVolumeSceneNode();

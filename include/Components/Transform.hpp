@@ -2,14 +2,15 @@
 ** EPITECH PROJECT, 2020
 ** indie studio
 ** File description:
-** window
+** TransformComponent
 */
 
 #ifndef TRANSFORM_HPP_
 #define TRANSFORM_HPP_
 
-#include "ECS/Component.hpp"
 #include <irrlicht.h>
+
+#include "ECS/Component.hpp"
 
 namespace is::components {
     class TransformComponent: public is::ecs::Component {

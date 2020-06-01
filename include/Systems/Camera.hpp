@@ -5,8 +5,8 @@
 ** CameraSystem
 */
 
-#ifndef CameraSystem_HPP_
-#define CameraSystem_HPP_
+#ifndef CAMERASYSTEM_HPP_
+#define CAMERASYSTEM_HPP_
 
 #include <iostream>
 #include <memory>

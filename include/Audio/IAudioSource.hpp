@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2020
 ** IAudioSource.hpp
 ** File description:
-** .hpp
+** IAudioSource
 */
 
-#ifndef IAUDIOSOURCE_HPP
-#define IAUDIOSOURCE_HPP
+#ifndef IAUDIOSOURCE_HPP_
+#define IAUDIOSOURCE_HPP_
 
 #include <SFML/Audio.hpp>
 

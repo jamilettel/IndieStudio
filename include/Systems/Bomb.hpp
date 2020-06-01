@@ -5,14 +5,14 @@
 ** ModelRendererSystem
 */
 
-#ifndef SystemBombSystem_HPP_
-#define SystemBombSystem_HPP_
+#ifndef SYSTEMBOMBSYSTEM_HPP_
+#define SYSTEMBOMBSYSTEM_HPP_
 
 #include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>
-#include <limits.h>
+#include <climits>
 
 #include "Exception.hpp"
 #include "ECS/ASystem.hpp"
@@ -63,4 +63,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemBombSystem_HPP_ */
+#endif /* !SYSTEMBOMBSYSTEM_HPP_ */

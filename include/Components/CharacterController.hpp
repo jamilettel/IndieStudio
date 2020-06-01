@@ -5,8 +5,8 @@
 ** CharacterController
 */
 
-#ifndef CharacterController_HPP_
-#define CharacterController_HPP_
+#ifndef CHARACTERCONTROLLER_HPP_
+#define CHARACTERCONTROLLER_HPP_
 
 #include <irrlicht.h>
 #include <string>
@@ -60,4 +60,4 @@ namespace is::components {
 
 }
 
-#endif /* !CharacterController_HPP_ */
+#endif /* !CHARACTERCONTROLLER_HPP_ */

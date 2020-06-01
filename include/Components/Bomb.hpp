@@ -5,11 +5,10 @@
 ** Bomb
 */
 
-#ifndef Bomb_HPP_
-#define Bomb_HPP_
+#ifndef BOMB_HPP_
+#define BOMB_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
 #include "Components/Bomberman.hpp"
@@ -39,4 +38,4 @@ namespace is::components {
 
 }
 
-#endif /* !Bomb_HPP_ */
+#endif /* !BOMB_HPP_ */

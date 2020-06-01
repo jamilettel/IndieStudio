@@ -5,11 +5,10 @@
 ** Light
 */
 
-#ifndef Light_HPP_
-#define Light_HPP_
+#ifndef LIGHT_HPP_
+#define LIGHT_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
 
@@ -36,4 +35,4 @@ namespace is::components {
 
 }
 
-#endif /* !Light_HPP_ */
+#endif /* !LIGHT_HPP_ */

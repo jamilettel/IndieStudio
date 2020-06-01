@@ -6,12 +6,12 @@
 */
 
 #ifndef IMAGESYSTEM_HPP
-#   define IMAGESYSTEM_HPP
+#define IMAGESYSTEM_HPP
 
-#   include "ECS/ASystem.hpp"
+#include "ECS/ASystem.hpp"
 
-#   include "Components/Image.hpp"
-#   include "Exception.hpp"
+#include "Components/Image.hpp"
+#include "Exception.hpp"
 
 namespace is::systems {
 

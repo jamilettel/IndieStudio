@@ -6,12 +6,12 @@
 */
 
 #ifndef BUTTONSYSTEM_HPP
-#   define BUTTONSYSTEM_HPP
+#define BUTTONSYSTEM_HPP
 
-#   include "ECS/ASystem.hpp"
+#include "ECS/ASystem.hpp"
 
-#   include "Components/Button.hpp"
-#   include "Exception.hpp"
+#include "Components/Button.hpp"
+#include "Exception.hpp"
 
 namespace is::systems {
 

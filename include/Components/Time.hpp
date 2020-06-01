@@ -8,9 +8,10 @@
 #ifndef TIMECOMPONENT_HPP_
 #define TIMECOMPONENT_HPP_
 
-#include "ECS/Component.hpp"
 #include <irrlicht.h>
 #include <chrono>
+
+#include "ECS/Component.hpp"
 
 namespace is::components {
     class TimeComponent : public is::ecs::Component {

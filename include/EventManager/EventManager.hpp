@@ -8,20 +8,12 @@
 #ifndef BOMBERMAN_EVENTMANAGER_HPP
 #define BOMBERMAN_EVENTMANAGER_HPP
 
-#ifdef _MSC_VER
-// We'll define this to stop MSVC complaining about sprintf().
-#define _CRT_SECURE_NO_WARNINGS
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
-#include <vector>
 #include <irrlicht.h>
-#include <map>
 #include <functional>
 #include <memory>
+#include <vector>
+#include <map>
 #include "ECS/Component.hpp"
-
-using namespace irr;
 
 namespace is::components
 {
@@ -31,7 +23,7 @@ namespace is::components
 namespace is
 {
     typedef struct SMouseState {
-        core::position2di position;
+        irr::core::position2di position;
         bool leftButtonDown;
         bool middleButtonDown;
         bool rightButtonDown;
@@ -41,24 +33,24 @@ namespace is
     } mouseState;
 
     typedef struct SAppContext {
-        IrrlichtDevice *device;
-        s32 counter;
+        irr::IrrlichtDevice *device;
+        irr::s32 counter;
         std::vector<std::shared_ptr<is::components::ButtonComponent>> button;
         SAppContext() : device(nullptr), counter(0) {}
     } appContext;
 
-    class EventManager : public IEventReceiver {
+class EventManager : public irr::IEventReceiver {
         public:
             EventManager();
             ~EventManager() override;
 
             /* IMPORTANT, THEY SHOULDN'T BE CHANGED */
-            bool OnEvent(const SEvent &event) override;
-            [[nodiscard]] bool IsKeyDown(EKEY_CODE keyCode) const;
-            [[nodiscard]] bool IsJoystickButtonDown(u8 id, int key) const;
+            bool OnEvent(const irr::SEvent &event) override;
+            [[nodiscard]] bool IsKeyDown(irr::EKEY_CODE keyCode) const;
+            [[nodiscard]] bool IsJoystickButtonDown(irr::u8 id, int key) const;
 
             /* CONTEXT METHODS */
-            void setDeviceContext(IrrlichtDevice &device);
+            void setDeviceContext(irr::IrrlichtDevice &device);
 
             /* OTHER METHODS */
             [[nodiscard]] std::pair<float, float> getMousePosition() const;
@@ -66,18 +58,18 @@ namespace is
             [[nodiscard]] bool isMiddlePressed() const;
             [[nodiscard]] bool isLeftPressed() const;
             [[nodiscard]] float getMouseWheel() const;
-            [[nodiscard]] EKEY_CODE getLastKeyPressed() const;
+            [[nodiscard]] irr::EKEY_CODE getLastKeyPressed() const;
             void resetLastKeyPressed();
             [[nodiscard]] int getLastControlPressed() const;
             void resetLastControlPressed();
 
-            void addEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode, const std::function<void()> &ft);
-            void addEventKeyPressed(EKEY_CODE keyCode, const std::function<void()> &ft);
-            void removeEventKeyPressed(EKEY_CODE keyCtrl, EKEY_CODE keyCode);
-            void removeEventKeyPressed(EKEY_CODE keyCode);
+            void addEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode, const std::function<void()> &ft);
+            void addEventKeyPressed(irr::EKEY_CODE keyCode, const std::function<void()> &ft);
+            void removeEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode);
+            void removeEventKeyPressed(irr::EKEY_CODE keyCode);
 
-            void addEventKeyReleased(EKEY_CODE keyCode, const std::function<void()> &ft);
-            void removeEventKeyReleased(EKEY_CODE keyCode);
+            void addEventKeyReleased(irr::EKEY_CODE keyCode, const std::function<void()> &ft);
+            void removeEventKeyReleased(irr::EKEY_CODE keyCode);
 
             void addButton(const std::shared_ptr<is::components::ButtonComponent>&);
             void checkButtonClicked(irr::s32 id);
@@ -85,19 +77,19 @@ namespace is
             void removeButton(const std::shared_ptr<is::components::ButtonComponent>&);
             void removeAllButtons();
 
-            [[nodiscard]] bool isJoystickButtonPressed(u8 joystick, u32 button) const;
-            [[nodiscard]] s16 getAxisValue(u8 joystick, u32 axis) const;
+            [[nodiscard]] bool isJoystickButtonPressed(irr::u8 joystick, irr::u32 button) const;
+            [[nodiscard]] irr::s16 getAxisValue(irr::u8 joystick, irr::u32 axis) const;
 
         private:
             appContext _context;
 
             std::map<int, bool> _keyState;
-            std::map<u8, std::pair<u32, s16[6]>> _joystickStates;
+            std::map<irr::u8, std::pair<irr::u32, irr::s16[6]>> _joystickStates;
             mouseState _mouse;
 
             std::map<std::pair<int, int>, std::function<void()>> _eventKeyPressed;
             std::map<int, std::function<void()>> _eventKeyReleased;
-            EKEY_CODE _lastKeyPressed;
+            irr::EKEY_CODE _lastKeyPressed;
             int _lastControlPressed;
     };
 }

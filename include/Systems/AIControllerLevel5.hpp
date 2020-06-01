@@ -21,20 +21,16 @@
 #include "AStarAlgorithm.hpp"
 #include "ECS/Component.hpp"
 #include "Components/Bomberman.hpp"
-#include <vector>
 #include <list>
 
 #include <cmath>
-
-using namespace is::components;
-using namespace is::ecs;
 
 namespace is::systems {
 
     class AIControllerLevel5System : public is::ecs::ASystem {
     public:
         AIControllerLevel5System() = default;
-        ~AIControllerLevel5System() = default;
+        ~AIControllerLevel5System() override = default;
 
         AIControllerLevel5System(const AIControllerLevel5System &) = default;
         AIControllerLevel5System &operator=(const AIControllerLevel5System &) = default;
@@ -70,15 +66,15 @@ namespace is::systems {
             const irr::core::vector2di &pos,
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map
         ) const;
-        bool bombPosIsUseful(
+        [[nodiscard]] bool bombPosIsUseful(
             const AIControllerComponent &ai,
             const irr::core::vector2di &bombPos,
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
             const irr::core::vector2di &aiPos,
             const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
         ) const;
-        bool posIsHideFromBombs(const AIControllerComponent &ai, const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
-        bool posIsHideFromABomb(
+        [[nodiscard]] bool posIsHideFromBombs(const AIControllerComponent &ai, const irr::core::vector2di &aiPos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) const;
+        [[nodiscard]] bool posIsHideFromABomb(
             const irr::core::vector2di &aiPos,
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
             const irr::core::vector2di &bombPos,
@@ -119,15 +115,15 @@ namespace is::systems {
         ) const;
 
         // UTILS
-        bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
-        bool bombPosAimForPlayer(
+        [[nodiscard]] bool isInDanger(irr::core::vector2di aiPos, std::vector<std::vector<is::ecs::Entity::Layer>> map) const;
+        [[nodiscard]] bool bombPosAimForPlayer(
             const is::components::AIControllerComponent &ai,
             const irr::core::vector2di &bombPos,
             const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
             const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
         ) const;
 
-        int getSizeBomb(const std::vector<std::shared_ptr<Component>> &bombs, const irr::core::vector2di &pos) const;
+        [[nodiscard]] int getSizeBomb(const std::vector<std::shared_ptr<Component>> &bombs, const irr::core::vector2di &pos) const;
 
     private:
         std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;

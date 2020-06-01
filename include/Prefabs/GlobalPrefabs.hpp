@@ -8,8 +8,6 @@
 #ifndef GLOBALPREFABS_HPP_
 #define GLOBALPREFABS_HPP_
 
-#include <memory>
-
 #include "ECS/Entity.hpp"
 
 #include "Components/Window.hpp"

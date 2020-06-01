@@ -8,16 +8,15 @@
 #ifndef SLIDERCOMPONENT_HPP_
 #define SLIDERCOMPONENT_HPP_
 
-#include <vector>
-#include "ECS/Component.hpp"
-#include <memory>
+
 #include <irrlicht.h>
-#include "Components/Window.hpp"
-#include "Components/Button.hpp"
-#include "Components/Image.hpp"
+
+#include "ECS/Component.hpp"
+#include "Window.hpp"
 #include "Exception.hpp"
 
 namespace is::components {
+
     class SliderComponent: public is::ecs::Component {
         public:
             SliderComponent(std::shared_ptr<is::ecs::Entity> &e, std::string slider, std::string wn, int min, int max, int step,
@@ -34,7 +33,8 @@ namespace is::components {
             [[nodiscard]] bool isPressed() const;
             [[nodiscard]] int getStep() const;
             std::string windowName;
-        private:
+
+    private:
             irr::core::rect<irr::s32> _dimension;
             std::string _slider;
             int _min;

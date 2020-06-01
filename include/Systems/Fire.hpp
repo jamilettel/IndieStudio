@@ -5,8 +5,8 @@
 ** ModelRendererSystem
 */
 
-#ifndef SystemFireSystem_HPP_
-#define SystemFireSystem_HPP_
+#ifndef SYSTEMFIRESYSTEM_HPP_
+#define SYSTEMFIRESYSTEM_HPP_
 
 #include <iostream>
 #include <memory>

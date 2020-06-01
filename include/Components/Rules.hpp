@@ -8,11 +8,10 @@
 #ifndef RULESCOMPONENT_HPP_
 #define RULESCOMPONENT_HPP_
 
-#include "ECS/Component.hpp"
-
-#include <string>
 #include <vector>
 #include <map>
+
+#include "ECS/Component.hpp"
 
 namespace is::components
 {
@@ -27,8 +26,8 @@ namespace is::components
             };
 
         public:
-            RulesComponent(std::shared_ptr<is::ecs::Entity> &e);
-            ~RulesComponent() = default;
+            explicit RulesComponent(std::shared_ptr<is::ecs::Entity> &e);
+            ~RulesComponent() override = default;
 
             void deleteComponent() override;
 
@@ -38,14 +37,14 @@ namespace is::components
             void setFpsMode(bool mode) noexcept;
             void setMaxTime(float time) noexcept;
 
-            int getNumberOfPlayers() const noexcept;
-            float getMaxTime() const noexcept;
-            bool isFpsMode() const noexcept;
+            [[nodiscard]] int getNumberOfPlayers() const noexcept;
+            [[nodiscard]] float getMaxTime() const noexcept;
+            [[nodiscard]] bool isFpsMode() const noexcept;
 
-            bool noIconUsed() const noexcept;
+            [[nodiscard]] bool noIconUsed() const noexcept;
             void setAllICons(bool used) noexcept;
 
-            std::string getTimeString() const;
+            [[nodiscard]] std::string getTimeString() const;
 
             [[nodiscard]] const std::vector<int> &getAiLevels() const;
             void setAiLevel(int ai, int level);

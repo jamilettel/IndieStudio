@@ -8,14 +8,12 @@
 #ifndef TEXTCOMPONENT_HPP_
 #define TEXTCOMPONENT_HPP_
 
-#include <vector>
-#include "ECS/Component.hpp"
-#include <memory>
 #include <irrlicht.h>
-#include "Components/Window.hpp"
+
+#include "ECS/Component.hpp"
 #include "Exception.hpp"
-#include "IDGenerator.hpp"
 #include "Components/GUIElement.hpp"
+#include "IDGenerator.hpp"
 
 namespace is::components {
     class TextComponent: public GUIElementComponent {

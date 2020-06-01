@@ -8,10 +8,10 @@
 #ifndef TEXTURE_HPP_
 #define TEXTURE_HPP_
 
+#include <irrlicht.h>
+
 #include "ECS/Component.hpp"
 #include "Components/Window.hpp"
-
-#include <irrlicht.h>
 
 namespace is::components
 {
@@ -37,10 +37,10 @@ namespace is::components
 
             void setPosition(const irr::core::vector2df &position) noexcept;
 
-            const irr::core::vector2df &getPosition() const noexcept;
-            const irr::core::vector2df &getSize() const noexcept;
-            irr::video::ITexture *getNode() const noexcept;
-            bool isVisible() const noexcept;
+            [[nodiscard]] const irr::core::vector2df &getPosition() const noexcept;
+            [[nodiscard]] const irr::core::vector2df &getSize() const noexcept;
+            [[nodiscard]] irr::video::ITexture *getNode() const noexcept;
+            [[nodiscard]] bool isVisible() const noexcept;
             void setVisible(bool visible) noexcept;
 
             std::string filename;

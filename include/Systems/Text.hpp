@@ -6,16 +6,16 @@
 */
 
 #ifndef TEXTSYSTEM_HPP
-#   define TEXTSYSTEM_HPP
+#define TEXTSYSTEM_HPP
 
-#   include "ECS/ASystem.hpp"
+#include "ECS/ASystem.hpp"
 
-#   include "Components/Text.hpp"
-#   include "Exception.hpp"
+#include "Components/Text.hpp"
+#include "Exception.hpp"
 
 namespace is::systems {
 
-    class TextSystem: public is::ecs::ASystem {
+    class TextSystem : public is::ecs::ASystem {
         public:
             TextSystem() = default;
             ~TextSystem() override = default;

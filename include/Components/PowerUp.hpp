@@ -5,11 +5,10 @@
 ** PowerUp
 */
 
-#ifndef PowerUp_HPP_
-#define PowerUp_HPP_
+#ifndef POWERUP_HPP_
+#define POWERUP_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
 
@@ -36,4 +35,4 @@ namespace is::components {
 
 }
 
-#endif /* !PowerUp_HPP_ */
+#endif /* !POWERUP_HPP_ */

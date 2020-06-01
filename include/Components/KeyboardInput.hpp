@@ -8,8 +8,6 @@
 #ifndef KEYBOARDINPUTCOMPONENT_HPP_
 #define KEYBOARDINPUTCOMPONENT_HPP_
 
-#include <string>
-
 #include "Components/InputManager.hpp"
 #include "Components/KeyboardPreset.hpp"
 
@@ -27,23 +25,23 @@ namespace is::components {
 
         void deleteComponent() override;
 
-        [[nodiscard]] bool isBound(EKEY_CODE key) const;
+        [[nodiscard]] bool isBound(irr::EKEY_CODE key) const;
 
-        void bind(EKEY_CODE key, const std::string &action, float target);
-        void unbind(EKEY_CODE key);
-        bool changeKey(EKEY_CODE from, EKEY_CODE to);
-        bool changeTarget(EKEY_CODE key, float target);
+        void bind(irr::EKEY_CODE key, const std::string &action, float target);
+        void unbind(irr::EKEY_CODE key);
+        bool changeKey(irr::EKEY_CODE from, irr::EKEY_CODE to);
+        bool changeTarget(irr::EKEY_CODE key, float target);
 
         void setPreset(const KeyboardPresetComponent &preset);
 
-        std::map<EKEY_CODE, std::pair<std::string, float>> &getBindings();
+        std::map<irr::EKEY_CODE, std::pair<std::string, float>> &getBindings();
         [[nodiscard]] InputManagerComponent &getInputManager() const;
 
         void unbindAll();
 
     private:
         InputManagerComponent &_inputManager;
-        std::map<EKEY_CODE, std::pair<std::string, float>> _bindings;
+        std::map<irr::EKEY_CODE, std::pair<std::string, float>> _bindings;
     };
 
 }

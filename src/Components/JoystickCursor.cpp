@@ -6,7 +6,6 @@
 */
 
 #include "Components/JoystickCursor.hpp"
-#include "ECS/Entity.hpp"
 
 using namespace is::ecs;
 using namespace is::components;

@@ -8,11 +8,11 @@
 #ifndef MOVEMENTCOMPONENT_HPP_
 #define MOVEMENTCOMPONENT_HPP_
 
+#include <irrlicht.h>
+
 #include "ECS/Component.hpp"
 #include "Components/Collider.hpp"
 #include "Components/Transform.hpp"
-
-#include <irrlicht.h>
 
 namespace is::components {
     class MovementComponent: public is::ecs::Component {

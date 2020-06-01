@@ -17,7 +17,7 @@ int WindowComponent::_height = 0;
 WindowComponent::WindowComponent(
     std::shared_ptr<is::ecs::Entity> &e,
     const std::string &wn,
-    irr::core::dimension2d<u32> ws,
+    irr::core::dimension2d<irr::u32> ws,
     bool fs
     ):
     Component(e)

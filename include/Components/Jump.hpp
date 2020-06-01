@@ -9,7 +9,6 @@
 #define JUMPCOMPONENT_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
 #include "Components/Movement.hpp"
@@ -33,7 +32,6 @@ namespace is::components {
 
         private:
             MovementComponent &_movement;
-
             bool _jump = false;
     };
 

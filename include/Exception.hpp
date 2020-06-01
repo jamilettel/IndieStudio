@@ -43,8 +43,8 @@ namespace is::exceptions {
 
     class AStarAlgorithmException: public Exception {
         public:
-            AStarAlgorithmException(const std::string &message);
-            ~AStarAlgorithmException() = default;
+            explicit AStarAlgorithmException(const std::string &message);
+            ~AStarAlgorithmException() override = default;
 
         protected:
         private:

@@ -2,14 +2,14 @@
 ** EPITECH PROJECT, 2020
 ** AudioSoundSource.hpp
 ** File description:
-** .hpp
+** AudioSoundSource
 */
 
-#ifndef AUDIOSOUNDSOURCE_HPP
-#define AUDIOSOUNDSOURCE_HPP
+#ifndef AUDIOSOUNDSOURCE_HPP_
+#define AUDIOSOUNDSOURCE_HPP_
 
 #include <SFML/Audio.hpp>
-#   include "IAudioSource.hpp"
+#include "IAudioSource.hpp"
 
 namespace is::audio {
     

@@ -10,12 +10,9 @@
 
 #include "PresetAction.hpp"
 #include "ECS/Component.hpp"
-#include <string>
 
 namespace is::components
 {
-
-
     class CharacterComponent : public is::ecs::Component {
         public:
             enum Type {

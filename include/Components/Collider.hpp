@@ -8,13 +8,13 @@
 #ifndef COLLIDERCOMPONENT_HPP_
 #define COLLIDERCOMPONENT_HPP_
 
-#include "Components/Transform.hpp"
 #include <irrlicht.h>
-#include <vector>
-#include <functional>
+
+#include "Components/Transform.hpp"
 #include "ECS/Entity.hpp"
 
 namespace is::components {
+
     class ColliderComponent: public is::ecs::Component {
         public:
             ColliderComponent(

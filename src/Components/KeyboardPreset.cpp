@@ -20,7 +20,7 @@ KeyboardPresetComponent::KeyboardPresetComponent(
 void KeyboardPresetComponent::deleteComponent()
 {}
 
-bool KeyboardPresetComponent::isBound(EKEY_CODE key) const
+bool KeyboardPresetComponent::isBound(irr::EKEY_CODE key) const
 {
     for (auto &elem: _bindings)
         if (elem.second == key)
@@ -28,21 +28,19 @@ bool KeyboardPresetComponent::isBound(EKEY_CODE key) const
     return false;
 }
 
-void KeyboardPresetComponent::bind(EKEY_CODE key, const PresetAction &action)
+void KeyboardPresetComponent::bind(irr::EKEY_CODE key, const PresetAction &action)
 {
     _bindings[action] = key;
 }
 
-bool KeyboardPresetComponent::changeKey(EKEY_CODE from, EKEY_CODE to)
+bool KeyboardPresetComponent::changeKey(irr::EKEY_CODE from, irr::EKEY_CODE to)
 {
     if (isBound(to))
         return false;
     auto it = std::find_if(
         _bindings.begin(), _bindings.end(),
-        [from] (const std::pair<PresetAction, EKEY_CODE> &pair) {
-            if (pair.second == from)
-                return true;
-            return false;
+        [from] (const std::pair<PresetAction, irr::EKEY_CODE> &pair) {
+            return pair.second == from;
         });
     if (it == _bindings.end())
         return false;
@@ -50,7 +48,7 @@ bool KeyboardPresetComponent::changeKey(EKEY_CODE from, EKEY_CODE to)
     return true;
 }
 
-const std::map<PresetAction, EKEY_CODE> &KeyboardPresetComponent::getBindings() const
+const std::map<PresetAction, irr::EKEY_CODE> &KeyboardPresetComponent::getBindings() const
 {
     return _bindings;
 }

@@ -8,6 +8,7 @@
 #ifndef ASTARALGORITHM_HPP_
 #define ASTARALGORITHM_HPP_
 
+#include <utility>
 #include <vector>
 #include <algorithm>
 #include "Exception.hpp"
@@ -25,23 +26,23 @@ namespace is
             struct Node
             {
                 Node(
-                    const std::shared_ptr<Node> &pparent,
-                    const std::pair<int, int> &ppos,
+                    std::shared_ptr<Node> pparent,
+                    std::pair<int, int> ppos,
                     double gg,
                     double hh,
                     double ff)
-                    : parent(pparent), pos(ppos), g(gg), h(hh), f(ff)
+                    : parent(std::move(pparent)), pos(std::move(ppos)), g(gg), h(hh), f(ff)
                 {};
                 std::shared_ptr<Node> parent;
                 std::pair<int, int> pos;
                 double g;
                 double h;
                 double f;
-                bool operator<(const Node &node)
+                bool operator<(const Node &node) const
                 {
                     return (f < node.f);
                 }
-                bool operator==(const Node &node)
+                bool operator==(const Node &node) const
                 {
                     return (node.pos == pos);
                 }
@@ -65,7 +66,7 @@ namespace is
 
         private:
             void checkSuccessors(const std::shared_ptr<Node> &currentNode, const std::shared_ptr<Node> &endNode);
-            bool isValid(std::pair<int, int> cell) const noexcept;
+            [[nodiscard]] bool isValid(std::pair<int, int> cell) const noexcept;
 
         private:
             int _mapX;

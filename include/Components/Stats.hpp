@@ -8,10 +8,10 @@
 #ifndef STATSCOMPONENT_HPP_
 #define STATSCOMPONENT_HPP_
 
+#include <vector>
+
 #include "ECS/Component.hpp"
 #include "Components/Text.hpp"
-
-#include <vector>
 
 using namespace is::ecs;
 
@@ -25,7 +25,7 @@ namespace is::components
                 TextComponent &lowText,
                 const std::vector<std::pair<std::string, std::string>> &stats
             );
-            ~StatsComponent();
+            ~StatsComponent() override;
 
             void next() noexcept;
             void prev() noexcept;
@@ -33,7 +33,7 @@ namespace is::components
             void deleteComponent() override;
             void setContinue(bool c) noexcept;
 
-            bool isContinue() const noexcept;
+            [[nodiscard]] bool isContinue() const noexcept;
 
         private:
             int _i = 0;

@@ -17,10 +17,6 @@
 #include "Components/Text.hpp"
 #include "Components/Rules.hpp"
 
-#include <irrlicht.h>
-
-#include <memory>
-
 namespace is::prefabs
 {
     class RuleSettingsPrefabs {

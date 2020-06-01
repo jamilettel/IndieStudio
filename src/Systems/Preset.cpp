@@ -55,7 +55,7 @@ void PresetSystem::update()
             continue;
         if (!p->_toChange.has_value())
             break;
-        for (int i = 0; PresetComponent::EquivalentKeys[i]._key != EKEY_CODE::KEY_KEY_CODES_COUNT && p->_callerID == -1; i++) {
+        for (int i = 0; PresetComponent::EquivalentKeys[i]._key != irr::EKEY_CODE::KEY_KEY_CODES_COUNT && p->_callerID == -1; i++) {
             if (PresetComponent::EquivalentKeys[i]._key != _eventManager->get().getLastKeyPressed())
                 continue;
             if (p->getKeyboardPreset().isBound(PresetComponent::EquivalentKeys[i]._key)) {
@@ -71,7 +71,7 @@ void PresetSystem::update()
             goto end;
         }
 
-        if (_eventManager->get().getLastKeyPressed() != KEY_KEY_CODES_COUNT) {
+        if (_eventManager->get().getLastKeyPressed() != irr::KEY_KEY_CODES_COUNT) {
             alertComponent->addAlert("Unknown Key.");
             p->_toChangeUI.reset();
             p->_toChange.reset();
@@ -97,7 +97,7 @@ void PresetSystem::update()
             if (PresetComponent::EquivalentButtons[i]._button < 0)
                 continue;
 
-            s16 axis = _eventManager->get().getAxisValue(p->_callerID, PresetComponent::EquivalentButtons[i]._button);
+            irr::s16 axis = _eventManager->get().getAxisValue(p->_callerID, PresetComponent::EquivalentButtons[i]._button);
             float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE;
 
             if ((PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5) && axis == -JOYSTICK_MAX_AXIS_VALUE)

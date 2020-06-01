@@ -21,7 +21,7 @@ namespace is::components {
             WindowComponent &window,
             bool mouseCursor = true
             );
-        ~CursorComponent() = default;
+        ~CursorComponent() override = default;
 
         CursorComponent(const CursorComponent &) = delete;
         CursorComponent &operator=(const CursorComponent &) = delete;

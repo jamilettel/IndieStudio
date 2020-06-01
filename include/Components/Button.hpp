@@ -8,13 +8,11 @@
 #ifndef BUTTONCOMPONENT_HPP_
 #define BUTTONCOMPONENT_HPP_
 
-#include <vector>
-#include "ECS/Component.hpp"
-#include <memory>
 #include <irrlicht.h>
-#include "Components/Window.hpp"
-#include "Exception.hpp"
+
 #include "Components/GUIElement.hpp"
+#include "ECS/Component.hpp"
+#include "Exception.hpp"
 
 namespace is::components {
 
@@ -76,7 +74,7 @@ namespace is::components {
             void bringToFront() override;
             void setVisible(bool visible);
 
-            bool isDisabled() const noexcept;
+            [[nodiscard]] bool isDisabled() const noexcept;
             void setDisabled(bool disabled) noexcept;
 
             std::string windowName;

@@ -6,16 +6,16 @@
 */
 
 #ifndef SLIDERSYSTEM_HPP
-#   define SLIDERSYSTEM_HPP
+#define SLIDERSYSTEM_HPP
 
-#   include "ECS/ASystem.hpp"
+#include "ECS/ASystem.hpp"
 
-#   include "Components/Slider.hpp"
-#   include "Exception.hpp"
+#include "Components/Slider.hpp"
+#include "Exception.hpp"
 
 namespace is::systems {
 
-    class SliderSystem: public is::ecs::ASystem {
+    class SliderSystem : public is::ecs::ASystem {
         public:
             SliderSystem() = default;
             ~SliderSystem() override = default;

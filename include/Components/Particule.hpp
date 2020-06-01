@@ -8,10 +8,9 @@
 #ifndef PARTICULECOMPONENT_HPP_
 #define PARTICULECOMPONENT_HPP_
 
-#include <map>
-#include "ECS/Component.hpp"
-#include <memory>
 #include <irrlicht.h>
+
+#include "ECS/Component.hpp"
 #include "Components/Window.hpp"
 #include "Exception.hpp"
 

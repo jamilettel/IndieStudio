@@ -5,14 +5,14 @@
 ** ModelRendererSystem
 */
 
-#ifndef ModelRendererSystem_HPP_
-#define ModelRendererSystem_HPP_
+#ifndef MODELRENDERERSYSTEM_HPP_
+#define MODELRENDERERSYSTEM_HPP_
 
 #include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>
-#include <limits.h>
+#include <climits>
 
 #include "Exception.hpp"
 #include "ECS/ASystem.hpp"

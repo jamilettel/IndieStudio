@@ -5,13 +5,10 @@
 ** Animator
 */
 
-#ifndef Animator_HPP_
-#define Animator_HPP_
+#ifndef ANIMATOR_HPP_
+#define ANIMATOR_HPP_
 
 #include <irrlicht.h>
-#include <string>
-#include <vector>
-#include <memory>
 
 #include "ECS/Component.hpp"
 #include "ECS/Entity.hpp"
@@ -44,4 +41,4 @@ namespace is::components {
 
 }
 
-#endif /* !Animator_HPP_ */
+#endif /* !ANIMATOR_HPP_ */

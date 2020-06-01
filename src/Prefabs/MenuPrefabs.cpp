@@ -55,8 +55,8 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGlobalPrefab()
     auto &cursor = e->addComponent<ImageComponent>(e, RESSOURCE("/ui/cursor/cursor.png"), "Indie Studio", 0, 0);
     cursor.layer = 10;
     e->addComponent<CursorComponent>(e, cursor, window);
-    e->addComponent<LightComponent>(e, "Indie Studio", core::vector3df(20, 500, -20), video::SColorf(2.5f, 2.3f, 1.9f, 1.0f), 750.0f);
-    e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", core::vector3df(-15, 27, 0), core::vector3df(-3, 0, 0), true);
+    e->addComponent<LightComponent>(e, "Indie Studio", irr::core::vector3df(20, 500, -20), irr::video::SColorf(2.5f, 2.3f, 1.9f, 1.0f), 750.0f);
+    e->addComponent<CameraComponent>(e, "MainCamera", "Indie Studio", irr::core::vector3df(-15, 27, 0), irr::core::vector3df(-3, 0, 0), true);
     e->addComponent<AlertComponent>(e);
     return e;
 }

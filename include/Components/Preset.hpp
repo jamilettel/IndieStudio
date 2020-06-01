@@ -11,7 +11,6 @@
 #include "Components/KeyboardPreset.hpp"
 #include "Components/JoystickPreset.hpp"
 #include "Components/Image.hpp"
-#include <vector>
 #include "Text.hpp"
 
 #ifndef RESOURCES_PATH
@@ -27,7 +26,7 @@ namespace is::components {
 
     public:
         typedef struct {
-            EKEY_CODE _key;
+            irr::EKEY_CODE _key;
             std::string _name;
         } EquivalentKey;
 
@@ -37,50 +36,50 @@ namespace is::components {
         } EquivalentButton;
 
         static inline const EquivalentKey EquivalentKeys[] = {
-            {EKEY_CODE::KEY_KEY_A, "A"},
-            {EKEY_CODE::KEY_KEY_B, "B"},
-            {EKEY_CODE::KEY_KEY_C, "C"},
-            {EKEY_CODE::KEY_KEY_D, "D"},
-            {EKEY_CODE::KEY_KEY_E, "E"},
-            {EKEY_CODE::KEY_KEY_F, "F"},
-            {EKEY_CODE::KEY_KEY_G, "G"},
-            {EKEY_CODE::KEY_KEY_H, "H"},
-            {EKEY_CODE::KEY_KEY_I, "I"},
-            {EKEY_CODE::KEY_KEY_J, "J"},
-            {EKEY_CODE::KEY_KEY_K, "K"},
-            {EKEY_CODE::KEY_KEY_L, "L"},
-            {EKEY_CODE::KEY_KEY_M, "M"},
-            {EKEY_CODE::KEY_KEY_N, "N"},
-            {EKEY_CODE::KEY_KEY_O, "O"},
-            {EKEY_CODE::KEY_KEY_P, "P"},
-            {EKEY_CODE::KEY_KEY_Q, "Q"},
-            {EKEY_CODE::KEY_KEY_R, "R"},
-            {EKEY_CODE::KEY_KEY_S, "S"},
-            {EKEY_CODE::KEY_KEY_T, "T"},
-            {EKEY_CODE::KEY_KEY_U, "U"},
-            {EKEY_CODE::KEY_KEY_V, "V"},
-            {EKEY_CODE::KEY_KEY_W, "W"},
-            {EKEY_CODE::KEY_KEY_X, "X"},
-            {EKEY_CODE::KEY_KEY_Y, "Y"},
-            {EKEY_CODE::KEY_KEY_Z, "Z"},
-            {EKEY_CODE::KEY_KEY_1, "1"},
-            {EKEY_CODE::KEY_KEY_2, "2"},
-            {EKEY_CODE::KEY_KEY_3, "3"},
-            {EKEY_CODE::KEY_KEY_4, "4"},
-            {EKEY_CODE::KEY_KEY_5, "5"},
-            {EKEY_CODE::KEY_KEY_6, "6"},
-            {EKEY_CODE::KEY_KEY_7, "7"},
-            {EKEY_CODE::KEY_KEY_8, "8"},
-            {EKEY_CODE::KEY_KEY_9, "9"},
-            {EKEY_CODE::KEY_SPACE, "Space"},
-            {EKEY_CODE::KEY_CONTROL, "Ctrl"},
-            {EKEY_CODE::KEY_SHIFT, "Shift"},
-            {EKEY_CODE::KEY_SPACE, "Space"},
-            {EKEY_CODE::KEY_DOWN, "Arrow Down"},
-            {EKEY_CODE::KEY_UP, "Arrow Up"},
-            {EKEY_CODE::KEY_RIGHT, "Arrow Right"},
-            {EKEY_CODE::KEY_LEFT, "Arrow Left"},
-            {EKEY_CODE::KEY_KEY_CODES_COUNT, "Unknown"},
+            {irr::EKEY_CODE::KEY_KEY_B, "B"},
+            {irr::EKEY_CODE::KEY_KEY_A, "A"},
+            {irr::EKEY_CODE::KEY_KEY_C, "C"},
+            {irr::EKEY_CODE::KEY_KEY_D, "D"},
+            {irr::EKEY_CODE::KEY_KEY_E, "E"},
+            {irr::EKEY_CODE::KEY_KEY_F, "F"},
+            {irr::EKEY_CODE::KEY_KEY_G, "G"},
+            {irr::EKEY_CODE::KEY_KEY_H, "H"},
+            {irr::EKEY_CODE::KEY_KEY_I, "I"},
+            {irr::EKEY_CODE::KEY_KEY_J, "J"},
+            {irr::EKEY_CODE::KEY_KEY_K, "K"},
+            {irr::EKEY_CODE::KEY_KEY_L, "L"},
+            {irr::EKEY_CODE::KEY_KEY_M, "M"},
+            {irr::EKEY_CODE::KEY_KEY_N, "N"},
+            {irr::EKEY_CODE::KEY_KEY_O, "O"},
+            {irr::EKEY_CODE::KEY_KEY_P, "P"},
+            {irr::EKEY_CODE::KEY_KEY_Q, "Q"},
+            {irr::EKEY_CODE::KEY_KEY_R, "R"},
+            {irr::EKEY_CODE::KEY_KEY_S, "S"},
+            {irr::EKEY_CODE::KEY_KEY_T, "T"},
+            {irr::EKEY_CODE::KEY_KEY_U, "U"},
+            {irr::EKEY_CODE::KEY_KEY_V, "V"},
+            {irr::EKEY_CODE::KEY_KEY_W, "W"},
+            {irr::EKEY_CODE::KEY_KEY_X, "X"},
+            {irr::EKEY_CODE::KEY_KEY_Y, "Y"},
+            {irr::EKEY_CODE::KEY_KEY_Z, "Z"},
+            {irr::EKEY_CODE::KEY_KEY_1, "1"},
+            {irr::EKEY_CODE::KEY_KEY_2, "2"},
+            {irr::EKEY_CODE::KEY_KEY_3, "3"},
+            {irr::EKEY_CODE::KEY_KEY_4, "4"},
+            {irr::EKEY_CODE::KEY_KEY_5, "5"},
+            {irr::EKEY_CODE::KEY_KEY_6, "6"},
+            {irr::EKEY_CODE::KEY_KEY_7, "7"},
+            {irr::EKEY_CODE::KEY_KEY_8, "8"},
+            {irr::EKEY_CODE::KEY_KEY_9, "9"},
+            {irr::EKEY_CODE::KEY_SPACE, "Space"},
+            {irr::EKEY_CODE::KEY_CONTROL, "Ctrl"},
+            {irr::EKEY_CODE::KEY_SHIFT, "Shift"},
+            {irr::EKEY_CODE::KEY_SPACE, "Space"},
+            {irr::EKEY_CODE::KEY_DOWN, "Arrow Down"},
+            {irr::EKEY_CODE::KEY_UP, "Arrow Up"},
+            {irr::EKEY_CODE::KEY_RIGHT, "Arrow Right"},
+            {irr::EKEY_CODE::KEY_LEFT, "Arrow Left"},
+            {irr::EKEY_CODE::KEY_KEY_CODES_COUNT, "Unknown"},
         };
 
         static inline const EquivalentButton EquivalentButtons[] = {
@@ -119,7 +118,7 @@ namespace is::components {
         [[nodiscard]] KeyboardPresetComponent &getKeyboardPreset();
         [[nodiscard]] JoystickPresetComponent &getJoystickPreset();
 
-        static std::string getEquivalentKey(EKEY_CODE key);
+        static std::string getEquivalentKey(irr::EKEY_CODE key);
         static std::string getEquivalentButton(int button);
 
         std::vector<std::reference_wrapper<TextComponent>> _textPreset;

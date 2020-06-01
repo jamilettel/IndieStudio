@@ -8,8 +8,8 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "ECS/AScene.hpp"
 
-#ifndef MAP_GENERATOR
-#define MAP_GENERATOR
+#ifndef MAP_GENERATOR_HPP_
+#define MAP_GENERATOR_HPP_
 
 class MapGenerator {
     public:

@@ -5,12 +5,10 @@
 ** Camera
 */
 
-#ifndef Camera_HPP_
-#define Camera_HPP_
+#ifndef CAMERA_HPP_
+#define CAMERA_HPP_
 
 #include <irrlicht.h>
-
-#include <string>
 
 #include "ECS/Component.hpp"
 
@@ -44,4 +42,4 @@ namespace is::components {
 
 }
 
-#endif /* !Camera_HPP_ */
+#endif /* !CAMERA_HPP_ */

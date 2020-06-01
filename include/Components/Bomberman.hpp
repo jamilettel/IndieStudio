@@ -5,12 +5,10 @@
 ** Bomberman
 */
 
-#ifndef Bomberman_HPP_
-#define Bomberman_HPP_
+#ifndef BOMBERMAN_HPP_
+#define BOMBERMAN_HPP_
 
 #include <irrlicht.h>
-#include <string>
-#include <vector>
 
 #include "ECS/Component.hpp"
 #include "Components/PowerUp.hpp"
@@ -40,4 +38,4 @@ namespace is::components {
 
 }
 
-#endif /* !Bomberman_HPP_ */
+#endif /* !BOMBERMAN_HPP_ */

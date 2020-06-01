@@ -136,3 +136,8 @@ void MovementSystem::update()
         }
     }
 }
+
+bool MovementSystem::checkMovement(MovementComponent &collision)
+{
+    return false;
+}

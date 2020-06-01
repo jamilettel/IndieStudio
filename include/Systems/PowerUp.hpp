@@ -5,14 +5,14 @@
 ** ModelRendererSystem
 */
 
-#ifndef SystemPowerUpSystem_HPP_
-#define SystemPowerUpSystem_HPP_
+#ifndef SYSTEMPOWERUPSYSTEM_HPP_
+#define SYSTEMPOWERUPSYSTEM_HPP_
 
 #include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>
-#include <limits.h>
+#include <climits>
 
 #include "Exception.hpp"
 #include "ECS/ASystem.hpp"

@@ -2,17 +2,15 @@
 ** EPITECH PROJECT, 2020
 ** OOP_indie_studio_2019
 ** File description:
-** Window
+** WindowComponent
 */
 
-#ifndef Window_HPP_
-#define Window_HPP_
+#ifndef WINDOW_HPP_
+#define WINDOW_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
-
 #include "EventManager/EventManager.hpp"
 
 namespace is::components {
@@ -22,7 +20,7 @@ namespace is::components {
         explicit WindowComponent(
             std::shared_ptr<is::ecs::Entity> &e,
             const std::string &windowName = "MainWindow",
-            irr::core::dimension2d<u32> ws = irr::core::dimension2d<u32>(1920, 1080),
+            irr::core::dimension2d<irr::u32> ws = irr::core::dimension2d<irr::u32>(1920, 1080),
             bool fs = false
             );
         ~WindowComponent() override = default;

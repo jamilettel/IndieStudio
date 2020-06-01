@@ -20,8 +20,8 @@ namespace is::components {
 
     class AlertComponent: public is::ecs::Component {
     public:
-        AlertComponent(std::shared_ptr<is::ecs::Entity> &e);
-        ~AlertComponent() = default;
+        explicit AlertComponent(std::shared_ptr<is::ecs::Entity> &e);
+        ~AlertComponent() override = default;
 
         AlertComponent(const AlertComponent &) = delete;
         AlertComponent &operator=(const AlertComponent &) = delete;
@@ -31,15 +31,15 @@ namespace is::components {
         void addAlert(const std::string &alert, void (*fct)() = nullptr);
 
         void acceptAlert();
-        bool hasAlert() const;
+        [[nodiscard]] bool hasAlert() const;
 
-        size_t getQueueLength() const;
+        [[nodiscard]] size_t getQueueLength() const;
 
         void setNextAlert();
 
-        const std::string &getCurrentAlert() const;
+        [[nodiscard]] const std::string &getCurrentAlert() const;
 
-        ButtonComponent &getButton() const noexcept;
+        [[nodiscard]] ButtonComponent &getButton() const noexcept;
 
     private:
         ImageComponent &_image;

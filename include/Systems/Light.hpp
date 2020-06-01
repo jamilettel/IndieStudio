@@ -5,14 +5,14 @@
 ** ModelRendererSystem
 */
 
-#ifndef SystemLightSystem_HPP_
-#define SystemLightSystem_HPP_
+#ifndef SYSTEMLIGHTSYSTEM_HPP_
+#define SYSTEMLIGHTSYSTEM_HPP_
 
 #include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>
-#include <limits.h>
+#include <climits>
 
 #include "Exception.hpp"
 #include "ECS/ASystem.hpp"
@@ -41,4 +41,4 @@ namespace is::systems {
 
 }
 
-#endif /* !SystemLightSystem_HPP_ */
+#endif /* !SYSTEMLIGHTSYSTEM_HPP_ */

@@ -17,7 +17,7 @@ namespace is::systems {
     class JoystickCursorSystem: public is::ecs::ASystem {
     public:
         JoystickCursorSystem() = default;
-        ~JoystickCursorSystem() = default;
+        ~JoystickCursorSystem() override = default;
 
         JoystickCursorSystem(const JoystickCursorSystem &) = default;
         JoystickCursorSystem &operator=(const JoystickCursorSystem &) = default;

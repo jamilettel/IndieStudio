@@ -19,15 +19,12 @@
 
 #include "AStarAlgorithm.hpp"
 
-using namespace is::components;
-using namespace is::ecs;
-
 namespace is::systems
 {
     class AIControllerLevel2System : public is::ecs::ASystem {
         public:
             AIControllerLevel2System() = default;
-            ~AIControllerLevel2System() = default;
+            ~AIControllerLevel2System() override = default;
 
             AIControllerLevel2System(const AIControllerLevel2System &) = default;
             AIControllerLevel2System &operator=(const AIControllerLevel2System &) = default;
@@ -52,7 +49,7 @@ namespace is::systems
                 const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
                 const std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
             ) const;
-            bool bombPosIsUseful(
+            [[nodiscard]] bool bombPosIsUseful(
                 const AIControllerComponent &ai,
                 const irr::core::vector2di &bombPos,
                 const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -64,7 +61,7 @@ namespace is::systems
                 const irr::core::vector2di &pos,
                 const std::vector<std::vector<is::ecs::Entity::Layer>> &map
             ) const;
-            bool posIsHideFromBomb(
+            [[nodiscard]] bool posIsHideFromBomb(
                 const AIControllerComponent &ai,
                 const irr::core::vector2di &aiPos,
                 const std::vector<std::vector<is::ecs::Entity::Layer>> &map,
@@ -101,7 +98,7 @@ namespace is::systems
                 std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
             ) const;
 
-            bool bombPosAimForPlayer(
+            [[nodiscard]] bool bombPosAimForPlayer(
                 const is::components::AIControllerComponent &ai,
                 const irr::core::vector2di &bombPos,
                 const std::vector<std::vector<is::ecs::Entity::Layer>> &map,

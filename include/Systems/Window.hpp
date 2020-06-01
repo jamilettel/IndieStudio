@@ -5,8 +5,8 @@
 ** WindowSystem
 */
 
-#ifndef WindowSystem_HPP_
-#define WindowSystem_HPP_
+#ifndef WINDOWSYSTEM_HPP_
+#define WINDOWSYSTEM_HPP_
 
 #include <iostream>
 #include <memory>

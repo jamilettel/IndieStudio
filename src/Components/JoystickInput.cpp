@@ -21,24 +21,24 @@ JoystickInputComponent::JoystickInputComponent(
 void JoystickInputComponent::deleteComponent()
 {}
 
-bool JoystickInputComponent::isButtonBound(u32 key) const
+bool JoystickInputComponent::isButtonBound(irr::u32 key) const
 {
     return _buttons.count(key) == 1;
 }
 
-bool JoystickInputComponent::isAxisBound(u32 axis) const
+bool JoystickInputComponent::isAxisBound(irr::u32 axis) const
 {
     return _axes.count(axis) == 1;
 }
 
-void JoystickInputComponent::bindButton(u32 button, const std::string &action, float target)
+void JoystickInputComponent::bindButton(irr::u32 button, const std::string &action, float target)
 {
     _buttons[button].first = action;
     _buttons[button].second = target;
     _inputManager.setValue(action, 0);
 }
 
-void JoystickInputComponent::bindAxis(u32 axis, const std::string &action, float min, float max)
+void JoystickInputComponent::bindAxis(irr::u32 axis, const std::string &action, float min, float max)
 {
     _axes[axis].first = action;
     _axes[axis].second[0] = min;
@@ -46,7 +46,7 @@ void JoystickInputComponent::bindAxis(u32 axis, const std::string &action, float
     _inputManager.setValue(action, 0);
 }
 
-void JoystickInputComponent::unbindButton(u32 axis)
+void JoystickInputComponent::unbindButton(irr::u32 axis)
 {
     auto it = _buttons.find(axis);
 
@@ -54,7 +54,7 @@ void JoystickInputComponent::unbindButton(u32 axis)
         _buttons.erase(it);
 }
 
-void JoystickInputComponent::unbindAxis(u32 axis)
+void JoystickInputComponent::unbindAxis(irr::u32 axis)
 {
     auto it = _axes.find(axis);
 
@@ -62,7 +62,7 @@ void JoystickInputComponent::unbindAxis(u32 axis)
         _axes.erase(it);
 }
 
-bool JoystickInputComponent::changeButton(u32 from, u32 to)
+bool JoystickInputComponent::changeButton(irr::u32 from, irr::u32 to)
 {
     auto it = _buttons.find(from);
 
@@ -73,7 +73,7 @@ bool JoystickInputComponent::changeButton(u32 from, u32 to)
     return true;
 }
 
-bool JoystickInputComponent::changeAxis(u32 from, u32 to)
+bool JoystickInputComponent::changeAxis(irr::u32 from, irr::u32 to)
 {
     auto it = _axes.find(from);
 
@@ -86,7 +86,7 @@ bool JoystickInputComponent::changeAxis(u32 from, u32 to)
     return true;
 }
 
-bool JoystickInputComponent::changeButtonTarget(u32 button, float target)
+bool JoystickInputComponent::changeButtonTarget(irr::u32 button, float target)
 {
     auto it = _buttons.find(button);
 
@@ -96,7 +96,7 @@ bool JoystickInputComponent::changeButtonTarget(u32 button, float target)
     return true;
 }
 
-bool JoystickInputComponent::changeAxisTargets(u32 axis, float min, float max)
+bool JoystickInputComponent::changeAxisTargets(irr::u32 axis, float min, float max)
 {
     auto it = _axes.find(axis);
 
@@ -107,7 +107,7 @@ bool JoystickInputComponent::changeAxisTargets(u32 axis, float min, float max)
     return true;
 }
 
-bool JoystickInputComponent::changeAxisTarget(u32 axis, float target, bool max)
+bool JoystickInputComponent::changeAxisTarget(irr::u32 axis, float target, bool max)
 {
     auto it = _axes.find(axis);
 
@@ -121,12 +121,12 @@ bool JoystickInputComponent::changeAxisTarget(u32 axis, float target, bool max)
     return true;
 }
 
-std::map<u32, std::pair<std::string, float>> &JoystickInputComponent::getButtonBindings()
+std::map<irr::u32, std::pair<std::string, float>> &JoystickInputComponent::getButtonBindings()
 {
     return _buttons;
 }
 
-std::map<u32, std::pair<std::string, float[2]>> &JoystickInputComponent::getAxisBindings()
+std::map<irr::u32, std::pair<std::string, float[2]>> &JoystickInputComponent::getAxisBindings()
 {
     return _axes;
 }

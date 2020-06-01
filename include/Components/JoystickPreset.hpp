@@ -8,11 +8,13 @@
 #ifndef JOYSTICKPRESETCOMPONENT_HPP_
 #define JOYSTICKPRESETCOMPONENT_HPP_
 
-#include "ECS/Component.hpp"
-#include <string>
-#include "EventManager/EventManager.hpp"
-#include "PresetAction.hpp"
+#include <irrlicht.h>
 #include <algorithm>
+
+#include <map>
+
+#include "ECS/Component.hpp"
+#include "PresetAction.hpp"
 
 namespace is::components {
 
@@ -28,37 +30,19 @@ namespace is::components {
 
         void deleteComponent() override;
 
-        // [[nodiscard]] bool isButtonBound(u32 button) const;
+        [[nodiscard]] bool isBound(irr::s32 binding) const;
 
-        // void unbindButton(u32 button);
-        // void bindButton(u32 button, const PresetAction &action);
-        // bool changeButton(u32 from, u32 to);
+        void bind(irr::s32 binding, const PresetAction &action);
+        bool changeBinding(irr::s32 from, irr::s32 to);
 
-        // [[nodiscard]] bool isAxisBound(u32 button) const;
+        void bindAxis(irr::s32 binding, const PresetAction &action);
 
-        // void unbindAxis(u32 axis);
-        // void bindAxis(u32 axis, const PresetAction &action);
-        // bool changeAxis(u32 from, u32 to);
-
-        // [[nodiscard]] const std::map<PresetAction, u32> &getButtonBindings() const;
-        // [[nodiscard]] const std::map<PresetAction, u32> &getAxisBindings() const;
-
-        [[nodiscard]] bool isBound(s32 binding) const;
-
-        // void unbind(u32 button);
-        void bind(s32 binding, const PresetAction &action);
-        bool changeBinding(s32 from, s32 to);
-
-        void bindAxis(s32 binding, const PresetAction &action);
-
-        [[nodiscard]] const std::map<PresetAction, s32> &getBindings() const;
+        [[nodiscard]] const std::map<PresetAction, irr::s32> &getBindings() const;
 
         static void createBasicPreset(JoystickPresetComponent &preset);
 
     private:
-        // std::map<PresetAction, u32> _buttons;
-        // std::map<PresetAction, u32> _axes;
-        std::map<PresetAction, s32> _bindings;
+        std::map<PresetAction, irr::s32> _bindings;
 
     };
 

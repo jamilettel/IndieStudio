@@ -5,17 +5,17 @@
 ** ModelRenderer
 */
 
-#ifndef ModelRenderer_HPP_
-#define ModelRenderer_HPP_
+#ifndef MODELRENDERER_HPP_
+#define MODELRENDERER_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
 #include "Components/Window.hpp"
-
 #include "Exception.hpp"
+
 namespace is::components {
+
     class ModelRendererComponent : public is::ecs::Component {
         public:
             ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
@@ -31,7 +31,7 @@ namespace is::components {
             void deleteComponent() override;
 
             void initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window);
-            irr::scene::IAnimatedMeshSceneNode *getElement() const;
+            [[nodiscard]] irr::scene::IAnimatedMeshSceneNode *getElement() const;
             std::string fileName;
             std::string materialName;
             std::string windowName;
@@ -41,4 +41,4 @@ namespace is::components {
 
 }
 
-#endif /* !ModelRenderer_HPP_ */
+#endif /* !MODELRENDERER_HPP_ */

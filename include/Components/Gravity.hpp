@@ -8,11 +8,10 @@
 #ifndef GRAVITYCOMPONENT_HPP_
 #define GRAVITYCOMPONENT_HPP_
 
+#include <irrlicht.h>
+
 #include "ECS/Component.hpp"
 #include "Components/Movement.hpp"
-
-#include <irrlicht.h>
-#include <vector>
 
 namespace is::components {
 

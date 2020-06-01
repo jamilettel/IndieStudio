@@ -6,12 +6,12 @@
 */
 
 #ifndef PARTICULESYSTEM_HPP
-#   define PARTICULESYSTEM_HPP
+#define PARTICULESYSTEM_HPP
 
-#   include "ECS/ASystem.hpp"
+#include "ECS/ASystem.hpp"
 
-#   include "Components/Particule.hpp"
-#   include "Exception.hpp"
+#include "Components/Particule.hpp"
+#include "Exception.hpp"
 
 namespace is::systems {
 

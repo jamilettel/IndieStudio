@@ -8,9 +8,10 @@
 #ifndef INPUTMANAGERCOMPONENT_HPP_
 #define INPUTMANAGERCOMPONENT_HPP_
 
-#include "ECS/Component.hpp"
 #include <map>
 #include <string>
+
+#include "ECS/Component.hpp"
 
 namespace is::components {
 

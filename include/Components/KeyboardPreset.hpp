@@ -8,11 +8,12 @@
 #ifndef KEYBOARDPRESETCOMPONENT_HPP_
 #define KEYBOARDPRESETCOMPONENT_HPP_
 
+#include <irrlicht.h>
+#include <functional>
+#include <map>
+
 #include "ECS/Component.hpp"
-#include <string>
-#include "EventManager/EventManager.hpp"
 #include "PresetAction.hpp"
-#include <algorithm>
 
 namespace is::components {
 
@@ -28,17 +29,17 @@ namespace is::components {
         KeyboardPresetComponent &operator=(const KeyboardPresetComponent &) = delete;
 
         void deleteComponent() override;
-        [[nodiscard]] bool isBound(EKEY_CODE key) const;
+        [[nodiscard]] bool isBound(irr::EKEY_CODE key) const;
 
-        void bind(EKEY_CODE key, const PresetAction &action);
-        bool changeKey(EKEY_CODE from, EKEY_CODE to);
+        void bind(irr::EKEY_CODE key, const PresetAction &action);
+        bool changeKey(irr::EKEY_CODE from, irr::EKEY_CODE to);
 
-        [[nodiscard]] const std::map<PresetAction, EKEY_CODE> &getBindings() const;
+        [[nodiscard]] const std::map<PresetAction, irr::EKEY_CODE> &getBindings() const;
 
         static void createBasicPreset(KeyboardPresetComponent &preset);
 
     private:
-        std::map<PresetAction, EKEY_CODE> _bindings;
+        std::map<PresetAction, irr::EKEY_CODE> _bindings;
     };
 
 }

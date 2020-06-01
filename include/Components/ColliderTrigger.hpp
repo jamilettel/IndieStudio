@@ -8,6 +8,7 @@
 #ifndef COLLIDERTRIGGERCOMPONENT_HPP_
 #define COLLIDERTRIGGERCOMPONENT_HPP_
 
+#include <functional>
 #include "Components/Collider.hpp"
 
 namespace is::components {

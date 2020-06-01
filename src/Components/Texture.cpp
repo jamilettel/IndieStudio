@@ -25,7 +25,7 @@ void is::components::TextureComponent::init(std::shared_ptr<is::components::Wind
     _node = ptrWindow->driver->getTexture(filename.c_str());
     if (!_node)
         throw is::exceptions::Exception("TextureComponent", "Could not create node from model");
-    ptrWindow->driver->makeColorKeyTexture(_node, core::position2d<s32>(0,0));
+    ptrWindow->driver->makeColorKeyTexture(_node, irr::core::position2d<irr::s32>(0,0));
 }
 
 void is::components::TextureComponent::deleteComponent()

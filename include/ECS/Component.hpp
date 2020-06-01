@@ -22,7 +22,7 @@ namespace is::ecs {
             Component(const Component &) = delete;
             Component &operator=(const Component &) = delete;
 
-            std::shared_ptr<is::ecs::Entity> getEntity() const noexcept;
+            [[nodiscard]] std::shared_ptr<is::ecs::Entity> getEntity() const noexcept;
 
             virtual void deleteComponent() = 0;
 

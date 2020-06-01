@@ -10,13 +10,13 @@
 
 #include "ECS/ASystem.hpp"
 #include "Components/Alert.hpp"
-#
+
 namespace is::systems {
 
     class AlertSystem: public is::ecs::ASystem {
     public:
         AlertSystem() = default;
-        ~AlertSystem() = default;
+        ~AlertSystem() override = default;
 
         AlertSystem(const AlertSystem &) = default;
         AlertSystem &operator=(const AlertSystem &) = default;

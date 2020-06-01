@@ -21,19 +21,19 @@ KeyboardInputComponent::KeyboardInputComponent(
 void KeyboardInputComponent::deleteComponent()
 {}
 
-bool KeyboardInputComponent::isBound(EKEY_CODE key) const
+bool KeyboardInputComponent::isBound(irr::EKEY_CODE key) const
 {
     return _bindings.count(key) == 1;
 }
 
-void KeyboardInputComponent::bind(EKEY_CODE key, const std::string &action, float target)
+void KeyboardInputComponent::bind(irr::EKEY_CODE key, const std::string &action, float target)
 {
     _bindings[key].first = action;
     _bindings[key].second = target;
     _inputManager.setValue(action, 0);
 }
 
-void KeyboardInputComponent::unbind(EKEY_CODE key)
+void KeyboardInputComponent::unbind(irr::EKEY_CODE key)
 {
     auto it = _bindings.find(key);
 
@@ -42,7 +42,7 @@ void KeyboardInputComponent::unbind(EKEY_CODE key)
     }
 }
 
-bool KeyboardInputComponent::changeKey(EKEY_CODE from, EKEY_CODE to)
+bool KeyboardInputComponent::changeKey(irr::EKEY_CODE from, irr::EKEY_CODE to)
 {
     auto it = _bindings.find(from);
 
@@ -53,7 +53,7 @@ bool KeyboardInputComponent::changeKey(EKEY_CODE from, EKEY_CODE to)
     return true;
 }
 
-bool KeyboardInputComponent::changeTarget(EKEY_CODE key, float target)
+bool KeyboardInputComponent::changeTarget(irr::EKEY_CODE key, float target)
 {
     auto it = _bindings.find(key);
 
@@ -63,7 +63,7 @@ bool KeyboardInputComponent::changeTarget(EKEY_CODE key, float target)
     return true;
 }
 
-std::map<EKEY_CODE, std::pair<std::string, float>> &KeyboardInputComponent::getBindings()
+std::map<irr::EKEY_CODE, std::pair<std::string, float>> &KeyboardInputComponent::getBindings()
 {
     return _bindings;
 }

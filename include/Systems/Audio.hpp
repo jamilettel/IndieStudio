@@ -6,11 +6,11 @@
 */
 
 #ifndef AUDIOSYSTEM_HPP
-#   define AUDIOSYSTEM_HPP
+#define AUDIOSYSTEM_HPP
 
-#   include "ECS/ASystem.hpp"
+#include "ECS/ASystem.hpp"
 
-#   include "Components/Audio.hpp"
+#include "Components/Audio.hpp"
 
 namespace is::systems {
 

@@ -8,12 +8,9 @@
 #ifndef IMAGECOMPONENT_HPP_
 #define IMAGECOMPONENT_HPP_
 
-#include <vector>
 #include "ECS/Component.hpp"
-#include <memory>
-#include <irrlicht.h>
-#include "Components/Window.hpp"
 #include "Exception.hpp"
+#include "Components/Window.hpp"
 #include "Components/GUIElement.hpp"
 
 namespace is::components {
@@ -41,9 +38,9 @@ namespace is::components {
         void setPosition(float x, float y);
         void setVisible(bool visible);
 
-        const irr::core::vector2d<int> &getPosition() const;
+        [[nodiscard]] const irr::core::vector2d<int> &getPosition() const;
 
-        void setImage(video::ITexture *image);
+        void setImage(irr::video::ITexture *image);
 
         std::string windowName;
 

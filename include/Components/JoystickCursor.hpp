@@ -9,7 +9,6 @@
 #define JOYSTICKCURSORCOMPONENT_HPP_
 
 #include "Components/Cursor.hpp"
-#include "EventManager/EventManager.hpp"
 #include "Components/JoystickInput.hpp"
 
 namespace is::components {
@@ -21,7 +20,7 @@ namespace is::components {
             CursorComponent &cursor,
             JoystickInputComponent &joystickInput
             );
-        ~JoystickCursorComponent() = default;
+        ~JoystickCursorComponent() override = default;
 
         JoystickCursorComponent(const JoystickCursorComponent &) = delete;
         JoystickCursorComponent &operator=(const JoystickCursorComponent &) = delete;

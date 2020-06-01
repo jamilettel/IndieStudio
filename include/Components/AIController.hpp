@@ -2,16 +2,16 @@
 ** EPITECH PROJECT, 2020
 ** Indie Studio
 ** File description:
-** Keyboard Input
+** AIControllerComponent
 */
 
-#ifndef AIControllerCOMPONENT_HPP_
-#define AIControllerCOMPONENT_HPP_
+#ifndef AICONTROLLERCOMPONENT_HPP_
+#define AICONTROLLERCOMPONENT_HPP_
 
-#include <string>
+#include <irrlicht.h>
+#include <vector>
 
 #include "Components/InputManager.hpp"
-#include "EventManager/EventManager.hpp"
 #include "Exception.hpp"
 
 namespace is::components {
@@ -53,7 +53,7 @@ namespace is::components {
 
         bool operator==(const is::components::AIControllerComponent &ai) const;
 
-        int getLevel() const noexcept;
+        [[nodiscard]] int getLevel() const noexcept;
         bool waitTime = false;
 
     private:
@@ -64,4 +64,4 @@ namespace is::components {
 
 }
 
-#endif /* !AIControllerCOMPONENT_HPP_ */
+#endif /* !AICONTROLLERCOMPONENT_HPP_ */

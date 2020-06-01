@@ -9,8 +9,6 @@
 #define JOYSTICKINPUTCOMPONENT_HPP_
 
 #include "Components/InputManager.hpp"
-#include "EventManager/EventManager.hpp"
-#include <string>
 #include "Components/JoystickPreset.hpp"
 
 #define JOYSTICK_MAX_AXIS_VALUE 32768.0
@@ -30,21 +28,21 @@ namespace is::components {
 
         void deleteComponent() override;
 
-        [[nodiscard]] bool isButtonBound(u32 button) const;
-        void bindButton(u32 button, const std::string &action, float target);
-        void unbindButton(u32 button);
-        bool changeButton(u32 from, u32 to);
-        bool changeButtonTarget(u32 button, float target);
+        [[nodiscard]] bool isButtonBound(irr::u32 button) const;
+        void bindButton(irr::u32 button, const std::string &action, float target);
+        void unbindButton(irr::u32 button);
+        bool changeButton(irr::u32 from, irr::u32 to);
+        bool changeButtonTarget(irr::u32 button, float target);
 
-        [[nodiscard]] bool isAxisBound(u32 axis) const;
-        void bindAxis(u32 axis, const std::string &action, float min, float max);
-        void unbindAxis(u32 axis);
-        bool changeAxis(u32 from, u32 to);
-        bool changeAxisTargets(u32 axis, float min, float max);
-        bool changeAxisTarget(u32 axis, float newTarget, bool max);
+        [[nodiscard]] bool isAxisBound(irr::u32 axis) const;
+        void bindAxis(irr::u32 axis, const std::string &action, float min, float max);
+        void unbindAxis(irr::u32 axis);
+        bool changeAxis(irr::u32 from, irr::u32 to);
+        bool changeAxisTargets(irr::u32 axis, float min, float max);
+        bool changeAxisTarget(irr::u32 axis, float newTarget, bool max);
 
-        std::map<u32, std::pair<std::string, float>> &getButtonBindings();
-        std::map<u32, std::pair<std::string, float[2]>> &getAxisBindings();
+        std::map<irr::u32, std::pair<std::string, float>> &getButtonBindings();
+        std::map<irr::u32, std::pair<std::string, float[2]>> &getAxisBindings();
         [[nodiscard]] InputManagerComponent &getInputManager() const;
 
         void assignJoystick(int id);
@@ -59,8 +57,8 @@ namespace is::components {
 
     private:
         InputManagerComponent &_inputManager;
-        std::map<u32, std::pair<std::string, float>> _buttons;
-        std::map<u32, std::pair<std::string, float[2]>> _axes;
+        std::map<irr::u32, std::pair<std::string, float>> _buttons;
+        std::map<irr::u32, std::pair<std::string, float[2]>> _axes;
         int _joystickId = -1;
     };
 

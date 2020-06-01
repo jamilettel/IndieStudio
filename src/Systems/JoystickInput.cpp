@@ -56,7 +56,7 @@ void JoystickInputSystem::update()
                 joystick->getInputManager().addValue(pair.second.first, pair.second.second);
         }
         for (const auto &pair: axisBindings) {
-            s16 axis = _eventManager->get().getAxisValue(joystick->getJoystickId(), pair.first);
+            irr::s16 axis = _eventManager->get().getAxisValue(joystick->getJoystickId(), pair.first);
             float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE;
 
             if ((value >= 0 && value <= joystick->axisDeadzoneMin) ||

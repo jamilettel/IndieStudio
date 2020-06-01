@@ -99,7 +99,7 @@ void GameScene::awake()
     AScene::awake();
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
-        window.eventManager.addEventKeyReleased(EKEY_CODE::KEY_KEY_P, []() {
+        window.eventManager.addEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P, []() {
             if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
                 is::Game::setActualScene(is::ecs::SCENE_PAUSE);
             else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
@@ -113,7 +113,7 @@ void GameScene::onTearDown()
     AScene::onTearDown();
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
-        window.eventManager.removeEventKeyReleased(EKEY_CODE::KEY_KEY_P);
+        window.eventManager.removeEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P);
     }
 }
 

@@ -5,11 +5,10 @@
 ** Fire
 */
 
-#ifndef Fire_HPP_
-#define Fire_HPP_
+#ifndef FIRE_HPP_
+#define FIRE_HPP_
 
 #include <irrlicht.h>
-#include <string>
 
 #include "ECS/Component.hpp"
 
@@ -30,4 +29,4 @@ namespace is::components {
 
 }
 
-#endif /* !Fire_HPP_ */
+#endif /* !FIRE_HPP_ */

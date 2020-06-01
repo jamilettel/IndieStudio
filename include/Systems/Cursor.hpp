@@ -16,7 +16,7 @@ namespace is::systems {
     class CursorSystem: public is::ecs::ASystem {
     public:
         CursorSystem() = default;
-        ~CursorSystem() = default;
+        ~CursorSystem() override = default;
 
         CursorSystem(const CursorSystem &) = default;
         CursorSystem &operator=(const CursorSystem &) = default;
