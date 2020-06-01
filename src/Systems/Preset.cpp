@@ -63,6 +63,8 @@ void PresetSystem::update()
                 continue;
             if (p->getKeyboardPreset().isBound(PresetComponent::EquivalentKeys[i]._key)) {
                 alertComponent->addAlert("Key already Bound.");
+                p->_toChangeUI.reset();
+                p->_toChange.reset();
                 goto end;
             }
             p->getKeyboardPreset().bind(PresetComponent::EquivalentKeys[i]._key, p->_toChange.value());
@@ -74,9 +76,11 @@ void PresetSystem::update()
         }
 
         for (int i = 0; PresetComponent::EquivalentButtons[i]._button != -9999; i++) {
-            if (!_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button + 1) * -1)) {
+            if (_eventManager->get().isJoystickButtonPressed(p->_callerID, (PresetComponent::EquivalentButtons[i]._button + 1) * -1)) {
                 if (p->getJoystickPreset().isBound(PresetComponent::EquivalentButtons[i]._button)) {
                     alertComponent->addAlert("Key already Bound.");
+                    p->_toChangeUI.reset();
+                    p->_toChange.reset();
                     goto end;
                 }
                 p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
@@ -114,6 +118,8 @@ void PresetSystem::update()
             }
         }
         alertComponent->addAlert("Unknown Key.");
+        p->_toChangeUI.reset();
+        p->_toChange.reset();
         break;
     }
     end:
