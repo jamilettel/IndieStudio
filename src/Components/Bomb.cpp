@@ -7,19 +7,19 @@
 
 #include "Components/Bomb.hpp"
 
-is::components::BombComponent::BombComponent(std::shared_ptr<is::ecs::Entity> &e,
-    std::shared_ptr<is::components::BombermanComponent> &bm,
+using namespace is::components;
+using namespace is::ecs;
+
+BombComponent::BombComponent(std::shared_ptr<Entity> &e,
+    std::shared_ptr<BombermanComponent> &bm,
     const irr::core::vector3df &pos,
     float lt,
     int size
-) : Component(e), _pos(pos)
+) : Component(e), lifeTime(lt), bombSize(size), bomberman(bm), _pos(pos)
 {
-    lifeTime = lt;
-    bombSize = size;
-    bomberman = bm;
 }
 
-void is::components::BombComponent::deleteComponent()
+void BombComponent::deleteComponent()
 {
     
 }

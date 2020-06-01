@@ -7,20 +7,20 @@
 
 #include "Components/Stats.hpp"
 
+using namespace is::ecs;
 using namespace is::components;
 
 StatsComponent::StatsComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     TextComponent &highText,
     TextComponent &lowText,
-    const std::vector<std::pair<std::string, std::string>> &stats
-) : Component(e), _highText(highText), _lowText(lowText), _stats(stats)
+    std::vector<std::pair<std::string, std::string>> stats
+) : Component(e), _highText(highText), _lowText(lowText), _stats(std::move(stats))
 {
 }
 
 StatsComponent::~StatsComponent()
-{
-}
+= default;
 
 void StatsComponent::next() noexcept
 {

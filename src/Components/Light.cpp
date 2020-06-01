@@ -7,20 +7,18 @@
 
 #include "Components/Light.hpp"
 
-is::components::LightComponent::LightComponent(std::shared_ptr<is::ecs::Entity> &e,
-                                               const std::string &window,
+using namespace is::ecs;
+using namespace is::components;
+
+LightComponent::LightComponent(std::shared_ptr<Entity> &e,
+                                               std::string window,
                                                const irr::core::vector3df& pos,
                                                irr::video::SColorf col,
                                                float rad) :
-Component(e)
+Component(e), windowName(std::move(window)), position(pos), color(col), radius(rad)
 {
-    radius = rad;
-    position = pos;
-    color = col;
-    windowName = window;
 }
 
-void is::components::LightComponent::deleteComponent()
+void LightComponent::deleteComponent()
 {
-    
 }

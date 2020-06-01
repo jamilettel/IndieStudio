@@ -2,11 +2,12 @@
 ** EPITECH PROJECT, 2020
 ** AudioSoundSource.hpp
 ** File description:
-** .hpp
+** AudioSoundSource
 */
 
 #include "Audio/AudioSoundSource.hpp"
 #include "Exception.hpp"
+
 using namespace is::audio;
 using namespace is::exceptions;
 

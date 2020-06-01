@@ -7,11 +7,11 @@
 
 #include "Components/JoystickCursor.hpp"
 
-using namespace is::ecs;
 using namespace is::components;
+using namespace is::ecs;
 
 JoystickCursorComponent::JoystickCursorComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     CursorComponent &cursor,
     JoystickInputComponent &joystickInput
     ):

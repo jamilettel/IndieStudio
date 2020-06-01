@@ -13,14 +13,14 @@
 
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
-using namespace is::components;
 using namespace is::ecs;
+using namespace is::components;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackground()
+std::shared_ptr<Entity> is::prefabs::EndGamePrefabs::createBackground()
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<is::components::TextureComponent>(
+    e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
@@ -30,7 +30,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -40,7 +40,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::
         irr::core::vector3df(0, -120, -70),
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
@@ -57,7 +57,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -67,7 +67,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std:
         irr::core::vector3df(0, -100, -70),
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
@@ -84,7 +84,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std:
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -94,7 +94,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std:
         irr::core::vector3df(0, -70, -70),
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
@@ -111,7 +111,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std:
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -121,7 +121,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std:
         irr::core::vector3df(0, -50, -70),
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
@@ -141,7 +141,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std:
 // * PRIVATE METHOD
 
 void is::prefabs::EndGamePrefabs::addStatsPlayer(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<::Entity> &e,
     TextComponent &textHigh,
     TextComponent &textLow,
     std::vector<std::pair<std::string, std::string>> &infos
@@ -157,9 +157,9 @@ void is::prefabs::EndGamePrefabs::addStatsPlayer(
     );
 }
 
-void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX)
+void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<::Entity> &e, double posX)
 {
-    e->addComponent<is::components::TextureComponent>(
+    e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/EndGame/Table_01.png"),
         "Indie Studio",
@@ -168,7 +168,7 @@ void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<is::ecs::Entity> &e,
     );
 }
 
-void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX, TextComponent &text, bool isAI)
+void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<::Entity> &e, int posX, TextComponent &text, bool isAI)
 {
     if (isAI) {
         text.setText("Waiting...");
@@ -194,7 +194,7 @@ void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<is::ecs::Ent
     });
 }
 
-void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX)
+void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<::Entity> &e, int posX)
 {
     e->addComponent<ButtonComponent>(
         e,
@@ -212,7 +212,7 @@ void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<is::ecs::Ent
     );
 }
 
-void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX)
+void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<::Entity> &e, int posX)
 {
     e->addComponent<ButtonComponent>(
         e,
@@ -230,7 +230,7 @@ void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<is::ecs::Enti
     );
 }
 
-void is::prefabs::EndGamePrefabs::addHighTable(std::shared_ptr<is::ecs::Entity> &e, double posX)
+void is::prefabs::EndGamePrefabs::addHighTable(std::shared_ptr<::Entity> &e, double posX)
 {
     e->addComponent<TextureComponent>(
         e,
@@ -241,7 +241,7 @@ void is::prefabs::EndGamePrefabs::addHighTable(std::shared_ptr<is::ecs::Entity> 
     );
 }
 
-void is::prefabs::EndGamePrefabs::addLowTable(std::shared_ptr<is::ecs::Entity> &e, double posX)
+void is::prefabs::EndGamePrefabs::addLowTable(std::shared_ptr<::Entity> &e, double posX)
 {
     e->addComponent<TextureComponent>(
         e,
@@ -252,7 +252,7 @@ void is::prefabs::EndGamePrefabs::addLowTable(std::shared_ptr<is::ecs::Entity> &
     );
 }
 
-void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<is::ecs::Entity> &e, double posX, const std::string &filename)
+void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<::Entity> &e, double posX, const std::string &filename)
 {
     e->addComponent<TextureComponent>(
         e,
@@ -263,7 +263,7 @@ void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<is::ecs::Entity> &e, 
     );
 }
 
-TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<::Entity> &e, int posX)
 {
     return e->addComponent<TextComponent>(
         e,
@@ -278,7 +278,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<is::ecs:
     );
 }
 
-TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<::Entity> &e, int posX)
 {
     return e->addComponent<TextComponent>(
         e,
@@ -293,7 +293,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<is::ecs::
     );
 }
 
-TextComponent &is::prefabs::EndGamePrefabs::addWaitingText(std::shared_ptr<is::ecs::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addWaitingText(std::shared_ptr<::Entity> &e, int posX)
 {
     return e->addComponent<TextComponent>(
         e,

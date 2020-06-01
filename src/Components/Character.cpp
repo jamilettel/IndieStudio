@@ -13,8 +13,8 @@ using namespace is::ecs;
 CharacterComponent::CharacterComponent(
     std::shared_ptr<Entity> &e,
     int characterNumber,
-    const std::string &texture
-) : Component(e), number(characterNumber), texturePath(texture)
+    std::string texture
+) : Component(e), number(characterNumber), texturePath(std::move(texture))
 {
 }
 

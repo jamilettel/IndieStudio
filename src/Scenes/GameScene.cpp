@@ -7,48 +7,49 @@
 
 #include "Scenes/GameScene.hpp"
 
-using namespace is::prefabs;
+using namespace is::systems;
 using namespace is::scenes;
+using namespace is::ecs;
 
 GameScene::GameScene() :
-AScene(is::ecs::Scenes::SCENE_GAME)
+AScene(Scenes::SCENE_GAME)
 {
-    _entityManager = std::make_shared<is::ecs::EntityManager>();
-    _componentManager = std::make_shared<is::ecs::ComponentManager>();
-    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
+    _entityManager = std::make_shared<EntityManager>();
+    _componentManager = std::make_shared<ComponentManager>();
+    _systemManager = std::make_shared<SystemManager>(_componentManager, _entityManager);
 }
 
 void GameScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::KeyboardInputSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JumpSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::SliderSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::PowerUpSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel1System>());
-    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel2System>());
-    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel3System>());
-    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel4System>());
-    _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel5System>());
-    _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::EndGameSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<TimeSystem>());
+    _systemManager->addSystem(std::make_shared<WindowSystem>());
+    _systemManager->addSystem(std::make_shared<CameraSystem>());
+    _systemManager->addSystem(std::make_shared<ModelRendererSystem>());
+    _systemManager->addSystem(std::make_shared<KeyboardInputSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<CharacterControllerSystem>());
+    _systemManager->addSystem(std::make_shared<LightSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<JumpSystem>());
+    _systemManager->addSystem(std::make_shared<GravitySystem>());
+    _systemManager->addSystem(std::make_shared<MovementSystem>());
+    _systemManager->addSystem(std::make_shared<BombSystem>());
+    _systemManager->addSystem(std::make_shared<FireSystem>());
+    _systemManager->addSystem(std::make_shared<ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<TextSystem>());
+    _systemManager->addSystem(std::make_shared<SliderSystem>());
+    _systemManager->addSystem(std::make_shared<ImageSystem>());
+    _systemManager->addSystem(std::make_shared<PowerUpSystem>());
+    _systemManager->addSystem(std::make_shared<AIControllerLevel1System>());
+    _systemManager->addSystem(std::make_shared<AIControllerLevel2System>());
+    _systemManager->addSystem(std::make_shared<AIControllerLevel3System>());
+    _systemManager->addSystem(std::make_shared<AIControllerLevel4System>());
+    _systemManager->addSystem(std::make_shared<AIControllerLevel5System>());
+    _systemManager->addSystem(std::make_shared<ParticuleSystem>());
+    _systemManager->addSystem(std::make_shared<CursorSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<EndGameSystem>());
+    _systemManager->addSystem(std::make_shared<AlertSystem>());
 }
 
 void GameScene::initEntities()
@@ -61,7 +62,7 @@ void GameScene::initEntities()
         throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13);
     // initEntity(GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
+    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[0].get()),
         *_componentManager.get(),
@@ -69,7 +70,7 @@ void GameScene::initEntities()
         rules.getAiLevels()[0]
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
+    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[1].get()),
         *_componentManager.get(),
@@ -77,7 +78,7 @@ void GameScene::initEntities()
         rules.getAiLevels()[1]
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
+    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[2].get()),
         *_componentManager.get(),
@@ -85,7 +86,7 @@ void GameScene::initEntities()
         rules.getAiLevels()[2]
     ));
     // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
+    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[3].get()),
         *_componentManager.get(),
@@ -100,10 +101,10 @@ void GameScene::awake()
     for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
         window.eventManager.addEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P, []() {
-            if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
-                is::Game::setActualScene(is::ecs::SCENE_PAUSE);
-            else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
-                is::Game::setActualScene(is::ecs::SCENE_GAME);
+            if (is::Game::getCurrentScene() == SCENE_GAME)
+                is::Game::setActualScene(SCENE_PAUSE);
+            else if (is::Game::getCurrentScene() == SCENE_PAUSE)
+                is::Game::setActualScene(SCENE_GAME);
         });
     }
 }
@@ -119,7 +120,7 @@ void GameScene::onTearDown()
 
 RulesComponent &GameScene::getRulesComponent() const
 {
-    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+    auto entities = AScene::_entitySaver->getEntities();
 
     for (const auto &entity : entities) {
         auto rules = entity->getComponent<RulesComponent>();

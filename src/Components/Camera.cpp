@@ -7,23 +7,22 @@
 
 #include "Components/Camera.hpp"
 
-is::components::CameraComponent::CameraComponent(std::shared_ptr<is::ecs::Entity> &e,
-                                                 const std::string &cm,
-                                                 const std::string &wm,
+#include <utility>
+
+using namespace is::components;
+using namespace is::ecs;
+
+CameraComponent::CameraComponent(std::shared_ptr<Entity> &e,
+                                                 std::string cm,
+                                                 std::string wm,
                                                  const irr::core::vector3df& pos,
                                                  const irr::core::vector3df& rot,
                                                  bool gm) :
-Component(e)
+Component(e), position(pos), rotation(rot), cameraName(std::move(cm)), windowName(std::move(wm)), gameCamera(gm)
 {
-    position = pos;
-    rotation = rot;
-    cameraName = cm;
-    windowName = wm;
-
-    gameCamera = gm;
 }
 
-void is::components::CameraComponent::deleteComponent()
+void CameraComponent::deleteComponent()
 {
     
 }

@@ -17,8 +17,8 @@ namespace is::components {
     class CameraComponent : public is::ecs::Component {
         public:
             explicit CameraComponent(std::shared_ptr<is::ecs::Entity> &e,
-                            const std::string &cameraName = "MainCamera",
-                            const std::string &windowName = "MainWindow",
+                            std::string cameraName = "MainCamera",
+                            std::string windowName = "MainWindow",
                             const irr::core::vector3df& pos = irr::core::vector3df(0),
                             const irr::core::vector3df& rot = irr::core::vector3df(0),
                             bool gm = false);
@@ -35,7 +35,7 @@ namespace is::components {
             std::string cameraName;
             std::string windowName;
 
-            irr::scene::ICameraSceneNode *node;
+            irr::scene::ICameraSceneNode *node{};
 
             bool gameCamera;
     };

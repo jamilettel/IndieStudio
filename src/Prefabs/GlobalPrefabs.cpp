@@ -14,8 +14,8 @@
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
 using namespace is::ecs;
-using namespace is::components;
 using namespace is::prefabs;
+using namespace is::components;
 
 std::shared_ptr<Entity> GlobalPrefabs::createWallBlock(const irr::core::vector3df &position)
 {
@@ -75,14 +75,14 @@ std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(const irr::core::vec
 
 std::shared_ptr<Entity> GlobalPrefabs::createBomb(irr::core::vector3df position,
     int range,
-    std::shared_ptr<is::components::BombermanComponent> &bm)
+    std::shared_ptr<BombermanComponent> &bm)
 {
     auto e = std::make_shared<Entity>(Entity::BOMB);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
     e->addComponent<BombComponent>(e, bm, position, 3, range);
-    e->addComponent<is::components::ParticuleComponent>(
+    e->addComponent<ParticuleComponent>(
         e,
         "Indie Studio",
         irr::core::vector3df(position.X, position.Y + 3, position.Z),
@@ -167,7 +167,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &po
         transform,
         irr::core::vector3df(3, 3, 3)
     );
-    e->addComponent<is::components::ParticuleComponent>(
+    e->addComponent<ParticuleComponent>(
         e,
         "Indie Studio",
         irr::core::vector3df(position.X, position.Y + 3, position.Z),
@@ -181,8 +181,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &po
 
 std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     const irr::core::vector3df &pos,
-    is::components::CharacterComponent &character,
-    const is::ecs::ComponentManager &manager,
+    CharacterComponent &character,
+    const ComponentManager &manager,
     const std::string &texture,
     int level
 )
@@ -198,7 +198,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
         const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
         const auto it = std::find_if(
             presets.begin(), presets.end(),
-            [&character] (const std::shared_ptr<is::ecs::Component> &component) {
+            [&character] (const std::shared_ptr<Component> &component) {
                 const auto *preset = static_cast<PresetComponent *>(component.get());
 
                 return preset->presetNumber == character.presetNumber;
@@ -213,7 +213,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
         const auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
         const auto it = std::find_if(
             presets.begin(), presets.end(),
-            [&character] (const std::shared_ptr<is::ecs::Component> &component) {
+            [&character] (const std::shared_ptr<Component> &component) {
                 const auto *preset = static_cast<PresetComponent *>(component.get());
 
                 return preset->presetNumber == character.presetNumber;
@@ -251,12 +251,12 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         transform,
         collider
     );
-    AudioComponent &audio = e->addComponent<is::components::AudioComponent>(
+    AudioComponent &audio = e->addComponent<AudioComponent>(
         e,
         RESSOURCE("footstep.wav"),
-        is::components::SOUND
+        SOUND
     );
-    AnimatorComponent &animator = e->addComponent<is::components::AnimatorComponent>(e);
+    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
     character.reset();
     e->addComponent<CharacterControllerComponent>(
         e,
@@ -281,9 +281,9 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
+std::shared_ptr<Entity> GlobalPrefabs::createCharacter()
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
 
     e->addComponent<CharacterComponent>(e, 0, "player_white.png");
     e->addComponent<CharacterComponent>(e, 1, "player_black.png");
@@ -293,31 +293,31 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createCharacter()
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPresets()
+std::shared_ptr<Entity> GlobalPrefabs::createPresets()
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
 
     auto &preset1 = e->addComponent<PresetComponent>(e, 1);
     auto &preset2 = e->addComponent<PresetComponent>(e, 2);
     auto &preset3 = e->addComponent<PresetComponent>(e, 3);
     auto &preset4 = e->addComponent<PresetComponent>(e, 4);
 
-    is::components::KeyboardPresetComponent::createBasicPreset(preset1.getKeyboardPreset());
-    is::components::KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
-    is::components::KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
-    is::components::KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
+    KeyboardPresetComponent::createBasicPreset(preset1.getKeyboardPreset());
+    KeyboardPresetComponent::createBasicPreset(preset2.getKeyboardPreset());
+    KeyboardPresetComponent::createBasicPreset(preset3.getKeyboardPreset());
+    KeyboardPresetComponent::createBasicPreset(preset4.getKeyboardPreset());
 
-    is::components::JoystickPresetComponent::createBasicPreset(preset1.getJoystickPreset());
-    is::components::JoystickPresetComponent::createBasicPreset(preset2.getJoystickPreset());
-    is::components::JoystickPresetComponent::createBasicPreset(preset3.getJoystickPreset());
-    is::components::JoystickPresetComponent::createBasicPreset(preset4.getJoystickPreset());
+    JoystickPresetComponent::createBasicPreset(preset1.getJoystickPreset());
+    JoystickPresetComponent::createBasicPreset(preset2.getJoystickPreset());
+    JoystickPresetComponent::createBasicPreset(preset3.getJoystickPreset());
+    JoystickPresetComponent::createBasicPreset(preset4.getJoystickPreset());
 
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createRules()
+std::shared_ptr<Entity> GlobalPrefabs::createRules()
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
 
     e->addComponent<RulesComponent>(e);
     return (e);

@@ -7,9 +7,10 @@
 
 #include "Components/Transform.hpp"
 
+using namespace is::ecs;
 using namespace is::components;
 
-TransformComponent::TransformComponent(std::shared_ptr<is::ecs::Entity> &e,
+TransformComponent::TransformComponent(std::shared_ptr<Entity> &e,
                                        const irr::core::vector3df& pos,
                                        const irr::core::vector3df& rot,
                                        const irr::core::vector3df& scl):
@@ -17,7 +18,8 @@ Component(e),
 position(pos),
 rotation(rot),
 scale(scl)
-{}
+{
+}
 
 void TransformComponent::deleteComponent()
 {

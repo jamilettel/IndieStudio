@@ -98,7 +98,7 @@ bool AlertComponent::hasAlert() const
 
 void AlertComponent::setNextAlert()
 {
-    if (_textQueue.size() && !_hasAlert) {
+    if (!_textQueue.empty() && !_hasAlert) {
         _hasAlert = true;
         _alert = _textQueue[0];
         _function = _fctQueue[0];

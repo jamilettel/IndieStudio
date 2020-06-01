@@ -8,17 +8,19 @@
 #include "ECS/AScene.hpp"
 #include "ECS/ASystem.hpp"
 
-void is::ecs::ASystem::setComponentManager(std::shared_ptr<ComponentManager> componentManager)
+using namespace is::ecs;
+
+void ASystem::setComponentManager(std::shared_ptr<ComponentManager> componentManager)
 {
     _componentManager = componentManager;
 }
 
-void is::ecs::ASystem::setEntityManager(std::shared_ptr<EntityManager> entityManager)
+void ASystem::setEntityManager(std::shared_ptr<EntityManager> entityManager)
 {
     _entityManager = entityManager;
 }
 
-std::shared_ptr<is::ecs::Entity> &is::ecs::ASystem::initRuntimeEntity(std::shared_ptr<Entity> &&entity, bool keep)
+std::shared_ptr<Entity> &ASystem::initRuntimeEntity(std::shared_ptr<Entity> &&entity, bool keep)
 {
     for (auto &elem : entity->getComponents())
         _componentManager->addComponent(elem);

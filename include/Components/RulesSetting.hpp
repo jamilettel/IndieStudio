@@ -29,12 +29,12 @@ namespace is::components
             ~RulesSettingComponent() override = default;
 
             void addRule(
-                std::function<void()> onSelect,
-                std::function<void()> onExit,
-                std::function<void()> onDisappear,
-                std::function<void()> onRuleUp,
-                std::function<void()> onRuleDown,
-                std::function<void()> onAppear
+                const std::function<void()>& onSelect,
+                const std::function<void()>& onExit,
+                const std::function<void()>& onDisappear,
+                const std::function<void()>& onRuleUp,
+                const std::function<void()>& onRuleDown,
+                const std::function<void()>& onAppear
             );
             void up();
             void down();

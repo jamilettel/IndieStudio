@@ -9,16 +9,17 @@
 
 using namespace is::components;
 using namespace is::ecs;
-using namespace is;
 
 JoystickPresetComponent::JoystickPresetComponent(
     std::shared_ptr<Entity> &e
     ):
     Component(e)
-{}
+{
+}
 
 void JoystickPresetComponent::deleteComponent()
-{}
+{
+}
 
 bool JoystickPresetComponent::isBound(irr::s32 binding) const
 {
@@ -48,7 +49,7 @@ bool JoystickPresetComponent::changeBinding(irr::s32 from, irr::s32 to)
     return true;
 }
 
-const std::map<PresetAction, irr::s32> &JoystickPresetComponent::getBindings() const
+const std::map<is::PresetAction, irr::s32> &JoystickPresetComponent::getBindings() const
 {
     return _bindings;
 }

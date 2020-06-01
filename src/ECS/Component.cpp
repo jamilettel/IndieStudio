@@ -7,10 +7,13 @@
 
 #include "ECS/Component.hpp"
 
-is::ecs::Component::Component(std::shared_ptr<Entity> &e): _entity(e)
-{}
+using namespace is::ecs;
 
-std::shared_ptr<is::ecs::Entity> is::ecs::Component::getEntity() const noexcept
+Component::Component(std::shared_ptr<Entity> &e): _entity(e)
+{
+}
+
+std::shared_ptr<Entity> Component::getEntity() const noexcept
 {
     return (_entity);
 }

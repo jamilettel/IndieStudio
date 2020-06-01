@@ -7,10 +7,11 @@
 
 #include "Components/Movement.hpp"
 
+using namespace is::ecs;
 using namespace is::components;
 
 MovementComponent::MovementComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     TransformComponent &transform,
     ColliderComponent &collider,
     bool clip

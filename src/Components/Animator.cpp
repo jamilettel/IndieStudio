@@ -7,18 +7,19 @@
 
 #include "Components/Animator.hpp"
 
-is::components::AnimatorComponent::AnimatorComponent(std::shared_ptr<is::ecs::Entity> &e) :
+using namespace is::components;
+using namespace is::ecs;
+
+AnimatorComponent::AnimatorComponent(std::shared_ptr<is::ecs::Entity> &e) :
 Component(e)
 {
-
 }
 
-void is::components::AnimatorComponent::deleteComponent()
+void AnimatorComponent::deleteComponent()
 {
-    
 }
 
-void is::components::AnimatorComponent::changeAnimation(const std::string &anim)
+void AnimatorComponent::changeAnimation(const std::string &anim)
 {
     bool animFound = false;
 
@@ -26,7 +27,7 @@ void is::components::AnimatorComponent::changeAnimation(const std::string &anim)
         return;
     for (auto &elem : animators) {
         if (elem.name == anim) {
-            getEntity()->getComponent<is::components::ModelRendererComponent>()->get()->node->setFrameLoop(elem.start, elem.end);
+            getEntity()->getComponent<ModelRendererComponent>()->get()->node->setFrameLoop(elem.start, elem.end);
             animFound = true;
             currentAnim = anim;
         }

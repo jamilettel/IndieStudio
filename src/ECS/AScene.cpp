@@ -6,15 +6,16 @@
 */
 
 #include "ECS/AScene.hpp"
-#include "Game.hpp"
 
-std::shared_ptr<is::ecs::EntityManager> is::ecs::AScene::_entitySaver = std::make_shared<is::ecs::EntityManager>();
+using namespace is::ecs;
 
-is::ecs::AScene::AScene(is::ecs::Scenes sceneID) : _sceneID(sceneID)
+std::shared_ptr<EntityManager> AScene::_entitySaver = std::make_shared<EntityManager>();
+
+AScene::AScene(Scenes sceneID) : _sceneID(sceneID)
 {
 }
 
-std::shared_ptr<is::ecs::Entity> &is::ecs::AScene::initEntity(std::shared_ptr<Entity> &&entity)
+std::shared_ptr<Entity> &AScene::initEntity(std::shared_ptr<Entity> &&entity)
 {
     for (auto &elem : entity->getComponents()) {
         _componentManager->addComponent(elem);
@@ -23,7 +24,7 @@ std::shared_ptr<is::ecs::Entity> &is::ecs::AScene::initEntity(std::shared_ptr<En
     return (entity);
 }
 
-std::shared_ptr<is::ecs::Entity> &is::ecs::AScene::initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad)
+std::shared_ptr<Entity> &AScene::initEntity(std::shared_ptr<Entity> &&entity, bool dontDestroyOnLoad)
 {
     for (auto &elem : entity->getComponents())
         _componentManager->addComponent(elem);
@@ -33,7 +34,7 @@ std::shared_ptr<is::ecs::Entity> &is::ecs::AScene::initEntity(std::shared_ptr<En
     return (entity);
 }
 
-void is::ecs::AScene::initStaticEntities()
+void AScene::initStaticEntities()
 {
     for (auto ent : _entitySaver->getEntities())
     {
@@ -43,7 +44,7 @@ void is::ecs::AScene::initStaticEntities()
     }
 }
 
-void is::ecs::AScene::awake()
+void AScene::awake()
 {
     initSystems();
     initStaticEntities();
@@ -51,31 +52,31 @@ void is::ecs::AScene::awake()
     _systemManager->awake();
 }
 
-void is::ecs::AScene::start()
+void AScene::start()
 {
     _systemManager->start();
     for (auto &ent : _entityManager->getEntities())
         ent->setInit(true);
 }
 
-void is::ecs::AScene::update()
+void AScene::update()
 {
     _systemManager->update();
     _entityManager->deleteEntities(_componentManager);
 }
 
-void is::ecs::AScene::stop()
+void AScene::stop()
 {
     deleteNonStaticEntities();
     _systemManager->stop();
 }
 
-void is::ecs::AScene::onTearDown()
+void AScene::onTearDown()
 {
     _systemManager->onTearDown();
 }
 
-void is::ecs::AScene::deleteNonStaticEntities()
+void AScene::deleteNonStaticEntities()
 {
     for (auto ent : _entityManager->getEntities())
     {
@@ -85,7 +86,7 @@ void is::ecs::AScene::deleteNonStaticEntities()
     _entityManager->deleteEntities(_componentManager);
 }
 
-void is::ecs::AScene::saveEntity(std::shared_ptr<Entity> &e)
+void AScene::saveEntity(std::shared_ptr<Entity> &e)
 {
     _entitySaver->addEntity(e);
 }

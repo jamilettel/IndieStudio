@@ -11,15 +11,17 @@ using namespace is::components;
 using namespace is::ecs;
 
 JoystickInputComponent::JoystickInputComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     InputManagerComponent &inputManager
     ):
     Component(e),
     _inputManager(inputManager)
-{}
+{
+}
 
 void JoystickInputComponent::deleteComponent()
-{}
+{
+}
 
 bool JoystickInputComponent::isButtonBound(irr::u32 key) const
 {

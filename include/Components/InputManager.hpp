@@ -8,8 +8,8 @@
 #ifndef INPUTMANAGERCOMPONENT_HPP_
 #define INPUTMANAGERCOMPONENT_HPP_
 
+#include <functional>
 #include <map>
-#include <string>
 
 #include "ECS/Component.hpp"
 

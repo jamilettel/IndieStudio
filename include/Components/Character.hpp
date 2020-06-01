@@ -33,7 +33,7 @@ namespace is::components
             };
 
         public:
-            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e, int characterNumber, const std::string &texture);
+            CharacterComponent(std::shared_ptr<is::ecs::Entity> &e, int characterNumber, std::string texture);
             ~CharacterComponent() override = default;
 
             void setTimePlaying(size_t time) noexcept;

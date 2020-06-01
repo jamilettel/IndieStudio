@@ -7,7 +7,11 @@
 
 #include "Scenes/MainMenuScene.hpp"
 
-is::scenes::MainMenuScene::MainMenuScene() :
+using namespace is::systems;
+using namespace is::scenes;
+using namespace is::ecs;
+
+MainMenuScene::MainMenuScene() :
 AScene(is::ecs::Scenes::SCENE_MAIN_MENU)
 {
     _entityManager = std::make_shared<is::ecs::EntityManager>();
@@ -15,22 +19,22 @@ AScene(is::ecs::Scenes::SCENE_MAIN_MENU)
     _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::MainMenuScene::initSystems()
+void MainMenuScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<TimeSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<WindowSystem>());
+    _systemManager->addSystem(std::make_shared<LightSystem>());
+    _systemManager->addSystem(std::make_shared<CameraSystem>());
+    _systemManager->addSystem(std::make_shared<ImageSystem>());
+    _systemManager->addSystem(std::make_shared<ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<CursorSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<AlertSystem>());
 }
 
-void is::scenes::MainMenuScene::initEntities()
+void MainMenuScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createMainMenu(), false);
 }

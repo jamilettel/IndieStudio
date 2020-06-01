@@ -7,9 +7,10 @@
 
 #include "Components/Time.hpp"
 
+using namespace is::ecs;
 using namespace is::components;
 
-TimeComponent::TimeComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e), _elapsed_time(0.0), _interval_milliseconds(0.0), _interval_seconds(0.0)
+TimeComponent::TimeComponent(std::shared_ptr<Entity> &e) : Component(e), _elapsed_time(0.0), _interval_milliseconds(0.0), _interval_seconds(0.0)
 {
 }
 

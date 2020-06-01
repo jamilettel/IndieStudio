@@ -6,12 +6,12 @@
 */
 
 #include "Components/ColliderTrigger.hpp"
-#include <utility>
 
 using namespace is::components;
+using namespace is::ecs;
 
 ColliderTriggerComponent::ColliderTriggerComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     ColliderComponent &colliderToCheck,
     std::function<void(std::vector<ColliderComponent *> &)> function
     ):

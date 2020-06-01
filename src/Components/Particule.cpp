@@ -6,11 +6,11 @@
 */
 
 #include "Components/Particule.hpp"
-#include "IDGenerator.hpp"
 
-using namespace irr;
+using namespace is::ecs;
+using namespace is::components;
 
-void wickParticule(scene::IParticleSystemSceneNode *element, const std::shared_ptr<is::components::WindowComponent>& ptr_window)
+void wickParticule(irr::scene::IParticleSystemSceneNode *element, const std::shared_ptr<WindowComponent>& ptr_window)
 {
     auto e = element->createBoxEmitter(
             irr::core::aabbox3d<irr::f32>(-0.3, 0, -0.3, 0.3, 1, 0.3),
@@ -30,7 +30,7 @@ void wickParticule(scene::IParticleSystemSceneNode *element, const std::shared_p
     element->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
 }
 
-void fireParticule(scene::IParticleSystemSceneNode *element, const std::shared_ptr<is::components::WindowComponent>& ptr_window)
+void fireParticule(irr::scene::IParticleSystemSceneNode *element, const std::shared_ptr<WindowComponent>& ptr_window)
 {
     auto e = element->createSphereEmitter(
             irr::core::vector3df(0, 0, 0),
@@ -52,20 +52,20 @@ void fireParticule(scene::IParticleSystemSceneNode *element, const std::shared_p
 }
 
 
-std::map<is::components::PARTICULE, particuleFunction> particuleMap = 
+std::map<PARTICULE, particuleFunction> particuleMap =
 {
     {is::components::WICK, wickParticule},
     {is::components::FIRE, fireParticule}
 };
 
-is::components::ParticuleComponent::ParticuleComponent(std::shared_ptr<is::ecs::Entity> &e,std::string wn, core::vector3df position, is::components::PARTICULE particule) :
+ParticuleComponent::ParticuleComponent(std::shared_ptr<is::ecs::Entity> &e,std::string wn, const irr::core::vector3df& position, PARTICULE particule) :
     Component(e), windowName(std::move(wn)), _position(position), _particule(particule)
 {
 }
 
-void is::components::ParticuleComponent::init(const std::shared_ptr<is::components::WindowComponent>& ptr_window)
+void ParticuleComponent::init(const std::shared_ptr<WindowComponent>& ptr_window)
 {
-    element = ptr_window->scenemgr->addParticleSystemSceneNode(true, 0, -1, _position,
+    element = ptr_window->scenemgr->addParticleSystemSceneNode(true, nullptr, -1, _position,
         irr::core::vector3df(0, 0, 0), irr::core::vector3df(0.5, 0.5, 0.5));
     
     if (!element)
@@ -73,7 +73,7 @@ void is::components::ParticuleComponent::init(const std::shared_ptr<is::componen
     particuleMap[_particule](element, ptr_window);
  }
 
-void is::components::ParticuleComponent::deleteComponent()
+void ParticuleComponent::deleteComponent()
 {
     element->remove();
 }

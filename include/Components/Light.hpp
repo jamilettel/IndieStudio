@@ -16,7 +16,7 @@ namespace is::components {
     class LightComponent : public is::ecs::Component {
         public:
             LightComponent(std::shared_ptr<is::ecs::Entity> &e,
-                           const std::string &wn,
+                           std::string wn,
                            const irr::core::vector3df& position = irr::core::vector3df(0),
                            irr::video::SColorf color = irr::video::SColorf(0),
                            float radius = 100.0f);

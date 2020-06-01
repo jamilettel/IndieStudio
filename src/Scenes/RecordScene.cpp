@@ -7,31 +7,35 @@
 
 #include "Scenes/RecordScene.hpp"
 
-is::scenes::RecordScene::RecordScene() :
-AScene(is::ecs::Scenes::SCENE_RECORD)
+using namespace is::systems;
+using namespace is::scenes;
+using namespace is::ecs;
+
+RecordScene::RecordScene() :
+AScene(Scenes::SCENE_RECORD)
 {
-    _entityManager = std::make_shared<is::ecs::EntityManager>();
-    _componentManager = std::make_shared<is::ecs::ComponentManager>();
-    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
+    _entityManager = std::make_shared<EntityManager>();
+    _componentManager = std::make_shared<ComponentManager>();
+    _systemManager = std::make_shared<SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::RecordScene::initSystems()
+void RecordScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<TimeSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<WindowSystem>());
+    _systemManager->addSystem(std::make_shared<LightSystem>());
+    _systemManager->addSystem(std::make_shared<CameraSystem>());
+    _systemManager->addSystem(std::make_shared<ImageSystem>());
+    _systemManager->addSystem(std::make_shared<ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<TextSystem>());
+    _systemManager->addSystem(std::make_shared<CursorSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<AlertSystem>());
 }
 
-void is::scenes::RecordScene::initEntities()
+void RecordScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createRecord(), false);
 }

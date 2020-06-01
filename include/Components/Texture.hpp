@@ -19,8 +19,8 @@ namespace is::components
         public:
             TextureComponent(
                 std::shared_ptr<is::ecs::Entity> &e,
-                const std::string &filename,
-                const std::string &windowName,
+                std::string filename,
+                std::string windowName,
                 const irr::core::vector2df &pos,
                 const irr::core::vector2df &size,
                 bool visible = true
@@ -46,7 +46,7 @@ namespace is::components
             std::string filename;
             std::string windowName;
        private:
-            irr::video::ITexture *_node;
+            irr::video::ITexture *_node{};
             irr::core::vector2df _pos;
             irr::core::vector2df _size;
             bool _visible;

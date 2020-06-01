@@ -6,20 +6,20 @@
 */
 
 #include "Components/InputManager.hpp"
-#include <algorithm>
-#include <utility>
-#include <string>
 
 using namespace is::components;
+using namespace is::ecs;
 
 InputManagerComponent::InputManagerComponent(
-    std::shared_ptr<is::ecs::Entity> &e
+    std::shared_ptr<Entity> &e
     ):
     is::ecs::Component(e)
-{}
+{
+}
 
 void InputManagerComponent::deleteComponent()
-{}
+{
+}
 
 void InputManagerComponent::resetValues()
 {

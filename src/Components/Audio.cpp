@@ -6,6 +6,8 @@
 */
 
 #include "Components/Audio.hpp"
+
+#include <utility>
 #include "Audio/AudioSoundSource.hpp"
 #include "Audio/AudioMusicSource.hpp"
 
@@ -15,11 +17,11 @@ using namespace is::audio;
 float AudioComponent::_volumeMusic = 50;
 float AudioComponent::_volumeSound = 50;
 
-AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type) : Component(e), _filename(filename), _status(NOTHING), _type(type)
+AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, SOUND_TYPE type) : Component(e), _filename(std::move(filename)), _status(NOTHING), _type(type)
 {
 }
 
-AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart) : Component(e),_filename(filename),  _type(type)
+AudioComponent::AudioComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, SOUND_TYPE type, bool playOnStart) : Component(e),_filename(std::move(filename)),  _type(type)
 {
     if (playOnStart)
         _status = TO_PLAY;

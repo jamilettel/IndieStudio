@@ -7,9 +7,9 @@
 
 #include "ECS/SystemManager.hpp"
 
-#include <utility>
+using namespace is::ecs;
 
-is::ecs::SystemManager::SystemManager(const std::shared_ptr<ComponentManager>& componentManager,
+SystemManager::SystemManager(const std::shared_ptr<ComponentManager>& componentManager,
     std::shared_ptr<EntityManager> entityManager) :
 _componentManager(componentManager),
 _entityManager(std::move(entityManager))
@@ -17,45 +17,45 @@ _entityManager(std::move(entityManager))
     std::cout << "SYSTEM : " << componentManager.get() << std::endl; 
 }
 
-is::ecs::SystemManager::~SystemManager()
+SystemManager::~SystemManager()
 = default;
 
-void is::ecs::SystemManager::addSystem(const std::shared_ptr<is::ecs::ISystem> &system)
+void SystemManager::addSystem(const std::shared_ptr<ISystem> &system)
 {
     system->setComponentManager(_componentManager);
     system->setEntityManager(_entityManager);
     _systems.push_back(system);
 }
 
-void is::ecs::SystemManager::awake()
+void SystemManager::awake()
 {
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
         system->awake();
     });
 }
 
-void is::ecs::SystemManager::start()
+void SystemManager::start()
 {
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
         system->start();
     });
 }
 
-void is::ecs::SystemManager::update()
+void SystemManager::update()
 {
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
             system->update();
     });
 }
 
-void is::ecs::SystemManager::stop()
+void SystemManager::stop()
 {
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
         system->stop();
     });
 }
 
-void is::ecs::SystemManager::onTearDown()
+void SystemManager::onTearDown()
 {
     std::for_each(_systems.begin(), _systems.end(), [](std::shared_ptr<ISystem> &system){
         system->onTearDown();

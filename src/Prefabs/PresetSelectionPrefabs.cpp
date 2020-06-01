@@ -7,20 +7,22 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
+
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
 
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
+using namespace is::ecs;
 using namespace is::components;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
 
     /* BACKGROUND AND RETURN BUTTON */
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
@@ -30,11 +32,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
         50,
         350, 100,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_GAME);
+            is::Game::setActualScene(SCENE_GAME);
         },
         true,
         RESSOURCE("ui/PresetSelection/button_play.png"),
@@ -44,11 +46,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 700,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 700,
         50,
         60, 60,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_RULE_SETTINGS);
+            is::Game::setActualScene(SCENE_RULE_SETTINGS);
         },
         true,
         RESSOURCE("ui/PresetSelection/Settings_BTN.png"),
@@ -63,7 +65,7 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            is::Game::setActualScene(SCENE_MAIN_MENU);
         },
         true,
         RESSOURCE("ui/PresetSelection/Return_BTN.png"),
@@ -71,82 +73,82 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     ).layer = 2;
 
     /* BACKGROUND FOR EACH PLAYER */
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/Box.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
         true
     ).layer = 1;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/Box.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
         true
     ).layer = 1;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/Box.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
         true
     ).layer = 1;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/Box.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
         true
     ).layer = 1;
 
     /* TITLE PLAYER */
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Player 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 250,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
         150, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Player 3",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 250,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
         150, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Player 2",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
         150, 40,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
-    e->addComponent<is::components::TextComponent>(
+    e->addComponent<TextComponent>(
         e,
         "Player 4",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
         150, 40,
         false,
         true,
@@ -157,28 +159,28 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions(const is::ecs::ComponentManager &manager)
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions(const ComponentManager &manager)
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
     const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
     auto ruleComponent = static_cast<RulesComponent*>((manager.getComponentsByType(typeid(RulesComponent).hash_code()))[0].get());
 
     /* PLAYER 1 */
-    auto &IAImage1 = e->addComponent<is::components::ImageComponent>(
+    auto &IAImage1 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
         true
     );
     IAImage1.layer = 2;
-    auto &TextIA1 =e->addComponent<is::components::TextComponent>(
+    auto &TextIA1 =e->addComponent<TextComponent>(
         e,
         "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
         200, 40,
         false,
         true,
@@ -186,12 +188,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA1.layer = 2;
-    auto &textPreset1 = e->addComponent<is::components::TextComponent>(
+    auto &textPreset1 = e->addComponent<TextComponent>(
         e,
         "Preset",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
         150, 40,
         false,
         true,
@@ -200,12 +202,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         false
     );
     textPreset1.layer = 4;
-    auto &textController1 = e->addComponent<is::components::TextComponent>(
+    auto &textController1 = e->addComponent<TextComponent>(
         e,
         "Keyboard",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 7.5 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7.5 / 40,
         160, 40,
         false,
         true,
@@ -218,8 +220,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140,
         250, 70,
         [](){
         },
@@ -231,8 +233,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 80 - 250 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 80 - 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
         50, 50,
         [](){
         },
@@ -244,8 +246,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
         50, 50,
         [](){
         },
@@ -257,8 +259,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
         50, 50,
         [](){
         },
@@ -270,8 +272,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
         50, 50,
         [](){
         },
@@ -283,8 +285,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
         50, 50,
         [](){
         },
@@ -376,21 +378,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     rightAiLevelButton1.layer = 3;
 
     /* PLAYER 2 */
-    auto &IAImage2 = e->addComponent<is::components::ImageComponent>(
+    auto &IAImage2 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
         true
     );
     IAImage2.layer = 2;
-    auto &TextIA2 = e->addComponent<is::components::TextComponent>(
+    auto &TextIA2 = e->addComponent<TextComponent>(
         e,
         "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
         200, 40,
         false,
         true,
@@ -398,12 +400,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA2.layer = 2;
-    auto &textPreset2 = e->addComponent<is::components::TextComponent>(
+    auto &textPreset2 = e->addComponent<TextComponent>(
         e,
         "Preset",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
         150, 40,
         false,
         true,
@@ -412,12 +414,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         false
     );
     textPreset2.layer = 4;
-    auto &textController2 = e->addComponent<is::components::TextComponent>(
+    auto &textController2 = e->addComponent<TextComponent>(
         e,
         "Keyboard",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 7.5 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7.5 / 40,
         160, 40,
         false,
         true,
@@ -430,8 +432,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 332 - 140,
         250, 70,
         [](){
         },
@@ -443,8 +445,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 570,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 570,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
         50, 50,
         [](){
         },
@@ -456,8 +458,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
         50, 50,
         [](){
         },
@@ -469,8 +471,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 190,
         50, 50,
         [](){
         },
@@ -482,8 +484,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
         50, 50,
         [](){
         },
@@ -495,8 +497,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
         50, 50,
         [](){
         },
@@ -588,21 +590,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     rightAiLevelButton2.layer = 3;
 
     /* PLAYER 3 */
-    auto &IAImage3 = e->addComponent<is::components::ImageComponent>(
+    auto &IAImage3 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
         true
     );
     IAImage3.layer = 2;
-    auto &TextIA3 = e->addComponent<is::components::TextComponent>(
+    auto &TextIA3 = e->addComponent<TextComponent>(
         e,
         "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         200, 40,
         false,
         true,
@@ -610,12 +612,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA3.layer = 2;
-    auto &textPreset3 = e->addComponent<is::components::TextComponent>(
+    auto &textPreset3 = e->addComponent<TextComponent>(
         e,
         "Preset",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
         150, 40,
         false,
         true,
@@ -624,12 +626,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         false
     );
     textPreset3.layer = 4;
-    auto &textController3 = e->addComponent<is::components::TextComponent>(
+    auto &textController3 = e->addComponent<TextComponent>(
         e,
         "Keyboard",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         160, 40,
         false,
         true,
@@ -642,8 +644,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 650 / 2 - 332 / 2 + 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 200,
         250, 70,
         [](){
         },
@@ -655,8 +657,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 80 - 250 / 2,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 80 - 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
         50, 50,
         [](){
         },
@@ -668,8 +670,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
         50, 50,
         [](){
         },
@@ -681,8 +683,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
         50, 50,
         [](){
         },
@@ -694,8 +696,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         50, 50,
         [](){
         },
@@ -707,8 +709,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         50, 50,
         [](){
         },
@@ -800,21 +802,21 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
     rightAiLevelButton3.layer = 3;
 
     /* PLAYER 4 */
-    auto &IAImage4 = e->addComponent<is::components::ImageComponent>(
+    auto &IAImage4 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
         true
     );
     IAImage4.layer = 2;
-    auto &TextIA4 = e->addComponent<is::components::TextComponent>(
+    auto &TextIA4 = e->addComponent<TextComponent>(
         e,
         "AI - Level 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         200, 40,
         false,
         true,
@@ -822,12 +824,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA4.layer = 2;
-    auto &textPreset4 = e->addComponent<is::components::TextComponent>(
+    auto &textPreset4 = e->addComponent<TextComponent>(
         e,
         "Preset",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
         150, 40,
         false,
         true,
@@ -836,12 +838,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         false
     );
     textPreset4.layer = 4;
-    auto &textController4 = e->addComponent<is::components::TextComponent>(
+    auto &textController4 = e->addComponent<TextComponent>(
         e,
         "Keyboard",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         160, 40,
         false,
         true,
@@ -854,8 +856,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 650 / 2 - 332 / 2 + 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 200,
         250, 70,
         [](){
         },
@@ -867,8 +869,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 570,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 570,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
         50, 50,
         [](){
         },
@@ -880,8 +882,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
         50, 50,
         [](){
         },
@@ -893,8 +895,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 16 / 20,
         50, 50,
         [](){
         },
@@ -906,8 +908,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         50, 50,
         [](){
         },
@@ -919,8 +921,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createPresetSelecti
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
         50, 50,
         [](){
         },

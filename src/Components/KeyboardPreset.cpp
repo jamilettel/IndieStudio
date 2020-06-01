@@ -7,7 +7,6 @@
 
 #include "Components/KeyboardPreset.hpp"
 
-using namespace is;
 using namespace is::components;
 using namespace is::ecs;
 
@@ -48,7 +47,7 @@ bool KeyboardPresetComponent::changeKey(irr::EKEY_CODE from, irr::EKEY_CODE to)
     return true;
 }
 
-const std::map<PresetAction, irr::EKEY_CODE> &KeyboardPresetComponent::getBindings() const
+const std::map<is::PresetAction, irr::EKEY_CODE> &KeyboardPresetComponent::getBindings() const
 {
     return _bindings;
 }

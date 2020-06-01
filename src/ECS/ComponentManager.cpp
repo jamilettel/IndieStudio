@@ -7,14 +7,16 @@
 
 #include "ECS/ComponentManager.hpp"
 
-void is::ecs::ComponentManager::addComponent(const std::shared_ptr<Component>& component)
+using namespace is::ecs;
+
+void ComponentManager::addComponent(const std::shared_ptr<Component>& component)
 {
     auto& r = *component;
 
     _components[typeid(r).hash_code()].push_back(component);
 }
 
-void is::ecs::ComponentManager::removeComponent(std::shared_ptr<Component> &component)
+void ComponentManager::removeComponent(std::shared_ptr<Component> &component)
 {
     component->deleteComponent();
     for (auto &elem : _components)
@@ -30,12 +32,12 @@ void is::ecs::ComponentManager::removeComponent(std::shared_ptr<Component> &comp
     }
 }
 
-std::vector<std::shared_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type)
+std::vector<std::shared_ptr<Component>> &ComponentManager::getComponentsByType(size_t type)
 {
     return _components[type];
 }
 
-const std::vector<std::shared_ptr<is::ecs::Component>> &is::ecs::ComponentManager::getComponentsByType(size_t type) const
+const std::vector<std::shared_ptr<Component>> &ComponentManager::getComponentsByType(size_t type) const
 {
     return _components.at(type);
 }

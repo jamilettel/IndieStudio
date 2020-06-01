@@ -11,16 +11,18 @@ using namespace is::components;
 using namespace is::ecs;
 
 CursorComponent::CursorComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     ImageComponent &cursorImage,
     WindowComponent &window,
     bool mouseCursor
     ):
     Component(e), _cursorImage(cursorImage), _window(window), isMouseCursor(mouseCursor)
-{}
+{
+}
 
 void CursorComponent::deleteComponent()
-{}
+{
+}
 
 const irr::core::vector2df &CursorComponent::getPosition() const noexcept
 {

@@ -6,18 +6,19 @@
 */
 
 #include "EventManager/EventManager.hpp"
-#include <iostream>
 #include "Components/Button.hpp"
 
-is::EventManager::EventManager() : _lastKeyPressed(irr::EKEY_CODE::KEY_KEY_CODES_COUNT), _lastControlPressed(-9999)
+using namespace is;
+
+EventManager::EventManager() : _lastKeyPressed(irr::EKEY_CODE::KEY_KEY_CODES_COUNT), _lastControlPressed(-9999)
 {
     for (int i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
         _keyState[i] = false;
 }
 
-is::EventManager::~EventManager() = default;
+EventManager::~EventManager() = default;
 
-bool is::EventManager::OnEvent(const irr::SEvent &event)
+bool EventManager::OnEvent(const irr::SEvent &event)
 {
     if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT) {
         memcpy(
@@ -90,17 +91,17 @@ bool is::EventManager::OnEvent(const irr::SEvent &event)
     return false;
 }
 
-bool is::EventManager::IsKeyDown(enum irr::EKEY_CODE keyCode) const
+bool EventManager::IsKeyDown(enum irr::EKEY_CODE keyCode) const
 {
     return _keyState.at(keyCode);
 }
 
-void is::EventManager::setDeviceContext(irr::IrrlichtDevice &device)
+void EventManager::setDeviceContext(irr::IrrlichtDevice &device)
 {
     _context.device = &device;
 }
 
-void is::EventManager::addEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode, const std::function<void()> &ft)
+void EventManager::addEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode, const std::function<void()> &ft)
 {
     if (keyCtrl == irr::KEY_CONTROL || keyCtrl == irr::KEY_SHIFT || keyCtrl == 0) {
         if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) != _eventKeyPressed.end()) {
@@ -113,7 +114,7 @@ void is::EventManager::addEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE
     //throw invalid
 }
 
-void is::EventManager::addEventKeyPressed(irr::EKEY_CODE keyCode, const std::function<void()> &ft)
+void EventManager::addEventKeyPressed(irr::EKEY_CODE keyCode, const std::function<void()> &ft)
 {
     if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) != _eventKeyPressed.end()) {
         //throw already exist
@@ -122,7 +123,7 @@ void is::EventManager::addEventKeyPressed(irr::EKEY_CODE keyCode, const std::fun
     _eventKeyPressed[std::pair<int, int>(0, keyCode)] = ft;
 }
 
-void is::EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode)
+void EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode)
 {
     if (keyCtrl == irr::KEY_CONTROL || keyCtrl == irr::KEY_SHIFT) {
         if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) == _eventKeyPressed.end()) {
@@ -135,7 +136,7 @@ void is::EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_C
     //throw invalid
 }
 
-void is::EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCode)
+void EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCode)
 {
     if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) == _eventKeyPressed.end()) {
         //throw no exist exist
@@ -144,7 +145,7 @@ void is::EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCode)
     _eventKeyPressed.erase(std::pair<int, int>(0, keyCode));
 }
 
-void is::EventManager::addEventKeyReleased(irr::EKEY_CODE keyCode, const std::function<void()> &ft)
+void EventManager::addEventKeyReleased(irr::EKEY_CODE keyCode, const std::function<void()> &ft)
 {
     if (_eventKeyReleased.find(keyCode) != _eventKeyReleased.end()) {
         //throw already exist
@@ -153,7 +154,7 @@ void is::EventManager::addEventKeyReleased(irr::EKEY_CODE keyCode, const std::fu
     _eventKeyReleased[keyCode] = ft;
 }
 
-void is::EventManager::removeEventKeyReleased(irr::EKEY_CODE keyCode)
+void EventManager::removeEventKeyReleased(irr::EKEY_CODE keyCode)
 {
     if (_eventKeyReleased.find(keyCode) == _eventKeyReleased.end()) {
         //throw no exist exist
@@ -162,37 +163,37 @@ void is::EventManager::removeEventKeyReleased(irr::EKEY_CODE keyCode)
     _eventKeyReleased.erase(keyCode);
 }
 
-std::pair<float, float> is::EventManager::getMousePosition() const
+std::pair<float, float> EventManager::getMousePosition() const
 {
     return std::pair<float, float>(_mouse.position.X, _mouse.position.Y);
 }
 
-bool is::EventManager::isRightPressed() const
+bool EventManager::isRightPressed() const
 {
     return _mouse.rightButtonDown;
 }
 
-bool is::EventManager::isMiddlePressed() const
+bool EventManager::isMiddlePressed() const
 {
     return _mouse.middleButtonDown;
 }
 
-bool is::EventManager::isLeftPressed() const
+bool EventManager::isLeftPressed() const
 {
     return _mouse.leftButtonDown;
 }
 
-float is::EventManager::getMouseWheel() const
+float EventManager::getMouseWheel() const
 {
     return _mouse.wheelDelta;
 }
 
-void is::EventManager::addButton(const std::shared_ptr<is::components::ButtonComponent>& toAdd)
+void EventManager::addButton(const std::shared_ptr<components::ButtonComponent>& toAdd)
 {
     _context.button.push_back(toAdd);
 }
 
-void is::EventManager::removeButton(const std::shared_ptr<is::components::ButtonComponent>& toAdd)
+void EventManager::removeButton(const std::shared_ptr<components::ButtonComponent>& toAdd)
 {
     auto it = std::find(_context.button.begin(), _context.button.end(), toAdd);
 
@@ -200,12 +201,12 @@ void is::EventManager::removeButton(const std::shared_ptr<is::components::Button
         _context.button.erase(it);
 }
 
-void is::EventManager::removeAllButtons()
+void EventManager::removeAllButtons()
 {
     _context.button.clear();
 }
 
-void is::EventManager::checkButtonClicked(irr::s32 id)
+void EventManager::checkButtonClicked(irr::s32 id)
 {
     for (auto &it : _context.button) {
         if (it->getId() == id) {
@@ -214,41 +215,41 @@ void is::EventManager::checkButtonClicked(irr::s32 id)
     }
 }
 
-bool is::EventManager::isJoystickButtonPressed(irr::u8 joystick, irr::u32 button) const
+bool EventManager::isJoystickButtonPressed(irr::u8 joystick, irr::u32 button) const
 {
     if (_joystickStates.count(joystick))
         return (_joystickStates.at(joystick).first & (1 << button)) != 0;
     return 0;
 }
 
-irr::s16 is::EventManager::getAxisValue(irr::u8 joystick, irr::u32 axis) const
+irr::s16 EventManager::getAxisValue(irr::u8 joystick, irr::u32 axis) const
 {
     if (_joystickStates.count(joystick))
         return _joystickStates.at(joystick).second[axis];
     return 0;
 }
 
-irr::EKEY_CODE is::EventManager::getLastKeyPressed() const
+irr::EKEY_CODE EventManager::getLastKeyPressed() const
 {
     return _lastKeyPressed;
 }
 
-void is::EventManager::resetLastKeyPressed()
+void EventManager::resetLastKeyPressed()
 {
     _lastKeyPressed = irr::EKEY_CODE::KEY_KEY_CODES_COUNT;
 }
 
-int is::EventManager::getLastControlPressed() const
+int EventManager::getLastControlPressed() const
 {
     return _lastControlPressed;
 }
 
-void is::EventManager::resetLastControlPressed()
+void EventManager::resetLastControlPressed()
 {
     _lastControlPressed = -9999;
 }
 
-bool is::EventManager::IsJoystickButtonDown(irr::u8 id, int key) const
+bool EventManager::IsJoystickButtonDown(irr::u8 id, int key) const
 {
     return false;
 }

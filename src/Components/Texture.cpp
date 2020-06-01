@@ -6,21 +6,23 @@
 */
 
 #include "Components/Texture.hpp"
-
 #include "Exception.hpp"
 
-is::components::TextureComponent::TextureComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &name,
-    const std::string &window,
+using namespace is::ecs;
+using namespace is::components;
+
+TextureComponent::TextureComponent(
+    std::shared_ptr<Entity> &e,
+    std::string name,
+    std::string window,
     const irr::core::vector2df &pos,
     const irr::core::vector2df &size,
     bool visible
-) : Component(e), filename(name), windowName(window), _pos(pos), _size(size), _visible(visible)
+) : Component(e), filename(std::move(name)), windowName(std::move(window)), _pos(pos), _size(size), _visible(visible)
 {
 }
 
-void is::components::TextureComponent::init(std::shared_ptr<is::components::WindowComponent> &ptrWindow)
+void TextureComponent::init(std::shared_ptr<WindowComponent> &ptrWindow)
 {
     _node = ptrWindow->driver->getTexture(filename.c_str());
     if (!_node)
@@ -28,36 +30,36 @@ void is::components::TextureComponent::init(std::shared_ptr<is::components::Wind
     ptrWindow->driver->makeColorKeyTexture(_node, irr::core::position2d<irr::s32>(0,0));
 }
 
-void is::components::TextureComponent::deleteComponent()
+void TextureComponent::deleteComponent()
 {
 }
 
-const irr::core::vector2df &is::components::TextureComponent::getPosition() const noexcept
+const irr::core::vector2df &TextureComponent::getPosition() const noexcept
 {
-    return (_pos);
+    return _pos;
 }
 
-const irr::core::vector2df &is::components::TextureComponent::getSize() const noexcept
+const irr::core::vector2df &TextureComponent::getSize() const noexcept
 {
-    return (_size);
+    return _size;
 }
 
-irr::video::ITexture *is::components::TextureComponent::getNode() const noexcept
+irr::video::ITexture *TextureComponent::getNode() const noexcept
 {
-    return (_node);
+    return _node;
 }
 
-bool is::components::TextureComponent::isVisible() const noexcept
+bool TextureComponent::isVisible() const noexcept
 {
-    return (_visible);
+    return _visible;
 }
 
-void is::components::TextureComponent::setVisible(bool visible) noexcept
+void TextureComponent::setVisible(bool visible) noexcept
 {
     _visible = visible;
 }
 
-void is::components::TextureComponent::setPosition(const irr::core::vector2df &position) noexcept
+void TextureComponent::setPosition(const irr::core::vector2df &position) noexcept
 {
     _pos = position;
 }

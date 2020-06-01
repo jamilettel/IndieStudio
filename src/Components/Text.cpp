@@ -8,10 +8,11 @@
 #include "Components/Text.hpp"
 #include "IDGenerator.hpp"
 
-using namespace irr;
+using namespace is::ecs;
+using namespace is::components;
 
-is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
-std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
+TextComponent::TextComponent(std::shared_ptr<Entity> &e,
+std::string text, std::string wn, irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
 bool drawBorder, bool dynamic, bool visible) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
@@ -25,8 +26,8 @@ bool drawBorder, bool dynamic, bool visible) :
 {
 }
 
-is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
-std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
+TextComponent::TextComponent(std::shared_ptr<Entity> &e,
+std::string text, std::string wn, irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
 bool drawBorder, bool dynamic, std::string font, bool visible) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
@@ -40,8 +41,8 @@ bool drawBorder, bool dynamic, std::string font, bool visible) :
 {
 }
 
-is::components::TextComponent::TextComponent(std::shared_ptr<is::ecs::Entity> &e,
-std::string text, std::string wn, s32 x, s32 y, s32 width, s32 height,
+TextComponent::TextComponent(std::shared_ptr<Entity> &e,
+std::string text, std::string wn, irr::s32 x, irr::s32 y, irr::s32 width, irr::s32 height,
 bool drawBorder, bool dynamic, std::string font, irr::video::SColor color, bool visible) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
@@ -55,7 +56,7 @@ bool drawBorder, bool dynamic, std::string font, irr::video::SColor color, bool 
 {
 }
 
-void is::components::TextComponent::init(std::shared_ptr<is::components::WindowComponent>& ptr_window)
+void TextComponent::init(std::shared_ptr<WindowComponent>& ptr_window)
 {
     _window = ptr_window;
     element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, IDGenerator::getNewID());
@@ -64,48 +65,48 @@ void is::components::TextComponent::init(std::shared_ptr<is::components::WindowC
     if (!_font.empty())
         element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
     element->setOverrideColor(_color);
-    element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
-    element->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_CENTER);
+    element->setAlignment(irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE);
+    element->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
     element->setVisible(_visible);
 }
 
-std::string is::components::TextComponent::getText() const
+std::string TextComponent::getText() const
 {
     return (_text);
 }
 
-void is::components::TextComponent::setText(const std::string &text)
+void TextComponent::setText(const std::string &text)
 {
     _text = text;
     if (element)
         element->setText(std::wstring(_text.begin(), _text.end()).c_str());
 }
 
-void is::components::TextComponent::updateText()
+void TextComponent::updateText()
 {
     if (!_dynamic)
         return;
     element->setText(std::wstring(_text.begin(), _text.end()).c_str());
 }
 
-void is::components::TextComponent::deleteComponent()
+void TextComponent::deleteComponent()
 {
     element->remove();
 }
 
-void is::components::TextComponent::bringToFront()
+void TextComponent::bringToFront()
 {
     if (element)
         _window->canvas->getRootGUIElement()->bringToFront(element);
 }
 
-void is::components::TextComponent::setVisible(bool visible)
+void TextComponent::setVisible(bool visible)
 {
     _visible = visible;
     element->setVisible(visible);
 }
 
-void is::components::TextComponent::move(const irr::core::vector2di &pos) noexcept
+void TextComponent::move(const irr::core::vector2di &pos) noexcept
 {
     element->move(pos);
 }

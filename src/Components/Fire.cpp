@@ -7,13 +7,15 @@
 
 #include "Components/Fire.hpp"
 
-is::components::FireComponent::FireComponent(std::shared_ptr<is::ecs::Entity> &e, float lt) :
-Component(e)
+using namespace is::components;
+using namespace is::ecs;
+
+FireComponent::FireComponent(std::shared_ptr<Entity> &e, float lt) :
+Component(e), lifeTime(lt)
 {
-    lifeTime = lt;
 }
 
-void is::components::FireComponent::deleteComponent()
+void FireComponent::deleteComponent()
 {
     
 }

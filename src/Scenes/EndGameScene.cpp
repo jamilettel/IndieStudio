@@ -7,45 +7,47 @@
 
 #include "Scenes/EndGameScene.hpp"
 
-using namespace is::components;
+using namespace is::systems;
+using namespace is::scenes;
+using namespace is::ecs;
 
-is::scenes::EndGameScene::EndGameScene() :
-AScene(is::ecs::Scenes::SCENE_ENDGAME)
+EndGameScene::EndGameScene() :
+AScene(Scenes::SCENE_ENDGAME)
 {
-    _entityManager = std::make_shared<is::ecs::EntityManager>();
-    _componentManager = std::make_shared<is::ecs::ComponentManager>();
-    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
+    _entityManager = std::make_shared<EntityManager>();
+    _componentManager = std::make_shared<ComponentManager>();
+    _systemManager = std::make_shared<SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::EndGameScene::initSystems()
+void EndGameScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<TimeSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<WindowSystem>());
+    _systemManager->addSystem(std::make_shared<LightSystem>());
+    _systemManager->addSystem(std::make_shared<ImageSystem>());
+    _systemManager->addSystem(std::make_shared<ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<CursorSystem>());
+    _systemManager->addSystem(std::make_shared<TextureSystem>());
+    _systemManager->addSystem(std::make_shared<ModelRendererSystem>());
+    _systemManager->addSystem(std::make_shared<TextSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<AlertSystem>());
 }
 
-void is::scenes::EndGameScene::initEntities()
+void EndGameScene::initEntities()
 {
-    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+    auto entities = AScene::_entitySaver->getEntities();
 
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     int i = 0;
-    std::for_each(entities.begin(), entities.end(), [this, &i, &entities](std::shared_ptr<is::ecs::Entity> &e) {
-        auto components = e->getComponentsOfType<CharacterComponent>();
+    std::for_each(entities.begin(), entities.end(), [this, &i, &entities](std::shared_ptr<Entity> &e) {
+        auto components = e->getComponentsOfType<is::components::CharacterComponent>();
 
         std::for_each(components.begin(), components.end(), [&i, this](std::weak_ptr<Component> &component) {
             std::vector<std::pair<std::string, std::string>> infos;
-            auto &c = *static_cast<CharacterComponent *>(component.lock().get());
+            auto &c = *static_cast<is::components::CharacterComponent *>(component.lock().get());
 
             infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
             infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
@@ -71,25 +73,25 @@ void is::scenes::EndGameScene::initEntities()
             i++;
         });
     });
-    // std::remove_if(entities.begin(), entities.end(), [](std::shared_ptr<is::ecs::Entity> &e) -> bool {
+    // std::remove_if(entities.begin(), entities.end(), [](std::shared_ptr<Entity> &e) -> bool {
     //     return (e->getComponent<CharacterComponent>().has_value());
     // });
 }
 
-void is::scenes::EndGameScene::update()
+void EndGameScene::update()
 {
     AScene::update();
-    std::vector<std::shared_ptr<Component>> &statsComponents = _componentManager->getComponentsByType(typeid(StatsComponent).hash_code());
+    std::vector<std::shared_ptr<Component>> &statsComponents = _componentManager->getComponentsByType(typeid(is::components::StatsComponent).hash_code());
     bool changeScene = true;
 
     std::for_each(statsComponents.begin(), statsComponents.end(), [&changeScene](std::shared_ptr<Component> &component) {
-        StatsComponent &stats = *static_cast<StatsComponent *>(component.get());
+        is::components::StatsComponent &stats = *static_cast<is::components::StatsComponent *>(component.get());
 
         if (!stats.isContinue())
             changeScene = false;
     });
     if (changeScene) {
-        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
-        is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
+        is::Game::setActualScene(SCENE_MAIN_MENU);
+        is::Game::setActualScene(SCENE_PRESETSELECTION);
     }
 }

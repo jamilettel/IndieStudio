@@ -6,7 +6,6 @@
 */
 
 #include "Prefabs/RuleSettingsPrefabs.hpp"
-#include <iostream>
 
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
@@ -14,16 +13,16 @@
 
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
-using namespace is::prefabs;
 using namespace is::ecs;
+using namespace is::prefabs;
 using namespace is::exceptions;
 using namespace is::components;
 
-std::shared_ptr<is::ecs::Entity>  RuleSettingsPrefabs::createBackground()
+std::shared_ptr<Entity>  RuleSettingsPrefabs::createBackground()
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<is::components::TextureComponent>(
+    e->addComponent<TextureComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
@@ -33,11 +32,11 @@ std::shared_ptr<is::ecs::Entity>  RuleSettingsPrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createReturnButton()
+std::shared_ptr<Entity> RuleSettingsPrefabs::createReturnButton()
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    e->addComponent<is::components::ButtonComponent>(
+    e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
@@ -54,7 +53,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createReturnButton()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createRuleSettings()
+std::shared_ptr<Entity> RuleSettingsPrefabs::createRuleSettings()
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -62,7 +61,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createRuleSettings()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground(is::components::RulesSettingComponent &component)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createSettingsBackground(RulesSettingComponent &component)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -104,7 +103,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground(i
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -247,7 +246,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -620,7 +619,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -765,7 +764,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createModeFpsRule(RulesSettingComponent &component, RulesComponent &rules)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 

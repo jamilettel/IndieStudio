@@ -7,31 +7,33 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
+
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
 
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
+using namespace is::ecs;
 using namespace is::components;
 
 static int selectedPreset = 0;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersBase()
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Controllers/Controls_title.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -46,37 +48,37 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersBa
         RESSOURCE("ui/Controllers/Return_BTN.png"),
         RESSOURCE("ui/Controllers/Return_BTN_pressed.png")
     ).layer = 2;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Controllers/Controller.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 20,
         true
     ).layer = 1;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/Controllers/Keyboard.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 8 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 8 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
         true
     ).layer = 1;
     return e;
 }
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOptions(const is::ecs::ComponentManager &manager)
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(const ::ComponentManager &manager)
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
     auto &presets = manager.getComponentsByType(typeid(PresetComponent).hash_code());
 
     selectedPreset = 0;
-    auto &TextPresetSelected = e->addComponent<is::components::TextComponent>(
+    auto &TextPresetSelected = e->addComponent<TextComponent>(
         e,
         "Preset 1",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 30,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 30,
         150, 40,
         false,
         true,
@@ -90,8 +92,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
         100, 100,
         [&manager, &TextPresetSelected](){
             auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
@@ -134,8 +136,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 1 / 20,
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 1 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
         100, 100,
         [&manager, &TextPresetSelected](){
             auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
@@ -178,13 +180,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
 
         int count = 0;
 
-        auto &textAction = e->addComponent<is::components::TextComponent>(
+        auto &textAction = e->addComponent<TextComponent>(
             e,
             CharacterComponent::playerActions[i].description,
             "Indie Studio",
-            is::components::WindowComponent::_windowsDimensions["Indie Studio"].first *
+            WindowComponent::_windowsDimensions["Indie Studio"].first *
             1.9 / 20,
-            is::components::WindowComponent::_windowsDimensions["Indie Studio"].second *
+            WindowComponent::_windowsDimensions["Indie Studio"].second *
             4 / 20 + 80 + ((i + 1) * 100),
             300, 100,
             true,
@@ -201,12 +203,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             auto &keyboardBinds = p->getKeyboardPreset().getBindings();
             auto JoystickBinds = p->getJoystickPreset().getBindings();
 
-            auto &keyboardAction = e->addComponent<is::components::TextComponent>(
+            auto &keyboardAction = e->addComponent<TextComponent>(
                 e,
                 PresetComponent::getEquivalentKey(keyboardBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 20,
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+                WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 20,
+                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
                 140, 100,
                 true,
                 true,
@@ -216,12 +218,12 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
             );
             keyboardAction.layer = 2;
 
-            auto &controllerAction = e->addComponent<is::components::ImageComponent>(
+            auto &controllerAction = e->addComponent<ImageComponent>(
                 e,
                 PresetComponent::getEquivalentButton(JoystickBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 90 + ((i + 1) * 100),
+                WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,
+                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 90 + ((i + 1) * 100),
                 true,
                 count == 0
             );
@@ -230,8 +232,8 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createControllersOp
                 e,
                 "",
                 "Indie Studio",
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-                is::components::WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
+                WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
+                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
                 220, 70,
                 []() {
                 },

@@ -24,7 +24,7 @@ namespace is::components {
     class ParticuleComponent: public is::ecs::Component {
 
         public:
-            ParticuleComponent(std::shared_ptr<is::ecs::Entity> &e, std::string wn, irr::core::vector3df position, PARTICULE particule);
+            ParticuleComponent(std::shared_ptr<is::ecs::Entity> &e, std::string wn, const irr::core::vector3df& position, PARTICULE particule);
             ~ParticuleComponent() override = default;
 
             ParticuleComponent(const ParticuleComponent &) = delete;
@@ -35,7 +35,7 @@ namespace is::components {
             std::string windowName;
         private:
             irr::core::vector3df _position;
-            irr::scene::IParticleSystemSceneNode *element;
+            irr::scene::IParticleSystemSceneNode *element{};
             PARTICULE _particule;
     };
 

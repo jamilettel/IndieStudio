@@ -7,12 +7,14 @@
 
 #include "ECS/EntityManager.hpp"
 
-void is::ecs::EntityManager::addEntity(std::shared_ptr<Entity> &entity)
+using namespace is::ecs;
+
+void EntityManager::addEntity(std::shared_ptr<Entity> &entity)
 {
     _entities.push_back(entity);
 }
 
-void is::ecs::EntityManager::deleteEntities(std::shared_ptr<is::ecs::ComponentManager> &cm)
+void EntityManager::deleteEntities(std::shared_ptr<ComponentManager> &cm)
 {
     auto i = std::begin(_entities);
 
@@ -28,12 +30,12 @@ void is::ecs::EntityManager::deleteEntities(std::shared_ptr<is::ecs::ComponentMa
     }
 }
 
-std::vector<std::shared_ptr<is::ecs::Entity>> is::ecs::EntityManager::getEntities() const
+std::vector<std::shared_ptr<Entity>> EntityManager::getEntities() const
 {
     return (_entities);
 }
 
-bool is::ecs::EntityManager::operator()(std::shared_ptr<is::ecs::Entity> &ent)
+bool EntityManager::operator()(std::shared_ptr<Entity> &ent)
 {
     for (const auto& tmpEnt : _entities) {
         if (tmpEnt == ent)

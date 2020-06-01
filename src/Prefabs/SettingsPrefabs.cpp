@@ -7,29 +7,31 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
+
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
 
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
+using namespace is::ecs;
 using namespace is::components;
 
-std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
 {
-    auto e = std::make_shared<is::ecs::Entity>();
+    auto e = std::make_shared<Entity>();
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
         0, 0, true
     ).layer = -9999;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/settings/Header.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 435 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 435 / 2, 50, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -44,36 +46,36 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         RESSOURCE("ui/settings/Return_BTN.png"),
         RESSOURCE("ui/settings/Return_BTN_pressed.png")
     ).layer = 3;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/settings/Window.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500, 250, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500, 250, true
     ).layer = 2;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/settings/Music.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 90, 262, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 90, 262, true
     ).layer = 2;
-    std::string volumeMusic = std::to_string(is::components::AudioComponent::_volumeMusic);
-    std::string volumeSound = std::to_string(is::components::AudioComponent::_volumeSound);
-    auto &volumeMusicText = e->addComponent<is::components::TextComponent>(
+    std::string volumeMusic = std::to_string(AudioComponent::_volumeMusic);
+    std::string volumeSound = std::to_string(AudioComponent::_volumeSound);
+    auto &volumeMusicText = e->addComponent<TextComponent>(
         e,
         volumeMusic.erase(volumeMusic.find('.')),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 120, 325,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 120, 325,
         100, 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
     );
-    auto &volumeSoundText = e->addComponent<is::components::TextComponent>(
+    auto &volumeSoundText = e->addComponent<TextComponent>(
         e,
         volumeSound.erase(volumeSound.find('.')),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 210, 325,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 210, 325,
         100, 100,
         false,
         true,
@@ -86,11 +88,11 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 140, 450,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 140, 450,
         50, 50,
         [&volumeMusicText](){
-            is::components::AudioComponent::_volumeMusic = 0;
-            std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
+            AudioComponent::_volumeMusic = 0;
+            std::string text = std::to_string(AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
         true,
@@ -101,13 +103,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 240, 350,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 240, 350,
         50, 50,
         [&volumeMusicText](){
-            if (is::components::AudioComponent::_volumeMusic > 99)
+            if (AudioComponent::_volumeMusic > 99)
                 return;
-            is::components::AudioComponent::_volumeMusic++;
-            std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
+            AudioComponent::_volumeMusic++;
+            std::string text = std::to_string(AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
         true,
@@ -118,13 +120,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 40, 350,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500 + 40, 350,
         50, 50,
         [&volumeMusicText](){
-            if (is::components::AudioComponent::_volumeMusic < 1)
+            if (AudioComponent::_volumeMusic < 1)
                 return;
-            is::components::AudioComponent::_volumeMusic--;
-            std::string text = std::to_string(is::components::AudioComponent::_volumeMusic);
+            AudioComponent::_volumeMusic--;
+            std::string text = std::to_string(AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
         true,
@@ -132,27 +134,27 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         RESSOURCE("ui/settings/Sound_low_BTN_pressed.png")
     ).layer = 3;
 
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/settings/Window.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 336, 250, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 336, 250, true
     ).layer = 1;
-    e->addComponent<is::components::ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/settings/Sound.png"),
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 260, 265, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 260, 265, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 190, 450,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 190, 450,
         50, 50,
         [&volumeSoundText](){
-            is::components::AudioComponent::_volumeSound = 0;
-            std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
+            AudioComponent::_volumeSound = 0;
+            std::string text = std::to_string(AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
         true,
@@ -163,13 +165,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 290, 350,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 290, 350,
         50, 50,
         [&volumeSoundText](){
-            if (is::components::AudioComponent::_volumeSound < 1)
+            if (AudioComponent::_volumeSound < 1)
                 return;
-            is::components::AudioComponent::_volumeSound--;
-            std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
+            AudioComponent::_volumeSound--;
+            std::string text = std::to_string(AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
         true,
@@ -180,13 +182,13 @@ std::shared_ptr<is::ecs::Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         "",
         "Indie Studio",
-        is::components::WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 90, 350,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 500 - 90, 350,
         50, 50,
         [&volumeSoundText](){
-            if (is::components::AudioComponent::_volumeSound > 99)
+            if (AudioComponent::_volumeSound > 99)
                 return;
-            is::components::AudioComponent::_volumeSound++;
-            std::string text = std::to_string(is::components::AudioComponent::_volumeSound);
+            AudioComponent::_volumeSound++;
+            std::string text = std::to_string(AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
         true,

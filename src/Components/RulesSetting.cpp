@@ -7,20 +7,20 @@
 
 #include "Components/RulesSetting.hpp"
 
-using namespace is::components;
 using namespace is::ecs;
+using namespace is::components;
 
-RulesSettingComponent::RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e)
+RulesSettingComponent::RulesSettingComponent(std::shared_ptr<Entity> &e) : Component(e)
 {
 }
 
 void RulesSettingComponent::addRule(
-    std::function<void()> onSelect,
-    std::function<void()> onExit,
-    std::function<void()> onDisappear,
-    std::function<void()> onRuleUp,
-    std::function<void()> onRuleDown,
-    std::function<void()> onAppear
+    const std::function<void()>& onSelect,
+    const std::function<void()>& onExit,
+    const std::function<void()>& onDisappear,
+    const std::function<void()>& onRuleUp,
+    const std::function<void()>& onRuleDown,
+    const std::function<void()>& onAppear
 )
 {
     if (_first + 4 != _last + 1)
@@ -78,7 +78,7 @@ void RulesSettingComponent::down()
 
 int RulesSettingComponent::getIndex() const noexcept
 {
-    return (_i);
+    return _i;
 }
 
 void RulesSettingComponent::deleteComponent()
@@ -88,10 +88,10 @@ void RulesSettingComponent::deleteComponent()
 
 int RulesSettingComponent::getFirst() const noexcept
 {
-    return (_first);
+    return _first;
 }
 
 int RulesSettingComponent::getLast() const noexcept
 {
-    return (_last);
+    return _last;
 }

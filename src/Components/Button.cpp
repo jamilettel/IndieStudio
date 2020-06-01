@@ -5,20 +5,21 @@
 ** Button
 */
 
-#include "Components/Button.hpp"
 #include <utility>
+#include "Components/Button.hpp"
 #include "IDGenerator.hpp"
 
-using namespace irr;
+using namespace is::components;
+using namespace is::ecs;
 
-is::components::ButtonComponent::ButtonComponent(
+ButtonComponent::ButtonComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &text,
-    const std::string &wn,
-    s32 x,
-    s32 y,
-    s32 width,
-    s32 height,
+    std::string text,
+    std::string wn,
+    irr::s32 x,
+    irr::s32 y,
+    irr::s32 width,
+    irr::s32 height,
     std::function<void()> ft,
     bool visible
     ):
@@ -34,18 +35,18 @@ is::components::ButtonComponent::ButtonComponent(
 {
 }
 
-is::components::ButtonComponent::ButtonComponent(
+ButtonComponent::ButtonComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &text,
-    const std::string &wn,
-    s32 x,
-    s32 y,
-    s32 width,
-    s32 height,
+    std::string text,
+    std::string wn,
+    irr::s32 x,
+    irr::s32 y,
+    irr::s32 width,
+    irr::s32 height,
     std::function<void()> ft,
     bool visible,
-    const std::string &image,
-    const std::string &pressed
+    std::string image,
+    std::string pressed
 ) :
     GUIElementComponent(e),
     windowName(std::move(wn)),
@@ -59,19 +60,19 @@ is::components::ButtonComponent::ButtonComponent(
 {
 }
 
-is::components::ButtonComponent::ButtonComponent(
+ButtonComponent::ButtonComponent(
     std::shared_ptr<is::ecs::Entity> &e,
-    const std::string &text,
-    const std::string &wn,
-    s32 x,
-    s32 y,
-    s32 width,
-    s32 height,
+    std::string text,
+    std::string wn,
+    irr::s32 x,
+    irr::s32 y,
+    irr::s32 width,
+    irr::s32 height,
     std::function<void()> ft,
     bool visible,
-    const std::string &image,
-    const std::string &pressed,
-    const std::string &font
+    std::string image,
+    std::string pressed,
+    std::string font
 ):
     GUIElementComponent(e),
     windowName(std::move(wn)),
@@ -86,7 +87,7 @@ is::components::ButtonComponent::ButtonComponent(
 {
 }
 
-void is::components::ButtonComponent::init(std::shared_ptr<is::components::WindowComponent> &ptr_window)
+void ButtonComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
 {
     _window = ptr_window;
     element = ptr_window->canvas->addButton(_dimension, nullptr, IDGenerator::getNewID(), std::wstring(_text.begin(), _text.end()).c_str());
@@ -99,48 +100,48 @@ void is::components::ButtonComponent::init(std::shared_ptr<is::components::Windo
     }
     if (!_font.empty())
         element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
-    element->setAlignment(gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE, gui::EGUIA_SCALE);
+    element->setAlignment(irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE);
     element->setUseAlphaChannel(true);
     element->setDrawBorder(false);
     element->setVisible(_visible);
 }
 
-bool is::components::ButtonComponent::isClicked() const
+bool ButtonComponent::isClicked() const
 {
     return _clicked;
 }
 
-void is::components::ButtonComponent::setClicked(bool clicked)
+void ButtonComponent::setClicked(bool clicked)
 {
     _clicked = clicked;
 }
 
-s32 is::components::ButtonComponent::getId() const
+irr::s32 ButtonComponent::getId() const
 {
     if (element)
         return element->getID();
     return (-1);
 }
 
-void is::components::ButtonComponent::deleteComponent()
+void ButtonComponent::deleteComponent()
 {
     if (element)
         element->remove();
     element = nullptr;
 }
 
-void is::components::ButtonComponent::bringToFront()
+void ButtonComponent::bringToFront()
 {
     if (element)
         _window->canvas->getRootGUIElement()->bringToFront(element);
 }
 
-void is::components::ButtonComponent::setCallback(std::function<void()> ft)
+void ButtonComponent::setCallback(std::function<void()> ft)
 {
     _ft = std::move(ft);
 }
 
-void is::components::ButtonComponent::callCallback(int callerId)
+void ButtonComponent::callCallback(int callerId)
 {
     if (isDisabled())
         return;
@@ -148,12 +149,12 @@ void is::components::ButtonComponent::callCallback(int callerId)
     _ft();
 }
 
-int is::components::ButtonComponent::getCallerId() const
+int ButtonComponent::getCallerId() const
 {
     return _callerId;
 }
 
-void is::components::ButtonComponent::setVisible(bool visible)
+void ButtonComponent::setVisible(bool visible)
 {
     if (_visible != visible) {
         _visible = visible;
@@ -161,7 +162,7 @@ void is::components::ButtonComponent::setVisible(bool visible)
     }
 }
 
-void is::components::ButtonComponent::setDisabled(bool disabled) noexcept
+void ButtonComponent::setDisabled(bool disabled) noexcept
 {
     if (disabled)
         _disabled++;
@@ -169,12 +170,12 @@ void is::components::ButtonComponent::setDisabled(bool disabled) noexcept
         _disabled--;
 }
 
-bool is::components::ButtonComponent::isDisabled() const noexcept
+bool ButtonComponent::isDisabled() const noexcept
 {
     return _disabled > 0;
 }
 
-bool is::components::ButtonComponent::contains(const irr::core::vector2df &pos) const
+bool ButtonComponent::contains(const irr::core::vector2df &pos) const
 {
     if (!_visible)
         return false;

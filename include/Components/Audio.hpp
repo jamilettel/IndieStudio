@@ -18,8 +18,8 @@ namespace is::components {
 
     class AudioComponent: public is::ecs::Component {
         public:
-            AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type);
-            AudioComponent(std::shared_ptr<is::ecs::Entity> &e, const std::string &filename, SOUND_TYPE type, bool playOnStart);
+            AudioComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, SOUND_TYPE type);
+            AudioComponent(std::shared_ptr<is::ecs::Entity> &e, std::string filename, SOUND_TYPE type, bool playOnStart);
             ~AudioComponent() override = default;
 
             AudioComponent(const AudioComponent &) = delete;

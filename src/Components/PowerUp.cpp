@@ -7,14 +7,16 @@
 
 #include "Components/PowerUp.hpp"
 
-is::components::PowerUpComponent::PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e,
-    is::components::PowerUpComponent::PowerUpType tp) :
-Component(e)
+using namespace is::ecs;
+using namespace is::components;
+
+PowerUpComponent::PowerUpComponent(std::shared_ptr<Entity> &e,
+    PowerUpComponent::PowerUpType tp) :
+Component(e), type(tp)
 {
-    type = tp;
 }
 
-void is::components::PowerUpComponent::deleteComponent()
+void PowerUpComponent::deleteComponent()
 {
 
 }

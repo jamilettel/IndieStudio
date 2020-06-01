@@ -7,38 +7,38 @@
 
 #include "Scenes/RuleSettingsScene.hpp"
 
-using namespace is::ecs;
+using namespace is::systems;
 using namespace is::scenes;
-using namespace is::components;
+using namespace is::ecs;
 
-RuleSettingsScene::RuleSettingsScene() : AScene(is::ecs::Scenes::SCENE_RULE_SETTINGS)
+RuleSettingsScene::RuleSettingsScene() : AScene(Scenes::SCENE_RULE_SETTINGS)
 {
-    _entityManager = std::make_shared<is::ecs::EntityManager>();
-    _componentManager = std::make_shared<is::ecs::ComponentManager>();
-    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
+    _entityManager = std::make_shared<EntityManager>();
+    _componentManager = std::make_shared<ComponentManager>();
+    _systemManager = std::make_shared<SystemManager>(_componentManager, _entityManager);
 }
 
 void RuleSettingsScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<TimeSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<WindowSystem>());
+    _systemManager->addSystem(std::make_shared<LightSystem>());
+    _systemManager->addSystem(std::make_shared<ImageSystem>());
+    _systemManager->addSystem(std::make_shared<ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<CursorSystem>());
+    _systemManager->addSystem(std::make_shared<TextureSystem>());
+    _systemManager->addSystem(std::make_shared<ModelRendererSystem>());
+    _systemManager->addSystem(std::make_shared<TextSystem>());
+    _systemManager->addSystem(std::make_shared<AlertSystem>());
 }
 
-RulesComponent &RuleSettingsScene::getRulesComponent() const
+is::components::RulesComponent &RuleSettingsScene::getRulesComponent() const
 {
-    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+    auto entities = AScene::_entitySaver->getEntities();
 
     for (const auto &entity : entities) {
-        auto rules = entity->getComponent<RulesComponent>();
+        auto rules = entity->getComponent<is::components::RulesComponent>();
 
         if (rules.has_value())
             return (*rules.value().get());
@@ -48,13 +48,13 @@ RulesComponent &RuleSettingsScene::getRulesComponent() const
 
 void RuleSettingsScene::initEntities()
 {
-    RulesComponent &rules = getRulesComponent();
+    is::components::RulesComponent &rules = getRulesComponent();
 
     initEntity(is::prefabs::RuleSettingsPrefabs::createBackground());
     initEntity(is::prefabs::RuleSettingsPrefabs::createReturnButton());
     initEntity(is::prefabs::RuleSettingsPrefabs::createRuleSettings(), false);
 
-    RulesSettingComponent &rulesSetting = *static_cast<RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(RulesSettingComponent).hash_code())[0].get());
+    is::components::RulesSettingComponent &rulesSetting = *static_cast<is::components::RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(is::components::RulesSettingComponent).hash_code())[0].get());
 
     initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
     initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));

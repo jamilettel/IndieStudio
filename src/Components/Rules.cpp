@@ -7,6 +7,7 @@
 
 #include "Components/Rules.hpp"
 
+using namespace is::ecs;
 using namespace is::components;
 
 RulesComponent::RulesComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(e), _aiLevels(std::vector<int>(4, 1))
@@ -19,7 +20,6 @@ RulesComponent::RulesComponent(std::shared_ptr<is::ecs::Entity> &e) : Component(
 
 void RulesComponent::deleteComponent()
 {
-
 }
 
 bool RulesComponent::useIcon(Icon icon)
@@ -65,7 +65,7 @@ bool RulesComponent::isFpsMode() const noexcept
 bool RulesComponent::noIconUsed() const noexcept
 {
     for (const auto &icon : _icons) {
-        if (icon.second == true)
+        if (icon.second)
             return (false);
     }
     return (true);

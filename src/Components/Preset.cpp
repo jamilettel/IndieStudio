@@ -7,17 +7,19 @@
 
 #include "Components/Preset.hpp"
 
+using namespace is::ecs;
 using namespace is::components;
 
 PresetComponent::PresetComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     int number
     ) : Component(e), _keyboardPreset(e), _joystickPreset(e), presetNumber(number), _toChange(), _toChangeUI(), _onSelect(false), _callerID(-1)
 {
 }
 
 void PresetComponent::deleteComponent()
-{}
+{
+}
 
 KeyboardPresetComponent &PresetComponent::getKeyboardPreset()
 {

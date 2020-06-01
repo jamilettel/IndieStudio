@@ -7,20 +7,14 @@
 
 #include "Components/Bomberman.hpp"
 
-is::components::BombermanComponent::BombermanComponent(std::shared_ptr<is::ecs::Entity> &e) :
-Component(e)
-{
-    instantBomb = 0;
+using namespace is::components;
+using namespace is::ecs;
 
-    bombRange = 1;
-    bombNumber = 1;
-    speedMult = 1;
-    wallPass = false;
-    dead = false;
-    deathTimer = 0.7f;
+BombermanComponent::BombermanComponent(std::shared_ptr<is::ecs::Entity> &e) :
+Component(e), bombNumber(1), bombRange(1), speedMult(1), wallPass(false), instantBomb(0), dead(false), deathTimer(0.7f)
+{
 }
 
-void is::components::BombermanComponent::deleteComponent()
+void BombermanComponent::deleteComponent()
 {
-    
 }

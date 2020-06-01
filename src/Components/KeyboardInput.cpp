@@ -16,10 +16,12 @@ KeyboardInputComponent::KeyboardInputComponent(
     ):
     Component(e),
     _inputManager(inputManager)
-{}
+{
+}
 
 void KeyboardInputComponent::deleteComponent()
-{}
+{
+}
 
 bool KeyboardInputComponent::isBound(irr::EKEY_CODE key) const
 {

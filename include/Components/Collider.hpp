@@ -9,6 +9,7 @@
 #define COLLIDERCOMPONENT_HPP_
 
 #include <irrlicht.h>
+#include <functional>
 
 #include "Components/Transform.hpp"
 #include "ECS/Entity.hpp"

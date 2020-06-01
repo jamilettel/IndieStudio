@@ -6,9 +6,9 @@
 */
 
 #include "Components/Collider.hpp"
-#include <algorithm>
 
 using namespace is::components;
+using namespace is::ecs;
 
 ColliderComponent::ColliderComponent(
     std::shared_ptr<is::ecs::Entity> &e,
@@ -21,6 +21,7 @@ ColliderComponent::ColliderComponent(
     offset(colliderOffset),
     size(colliderSize),
     activeCheck(check),
+    distance(0),
     _transform(transform)
 {}
 

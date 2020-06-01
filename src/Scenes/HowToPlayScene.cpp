@@ -7,6 +7,10 @@
 
 #include "Scenes/HowToPlayScene.hpp"
 
+using namespace is::systems;
+using namespace is::scenes;
+using namespace is::ecs;
+
 is::scenes::HowToPlayScene::HowToPlayScene() :
 AScene(is::ecs::Scenes::SCENE_HOWTOPLAY)
 {

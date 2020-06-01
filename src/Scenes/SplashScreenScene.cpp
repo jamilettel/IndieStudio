@@ -7,28 +7,32 @@
 
 #include "Scenes/SplashScreenScene.hpp"
 
-is::scenes::SplashScreenScene::SplashScreenScene() :
-AScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN)
+using namespace is::systems;
+using namespace is::scenes;
+using namespace is::ecs;
+
+SplashScreenScene::SplashScreenScene() :
+AScene(Scenes::SCENE_SPLASH_SCREEN)
 {
-    _entityManager = std::make_shared<is::ecs::EntityManager>();
-    _componentManager = std::make_shared<is::ecs::ComponentManager>();
-    _systemManager = std::make_shared<is::ecs::SystemManager>(_componentManager, _entityManager);
+    _entityManager = std::make_shared<EntityManager>();
+    _componentManager = std::make_shared<ComponentManager>();
+    _systemManager = std::make_shared<SystemManager>(_componentManager, _entityManager);
 }
 
-void is::scenes::SplashScreenScene::initSystems()
+void SplashScreenScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<TimeSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<WindowSystem>());
+    _systemManager->addSystem(std::make_shared<LightSystem>());
+    _systemManager->addSystem(std::make_shared<CameraSystem>());
+    _systemManager->addSystem(std::make_shared<ImageSystem>());
+    _systemManager->addSystem(std::make_shared<CursorSystem>());
+    _systemManager->addSystem(std::make_shared<ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<TextSystem>());
 }
 
-void is::scenes::SplashScreenScene::initEntities()
+void SplashScreenScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createGlobalPrefab(), true);
     initEntity(prefabs::GlobalPrefabs::createSplashScreen(), false);
@@ -37,10 +41,10 @@ void is::scenes::SplashScreenScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createRules(), true);
 }
 
-void is::scenes::SplashScreenScene::start()
+void SplashScreenScene::start()
 {
     AScene::start();
-    std::vector<std::shared_ptr<is::ecs::Component>> &time =
+    std::vector<std::shared_ptr<Component>> &time =
         _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
     if (time.empty())
@@ -48,11 +52,11 @@ void is::scenes::SplashScreenScene::start()
     _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
-void is::scenes::SplashScreenScene::update()
+void SplashScreenScene::update()
 {
     AScene::update();
     if (_time->get().getElapsedTime() > 3000) {
-        is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+        is::Game::setActualScene(SCENE_MAIN_MENU);
         return;
     }
 }

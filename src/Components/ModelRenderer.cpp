@@ -7,20 +7,19 @@
 
 #include "Components/ModelRenderer.hpp"
 
-is::components::ModelRendererComponent::ModelRendererComponent(std::shared_ptr<is::ecs::Entity> &e,
-                                                               const std::string &name,
-                                                               const std::string &window,
-                                                               const std::string &matName,
+using namespace is::ecs;
+using namespace is::components;
+
+ModelRendererComponent::ModelRendererComponent(std::shared_ptr<Entity> &e,
+                                                               std::string name,
+                                                               std::string window,
+                                                               std::string matName,
                                                                bool shadow) :
-Component(e)
+Component(e), fileName(std::move(name)), materialName(std::move(matName)), windowName(std::move(window)), modelShadow(shadow)
 {
-    fileName = name;
-    windowName = window;
-    materialName = matName;
-    modelShadow = shadow;
 }
 
-void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<is::components::WindowComponent> ptr_window)
+void ModelRendererComponent::initModelRenderer(const std::shared_ptr<WindowComponent>& ptr_window)
 {
     node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(fileName.c_str()));
     if (!node)
@@ -31,12 +30,12 @@ void is::components::ModelRendererComponent::initModelRenderer(std::shared_ptr<i
         node->addShadowVolumeSceneNode();
 }
 
-irr::scene::IAnimatedMeshSceneNode *is::components::ModelRendererComponent::getElement() const
+irr::scene::IAnimatedMeshSceneNode *ModelRendererComponent::getElement() const
 {
     return (node);
 }
 
-void is::components::ModelRendererComponent::deleteComponent()
+void ModelRendererComponent::deleteComponent()
 {
     node->remove();
 }

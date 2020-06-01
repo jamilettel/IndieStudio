@@ -7,12 +7,11 @@
 
 #include "Components/CharacterController.hpp"
 
-#include <utility>
-
 using namespace is::components;
+using namespace is::ecs;
 
 CharacterControllerComponent::CharacterControllerComponent(
-    std::shared_ptr<is::ecs::Entity> &e,
+    std::shared_ptr<Entity> &e,
     TransformComponent &transform,
     MovementComponent &movementComponent,
     AudioComponent &audio,
