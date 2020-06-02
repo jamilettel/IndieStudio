@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** bomberman
 ** File description:
-** TODO: add description
+** Settings Prefabs
 */
 
 #include "Prefabs/GlobalPrefabs.hpp"
