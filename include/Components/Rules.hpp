@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <map>
-
+#include <string>
 #include "ECS/Component.hpp"
 
 namespace is::components

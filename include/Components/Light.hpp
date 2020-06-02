@@ -9,7 +9,7 @@
 #define LIGHT_HPP_
 
 #include <irrlicht.h>
-
+#include <string>
 #include "ECS/Component.hpp"
 
 namespace is::components {

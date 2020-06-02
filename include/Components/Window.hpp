@@ -9,7 +9,7 @@
 #define WINDOW_HPP_
 
 #include <irrlicht.h>
-
+#include <string>
 #include "ECS/Component.hpp"
 #include "EventManager/EventManager.hpp"
 
