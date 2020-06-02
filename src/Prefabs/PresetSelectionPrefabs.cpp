@@ -163,9 +163,11 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
 {
     auto e = std::make_shared<Entity>();
     const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
-    auto ruleComponent = static_cast<RulesComponent*>((manager.getComponentsByType(typeid(RulesComponent).hash_code()))[0].get());
+    const auto &ruleComponent = std::static_pointer_cast<RulesComponent>((manager.getComponentsByType(typeid(RulesComponent).hash_code()))[0]);
 
     /* PLAYER 1 */
+    if (characterList.size() < 1)
+        return e;
     auto &IAImage1 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -294,7 +296,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    auto characterComponent1 = static_cast<CharacterComponent*>(characterList[0].get());
+    const auto &characterComponent1 = std::static_pointer_cast<CharacterComponent>(characterList[0]);
     activateButton1.layer = 3;
     activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &rightPresetButton1, &textPreset1, &textController1, characterComponent1, &leftAiLevelButton1, &rightAiLevelButton1](){
         activateButton1.setVisible(false);
@@ -378,6 +380,9 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     rightAiLevelButton1.layer = 3;
 
     /* PLAYER 2 */
+    if (characterList.size() < 2)
+        return e;
+
     auto &IAImage2 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -506,7 +511,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    auto characterComponent2 = static_cast<CharacterComponent*>(characterList[1].get());
+    const auto &characterComponent2 = std::static_pointer_cast<CharacterComponent>(characterList[1]);
     activateButton2.layer = 3;
     activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &rightPresetButton2, &textPreset2, &textController2, characterComponent2, &leftAiLevelButton2, &rightAiLevelButton2](){
         activateButton2.setVisible(false);
@@ -590,6 +595,9 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     rightAiLevelButton2.layer = 3;
 
     /* PLAYER 3 */
+    if (characterList.size() < 3)
+        return e;
+
     auto &IAImage3 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -718,7 +726,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    auto characterComponent3 = static_cast<CharacterComponent*>(characterList[2].get());
+    const auto &characterComponent3 = std::static_pointer_cast<CharacterComponent>(characterList[2]);
     activateButton3.layer = 3;
     activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &rightPresetButton3, &textPreset3, &textController3, characterComponent3, &leftAiLevelButton3, &rightAiLevelButton3](){
         activateButton3.setVisible(false);
@@ -802,6 +810,9 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     rightAiLevelButton3.layer = 3;
 
     /* PLAYER 4 */
+    if (characterList.size() < 4)
+        return e;
+
     auto &IAImage4 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -930,7 +941,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    auto characterComponent4 = static_cast<CharacterComponent*>(characterList[3].get());
+    const auto &characterComponent4 = std::static_pointer_cast<CharacterComponent>(characterList[3]);
     activateButton4.layer = 3;
     activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &rightPresetButton4, &textPreset4, &textController4, characterComponent4, &leftAiLevelButton4, &rightAiLevelButton4](){
         activateButton4.setVisible(false);

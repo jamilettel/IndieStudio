@@ -18,7 +18,7 @@ using namespace is::prefabs;
 using namespace is::exceptions;
 using namespace is::components;
 
-std::shared_ptr<Entity>  RuleSettingsPrefabs::createBackground()
+std::shared_ptr<Entity> RuleSettingsPrefabs::createBackground()
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
