@@ -30,14 +30,20 @@ std::shared_ptr<Entity> is::prefabs::EndGamePrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture, float posWindow)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
+    std::vector<std::pair<std::string, std::string>> &infos,
+    bool isAI, 
+    const std::string &texture,
+    float posWindow,
+    std::pair<float, float> &posModelPlayer
+)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
     e->addComponent<TransformComponent>(
         e,
-        irr::core::vector3df(-6, 10, 18),
-        irr::core::vector3df(0, -120, -70),
+        irr::core::vector3df(-6, 10, posModelPlayer.first),
+        irr::core::vector3df(0, posModelPlayer.second, -70),
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);

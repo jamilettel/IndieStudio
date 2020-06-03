@@ -46,10 +46,10 @@ void EndGameScene::initEntities()
 
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     int i = 0;
-    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules, &windowPos](std::shared_ptr<is::ecs::Entity> &e) {
+    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules, &windowPos, &posModelPlayer](std::shared_ptr<is::ecs::Entity> &e) {
         auto components = e->getComponentsOfType<CharacterComponent>();
 
-        std::for_each(components.begin(), components.end(), [&i, this, &rules, &windowPos](std::weak_ptr<Component> &component) {
+        std::for_each(components.begin(), components.end(), [&i, this, &rules, &windowPos, &posModelPlayer](std::weak_ptr<Component> &component) {
             std::vector<std::pair<std::string, std::string>> infos;
             auto &c = *static_cast<is::components::CharacterComponent *>(component.lock().get());
 
@@ -62,18 +62,18 @@ void EndGameScene::initEntities()
             switch (i)
             {
             case 0:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
                 break;
             case 1:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
                 // initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 2:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
                 // initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 3:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
                 // initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             default:
@@ -142,5 +142,18 @@ std::vector<std::pair<float, float>> EndGameScene::initPosModelPlayer(int nbPlay
 {
     std::vector<std::pair<float, float>> value;
 
+    if (nbPlayers == 4) {
+        value.emplace_back(std::make_pair(19, -120));
+        value.emplace_back(std::make_pair(6.5, -100));
+        value.emplace_back(std::make_pair(-6, -70));
+        value.emplace_back(std::make_pair(-19, -50));
+    } else if (nbPlayers == 3) {
+        value.emplace_back(std::make_pair(15, -110));
+        value.emplace_back(std::make_pair(-0.5, -85));
+        value.emplace_back(std::make_pair(-16, -60));
+    } else if (nbPlayers == 2) {
+        value.emplace_back(std::make_pair(10, -110));
+        value.emplace_back(std::make_pair(-11, -60));
+    }
     return value;
 }
