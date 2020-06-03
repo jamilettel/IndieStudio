@@ -27,6 +27,7 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<PauseSystem>());
     _systemManager->addSystem(std::make_shared<CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<AudioSystem>());
@@ -93,29 +94,6 @@ void GameScene::initEntities()
         "player_red.png",
         rules.getAiLevels()[3]
     ));
-}
-
-void GameScene::awake()
-{
-    AScene::awake();
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
-        window.eventManager.addEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P, []() {
-            if (is::Game::getCurrentScene() == SCENE_GAME)
-                is::Game::setActualScene(SCENE_PAUSE);
-            else if (is::Game::getCurrentScene() == SCENE_PAUSE)
-                is::Game::setActualScene(SCENE_GAME);
-        });
-    }
-}
-
-void GameScene::onTearDown()
-{
-    AScene::onTearDown();
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
-        window.eventManager.removeEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P);
-    }
 }
 
 RulesComponent &GameScene::getRulesComponent() const

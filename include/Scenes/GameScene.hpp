@@ -41,6 +41,7 @@
 #include "Systems/EndGame.hpp"
 #include "Systems/JoystickCursor.hpp"
 #include "Systems/Alert.hpp"
+#include "Systems/Pause.hpp"
 
 namespace is::scenes {
 
@@ -51,9 +52,6 @@ namespace is::scenes {
 
             GameScene(const GameScene &) = default;
             GameScene &operator=(const GameScene &) = default;
-
-            void awake() override;
-            void onTearDown() override;
 
             void initSystems() override;
             void initEntities() override;

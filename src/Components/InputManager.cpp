@@ -44,3 +44,15 @@ float InputManagerComponent::getInput(const std::string &action) const
 {
     return (_actions.at(action));
 }
+
+void InputManagerComponent::resetValue(const std::string &action)
+{
+    if (_actions.find(action) == _actions.end())
+        return;
+    _actions[action] = 0;
+}
+
+bool InputManagerComponent::isActionSet(const std::string &action)
+{
+    return !(_actions.find(action) == _actions.end());
+}

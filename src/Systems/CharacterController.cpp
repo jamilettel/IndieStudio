@@ -127,8 +127,6 @@ void is::systems::CharacterControllerSystem::update()
         else
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb");
 
-
-        im->get()->resetValues();
     }
 }
 

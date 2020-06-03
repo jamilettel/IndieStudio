@@ -26,7 +26,7 @@ namespace is {
             void switchScene();
 
             static bool isRunning;
-            static void setActualScene(is::ecs::Scenes);
+            static void setActualScene(is::ecs::Scenes, bool loadScene = true, bool destroyScene = true);
             static is::ecs::Scenes getPreviousScene();
             static is::ecs::Scenes getCurrentScene();
 
@@ -34,6 +34,8 @@ namespace is {
             std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
             static is::ecs::Scenes currentScene;
             static is::ecs::Scenes _previousScene;
+            static bool _destroyScene;
+            static bool _loadScene;
             is::ecs::Scenes changeScene;
     };
 

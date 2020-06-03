@@ -244,7 +244,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause()
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 100,
         350, 100,
         [](){
-            is::Game::setActualScene(SCENE_GAME);
+            is::Game::setActualScene(SCENE_GAME, false, true);
         },
         true,
         RESSOURCE("ui/Pause/Continue_BTN.png"),

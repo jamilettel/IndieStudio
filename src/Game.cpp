@@ -7,10 +7,11 @@
 
 #include "Game.hpp"
 
-
 bool is::Game::isRunning = true;
 is::ecs::Scenes is::Game::currentScene = is::ecs::NOTHING;
 is::ecs::Scenes is::Game::_previousScene = is::ecs::NOTHING;
+bool is::Game::_destroyScene = true;
+bool is::Game::_loadScene = true;
 
 void is::Game::addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene)
 {
@@ -19,10 +20,14 @@ void is::Game::addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs
 
 void is::Game::switchScene()
 {
-    _scenes[changeScene]->stop();
-    _scenes[changeScene]->onTearDown();
-    _scenes[currentScene]->awake();
-    _scenes[currentScene]->start();
+    if (_destroyScene) {
+        _scenes[changeScene]->stop();
+        _scenes[changeScene]->onTearDown();
+    }
+    if (_loadScene) {
+        _scenes[currentScene]->awake();
+        _scenes[currentScene]->start();
+    }
     changeScene = currentScene;
 }
 
@@ -42,10 +47,12 @@ void is::Game::launchGame(is::ecs::Scenes startScene)
     _scenes[currentScene]->onTearDown();
 }
 
-void is::Game::setActualScene(is::ecs::Scenes scene)
+void is::Game::setActualScene(is::ecs::Scenes scene, bool loadScene, bool destroyScene)
 {
     _previousScene = currentScene;
     currentScene = scene;
+    _loadScene = loadScene;
+    _destroyScene = destroyScene;
 }
 
 is::ecs::Scenes is::Game::getPreviousScene()
