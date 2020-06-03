@@ -37,8 +37,8 @@ void PresetSelectionScene::initSystems()
 
 void PresetSelectionScene::initEntities()
 {
-    initEntity(prefabs::GlobalPrefabs::createPresetSelectionBase(), false);
-    initEntity(prefabs::GlobalPrefabs::createPresetSelectionOptions(*_componentManager), false);
+    initEntity(prefabs::GlobalPrefabs::createPresetSelection(*_componentManager), false);
+    //initEntity(prefabs::GlobalPrefabs::createPresetSelectionOptions(*_componentManager), false);
 }
 
 void PresetSelectionScene::awake()
@@ -46,7 +46,7 @@ void PresetSelectionScene::awake()
     AScene::awake();
     auto &rulesComponents = _componentManager->getComponentsByType(typeid(is::components::RulesComponent).hash_code());
     for (auto &component : rulesComponents) {
-        auto *c = static_cast<is::components::RulesComponent*>(component.get());
+        const auto &c = std::static_pointer_cast<is::components::RulesComponent>(component);
         c->setAiLevel(1, 1);
         c->setAiLevel(2, 1);
         c->setAiLevel(3, 1);
@@ -55,7 +55,7 @@ void PresetSelectionScene::awake()
     }
     auto &characterComponents = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
     for (auto &component : characterComponents) {
-        auto *c = static_cast<is::components::CharacterComponent*>(component.get());
+        const auto &c = std::static_pointer_cast<is::components::CharacterComponent>(component);
         c->characterType = components::CharacterComponent::AI;
         c->presetNumber = -1;
     }

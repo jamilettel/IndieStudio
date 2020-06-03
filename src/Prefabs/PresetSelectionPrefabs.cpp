@@ -17,11 +17,31 @@
 using namespace is::ecs;
 using namespace is::components;
 
-std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelection(const ComponentManager &manager)
 {
     auto e = std::make_shared<Entity>();
+    const auto &rules = std::static_pointer_cast<RulesComponent>(manager.getComponentsByType(typeid(RulesComponent).hash_code())[0]);
+    const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
 
-    /* BACKGROUND AND RETURN BUTTON */
+    createPresetSelectionBase(e);
+
+    if (rules->getNumberOfPlayers() < 1 || characterList.empty())
+        return e;
+    createPresetSelectionPlayer1(e, characterList[0], rules);
+    if (rules->getNumberOfPlayers() < 2 || characterList.size() < 2)
+        return e;
+    createPresetSelectionPlayer2(e, characterList[1], rules);
+    if (rules->getNumberOfPlayers() < 3 || characterList.size() < 3)
+        return e;
+    createPresetSelectionPlayer3(e, characterList[2], rules);
+    if (rules->getNumberOfPlayers() < 4 || characterList.size() < 4)
+        return e;
+    createPresetSelectionPlayer4(e, characterList[3], rules);
+    return e;
+}
+
+std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase(std::shared_ptr<Entity> &e)
+{
     e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
@@ -56,7 +76,6 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
         RESSOURCE("ui/PresetSelection/Settings_BTN.png"),
         RESSOURCE("ui/PresetSelection/Settings_BTN_pressed.png")
     );
-
     /* BUTTON PLAY */
     e->addComponent<ButtonComponent>(
         e,
@@ -71,8 +90,15 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
         RESSOURCE("ui/PresetSelection/Return_BTN.png"),
         RESSOURCE("ui/PresetSelection/Return_BTN_pressed.png")
     ).layer = 2;
+    return e;
+}
 
-    /* BACKGROUND FOR EACH PLAYER */
+std::shared_ptr<is::ecs::Entity>
+is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
+    std::shared_ptr<is::ecs::Entity> &e,
+    const std::shared_ptr<ecs::Component> &player,
+    const std::shared_ptr<components::RulesComponent> &ruleComponent)
+{
     e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/Box.png"),
@@ -81,32 +107,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
         WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
         true
     ).layer = 1;
-    e->addComponent<ImageComponent>(
-        e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
-        true
-    ).layer = 1;
-    e->addComponent<ImageComponent>(
-        e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
-        true
-    ).layer = 1;
-    e->addComponent<ImageComponent>(
-        e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
-        true
-    ).layer = 1;
 
-    /* TITLE PLAYER */
     e->addComponent<TextComponent>(
         e,
         "Player 1",
@@ -119,55 +120,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
-    e->addComponent<TextComponent>(
-        e,
-        "Player 3",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 250,
-        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
-        150, 40,
-        false,
-        true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 255, 255, 255)
-    ).layer = 4;
-    e->addComponent<TextComponent>(
-        e,
-        "Player 2",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
-        150, 40,
-        false,
-        true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 255, 255, 255)
-    ).layer = 4;
-    e->addComponent<TextComponent>(
-        e,
-        "Player 4",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
-        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
-        150, 40,
-        false,
-        true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 255, 255, 255)
-    ).layer = 4;
 
-    return e;
-}
-
-std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions(const ComponentManager &manager)
-{
-    auto e = std::make_shared<Entity>();
-    const auto &characterList = manager.getComponentsByType(typeid(CharacterComponent).hash_code());
-    const auto &ruleComponent = std::static_pointer_cast<RulesComponent>((manager.getComponentsByType(typeid(RulesComponent).hash_code()))[0]);
-
-    /* PLAYER 1 */
-    if (characterList.size() < 1)
-        return e;
     auto &IAImage1 = e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/PresetSelection/AI.png"),
@@ -296,7 +249,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    const auto &characterComponent1 = std::static_pointer_cast<CharacterComponent>(characterList[0]);
+    const auto &characterComponent1 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton1.layer = 3;
     activateButton1.setCallback([&activateButton1, &TextIA1, &IAImage1, &closeButton1, &leftPresetButton1, &rightPresetButton1, &textPreset1, &textController1, characterComponent1, &leftAiLevelButton1, &rightAiLevelButton1](){
         activateButton1.setVisible(false);
@@ -379,9 +332,35 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     leftAiLevelButton1.layer = 3;
     rightAiLevelButton1.layer = 3;
 
-    /* PLAYER 2 */
-    if (characterList.size() < 2)
-        return e;
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity>
+is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
+    std::shared_ptr<is::ecs::Entity> &e,
+    const std::shared_ptr<ecs::Component> &player,
+    const std::shared_ptr<components::RulesComponent> &ruleComponent)
+{
+    e->addComponent<ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
+        true
+    ).layer = 1;
+    e->addComponent<TextComponent>(
+        e,
+        "Player 2",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3 + 20,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
 
     auto &IAImage2 = e->addComponent<ImageComponent>(
         e,
@@ -511,7 +490,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    const auto &characterComponent2 = std::static_pointer_cast<CharacterComponent>(characterList[1]);
+    const auto &characterComponent2 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton2.layer = 3;
     activateButton2.setCallback([&activateButton2, &TextIA2, &IAImage2, &closeButton2, &leftPresetButton2, &rightPresetButton2, &textPreset2, &textController2, characterComponent2, &leftAiLevelButton2, &rightAiLevelButton2](){
         activateButton2.setVisible(false);
@@ -594,9 +573,36 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     leftAiLevelButton2.layer = 3;
     rightAiLevelButton2.layer = 3;
 
-    /* PLAYER 3 */
-    if (characterList.size() < 3)
-        return e;
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity>
+is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
+    std::shared_ptr<is::ecs::Entity> &e,
+    const std::shared_ptr<ecs::Component> &player,
+    const std::shared_ptr<components::RulesComponent> &ruleComponent)
+{
+    e->addComponent<ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
+        true
+    ).layer = 1;
+
+    e->addComponent<TextComponent>(
+        e,
+        "Player 3",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
 
     auto &IAImage3 = e->addComponent<ImageComponent>(
         e,
@@ -726,7 +732,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    const auto &characterComponent3 = std::static_pointer_cast<CharacterComponent>(characterList[2]);
+    const auto &characterComponent3 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton3.layer = 3;
     activateButton3.setCallback([&activateButton3, &TextIA3, &IAImage3, &closeButton3, &leftPresetButton3, &rightPresetButton3, &textPreset3, &textController3, characterComponent3, &leftAiLevelButton3, &rightAiLevelButton3](){
         activateButton3.setVisible(false);
@@ -809,9 +815,36 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     leftAiLevelButton3.layer = 3;
     rightAiLevelButton3.layer = 3;
 
-    /* PLAYER 4 */
-    if (characterList.size() < 4)
-        return e;
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity>
+is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
+    std::shared_ptr<is::ecs::Entity> &e,
+    const std::shared_ptr<ecs::Component> &player,
+    const std::shared_ptr<components::RulesComponent> &ruleComponent)
+{
+    e->addComponent<ImageComponent>(
+        e,
+        RESSOURCE("ui/PresetSelection/Box.png"),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
+        true
+    ).layer = 1;
+
+    e->addComponent<TextComponent>(
+        e,
+        "Player 4",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2 + 250,
+        WindowComponent::_windowsDimensions["Indie Studio"].second - 400 + 20,
+        150, 40,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 255, 255, 255)
+    ).layer = 4;
 
     auto &IAImage4 = e->addComponent<ImageComponent>(
         e,
@@ -941,7 +974,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
         RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
         RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
     );
-    const auto &characterComponent4 = std::static_pointer_cast<CharacterComponent>(characterList[3]);
+    const auto &characterComponent4 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton4.layer = 3;
     activateButton4.setCallback([&activateButton4, &TextIA4, &IAImage4, &closeButton4, &leftPresetButton4, &rightPresetButton4, &textPreset4, &textController4, characterComponent4, &leftAiLevelButton4, &rightAiLevelButton4](){
         activateButton4.setVisible(false);
@@ -1023,5 +1056,6 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionOptions
     rightPresetButton4.layer = 3;
     leftAiLevelButton4.layer = 3;
     rightAiLevelButton4.layer = 3;
+
     return e;
 }

@@ -82,10 +82,29 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createRecord();
         static std::shared_ptr<is::ecs::Entity> createEndGame();
 
+        static std::shared_ptr<is::ecs::Entity> createPresetSelection(const is::ecs::ComponentManager &manager);
+        static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase(std::shared_ptr<is::ecs::Entity> &e);
+        static std::shared_ptr<is::ecs::Entity>
+        createPresetSelectionPlayer1(std::shared_ptr<is::ecs::Entity> &e,
+                                     const std::shared_ptr<ecs::Component> &player,
+                                     const std::shared_ptr<components::RulesComponent> &ruleComponent);
+        static std::shared_ptr<is::ecs::Entity>
+        createPresetSelectionPlayer2(std::shared_ptr<is::ecs::Entity> &e,
+                                     const std::shared_ptr<ecs::Component> &player,
+                                     const std::shared_ptr<components::RulesComponent> &ruleComponent);
+        static std::shared_ptr<is::ecs::Entity>
+        createPresetSelectionPlayer3(std::shared_ptr<is::ecs::Entity> &e,
+                                     const std::shared_ptr<ecs::Component> &player,
+                                     const std::shared_ptr<components::RulesComponent> &ruleComponent);
+        static std::shared_ptr<is::ecs::Entity>
+        createPresetSelectionPlayer4(std::shared_ptr<is::ecs::Entity> &e,
+                                     const std::shared_ptr<ecs::Component> &player,
+                                     const std::shared_ptr<components::RulesComponent> &ruleComponent);
+        static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
+
+
         static std::shared_ptr<is::ecs::Entity> createSettings();
         static std::shared_ptr<is::ecs::Entity> createControllersBase();
-        static std::shared_ptr<is::ecs::Entity> createPresetSelectionBase();
-        static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
         static std::shared_ptr<is::ecs::Entity> createCharacter();
         static std::shared_ptr<is::ecs::Entity> createPresets();
         static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, std::shared_ptr<components::WindowComponent> &window);
