@@ -130,7 +130,6 @@ void is::systems::CharacterControllerSystem::update()
         else
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb");
         ptr->lastPos = ptr->getTransform().position;
-        im->get()->resetValues();
     }
 }
 

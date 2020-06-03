@@ -28,6 +28,7 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::PauseSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
@@ -73,7 +74,7 @@ void GameScene::initEntities()
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(-5 * 3, 0, 6 * 3),
                 *static_cast<CharacterComponent *>(characters[0].get()),
-                *_componentManager.get(),
+                *_componentManager,
                 "player_white.png",
                 rules.getAiLevels()[0]
             ));
@@ -82,7 +83,7 @@ void GameScene::initEntities()
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(5 * 3, 0, -6 * 3),
                 *static_cast<CharacterComponent *>(characters[1].get()),
-                *_componentManager.get(),
+                *_componentManager,
                 "player_blue.png",
                 rules.getAiLevels()[2]
             ));
@@ -91,7 +92,7 @@ void GameScene::initEntities()
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(-5 * 3, 0, -6 * 3),
                 *static_cast<CharacterComponent *>(characters[2].get()),
-                *_componentManager.get(),
+                *_componentManager,
                 "player_black.png",
                 rules.getAiLevels()[1]
             ));
@@ -100,7 +101,7 @@ void GameScene::initEntities()
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(5 * 3, 0, 6 * 3),
                 *static_cast<CharacterComponent *>(characters[3].get()),
-                *_componentManager.get(),
+                *_componentManager,
                 "player_red.png",
                 rules.getAiLevels()[3]
             ));
@@ -113,29 +114,6 @@ void GameScene::initEntities()
     initEntity(GlobalPrefabs::createTimer(rules));
 }
 
-void GameScene::awake()
-{
-    AScene::awake();
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
-        window.eventManager.addEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P, []() {
-            if (is::Game::getCurrentScene() == SCENE_GAME)
-                is::Game::setActualScene(SCENE_PAUSE);
-            else if (is::Game::getCurrentScene() == SCENE_PAUSE)
-                is::Game::setActualScene(SCENE_GAME);
-        });
-    }
-}
-
-void GameScene::onTearDown()
-{
-    AScene::onTearDown();
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-        WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
-        window.eventManager.removeEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P);
-    }
-}
-
 RulesComponent &GameScene::getRulesComponent() const
 {
     auto entities = AScene::_entitySaver->getEntities();
@@ -144,7 +122,7 @@ RulesComponent &GameScene::getRulesComponent() const
         auto rules = entity->getComponent<RulesComponent>();
 
         if (rules.has_value())
-            return (*rules.value().get());
+            return (*rules.value());
     }
     throw is::exceptions::ECSException("Could not found Rules component");
 }

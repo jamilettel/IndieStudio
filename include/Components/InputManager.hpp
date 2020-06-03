@@ -28,9 +28,12 @@ namespace is::components {
             InputManagerComponent &operator=(const InputManagerComponent &) = delete;
 
             void resetValues();
+            void resetValue(const std::string &action);
             void setValue(const std::string &action, float value);
             void addValue(const std::string &action, float value);
             [[nodiscard]] float getInput(const std::string &action) const;
+
+            bool isActionSet(const std::string &action);
 
             void deleteComponent() override;
 
