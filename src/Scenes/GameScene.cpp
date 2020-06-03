@@ -58,11 +58,11 @@ void GameScene::initEntities()
     auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     auto &rules = getRulesComponent();
     MapGenerator mg;
+    std::vector<std::shared_ptr<is::ecs::Component>> a;
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    mg.generateMap(*this, 1, 15, 13);
-    // initEntity(GlobalPrefabs::createPlayer(irr::core::vector3df(-5 * 3, 0, 6 * 3)));
+    mg.generateMap(*this, 1, 15, 13, a);
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[0].get()),
@@ -70,7 +70,6 @@ void GameScene::initEntities()
         "player_white.png",
         rules.getAiLevels()[0]
     ));
-    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(-5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[1].get()),
@@ -78,7 +77,6 @@ void GameScene::initEntities()
         "player_black.png",
         rules.getAiLevels()[1]
     ));
-    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, -6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, -6 * 3),
         *static_cast<CharacterComponent *>(characters[2].get()),
@@ -86,7 +84,6 @@ void GameScene::initEntities()
         "player_blue.png",
         rules.getAiLevels()[2]
     ));
-    // initEntity(GlobalPrefabs::createAI(irr::core::vector3df(5 * 3, 0, 6 * 3)));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[3].get()),

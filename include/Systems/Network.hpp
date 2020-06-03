@@ -28,24 +28,29 @@
 namespace is::systems {
 
     class NetworkSystem : public is::ecs::ASystem {
-        public:
-            NetworkSystem() = default;
-            ~NetworkSystem() override = default;
+    public:
+        NetworkSystem() = default;
+        ~NetworkSystem() override = default;
 
-            NetworkSystem(const NetworkSystem &) = default;
-            NetworkSystem &operator=(const NetworkSystem &) = default;
+        NetworkSystem(const NetworkSystem &) = default;
+        NetworkSystem &operator=(const NetworkSystem &) = default;
 
-            void awake() override;
-            void start() override;
+        void awake() override;
+        void start() override;
         void extracted();
-        
+    
         void update() override;
-            void stop() override;
-            void onTearDown() override;
-        
+        void stop() override;
+        void onTearDown() override;
+    
         size_t split(const std::string &txt, std::vector<std::string> &strs, char ch);
         
         void selectHandling(std::shared_ptr<is::components::NetworkComponent> ptr);
+
+        void refreshGameState(std::shared_ptr<is::components::NetworkComponent> ptr);
+    private:
+        std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;
+
     };
 
 }

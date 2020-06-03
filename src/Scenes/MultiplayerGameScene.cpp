@@ -42,6 +42,8 @@ void is::scenes::MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::AIControllerLevel5System>());
     _systemManager->addSystem(std::make_shared<is::systems::ParticuleSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::EndGameSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
@@ -55,7 +57,7 @@ void is::scenes::MultiplayerGameScene::initEntities()
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    mg.generateMap(*this, 1, 15, 13);
+    mg.generateMap(*this, 1, 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[0].get()),

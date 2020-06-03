@@ -46,7 +46,12 @@ namespace is::components {
             float playerSpeed;
             std::string windowName;
 
+            bool dropBombFrame;
+            irr::core::vector3df lastPos;
+
             bool canPlaceBomb = true;
+
+            bool isDead = false;
 
             bool operator==(const CharacterControllerComponent &character) const noexcept;
 

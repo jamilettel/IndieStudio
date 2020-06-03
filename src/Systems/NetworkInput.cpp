@@ -6,6 +6,7 @@
 */
 
 #include "Systems/NetworkInput.hpp"
+#include "Prefabs/GlobalPrefabs.hpp"
 
 using namespace is::systems;
 using namespace is::components;
@@ -51,6 +52,56 @@ void NetworkInputSystem::update()
     for (std::shared_ptr<Component> &component: networkComponents) {
         NetworkInputComponent &network = *static_cast<NetworkInputComponent *>(component.get());
         int idx = network.id;
-        network.getEntity()->getComponent<TransformComponent>()->get()->position = {_network->playerPositions[idx].X, 0, _network->playerPositions[idx].Y};
+        auto tr = network.getEntity()->getComponent<TransformComponent>()->get();
+        tr->position = {
+            _network->playerStates[idx].position.X,
+            0,
+            _network->playerStates[idx].position.Y
+        };
+        tr->rotation.Y = _network->playerStates[idx].rotationY;
+        network.getInputManager().setValue("DropBomb", 0);
+        if (_network->playerStates[idx].dropBomb) {
+            network.getInputManager().setValue("DropBomb", 1);
+            _network->playerStates[idx].dropBomb = false;
+        }
+        if (_network->playerStates[idx].powerUpSpawn) {
+            std::shared_ptr<is::ecs::Entity> e;
+            int i = _network->playerStates[idx].powerUpSpawn - 1;
+            std::vector<std::shared_ptr<is::ecs::Component>> &window =
+                _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+            if (!window.size())
+                throw is::exceptions::Exception("NetworkInput", "No window component in scene");
+            auto ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(window[0]);
+
+            if (i == 0)
+                e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBombUpPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
+            else if (i == 1)
+                e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createSpeedUpPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
+            else if (i == 2)
+                e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createFireUpPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
+            else if (i == 3)
+                e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallPassPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
+            auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
+            ptr->initModelRenderer(std::move(ptr_window));
+            _network->playerStates[idx].powerUpSpawn = 0;
+        }
+        if (_network->playerStates[idx].powerUpTake) {
+            int i = _network->playerStates[idx].powerUpTake - 1;
+            auto bm = network.getEntity()->getComponent<BombermanComponent>()->get();
+            if (!bm)
+                throw is::exceptions::Exception("NetworkInputSystem", "Could not find bomberman");
+            switch (i) {
+            case is::components::PowerUpComponent::BOMB_UP:
+                bm->bombNumber++;
+                break;
+            case is::components::PowerUpComponent::SPEED_UP:
+                bm->speedMult++;
+                break;
+            case is::components::PowerUpComponent::FIRE_UP:
+                bm->bombRange++;
+                break;
+            }
+            _network->playerStates[idx].powerUpTake = 0;
+        }
     }
 }

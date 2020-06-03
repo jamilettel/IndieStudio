@@ -18,7 +18,7 @@ class MapGenerator {
         MapGenerator& operator=(const MapGenerator& rhs) = default;
         ~MapGenerator() = default;
 
-        void generateMap(is::ecs::AScene &sc, int seed, int widht, int height);
+        void generateMap(is::ecs::AScene &sc, int seed, int widht, int height, std::vector<std::shared_ptr<is::ecs::Component>> network);
     
     private:
         static std::vector<size_t> permTable;

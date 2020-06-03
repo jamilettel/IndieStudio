@@ -68,9 +68,7 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
     f.Y = 0;
     f.Z = ((int)((f.Z + 1.5f) / 3) + y - (f.Z < 0)) * 3;
     auto e = this->initRuntimeEntity(is::prefabs::GlobalPrefabs::createFire(f));
-    //auto mr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
     auto part = std::dynamic_pointer_cast<is::components::ParticuleComponent>(*e->getComponent<is::components::ParticuleComponent>());
-    //mr->initModelRenderer(ptr_window);
     part->init(ptr_window);
     auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*e->getComponent<is::components::ColliderComponent>());
     if (checkFireCollision(*cc, ptr_window)) {
@@ -96,7 +94,22 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
         if (is::systems::ColliderSystem::checkCollision(trcollider, *ptr)) {
             if (ptr->getEntity()->layer == is::ecs::Entity::BRKBL_BLK) {
                 ptr->getEntity()->setDelete(true);
-                generateRandomPowerUp(ptr, ptr_window);
+                auto network = _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code());
+
+                if (network.empty())
+                    generateRandomPowerUp(ptr, ptr_window);
+                else {
+                    auto nw = std::dynamic_pointer_cast<is::components::NetworkComponent>(network[0]);
+                    if (nw->playerIdx == 0) {
+                        int idx = generateRandomPowerUp(ptr, ptr_window);
+                        if (idx) {
+                            nw->writeQueue.push("evt pu " + std::to_string(nw->lobby) +
+                                                " " + std::to_string(nw->playerIdx) + " " + std::to_string(idx) +
+                                                " " + std::to_string(ptr->getTransform().position.X) +
+                                                " " + std::to_string(ptr->getTransform().position.Z) + " \n");
+                        }
+                    }
+                }
             }
             if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
                 ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get()->dead = true;
@@ -108,23 +121,25 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
     return (false);
 }
 
-void is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
+int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
     std::shared_ptr<is::components::WindowComponent> ptr_window)
 {
     int i = rand() % 4;
     if (rand() % 4 != 0)
-        return;
+        return (0);
     std::shared_ptr<is::ecs::Entity> e;
+
     if (i == 0)
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBombUpPowerUp(ptr_cc->getTransform().position));
     else if (i == 1)
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createSpeedUpPowerUp(ptr_cc->getTransform().position));
     else if (i == 2)
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createFireUpPowerUp(ptr_cc->getTransform().position));
-     else if (i == 3)
+    else if (i == 3)
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallPassPowerUp(ptr_cc->getTransform().position));
     auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
     ptr->initModelRenderer(std::move(ptr_window));
+    return (i + 1);
 }
 
 void is::systems::BombSystem::stop()
