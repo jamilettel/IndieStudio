@@ -23,13 +23,14 @@ void EndGameSystem::update()
 {
     std::vector<std::shared_ptr<Component>> &characterComponents = _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code());
     int count = 0;
+    RulesComponent &rules = *std::static_pointer_cast<RulesComponent>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0]);
 
     for (auto &elem : characterComponents) {
         auto ptr = std::dynamic_pointer_cast<is::components::CharacterControllerComponent>(elem);
         count += ptr->isDead;
     }
 
-    if (count >= 3) {
+    if (count >= rules.getNumberOfPlayers() - 1) {
         is::Game::setActualScene(is::ecs::SCENE_ENDGAME);
         return;
     }

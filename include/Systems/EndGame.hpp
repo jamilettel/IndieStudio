@@ -14,6 +14,7 @@
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
 #include "Components/Timer.hpp"
+#include "Components/Rules.hpp"
 
 namespace is::systems
 {

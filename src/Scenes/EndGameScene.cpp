@@ -37,16 +37,19 @@ void is::scenes::EndGameScene::initSystems()
 void is::scenes::EndGameScene::initEntities()
 {
     auto entities = is::ecs::AScene::_entitySaver->getEntities();
+    auto &rules = getRulesComponent();
 
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     int i = 0;
-    std::for_each(entities.begin(), entities.end(), [this, &i, &entities](std::shared_ptr<is::ecs::Entity> &e) {
+    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules](std::shared_ptr<is::ecs::Entity> &e) {
         auto components = e->getComponentsOfType<CharacterComponent>();
 
-        std::for_each(components.begin(), components.end(), [&i, this](std::weak_ptr<Component> &component) {
+        std::for_each(components.begin(), components.end(), [&i, this, &rules](std::weak_ptr<Component> &component) {
             std::vector<std::pair<std::string, std::string>> infos;
             auto &c = *static_cast<CharacterComponent *>(component.lock().get());
 
+            if (i == rules.getNumberOfPlayers())
+                return;
             infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
             infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
             infos.emplace_back(std::make_pair("Players killed", std::to_string(c.getNbCharactersKilled())));
@@ -92,4 +95,17 @@ void is::scenes::EndGameScene::update()
         is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
         is::Game::setActualScene(is::ecs::SCENE_PRESETSELECTION);
     }
+}
+
+is::components::RulesComponent &is::scenes::EndGameScene::getRulesComponent() const
+{
+    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+
+    for (const auto &entity : entities) {
+        auto rules = entity->getComponent<RulesComponent>();
+
+        if (rules.has_value())
+            return (*rules.value().get());
+    }
+    throw is::exceptions::ECSException("Could not found Rules component");
 }

@@ -79,7 +79,7 @@ void GameScene::initEntities()
         case 1:
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(5 * 3, 0, -6 * 3),
-                *static_cast<CharacterComponent *>(characters[2].get()),
+                *static_cast<CharacterComponent *>(characters[1].get()),
                 *_componentManager.get(),
                 "player_blue.png",
                 rules.getAiLevels()[2]
@@ -88,7 +88,7 @@ void GameScene::initEntities()
         case 2:
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(-5 * 3, 0, -6 * 3),
-                *static_cast<CharacterComponent *>(characters[1].get()),
+                *static_cast<CharacterComponent *>(characters[2].get()),
                 *_componentManager.get(),
                 "player_black.png",
                 rules.getAiLevels()[1]
