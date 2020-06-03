@@ -26,7 +26,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -1;
     e->addComponent<ButtonComponent>(
         e,

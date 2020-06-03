@@ -90,7 +90,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -222,7 +222,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -303,7 +303,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createCredit()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -412,7 +412,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createHowToPlay()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -444,7 +444,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createRecord()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -476,7 +476,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -536,7 +536,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
@@ -582,7 +582,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<Ne
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
