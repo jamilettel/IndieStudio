@@ -41,9 +41,10 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createReturnButton()
         e,
         "",
         "Indie Studio",
-        60,
-        60,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 2 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
@@ -77,9 +78,10 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground(i
         e,
         "",
         "Indie Studio",
-        500,
-        250,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 26 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 23 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&component](){
             component.down();
         },
@@ -91,9 +93,10 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSettingsBackground(i
         e,
         "",
         "Indie Studio",
-        500,
-        850,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 26 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 80 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&component](){
             component.up();
         },
@@ -133,9 +136,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         e,
         "Number of players",
         "Indie Studio",
-        280, 305,
-        400, 200,
-        false,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 35 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 20 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        true,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
@@ -144,9 +149,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         e,
         std::to_string(rules.getNumberOfPlayers()),
         "Indie Studio",
-        560, 305,
-        400, 200,
-        false,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 35.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        true,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
@@ -156,7 +163,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         std::to_string(rules.getNumberOfPlayers()),
         "Indie Studio",
         1350, 480,
-        100, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -168,7 +176,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         "Indie Studio",
         1200,
         550,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&value, &valueToChange, &rules](){
             if (rules.getNumberOfPlayers() > 2) {
                 rules.setNumberOfPlayers(rules.getNumberOfPlayers() - 1);
@@ -186,7 +195,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(
         "Indie Studio",
         1550,
         550,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&value, &valueToChange, &rules](){
             if (rules.getNumberOfPlayers() < 4) {
                 rules.setNumberOfPlayers(rules.getNumberOfPlayers() + 1);
@@ -277,9 +287,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         e,
         "Icons",
         "Indie Studio",
-        280, 410,
-        190, 200,
-        false,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 45 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        true,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
@@ -288,8 +300,10 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         e,
         (rules.noIconUsed() ? "Off" : "On"),
         "Indie Studio",
-        560, 410,
-        400, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 45.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -300,7 +314,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         (rules.noIconUsed() ? "Off" : "On"),
         "Indie Studio",
         1380, 285,
-        100, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -330,7 +345,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1200,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/disable.png"),
@@ -344,7 +360,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1200,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/accelerator.png"),
@@ -373,7 +390,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1270,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/disable.png"),
@@ -387,7 +405,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1270,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/bomb.png"),
@@ -416,7 +435,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1340,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/disable.png"),
@@ -430,7 +450,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1340,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/explosion_expander.png"),
@@ -459,7 +480,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1410,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/disable.png"),
@@ -473,7 +495,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1410,
         510,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         false,
         RESSOURCE("ui/RuleSettings/wall_pass.png"),
@@ -502,7 +525,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1250,
         360,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&value, &valueToChange, &rules, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
             rules.setAllICons(rules.noIconUsed() ? true : false);
             value.setText((rules.noIconUsed() ? "Off" : "On"));
@@ -529,7 +553,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         "Indie Studio",
         1550,
         360,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&value, &valueToChange, &rules, &accelerator, &bomb, &explosion, &wallPass, &acceleratorDisable, &bombDisable, &explosionDisable, &wallPassDisable](){
             rules.setAllICons(rules.noIconUsed() ? true : false);
             value.setText((rules.noIconUsed() ? "Off" : "On"));
@@ -654,9 +679,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         e,
         "Max Time",
         "Indie Studio",
-        280, 515,
-        270, 200,
-        false,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 55 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 13 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        true,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
         irr::video::SColor(255, 227, 245, 244)
@@ -665,8 +692,10 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         e,
         rules.getTimeString(),
         "Indie Studio",
-        560, 515,
-        400, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 55.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -677,7 +706,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         rules.getTimeString(),
         "Indie Studio",
         1350, 480,
-        110, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
@@ -690,7 +720,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         "Indie Studio",
         1200,
         550,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&value, &valueToChange, &rules](){
             if (rules.getMaxTime() - 5 >= 60) {
                 rules.setMaxTime(rules.getMaxTime() - 5);
@@ -708,7 +739,8 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
         "Indie Studio",
         1550,
         550,
-        60, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [&value, &valueToChange, &rules](){
             if (rules.getMaxTime() + 5 <= 3600) {
                 rules.setMaxTime(rules.getMaxTime() + 5);
@@ -769,143 +801,143 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createMaxTimeRule(is::comp
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+// std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createModeFpsRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
+// {
+//     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
-    TextureComponent &dot = e->addComponent<TextureComponent>(
-        e,
-        RESSOURCE("ui/RuleSettings/Dot_01.png"),
-        "Indie Studio",
-        irr::core::vector2df(11.3, 66),
-        irr::core::vector2df(3, 5),
-        false
-    );
-    TextureComponent &firstTable = e->addComponent<TextureComponent>(
-        e,
-        RESSOURCE("ui/RuleSettings/Table_01.png"),
-        "Indie Studio",
-        irr::core::vector2df(15, 65),
-        irr::core::vector2df(20, 8)
-    );
-    TextureComponent &secondTable = e->addComponent<TextureComponent>(
-        e,
-        RESSOURCE("ui/RuleSettings/Table_01.png"),
-        "Indie Studio",
-        irr::core::vector2df(36, 65),
-        irr::core::vector2df(7, 8)
-    );
-    TextComponent &title = e->addComponent<TextComponent>(
-        e,
-        "Mode fps",
-        "Indie Studio",
-        280, 620,
-        270, 200,
-        false,
-        true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 227, 245, 244)
-    );
-    TextComponent &value = e->addComponent<TextComponent>(
-        e,
-        (rules.isFpsMode() ? "On" : "Off"),
-        "Indie Studio",
-        560, 620,
-        400, 200,
-        false,
-        true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 227, 245, 244)
-    );
-    TextComponent &valueToChange = e->addComponent<TextComponent>(
-        e,
-        (rules.isFpsMode() ? "On" : "Off"),
-        "Indie Studio",
-        1350, 480,
-        100, 200,
-        false,
-        true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 227, 245, 244),
-        false
-    );
-    ButtonComponent &backward = e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        1200,
-        550,
-        60, 60,
-        [&value, &valueToChange, &rules](){
-            rules.setFpsMode(!rules.isFpsMode());
-            value.setText((rules.isFpsMode() ? "On" : "Off"));
-            valueToChange.setText((rules.isFpsMode() ? "On" : "Off"));
-        },
-        false,
-        RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
-        RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
-    );
-    ButtonComponent &forward = e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        1550,
-        550,
-        60, 60,
-        [&value, &valueToChange, &rules](){
-            rules.setFpsMode(!rules.isFpsMode());
-            value.setText((rules.isFpsMode() ? "On" : "Off"));
-            valueToChange.setText((rules.isFpsMode() ? "On" : "Off"));
-        },
-        false,
-        RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
-        RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
-    );
-    component.addRule(
-        // On select
-        [&dot, &backward, &forward, &valueToChange](){
-            dot.setVisible(true);
-            backward.setVisible(true);
-            forward.setVisible(true);
-            valueToChange.setVisible(true);
-        },
-        // On exit
-        [&dot, &backward, &forward, &valueToChange](){
-            dot.setVisible(false);
-            backward.setVisible(false);
-            forward.setVisible(false);
-            valueToChange.setVisible(false);
-        },
-        // On disappear
-        [&firstTable, &secondTable, &title, &value](){
-            firstTable.setVisible(false);
-            secondTable.setVisible(false);
-            title.setVisible(false);
-            value.setVisible(false);
-        },
-        // On rule up
-        [&dot, &firstTable, &secondTable, &title, &value](){
-            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
-            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
-            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
-            title.move(irr::core::vector2di(0, -105));
-            value.move(irr::core::vector2di(0, -105));
-        },
-        // On rule down
-        [&dot, &firstTable, &secondTable, &title, &value](){
-            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
-            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
-            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
-            title.move(irr::core::vector2di(0, 105));
-            value.move(irr::core::vector2di(0, 105));
-        },
-        // On appear
-        [&firstTable, &secondTable, &title, &value](){
-            firstTable.setVisible(true);
-            secondTable.setVisible(true);
-            title.setVisible(true);
-            value.setVisible(true);
-        }
-    );
-    return (e);
-}
+//     TextureComponent &dot = e->addComponent<TextureComponent>(
+//         e,
+//         RESSOURCE("ui/RuleSettings/Dot_01.png"),
+//         "Indie Studio",
+//         irr::core::vector2df(11.3, 66),
+//         irr::core::vector2df(3, 5),
+//         false
+//     );
+//     TextureComponent &firstTable = e->addComponent<TextureComponent>(
+//         e,
+//         RESSOURCE("ui/RuleSettings/Table_01.png"),
+//         "Indie Studio",
+//         irr::core::vector2df(15, 65),
+//         irr::core::vector2df(20, 8)
+//     );
+//     TextureComponent &secondTable = e->addComponent<TextureComponent>(
+//         e,
+//         RESSOURCE("ui/RuleSettings/Table_01.png"),
+//         "Indie Studio",
+//         irr::core::vector2df(36, 65),
+//         irr::core::vector2df(7, 8)
+//     );
+//     TextComponent &title = e->addComponent<TextComponent>(
+//         e,
+//         "Mode fps",
+//         "Indie Studio",
+//         280, 620,
+//         270, 200,
+//         false,
+//         true,
+//         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+//         irr::video::SColor(255, 227, 245, 244)
+//     );
+//     TextComponent &value = e->addComponent<TextComponent>(
+//         e,
+//         (rules.isFpsMode() ? "On" : "Off"),
+//         "Indie Studio",
+//         560, 620,
+//         400, 200,
+//         false,
+//         true,
+//         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+//         irr::video::SColor(255, 227, 245, 244)
+//     );
+//     TextComponent &valueToChange = e->addComponent<TextComponent>(
+//         e,
+//         (rules.isFpsMode() ? "On" : "Off"),
+//         "Indie Studio",
+//         1350, 480,
+//         100, 200,
+//         false,
+//         true,
+//         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+//         irr::video::SColor(255, 227, 245, 244),
+//         false
+//     );
+//     ButtonComponent &backward = e->addComponent<ButtonComponent>(
+//         e,
+//         "",
+//         "Indie Studio",
+//         1200,
+//         550,
+//         60, 60,
+//         [&value, &valueToChange, &rules](){
+//             rules.setFpsMode(!rules.isFpsMode());
+//             value.setText((rules.isFpsMode() ? "On" : "Off"));
+//             valueToChange.setText((rules.isFpsMode() ? "On" : "Off"));
+//         },
+//         false,
+//         RESSOURCE("ui/RuleSettings/Backward_BTN.png"),
+//         RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")
+//     );
+//     ButtonComponent &forward = e->addComponent<ButtonComponent>(
+//         e,
+//         "",
+//         "Indie Studio",
+//         1550,
+//         550,
+//         60, 60,
+//         [&value, &valueToChange, &rules](){
+//             rules.setFpsMode(!rules.isFpsMode());
+//             value.setText((rules.isFpsMode() ? "On" : "Off"));
+//             valueToChange.setText((rules.isFpsMode() ? "On" : "Off"));
+//         },
+//         false,
+//         RESSOURCE("ui/RuleSettings/Forward_BTN.png"),
+//         RESSOURCE("ui/RuleSettings/Forward_BTN_pressed.png")
+//     );
+//     component.addRule(
+//         // On select
+//         [&dot, &backward, &forward, &valueToChange](){
+//             dot.setVisible(true);
+//             backward.setVisible(true);
+//             forward.setVisible(true);
+//             valueToChange.setVisible(true);
+//         },
+//         // On exit
+//         [&dot, &backward, &forward, &valueToChange](){
+//             dot.setVisible(false);
+//             backward.setVisible(false);
+//             forward.setVisible(false);
+//             valueToChange.setVisible(false);
+//         },
+//         // On disappear
+//         [&firstTable, &secondTable, &title, &value](){
+//             firstTable.setVisible(false);
+//             secondTable.setVisible(false);
+//             title.setVisible(false);
+//             value.setVisible(false);
+//         },
+//         // On rule up
+//         [&dot, &firstTable, &secondTable, &title, &value](){
+//             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+//             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+//             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+//             title.move(irr::core::vector2di(0, -105));
+//             value.move(irr::core::vector2di(0, -105));
+//         },
+//         // On rule down
+//         [&dot, &firstTable, &secondTable, &title, &value](){
+//             dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+//             firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+//             secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+//             title.move(irr::core::vector2di(0, 105));
+//             value.move(irr::core::vector2di(0, 105));
+//         },
+//         // On appear
+//         [&firstTable, &secondTable, &title, &value](){
+//             firstTable.setVisible(true);
+//             secondTable.setVisible(true);
+//             title.setVisible(true);
+//             value.setVisible(true);
+//         }
+//     );
+//     return (e);
+// }
