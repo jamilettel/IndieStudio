@@ -30,7 +30,7 @@ std::shared_ptr<Entity> is::prefabs::EndGamePrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture, float posWindow)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -46,14 +46,14 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
-    addWindow(e, 2.5);
-    addStatsPlayer(e, addTextHigh(e, 5.7f), addTextLow(e, 5.7f), infos);
-    addContinueButton(e, 8.2f, addWaitingText(e, 7.2f), isAI);
-    addHighTable(e, 3.5);
-    addLowTable(e, 3.5);
-    addMedal(e, 10, "ui/EndGame/Star_01.png");
-    addBackwardButton(e, 5);
-    addForwardButton(e, 19);
+    addWindow(e, posWindow);
+    addStatsPlayer(e, addTextHigh(e, posWindow + 3.2f), addTextLow(e, posWindow + 3.2f), infos);
+    addContinueButton(e, posWindow + 5.7f, addWaitingText(e, posWindow + 4.7f), isAI);
+    addHighTable(e, posWindow + 1);
+    addLowTable(e, posWindow + 1);
+    addMedal(e, posWindow + 7.5, "ui/EndGame/Star_01.png");
+    addBackwardButton(e, posWindow + 2.5);
+    addForwardButton(e, posWindow + 16.5);
     return (e);
 }
 

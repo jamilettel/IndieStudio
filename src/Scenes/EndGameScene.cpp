@@ -41,13 +41,15 @@ void EndGameScene::initEntities()
 {
     auto entities = is::ecs::AScene::_entitySaver->getEntities();
     auto &rules = getRulesComponent();
+    std::vector<int> windowPos = initWindowPosForPlayer(rules.getNumberOfPlayers());
+    std::vector<std::pair<float, float>> posModelPlayer = initPosModelPlayer(rules.getNumberOfPlayers());
 
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     int i = 0;
-    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules](std::shared_ptr<is::ecs::Entity> &e) {
+    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules, &windowPos](std::shared_ptr<is::ecs::Entity> &e) {
         auto components = e->getComponentsOfType<CharacterComponent>();
 
-        std::for_each(components.begin(), components.end(), [&i, this, &rules](std::weak_ptr<Component> &component) {
+        std::for_each(components.begin(), components.end(), [&i, this, &rules, &windowPos](std::weak_ptr<Component> &component) {
             std::vector<std::pair<std::string, std::string>> infos;
             auto &c = *static_cast<is::components::CharacterComponent *>(component.lock().get());
 
@@ -60,16 +62,19 @@ void EndGameScene::initEntities()
             switch (i)
             {
             case 0:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
                 break;
             case 1:
-                initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                // initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 2:
-                initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                // initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 3:
-                initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i]), false);
+                // initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             default:
                 break;
@@ -100,7 +105,7 @@ void EndGameScene::update()
     }
 }
 
-is::components::RulesComponent &is::scenes::EndGameScene::getRulesComponent() const
+is::components::RulesComponent &EndGameScene::getRulesComponent() const
 {
     auto entities = is::ecs::AScene::_entitySaver->getEntities();
 
@@ -111,4 +116,31 @@ is::components::RulesComponent &is::scenes::EndGameScene::getRulesComponent() co
             return (*rules.value().get());
     }
     throw is::exceptions::ECSException("Could not found Rules component");
+}
+
+std::vector<int> EndGameScene::initWindowPosForPlayer(int nbPlayers) const
+{
+    std::vector<int> value;
+
+    if (nbPlayers == 4) {
+        value.emplace_back(2.5);
+        value.emplace_back(26.3);
+        value.emplace_back(51.3);
+        value.emplace_back(76.3);
+    } else if (nbPlayers == 3) {
+        value.emplace_back(10);
+        value.emplace_back(40);
+        value.emplace_back(70);
+    } else if (nbPlayers == 2) {
+        value.emplace_back(20);
+        value.emplace_back(60);
+    }
+    return (value);
+}
+
+std::vector<std::pair<float, float>> EndGameScene::initPosModelPlayer(int nbPlayers) const
+{
+    std::vector<std::pair<float, float>> value;
+
+    return value;
 }
