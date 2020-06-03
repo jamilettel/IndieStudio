@@ -24,11 +24,13 @@ namespace is {
             void addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene);
             void launchGame(is::ecs::Scenes startScene);
             void switchScene();
+            void unloadScene();
 
             static bool isRunning;
             static void setActualScene(is::ecs::Scenes, bool loadScene = true, bool destroyScene = true);
             static is::ecs::Scenes getPreviousScene();
             static is::ecs::Scenes getCurrentScene();
+            static void setUnloadScene(is::ecs::Scenes scene);
 
         private:
             std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
@@ -37,6 +39,7 @@ namespace is {
             static bool _destroyScene;
             static bool _loadScene;
             is::ecs::Scenes changeScene;
+            static std::pair<bool, is::ecs::Scenes> _unloadScene;
     };
 
 }
