@@ -11,6 +11,7 @@
 #include <functional>
 #include <map>
 #include <string>
+#include <algorithm>
 
 #include "ECS/Component.hpp"
 

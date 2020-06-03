@@ -12,6 +12,7 @@
 #include "Components/JoystickPreset.hpp"
 #include "Components/Image.hpp"
 #include "Text.hpp"
+#include <optional>
 
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
