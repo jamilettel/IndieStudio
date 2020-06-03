@@ -25,7 +25,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         e,
         RESSOURCE("ui/background.jpg"),
         "Indie Studio",
-        0, 0, true
+        0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
