@@ -41,44 +41,40 @@ void EndGameScene::initEntities()
 {
     auto entities = is::ecs::AScene::_entitySaver->getEntities();
     auto &rules = getRulesComponent();
+    auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
+
     std::vector<int> windowPos = initWindowPosForPlayer(rules.getNumberOfPlayers());
     std::vector<std::pair<float, float>> posModelPlayer = initPosModelPlayer(rules.getNumberOfPlayers());
 
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
-    int i = 0;
-    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules, &windowPos, &posModelPlayer](std::shared_ptr<is::ecs::Entity> &e) {
-        auto components = e->getComponentsOfType<CharacterComponent>();
 
-        std::for_each(components.begin(), components.end(), [&i, this, &rules, &windowPos, &posModelPlayer](std::weak_ptr<Component> &component) {
-            std::vector<std::pair<std::string, std::string>> infos;
-            auto &c = *static_cast<is::components::CharacterComponent *>(component.lock().get());
+    for (int i = 0; i < rules.getNumberOfPlayers(); i++) {
+        auto &c = *std::static_pointer_cast<CharacterComponent>(characters[i]);
+        std::vector<std::pair<std::string, std::string>> infos;
 
-            if (i == rules.getNumberOfPlayers())
-                return;
-            infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
-            infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
-            infos.emplace_back(std::make_pair("Players killed", std::to_string(c.getNbCharactersKilled())));
-            infos.emplace_back(std::make_pair("Time playing", std::to_string(c.getTimePlaying())));
-            switch (i)
-            {
-            case 0:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                break;
-            case 1:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                break;
-            case 2:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                break;
-            case 3:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                break;
-            default:
-                break;
-            }
-            i++;
-        });
-    });
+        infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
+        infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
+        infos.emplace_back(std::make_pair("Players killed", std::to_string(c.getNbCharactersKilled())));
+        infos.emplace_back(std::make_pair("Time playing", std::to_string(c.getTimePlaying())));
+
+        switch (i)
+        {
+        case 0:
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            break;
+        case 1:
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            break;
+        case 2:
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            break;
+        case 3:
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void EndGameScene::update()
