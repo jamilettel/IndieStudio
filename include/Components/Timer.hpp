@@ -26,6 +26,7 @@ namespace is::components
             void deleteComponent() override;
 
             void update();
+            float getTime() const noexcept;
 
         private:
             float _time; // * in seconds

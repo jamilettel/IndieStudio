@@ -13,6 +13,7 @@
 
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
+#include "Components/Timer.hpp"
 
 namespace is::systems
 {

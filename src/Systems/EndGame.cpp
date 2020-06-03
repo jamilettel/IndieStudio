@@ -28,10 +28,19 @@ void EndGameSystem::update()
         auto ptr = std::dynamic_pointer_cast<is::components::CharacterControllerComponent>(elem);
         count += ptr->isDead;
     }
-    
+
     if (count >= 3) {
         is::Game::setActualScene(is::ecs::SCENE_ENDGAME);
         return;
+    }
+
+    auto &timers = _componentManager->getComponentsByType(typeid(TimerComponent).hash_code());
+
+    for (auto &elem : timers) {
+        TimerComponent &timer = *std::static_pointer_cast<TimerComponent>(elem);
+
+        if (timer.getTime() <= 0)
+            is::Game::setActualScene(is::ecs::SCENE_ENDGAME);
     }
 }
 

@@ -92,9 +92,7 @@ void GameScene::initEntities()
         rules.getAiLevels()[3]
     ));
 
-    initEntity(GlobalPrefabs::createTimer(
-        rules.getTimeString()
-    ));
+    initEntity(GlobalPrefabs::createTimer(rules));
 }
 
 void GameScene::awake()

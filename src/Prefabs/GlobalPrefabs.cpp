@@ -323,13 +323,13 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createRules()
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(const std::string &time)
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rules)
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
     TextComponent &text = e->addComponent<TextComponent>(
         e,
-        time,
+        rules.getTimeString(),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 950, 5,
         400, 100,
@@ -352,7 +352,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(const std::string &t
         e,
         text,
         timeC,
-        180
+        rules.getMaxTime()
     );
     return (e);
 }

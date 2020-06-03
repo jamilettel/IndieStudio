@@ -27,6 +27,8 @@
 #include "Components/Collider.hpp"
 #include "Components/Time.hpp"
 #include "Components/Network.hpp"
+#include "Components/Rules.hpp"
+
 #include "Systems/Collider.hpp"
 
 #include "Prefabs/GlobalPrefabs.hpp"

@@ -102,7 +102,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createControllers();
         static std::shared_ptr<is::ecs::Entity> createRules();
 
-        static std::shared_ptr<is::ecs::Entity> createTimer(const std::string &time);
+        static std::shared_ptr<is::ecs::Entity> createTimer(is::components::RulesComponent &rules);
 
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);

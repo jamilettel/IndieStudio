@@ -33,3 +33,8 @@ void TimerComponent::update()
         std::to_string(static_cast<int>(_time) % 60)
     );
 }
+
+float TimerComponent::getTime() const noexcept
+{
+    return (_time);
+}

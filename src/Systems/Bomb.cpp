@@ -124,19 +124,24 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
 int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
     std::shared_ptr<is::components::WindowComponent> ptr_window)
 {
+    auto rulesComponents = _componentManager->getComponentsByType(typeid(is::components::RulesComponent).hash_code());
+    auto &rules = *std::static_pointer_cast<is::components::RulesComponent>(rulesComponents[0]);
+
     int i = rand() % 4;
     if (rand() % 4 != 0)
         return (0);
     std::shared_ptr<is::ecs::Entity> e;
 
-    if (i == 0)
+    if (i == 0 && rules.useIcon(rules.BOMB))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBombUpPowerUp(ptr_cc->getTransform().position));
-    else if (i == 1)
+    else if (i == 1 && rules.useIcon(rules.ACCELERATOR))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createSpeedUpPowerUp(ptr_cc->getTransform().position));
-    else if (i == 2)
+    else if (i == 2 && rules.useIcon(rules.EXPLOSION))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createFireUpPowerUp(ptr_cc->getTransform().position));
-    else if (i == 3)
+    else if (i == 3 && rules.useIcon(rules.WALL_PASS))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallPassPowerUp(ptr_cc->getTransform().position));
+    else
+        return (0);
     auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
     ptr->initModelRenderer(std::move(ptr_window));
     return (i + 1);
