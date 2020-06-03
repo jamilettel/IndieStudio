@@ -63,34 +63,50 @@ void GameScene::initEntities()
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13, a);
-    initEntity(GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(-5 * 3, 0, 6 * 3),
-        *static_cast<CharacterComponent *>(characters[0].get()),
-        *_componentManager.get(),
-        "player_white.png",
-        rules.getAiLevels()[0]
-    ));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(-5 * 3, 0, -6 * 3),
-        *static_cast<CharacterComponent *>(characters[1].get()),
-        *_componentManager.get(),
-        "player_black.png",
-        rules.getAiLevels()[1]
-    ));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(5 * 3, 0, -6 * 3),
-        *static_cast<CharacterComponent *>(characters[2].get()),
-        *_componentManager.get(),
-        "player_blue.png",
-        rules.getAiLevels()[2]
-    ));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(5 * 3, 0, 6 * 3),
-        *static_cast<CharacterComponent *>(characters[3].get()),
-        *_componentManager.get(),
-        "player_red.png",
-        rules.getAiLevels()[3]
-    ));
+
+    for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
+        switch (i)
+        {
+        case 0:
+            initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(-5 * 3, 0, 6 * 3),
+                *static_cast<CharacterComponent *>(characters[0].get()),
+                *_componentManager.get(),
+                "player_white.png",
+                rules.getAiLevels()[0]
+            ));
+            break;
+        case 1:
+            initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(5 * 3, 0, -6 * 3),
+                *static_cast<CharacterComponent *>(characters[2].get()),
+                *_componentManager.get(),
+                "player_blue.png",
+                rules.getAiLevels()[2]
+            ));
+            break;
+        case 2:
+            initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(-5 * 3, 0, -6 * 3),
+                *static_cast<CharacterComponent *>(characters[1].get()),
+                *_componentManager.get(),
+                "player_black.png",
+                rules.getAiLevels()[1]
+            ));
+            break;
+        case 3:
+            initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(5 * 3, 0, 6 * 3),
+                *static_cast<CharacterComponent *>(characters[3].get()),
+                *_componentManager.get(),
+                "player_red.png",
+                rules.getAiLevels()[3]
+            ));
+            break;
+        default:
+            break;
+        }
+    }
 
     initEntity(GlobalPrefabs::createTimer(rules));
 }

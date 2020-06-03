@@ -400,7 +400,6 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createIconsRule(is::compon
         rules.setIconUse(RulesComponent::BOMB, false);
         value.setText((rules.noIconUsed() ? "Off" : "On"));
         valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
-        std::cout << "hello" << std::endl;
     });
     bombDisable.setCallback([&bomb, &bombDisable, &rules, &value, &valueToChange](){
         bomb.setDisabled(false);
