@@ -9,7 +9,9 @@
 #define RULESSETTINGCOMPONENT_HPP_
 
 #include <functional>
-#include <algorithm>
+#include <vector>
+#include <string>
+
 #include "ECS/Component.hpp"
 
 namespace is::components

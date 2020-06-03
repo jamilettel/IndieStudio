@@ -47,6 +47,8 @@
 #include "Components/Preset.hpp"
 #include "Components/Network.hpp"
 #include "Components/JoystickCursor.hpp"
+#include "Components/Texture.hpp"
+#include "Components/Timer.hpp"
 
 namespace is::prefabs {
 
@@ -116,6 +118,8 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
         static std::shared_ptr<is::ecs::Entity> createControllers();
         static std::shared_ptr<is::ecs::Entity> createRules();
+
+        static std::shared_ptr<is::ecs::Entity> createTimer(is::components::RulesComponent &rules);
 
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);

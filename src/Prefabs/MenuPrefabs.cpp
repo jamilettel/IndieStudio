@@ -505,7 +505,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
         [nc](){
-            nc->writeQueue.push("create lobby\n");
+            nc->writeQueue.push("req cl \n");
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),
@@ -565,7 +565,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
         350, 100,
         [nc](){
-            nc->writeQueue.push("join lobby 0\n");
+            nc->writeQueue.push("req jl -1 \n");
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),
@@ -611,8 +611,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<Ne
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 500,
         350, 100,
         [nc](){
-            nc->writeQueue.push("start game\n");
-
+            nc->writeQueue.push("req sg " + std::to_string(nc->lobby) + " \n");
         },
         true,
         RESSOURCE("ui/main_menu/button_play.png"),

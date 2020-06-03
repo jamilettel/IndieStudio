@@ -9,29 +9,16 @@ import select
 import socket
 import sys
 import queue
-import uuid
+import random
 
 lobbys = [] 
 
 def main():
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #server_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server, server_udp = networkInit()
+    selectLoop(server, server_udp)
 
-    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-    server.setblocking(0)
-
-    #server_udp.setblocking(0)
-    #server_udp.settimeout(5)
-
-    server_address = ('localhost', 8000)
-
-    server.bind(server_address)
-    #server_udp.bind(server_address)
-
-    server.listen(5)
-
-    inputs = [server]
+def selectLoop(server, server_udp):
+    inputs = [server, server_udp]
 
     while inputs:
         readable, writable, exceptional = select.select(inputs, [], inputs)
@@ -40,11 +27,14 @@ def main():
                 connection, client_address = s.accept()
                 connection.setblocking(0)
                 inputs.append(connection)
+            elif s is server_udp:
+                message, adress = s.recvfrom(1024)
             else:
                 try:
                     data = s.recv(1024)
                     if data:
-                        clientCommandHandler(data.decode(), s)
+                        for req in data.decode().split("\n"):
+                            clientCommandHandler(req, s)
                     else:
                         inputs.remove(s)
                         s.close()
@@ -54,41 +44,92 @@ def main():
             inputs.remove(s)
             s.close()
 
-
 def clientCommandHandler(request, connection):
-    if request == "create lobby\n":
+
+    # request create a lobby
+    if request.startswith("req cl"):
+        while True:
+            ranid = random.randint(10000, 99999)
+            exist = False
+            for lobby in lobbys:
+                if (ranid == lobby["id"]):
+                    exist = True
+            if exist is False:
+                break;
         lobbys.append({
-            "uuid": uuid.uuid4(),
+            "id": ranid,
             "players": [connection]
         })
-        connection.send("lobby created\n".encode())
-    elif request == "list lobbys\n":
-        response = ""
-        for lobby in lobbys:
-            response += lobby["uuid"] + " "
-        connection.send(response + "\n".encode())
-    elif request.startswith("join lobby"):
-        #idx = int(request.split(" ")[2])
-        lobbys[0]["players"].append(connection)
-        connection.send("lobby joined\n".encode())
-    elif request == "start game\n":
-        for lobby in lobbys:
-            for player in lobby["players"]:
-                if (player == connection):
+        print("Create lobby with index " + str(ranid))
+        connection.send(("res cl " + str(ranid) + " \n").encode())
+    
+    # request join a lobby
+    elif request.startswith("req jl"):
+        try:
+            idx = int(request.split(" ")[2])
+            exist = False
+            for lobby in lobbys:
+                if (idx == lobby["id"] or idx == -1) and len(lobby["players"]) < 4:
+                    idx = lobby["id"]
+                    lobby["players"].append(connection)
+                    exist = True
+            if not exist:
+                raise Exception('ID not exist')
+            print("Join lobby with index " + str(idx))
+            connection.send(("res jl " + str(idx) + " \n").encode())
+        except:
+            print("Lobby " + str(idx) + " not found")
+            connection.send("err lnf \n".encode())
+
+    # request start the game
+    elif request.startswith("req sg"):
+        try:
+            idx = int(request.split(" ")[2])
+            exist = False
+            for lobby in lobbys:
+                if (idx == lobby["id"]):
                     i = 0
+                    print("Start game for lobby " + str(idx))
                     for player in lobby["players"]:
-                        player.send(("p" + str(i) + "\n").encode())
+                        player.send(("res sg " + str(i) + " \n").encode())
                         i += 1
-    elif request.startswith("s"):
-        idx = int(request[1])
-        x = float(request.split(" ")[1])
-        y = float(request.split(" ")[2])
+                    exist = True
+            if not exist:
+                raise Exception('ID not exist')
+        except:
+            print("Lobby " + idx + " not found")
+            connection.send("err lnf \n".encode())
+
+    # share events
+    elif request.startswith("evt"):
+        print("Event received: " + request)
+        lobbyIdx = int(request.split(" ")[2])
         for lobby in lobbys:
-            for player in lobby["players"]:
-                if (player == connection):
-                    for player in lobby["players"]:
-                        if (player != connection):
-                            player.send(("s" + str(idx) + " " + str(x)  + " " + str(y) + " \n").encode())
+            if (lobbyIdx == lobby["id"]):
+                for player in lobby["players"]:
+                    if (player != connection):
+                        player.send((request).encode())
     
 
+def networkInit():
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    server.setblocking(0)
+
+    server_udp.setblocking(0)
+    server_udp.settimeout(5)
+
+    if (len(sys.argv) != 3):
+        print("./BombermanServer adress port")
+        exit(84)
+    server_address = (sys.argv[1], int(sys.argv[2]))
+
+    server.bind(server_address)
+    server_udp.bind(server_address)
+
+    server.listen(5)
+
+    return (server, server_udp)

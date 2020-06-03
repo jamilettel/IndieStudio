@@ -10,6 +10,7 @@
 using namespace is::systems;
 using namespace is::scenes;
 using namespace is::ecs;
+using namespace is::components;
 
 EndGameScene::EndGameScene() :
 AScene(Scenes::SCENE_ENDGAME)
@@ -38,17 +39,20 @@ void EndGameScene::initSystems()
 
 void EndGameScene::initEntities()
 {
-    auto entities = AScene::_entitySaver->getEntities();
+    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+    auto &rules = getRulesComponent();
 
     initEntity(prefabs::EndGamePrefabs::createBackground(), false);
     int i = 0;
-    std::for_each(entities.begin(), entities.end(), [this, &i, &entities](std::shared_ptr<Entity> &e) {
-        auto components = e->getComponentsOfType<is::components::CharacterComponent>();
+    std::for_each(entities.begin(), entities.end(), [this, &i, &entities, &rules](std::shared_ptr<is::ecs::Entity> &e) {
+        auto components = e->getComponentsOfType<CharacterComponent>();
 
-        std::for_each(components.begin(), components.end(), [&i, this](std::weak_ptr<Component> &component) {
+        std::for_each(components.begin(), components.end(), [&i, this, &rules](std::weak_ptr<Component> &component) {
             std::vector<std::pair<std::string, std::string>> infos;
             auto &c = *static_cast<is::components::CharacterComponent *>(component.lock().get());
 
+            if (i == rules.getNumberOfPlayers())
+                return;
             infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
             infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
             infos.emplace_back(std::make_pair("Players killed", std::to_string(c.getNbCharactersKilled())));
@@ -56,16 +60,16 @@ void EndGameScene::initEntities()
             switch (i)
             {
             case 0:
-                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 1:
-                initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 2:
-                initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 3:
-                initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.isAI(), c.texturePath), false);
+                initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             default:
                 break;
@@ -94,4 +98,17 @@ void EndGameScene::update()
         is::Game::setActualScene(SCENE_MAIN_MENU);
         is::Game::setActualScene(SCENE_PRESETSELECTION);
     }
+}
+
+is::components::RulesComponent &is::scenes::EndGameScene::getRulesComponent() const
+{
+    auto entities = is::ecs::AScene::_entitySaver->getEntities();
+
+    for (const auto &entity : entities) {
+        auto rules = entity->getComponent<RulesComponent>();
+
+        if (rules.has_value())
+            return (*rules.value().get());
+    }
+    throw is::exceptions::ECSException("Could not found Rules component");
 }

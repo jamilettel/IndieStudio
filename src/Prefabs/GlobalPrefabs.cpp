@@ -322,3 +322,37 @@ std::shared_ptr<Entity> GlobalPrefabs::createRules()
     e->addComponent<RulesComponent>(e);
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rules)
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    TextComponent &text = e->addComponent<TextComponent>(
+        e,
+        rules.getTimeString(),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 950, 5,
+        400, 100,
+        false,
+        true,
+        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<TextureComponent>(
+        e,
+        RESSOURCE("ui/Game/Table_02.png"),
+        "Indie Studio",
+        irr::core::vector2df(1, 1),
+        irr::core::vector2df(19.8, 10)
+    );
+    TimeComponent &timeC = e->addComponent<TimeComponent>(
+        e
+    );
+    e->addComponent<TimerComponent>(
+        e,
+        text,
+        timeC,
+        rules.getMaxTime()
+    );
+    return (e);
+}

@@ -41,6 +41,8 @@
 #include "Systems/EndGame.hpp"
 #include "Systems/JoystickCursor.hpp"
 #include "Systems/Alert.hpp"
+#include "Systems/Texture.hpp"
+#include "Systems/Timer.hpp"
 
 namespace is::scenes {
 
