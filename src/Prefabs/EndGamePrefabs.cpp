@@ -47,13 +47,13 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 2.5);
-    addStatsPlayer(e, addTextHigh(e, 102), addTextLow(e, 102), infos);
-    addContinueButton(e, 80, addWaitingText(e, 140), isAI);
+    addStatsPlayer(e, addTextHigh(e, 5.7f), addTextLow(e, 5.7f), infos);
+    addContinueButton(e, 8.2f, addWaitingText(e, 7.2f), isAI);
     addHighTable(e, 3.5);
     addLowTable(e, 3.5);
     addMedal(e, 10, "ui/EndGame/Star_01.png");
-    addBackwardButton(e, 100);
-    addForwardButton(e, 340);
+    addBackwardButton(e, 5);
+    addForwardButton(e, 19);
     return (e);
 }
 
@@ -74,13 +74,13 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 26.3);
-    addStatsPlayer(e, addTextHigh(e, 565), addTextLow(e, 565), infos);
-    addContinueButton(e, 540, addWaitingText(e, 600), isAI);
+    addStatsPlayer(e, addTextHigh(e, 29.7f), addTextLow(e, 29.7f), infos);
+    addContinueButton(e, 32.2, addWaitingText(e, 31.2f), isAI);
     addHighTable(e, 27.2);
     addLowTable(e, 27.2);
     addMedal(e, 34, "ui/EndGame/Star_02.png");
-    addBackwardButton(e, 560);
-    addForwardButton(e, 800);
+    addBackwardButton(e, 29);
+    addForwardButton(e, 43);
     return (e);
 }
 
@@ -101,13 +101,13 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 51.3);
-    addStatsPlayer(e, addTextHigh(e, 1045), addTextLow(e, 1045), infos);
-    addContinueButton(e, 1020, addWaitingText(e, 1080), isAI);
+    addStatsPlayer(e, addTextHigh(e, 54.7f), addTextLow(e, 54.7f), infos);
+    addContinueButton(e, 57.2f, addWaitingText(e, 56.2f), isAI);
     addHighTable(e, 52.2);
     addLowTable(e, 52.2);
     addMedal(e, 58, "ui/EndGame/Star_03.png");
-    addBackwardButton(e, 1040);
-    addForwardButton(e, 1280);
+    addBackwardButton(e, 54);
+    addForwardButton(e, 68);
     return (e);
 }
 
@@ -128,12 +128,12 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
     addWindow(e, 76.3);
-    addStatsPlayer(e, addTextHigh(e, 1525), addTextLow(e, 1525), infos);
-    addContinueButton(e, 1500, addWaitingText(e, 1560), isAI);
+    addStatsPlayer(e, addTextHigh(e, 79.7f), addTextLow(e, 79.7f), infos);
+    addContinueButton(e, 82.2f, addWaitingText(e, 81.2f), isAI);
     addHighTable(e, 77.2);
     addLowTable(e, 77.2);
-    addBackwardButton(e, 1520);
-    addForwardButton(e, 1760);
+    addBackwardButton(e, 79);
+    addForwardButton(e, 93);
     return (e);
 }
 
@@ -168,7 +168,7 @@ void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<::Entity> &e, double
     );
 }
 
-void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<::Entity> &e, int posX, TextComponent &text, bool isAI)
+void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<::Entity> &e, float posX, TextComponent &text, bool isAI)
 {
     if (isAI) {
         text.setText("Waiting...");
@@ -179,14 +179,16 @@ void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<::Entity> &e
         e,
         "",
         "Indie Studio",
-        posX + 75,
-        850,
-        200, 60,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 81 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 10 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         true,
         RESSOURCE("ui/EndGame/continue_button.png"),
         RESSOURCE("ui/EndGame/continue_button_pressed.png")
     );
+    button.layer = 1;
     button.setCallback([&button, &text, e]() {
         button.deleteComponent();
         text.setText("Waiting...");
@@ -194,15 +196,16 @@ void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<::Entity> &e
     });
 }
 
-void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<::Entity> &e, int posX)
+void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<::Entity> &e, float posX)
 {
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        posX,
-        750,
-        70, 70,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 71 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [e](){
             e->getComponent<StatsComponent>().value()->prev();
         },
@@ -212,15 +215,16 @@ void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<::Entity> &e
     );
 }
 
-void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<::Entity> &e, int posX)
+void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<::Entity> &e, float posX)
 {
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
-        posX,
-        750,
-        70, 70,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 71 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [e](){
             e->getComponent<StatsComponent>().value()->next();
         },
@@ -263,14 +267,16 @@ void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<::Entity> &e, double 
     );
 }
 
-TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<::Entity> &e, float posX)
 {
     return e->addComponent<TextComponent>(
         e,
         "Number of players killed",
         "Indie Studio",
-        posX, 472,
-        300, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 50 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 9 / 100,
         false,
         true,
         RESSOURCE("fonts/EndGame/endGameFont.xml"),
@@ -278,14 +284,16 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<::Entity
     );
 }
 
-TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<::Entity> &e, float posX)
 {
     return e->addComponent<TextComponent>(
         e,
         "6",
         "Indie Studio",
-        posX, 580,
-        300, 200,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 60 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 9 / 100,
         false,
         true,
         RESSOURCE("fonts/EndGame/endGameFont.xml"),
@@ -293,14 +301,16 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<::Entity>
     );
 }
 
-TextComponent &is::prefabs::EndGamePrefabs::addWaitingText(std::shared_ptr<::Entity> &e, int posX)
+TextComponent &is::prefabs::EndGamePrefabs::addWaitingText(std::shared_ptr<::Entity> &e, float posX)
 {
     return e->addComponent<TextComponent>(
         e,
         "",
         "Indie Studio",
-        posX, 530,
-        250, 700,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 79 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 9 / 100,
         false,
         true,
         RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),

@@ -34,21 +34,21 @@ namespace is::prefabs
         
         private:
             static void addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX);
-            static void addContinueButton(std::shared_ptr<is::ecs::Entity> &e, int posX, is::components::TextComponent &text, bool isAI);
-            static void addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
-            static void addForwardButton(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static void addContinueButton(std::shared_ptr<is::ecs::Entity> &e, float posX, is::components::TextComponent &text, bool isAI);
+            static void addBackwardButton(std::shared_ptr<is::ecs::Entity> &e, float posX);
+            static void addForwardButton(std::shared_ptr<is::ecs::Entity> &e, float posX);
             static void addHighTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
             static void addLowTable(std::shared_ptr<is::ecs::Entity> &e, double posX);
             static void addMedal(std::shared_ptr<is::ecs::Entity> &e, double posX, const std::string &filename);
-            static is::components::TextComponent &addTextHigh(std::shared_ptr<is::ecs::Entity> &e, int posX);
-            static is::components::TextComponent &addTextLow(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static is::components::TextComponent &addTextHigh(std::shared_ptr<is::ecs::Entity> &e, float posX);
+            static is::components::TextComponent &addTextLow(std::shared_ptr<is::ecs::Entity> &e, float posX);
             static void addStatsPlayer(
                 std::shared_ptr<is::ecs::Entity> &e,
                 is::components::TextComponent &textHigh,
                 is::components::TextComponent &textLow,
                 std::vector<std::pair<std::string, std::string>> &infos
             );
-            static is::components::TextComponent &addWaitingText(std::shared_ptr<is::ecs::Entity> &e, int posX);
+            static is::components::TextComponent &addWaitingText(std::shared_ptr<is::ecs::Entity> &e, float posX);
     };
 }
 
