@@ -33,11 +33,11 @@ void PresetSystem::start()
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
 
     _eventManager->get().resetLastKeyPressed();
-    auto *p = static_cast<PresetComponent *>(components[0].get());
+    const auto &p = std::static_pointer_cast<PresetComponent>(components[0]);
     p->_onSelect = true;
 
     for (auto &preset : components) {
-        auto *ptr = static_cast<PresetComponent *>(preset.get());
+        const auto &ptr = std::static_pointer_cast<PresetComponent>(preset);
         ptr->_toChange.reset();
         ptr->_toChangeUI.reset();
     }
@@ -137,7 +137,7 @@ void PresetSystem::onTearDown()
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
 
     for (auto &preset : components) {
-        auto *p = static_cast<PresetComponent *>(preset.get());
+        const auto &p = std::static_pointer_cast<PresetComponent>(preset);
         p->_imagePreset.clear();
         p->_textPreset.clear();
         p->_buttonPreset.clear();
@@ -148,9 +148,10 @@ void PresetSystem::reloadPresetAxes(const std::shared_ptr<is::components::Preset
 {
     for (int i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
 
-        //verif
-        auto &image = p->_imagePreset[i];
+        if (p->_imagePreset.size() <= i)
+            return;
 
+        auto &image = p->_imagePreset[i];
         image.get().setImage(_window->driver->getTexture(PresetComponent::getEquivalentButton(p->getJoystickPreset().getBindings().at(CharacterComponent::playerActions[i])).c_str()));
 
     }

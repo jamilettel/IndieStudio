@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** bomberman
 ** File description:
-** TODO: add description
+** Event Manager
 */
 
 #include "EventManager/EventManager.hpp"
@@ -104,62 +104,50 @@ void EventManager::setDeviceContext(irr::IrrlichtDevice &device)
 void EventManager::addEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode, const std::function<void()> &ft)
 {
     if (keyCtrl == irr::KEY_CONTROL || keyCtrl == irr::KEY_SHIFT || keyCtrl == 0) {
-        if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) != _eventKeyPressed.end()) {
-            //throw already exist
-            return;
-        }
+        if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) != _eventKeyPressed.end())
+            throw is::exceptions::EventManagerException("Key already bound.");
         _eventKeyPressed[std::pair<int, int>(keyCtrl, keyCode)] = ft;
         return;
     }
-    //throw invalid
+    throw is::exceptions::EventManagerException("Key not found.");
 }
 
 void EventManager::addEventKeyPressed(irr::EKEY_CODE keyCode, const std::function<void()> &ft)
 {
-    if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) != _eventKeyPressed.end()) {
-        //throw already exist
-        return;
-    }
+    if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) != _eventKeyPressed.end())
+        throw is::exceptions::EventManagerException("Key already bound.");
     _eventKeyPressed[std::pair<int, int>(0, keyCode)] = ft;
 }
 
 void EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCtrl, irr::EKEY_CODE keyCode)
 {
     if (keyCtrl == irr::KEY_CONTROL || keyCtrl == irr::KEY_SHIFT) {
-        if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) == _eventKeyPressed.end()) {
-            //throw no exist exist
-            return;
-        }
+        if (_eventKeyPressed.find(std::pair<int, int>(keyCtrl, keyCode)) == _eventKeyPressed.end())
+            throw is::exceptions::EventManagerException("Event not found.");
         _eventKeyPressed.erase(std::pair<int, int>(keyCtrl, keyCode));
         return;
     }
-    //throw invalid
+    throw is::exceptions::EventManagerException("Key not found.");
 }
 
 void EventManager::removeEventKeyPressed(irr::EKEY_CODE keyCode)
 {
-    if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) == _eventKeyPressed.end()) {
-        //throw no exist exist
-        return;
-    }
+    if (_eventKeyPressed.find(std::pair<int, int>(0, keyCode)) == _eventKeyPressed.end())
+        throw is::exceptions::EventManagerException("Key not found.");
     _eventKeyPressed.erase(std::pair<int, int>(0, keyCode));
 }
 
 void EventManager::addEventKeyReleased(irr::EKEY_CODE keyCode, const std::function<void()> &ft)
 {
-    if (_eventKeyReleased.find(keyCode) != _eventKeyReleased.end()) {
-        //throw already exist
-        return;
-    }
+    if (_eventKeyReleased.find(keyCode) != _eventKeyReleased.end())
+        throw is::exceptions::EventManagerException("Key already bound.");
     _eventKeyReleased[keyCode] = ft;
 }
 
 void EventManager::removeEventKeyReleased(irr::EKEY_CODE keyCode)
 {
-    if (_eventKeyReleased.find(keyCode) == _eventKeyReleased.end()) {
-        //throw no exist exist
-        return;
-    }
+    if (_eventKeyReleased.find(keyCode) == _eventKeyReleased.end())
+        throw is::exceptions::EventManagerException("Key to remove not found.");
     _eventKeyReleased.erase(keyCode);
 }
 
