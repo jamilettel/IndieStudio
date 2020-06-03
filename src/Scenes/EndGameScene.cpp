@@ -66,15 +66,12 @@ void EndGameScene::initEntities()
                 break;
             case 1:
                 initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                // initEntity(prefabs::EndGamePrefabs::createPlayer2(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 2:
                 initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                // initEntity(prefabs::EndGamePrefabs::createPlayer3(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             case 3:
                 initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
-                // initEntity(prefabs::EndGamePrefabs::createPlayer4(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath), false);
                 break;
             default:
                 break;
@@ -82,9 +79,6 @@ void EndGameScene::initEntities()
             i++;
         });
     });
-    // std::remove_if(entities.begin(), entities.end(), [](std::shared_ptr<Entity> &e) -> bool {
-    //     return (e->getComponent<CharacterComponent>().has_value());
-    // });
 }
 
 void EndGameScene::update()

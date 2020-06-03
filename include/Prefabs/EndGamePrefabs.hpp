@@ -34,9 +34,6 @@ namespace is::prefabs
                 float posWindow,
                 std::pair<float, float> &posModelPlayer
             );
-            static std::shared_ptr<is::ecs::Entity> createPlayer2(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture);
-            static std::shared_ptr<is::ecs::Entity> createPlayer3(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture);
-            static std::shared_ptr<is::ecs::Entity> createPlayer4(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture);
         
         private:
             static void addWindow(std::shared_ptr<is::ecs::Entity> &e, double posX);
