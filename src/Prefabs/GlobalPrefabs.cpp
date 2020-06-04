@@ -73,15 +73,18 @@ std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(const irr::core::vec
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createBomb(irr::core::vector3df position,
+std::shared_ptr<Entity> GlobalPrefabs::createBomb(
+    irr::core::vector3df position,
     int range,
-    std::shared_ptr<BombermanComponent> &bm)
+    std::shared_ptr<BombermanComponent> &bm,
+    CharacterControllerComponent &ch
+)
 {
     auto e = std::make_shared<Entity>(Entity::BOMB);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
-    e->addComponent<BombComponent>(e, bm, position, 3, range);
+    e->addComponent<BombComponent>(e, bm, position, ch, 3, range);
     e->addComponent<ParticuleComponent>(
         e,
         "Indie Studio",
