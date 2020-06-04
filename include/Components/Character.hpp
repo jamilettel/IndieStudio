@@ -57,6 +57,8 @@ namespace is::components
             void udpateTime();
             const std::string getTimeString() const noexcept;
             void setTimeComponent(TimeComponent &time) noexcept;
+            void setPosition(int position) noexcept;
+            int getPosition() const noexcept;
 
             int number;
             std::string texturePath;
@@ -74,6 +76,7 @@ namespace is::components
             size_t _nbCharactersKilled = 0;
             bool _stop = true;
             std::optional<std::reference_wrapper<TimeComponent>> _time;
+            int _position = 1;
     };
 }
 

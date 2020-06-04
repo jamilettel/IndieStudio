@@ -35,7 +35,8 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
     bool isAI, 
     const std::string &texture,
     float posWindow,
-    std::pair<float, float> &posModelPlayer
+    std::pair<float, float> &posModelPlayer,
+    int position
 )
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
@@ -57,7 +58,18 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
     addContinueButton(e, posWindow + 5.7f, addWaitingText(e, posWindow + 4.7f), isAI);
     addHighTable(e, posWindow + 1);
     addLowTable(e, posWindow + 1);
-    addMedal(e, posWindow + 7.5, "ui/EndGame/Star_01.png");
+    switch (position)
+    {
+    case 1:
+        addMedal(e, posWindow + 7.5, "ui/EndGame/Star_03.png");
+        break;
+    case 2:
+        addMedal(e, posWindow + 7.5, "ui/EndGame/Star_02.png");
+        break;
+    case 3:
+        addMedal(e, posWindow + 7.5, "ui/EndGame/Star_01.png");
+        break;
+    }
     addBackwardButton(e, posWindow + 2.5);
     addForwardButton(e, posWindow + 16.5);
     return (e);

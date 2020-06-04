@@ -32,7 +32,8 @@ namespace is::prefabs
                 bool isAI,
                 const std::string &texture,
                 float posWindow,
-                std::pair<float, float> &posModelPlayer
+                std::pair<float, float> &posModelPlayer,
+                int position
             );
         
         private:

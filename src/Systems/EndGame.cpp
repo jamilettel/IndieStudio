@@ -30,6 +30,14 @@ void EndGameSystem::update()
         count += ptr->isDead;
     }
 
+    for (auto &elem: characterComponents) {
+        auto ptr = std::dynamic_pointer_cast<is::components::CharacterControllerComponent>(elem);
+    
+        if (ptr->isDead && ptr->getCharacterComponent().getPosition() == 1) {
+            ptr->getCharacterComponent().setPosition(rules.getNumberOfPlayers() - count + 1);
+        }
+    }
+
     if (count >= rules.getNumberOfPlayers() - 1) {
         is::Game::setActualScene(is::ecs::SCENE_ENDGAME);
         return;

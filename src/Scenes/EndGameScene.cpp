@@ -60,16 +60,16 @@ void EndGameScene::initEntities()
         switch (i)
         {
         case 0:
-            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i], c.getPosition()), false);
             break;
         case 1:
-            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i], c.getPosition()), false);
             break;
         case 2:
-            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i], c.getPosition()), false);
             break;
         case 3:
-            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i]), false);
+            initEntity(prefabs::EndGamePrefabs::createPlayer(infos, c.characterType == c.MULTIPLAYER_PLAYER, c.texturePath, windowPos[i], posModelPlayer[i], c.getPosition()), false);
             break;
         default:
             break;

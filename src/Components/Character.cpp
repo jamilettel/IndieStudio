@@ -74,6 +74,7 @@ void CharacterComponent::reset() noexcept
     _nbBonusCollected = 0;
     _nbCharactersKilled = 0;
     _stop = true;
+    _position = 1;
     _time.value().get().resetStartTime();
 }
 
@@ -111,4 +112,14 @@ const std::string CharacterComponent::getTimeString() const noexcept
 void CharacterComponent::setTimeComponent(TimeComponent &time) noexcept
 {
     _time.emplace(time);
+}
+
+void CharacterComponent::setPosition(int position) noexcept
+{
+    _position = position;
+}
+
+int CharacterComponent::getPosition() const noexcept
+{
+    return (_position);
 }
