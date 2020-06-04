@@ -15,15 +15,15 @@
 
 namespace is::components {
 
-    class NumberComponent: public ecs::Component {
+    class NumberFieldComponent: public ecs::Component {
     public:
-        NumberComponent(
+        NumberFieldComponent(
             std::shared_ptr<ecs::Entity> &e
             );
-        ~NumberComponent() = default;
+        ~NumberFieldComponent() = default;
 
-        NumberComponent(const NumberComponent &) = delete;
-        NumberComponent &operator=(const NumberComponent &) = delete;
+        NumberFieldComponent(const NumberFieldComponent &) = delete;
+        NumberFieldComponent &operator=(const NumberFieldComponent &) = delete;
 
         void deleteComponent() override;
 
@@ -34,10 +34,10 @@ namespace is::components {
     private:
         void initOneComponent(
             std::shared_ptr<is::ecs::Entity> &e,
-            ButtonComponent *&buttonDown,
-            ButtonComponent *&buttonUp,
-            ImageComponent *&image,
-            TextComponent *&text,
+            // ButtonComponent *&buttonDown,
+            // ButtonComponent *&buttonUp,
+            // ImageComponent *&image,
+            // TextComponent *&text,
             int num);
 
     private:

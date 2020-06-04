@@ -547,6 +547,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
 {
     auto e = std::make_shared<Entity>();
 
+    e->addComponent<NumberFieldComponent>(e);
     e->addComponent<ImageComponent>(
         e,
         RESSOURCE("ui/background.jpg"),
@@ -577,7 +578,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
         "",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 50,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
         [nc](){
             nc->writeQueue.push("req jl -1 \n");

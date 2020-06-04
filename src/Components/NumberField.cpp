@@ -19,7 +19,7 @@ using namespace is::ecs;
 #define RESOURCE(str) RESOURCES_PATH str
 #endif
 
-NumberComponent::NumberComponent(
+NumberFieldComponent::NumberFieldComponent(
     std::shared_ptr<Entity> &e
     ):
     ecs::Component(e)
@@ -29,18 +29,19 @@ NumberComponent::NumberComponent(
         _buttonUp.emplace_back(nullptr);
         _image.emplace_back(nullptr);
         _text.emplace_back(nullptr);
+        _numbers.emplace_back(0);
     }
-    initOneComponent(e, _buttonDown[0], _buttonUp[0], _image[0], _text[0], 0);
-    initOneComponent(e, _buttonDown[1], _buttonUp[1], _image[1], _text[1], 1);
-    initOneComponent(e, _buttonDown[2], _buttonUp[2], _image[2], _text[2], 2);
-    initOneComponent(e, _buttonDown[3], _buttonUp[3], _image[3], _text[3], 3);
-    initOneComponent(e, _buttonDown[4], _buttonUp[4], _image[4], _text[4], 4);
+    initOneComponent(e, 0);
+    initOneComponent(e, 1);
+    initOneComponent(e, 2);
+    initOneComponent(e, 3);
+    initOneComponent(e, 4);
 }
 
-void NumberComponent::deleteComponent()
+void NumberFieldComponent::deleteComponent()
 {}
 
-int NumberComponent::getEnteredNumber() const
+int NumberFieldComponent::getEnteredNumber() const
 {
     int nb = 0;
 
@@ -51,7 +52,7 @@ int NumberComponent::getEnteredNumber() const
     return 0;
 }
 
-void NumberComponent::changeNumber(int pos, int amount)
+void NumberFieldComponent::changeNumber(int pos, int amount)
 {
     _numbers[pos] += amount;
     if (_numbers[pos] < 0)
@@ -61,55 +62,54 @@ void NumberComponent::changeNumber(int pos, int amount)
     _text[pos]->setText(std::to_string(_numbers[pos]));
 }
 
-void NumberComponent::initOneComponent(
+void NumberFieldComponent::initOneComponent(
     std::shared_ptr<Entity> &e,
-    ButtonComponent *&buttonDown,
-    ButtonComponent *&buttonUp,
-    ImageComponent *&image,
-    TextComponent *&text,
     int num)
 {
-    buttonDown = &e->addComponent<ButtonComponent>(
+    _buttonDown[num] = &e->addComponent<ButtonComponent>(
         e,
         "", "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / (5 - num) - 105,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 + 200,
-        210, 210,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 14 * (num + 5) - 25,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 + 60,
+        50, 50,
         [this, num] () {changeNumber(num, -1);},
-        false,
+        true,
         RESOURCE("ui/Multiplayer/down_btn.png"),
         RESOURCE("ui/Multiplayer/down_btn_pressed.png")
         );
-    buttonUp = &e->addComponent<ButtonComponent>(
+    _buttonDown[num]->layer = 5;
+    _buttonUp[num] = &e->addComponent<ButtonComponent>(
         e,
         "", "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / (5 - num) - 105,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 200,
-        210, 210,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 14 * (num + 5) - 25,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 110,
+        50, 50,
         [this, num] () {changeNumber(num, 1);},
-        false,
+        true,
         RESOURCE("ui/Multiplayer/up_btn.png"),
         RESOURCE("ui/Multiplayer/up_btn_pressed.png")
         );
-    image = &e->addComponent<ImageComponent>(
+    _buttonUp[num]->layer = 5;
+    _image[num] = &e->addComponent<ImageComponent>(
         e,
         RESOURCE("ui/Multiplayer/number_frame.png"),
         "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / (5 - num) - 192,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 250
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 14 * (num + 5) - 38,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 50
         );
-    text = &e->addComponent<TextComponent>(
+    _image[num]->layer = 5;
+    _text[num] = &e->addComponent<TextComponent>(
         e,
         "0",
         "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / (5 - num) - 192,
-        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 250,
-        384,
-        500,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 14 * (num + 5) - 38,
+        WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 50,
+        77,
+        100,
         false,
         true,
         RESOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
-        irr::video::SColor(255, 255, 255, 255),
-        false
+        irr::video::SColor(255, 255, 255, 255)
         );
+    _text[num]->layer = 6;
 }

@@ -49,6 +49,7 @@
 #include "Components/JoystickCursor.hpp"
 #include "Components/Texture.hpp"
 #include "Components/Timer.hpp"
+#include "Components/NumberField.hpp"
 
 namespace is::prefabs {
 
