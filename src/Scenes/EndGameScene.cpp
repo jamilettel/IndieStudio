@@ -53,9 +53,9 @@ void EndGameScene::initEntities()
         std::vector<std::pair<std::string, std::string>> infos;
 
         infos.emplace_back(std::make_pair("Bombs laid", std::to_string(c.getNbBombPosed())));
-        infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonueCollected())));
+        infos.emplace_back(std::make_pair("Bonus collected", std::to_string(c.getNbBonusCollected())));
         infos.emplace_back(std::make_pair("Players killed", std::to_string(c.getNbCharactersKilled())));
-        infos.emplace_back(std::make_pair("Time playing", std::to_string(c.getTimePlaying())));
+        infos.emplace_back(std::make_pair("Time playing", c.getTimeString()));
 
         switch (i)
         {

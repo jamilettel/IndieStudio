@@ -62,6 +62,7 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
             auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
             if (!bm)
                 throw is::exceptions::Exception("PowerUpSystem", "Could not find bomberman");
+            bm->get()->getCharacter().setNbBonusCollected(bm->get()->getCharacter().getNbBonusCollected() + 1);
             switch (type) {
             case is::components::PowerUpComponent::BOMB_UP:
                 bm->get()->bombNumber++;

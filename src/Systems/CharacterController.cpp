@@ -18,11 +18,12 @@ void is::systems::CharacterControllerSystem::awake()
 void is::systems::CharacterControllerSystem::start()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
-        if (elem->getEntity()->isInit())
-            continue;
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
+        ptr->getCharacterComponent().startTime();
+        if (elem->getEntity()->isInit())
+            continue;
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
@@ -68,6 +69,7 @@ void is::systems::CharacterControllerSystem::update()
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
+        ptr->getCharacterComponent().udpateTime();
         if (ptr->isDead)
             continue;
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();

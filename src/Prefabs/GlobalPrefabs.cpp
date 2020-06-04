@@ -257,7 +257,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         SOUND
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    character.reset();
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
@@ -267,12 +266,15 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         "Indie Studio",
         0.1
     );
+    TimeComponent &time = e->addComponent<TimeComponent>(e);
+    character.setTimeComponent(time);
+    character.reset();
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<BombermanComponent>(e);
+    e->addComponent<BombermanComponent>(e, character);
     e->addComponent<JumpComponent>(e, movement);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});

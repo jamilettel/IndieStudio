@@ -48,7 +48,7 @@ int CharacterComponent::getNbBombPosed() const noexcept
     return (_nbBombPosed);
 }
 
-int CharacterComponent::getNbBonueCollected() const noexcept
+int CharacterComponent::getNbBonusCollected() const noexcept
 {
     return (_nbBonusCollected);
 }
@@ -73,4 +73,42 @@ void CharacterComponent::reset() noexcept
     _nbBombPosed = 0;
     _nbBonusCollected = 0;
     _nbCharactersKilled = 0;
+    _stop = true;
+    _time.value().get().resetStartTime();
+}
+
+void CharacterComponent::startTime() noexcept
+{
+    _stop = false;
+    _timePlaying = 0;
+    _time.value().get().resetStartTime();
+    _time.value().get().start();
+}
+
+void CharacterComponent::stopTime() noexcept
+{
+    _stop = true;
+}
+
+void CharacterComponent::udpateTime()
+{
+    if (_stop || !_time.has_value())
+        return;
+    _time.value().get().update();
+    _timePlaying += _time.value().get().getCurrentIntervalSeconds();
+}
+
+const std::string CharacterComponent::getTimeString() const noexcept
+{
+    return (std::string(
+        (_timePlaying / 60 < 10 ? "0" : "" ) + 
+        std::to_string(static_cast<int>(_timePlaying) / 60) + ":" + 
+        (static_cast<int>(_timePlaying) % 60 < 10 ? "0" : "") + 
+        std::to_string(static_cast<int>(_timePlaying) % 60)
+    ));
+}
+
+void CharacterComponent::setTimeComponent(TimeComponent &time) noexcept
+{
+    _time.emplace(time);
 }
