@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** bomberman
 ** File description:
-** TODO: add description
+** Controllers Prefab
 */
 
 #include "Prefabs/GlobalPrefabs.hpp"
@@ -33,7 +33,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
         e,
         RESSOURCE("ui/Controllers/Controls_title.png"),
         "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 40, true
     ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
@@ -53,7 +53,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
         RESSOURCE("ui/Controllers/Controller.png"),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40 + 20,
         true
     ).layer = 1;
     e->addComponent<ImageComponent>(
@@ -61,7 +61,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
         RESSOURCE("ui/Controllers/Keyboard.png"),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 8 / 20,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40,
         true
     ).layer = 1;
     return e;
@@ -78,7 +78,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
         "Preset 1",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7 / 20,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 30,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40 + 30,
         150, 40,
         false,
         true,
@@ -93,10 +93,10 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
         "",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40,
         100, 100,
         [&manager, &TextPresetSelected](){
-            auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
+            const auto &p = std::static_pointer_cast<PresetComponent>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset]);
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
                 text.get().setVisible(false);
             });
@@ -114,17 +114,17 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 selectedPreset++;
                 TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
             }
-            p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
-            std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
+            const auto &np = std::static_pointer_cast<PresetComponent>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset]);
+            std::for_each(np->_textPreset.begin(), np->_textPreset.end(), [](auto &text){
                 text.get().setVisible(true);
             });
-            std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
+            std::for_each(np->_imagePreset.begin(), np->_imagePreset.end(), [](auto &image){
                 image.get().setVisible(true);
             });
-            std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
+            std::for_each(np->_buttonPreset.begin(), np->_buttonPreset.end(), [](auto &button){
                 button.get().setVisible(true);
             });
-            p->_onSelect = true;
+            np->_onSelect = true;
         },
         true,
         RESSOURCE("ui/Controllers/Forward_BTN.png"),
@@ -137,10 +137,10 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
         "",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 1 / 20,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40,
         100, 100,
         [&manager, &TextPresetSelected](){
-            auto *p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
+            const auto &p = std::static_pointer_cast<PresetComponent>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset]);
             std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
                 text.get().setVisible(false);
             });
@@ -158,17 +158,17 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 selectedPreset--;
                 TextPresetSelected.setText(std::string("Preset ") + std::to_string(selectedPreset + 1));
             }
-            p = static_cast<PresetComponent *>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset].get());
-            std::for_each(p->_textPreset.begin(), p->_textPreset.end(), [](auto &text){
+            const auto &np = std::static_pointer_cast<PresetComponent>(manager.getComponentsByType(typeid(PresetComponent).hash_code())[selectedPreset]);
+            std::for_each(np->_textPreset.begin(), np->_textPreset.end(), [](auto &text){
                 text.get().setVisible(true);
             });
-            std::for_each(p->_imagePreset.begin(), p->_imagePreset.end(), [](auto &image){
+            std::for_each(np->_imagePreset.begin(), np->_imagePreset.end(), [](auto &image){
                 image.get().setVisible(true);
             });
-            std::for_each(p->_buttonPreset.begin(), p->_buttonPreset.end(), [](auto &button){
+            std::for_each(np->_buttonPreset.begin(), np->_buttonPreset.end(), [](auto &button){
                 button.get().setVisible(true);
             });
-            p->_onSelect = true;
+            np->_onSelect = true;
         },
         true,
         RESSOURCE("ui/Controllers/Backward_BTN.png"),
@@ -187,7 +187,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
             WindowComponent::_windowsDimensions["Indie Studio"].first *
             1.9 / 20,
             WindowComponent::_windowsDimensions["Indie Studio"].second *
-            4 / 20 + 80 + ((i + 1) * 100),
+            4 / 20 + 20 + ((i + 1) * 100),
             300, 100,
             true,
             false,
@@ -199,7 +199,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
         textAction.layer = 2;
 
         for (auto &preset : presets) {
-            auto *p = static_cast<PresetComponent *>(preset.get());
+            const auto &p = std::static_pointer_cast<PresetComponent>(preset);
             auto &keyboardBinds = p->getKeyboardPreset().getBindings();
             auto JoystickBinds = p->getJoystickPreset().getBindings();
 
@@ -208,7 +208,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 PresetComponent::getEquivalentKey(keyboardBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
                 WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 20,
-                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 80 + ((i + 1) * 100),
+                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 20 + ((i + 1) * 100),
                 140, 100,
                 true,
                 true,
@@ -223,7 +223,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 PresetComponent::getEquivalentButton(JoystickBinds.at(CharacterComponent::playerActions[i])),
                 "Indie Studio",
                 WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 10,
-                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 90 + ((i + 1) * 100),
+                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 30 + ((i + 1) * 100),
                 true,
                 count == 0
             );
@@ -233,7 +233,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 "",
                 "Indie Studio",
                 WindowComponent::_windowsDimensions["Indie Studio"].first * 17 / 20,
-                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 100 + ((i + 1) * 100),
+                WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20 + 40 + ((i + 1) * 100),
                 220, 70,
                 []() {
                 },

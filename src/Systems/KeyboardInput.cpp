@@ -41,6 +41,8 @@ void KeyboardInputSystem::update()
         auto &bindings = keyboard.getBindings();
         auto &manager = keyboard.getInputManager();
 
+        manager.resetValues();
+
         for (const auto &pair: bindings) {
             if (_window->eventManager.IsKeyDown(pair.first))
                 manager.addValue(pair.second.first, pair.second.second);

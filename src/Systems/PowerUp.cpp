@@ -76,6 +76,13 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
                 ptr->getEntity()->getComponent<is::components::ColliderComponent>()->get()->removeCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
                 break;
             }
+            auto network = _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code());
+
+            if (!network.empty()) {
+                auto nw = std::dynamic_pointer_cast<is::components::NetworkComponent>(network[0]);
+                nw->writeQueue.push("evt gpu " + std::to_string(nw->lobby) +
+                    " " + std::to_string(nw->playerIdx) + " " + std::to_string(type) + " \n");
+            }
             trcollider.getEntity()->setDelete(true);
             return;
         }

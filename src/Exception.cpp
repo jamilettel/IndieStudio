@@ -30,10 +30,10 @@ is::exceptions::ECSException::ECSException(const std::string &message):
 {}
 
 is::exceptions::AStarAlgorithmException::AStarAlgorithmException(const std::string &message):
-    is::exceptions::Exception("AStarAlogrithm", message)
+    is::exceptions::Exception("AStarAlgorithm", message)
 {}
 
 is::exceptions::EventManagerException::EventManagerException(const std::string &message) :
-is::exceptions::Exception("ECS", message)
+is::exceptions::Exception("EventManager", message)
 {
 }

@@ -20,17 +20,17 @@ RuleSettingsScene::RuleSettingsScene() : AScene(Scenes::SCENE_RULE_SETTINGS)
 
 void RuleSettingsScene::initSystems()
 {
-    _systemManager->addSystem(std::make_shared<TimeSystem>());
-    _systemManager->addSystem(std::make_shared<AudioSystem>());
-    _systemManager->addSystem(std::make_shared<WindowSystem>());
-    _systemManager->addSystem(std::make_shared<LightSystem>());
-    _systemManager->addSystem(std::make_shared<ImageSystem>());
-    _systemManager->addSystem(std::make_shared<ButtonSystem>());
-    _systemManager->addSystem(std::make_shared<CursorSystem>());
-    _systemManager->addSystem(std::make_shared<TextureSystem>());
-    _systemManager->addSystem(std::make_shared<ModelRendererSystem>());
-    _systemManager->addSystem(std::make_shared<TextSystem>());
-    _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ButtonSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
 }
 
 is::components::RulesComponent &RuleSettingsScene::getRulesComponent() const
@@ -60,5 +60,5 @@ void RuleSettingsScene::initEntities()
     initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
     initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
     initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rulesSetting, rules));
+    // initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rulesSetting, rules));
 }
