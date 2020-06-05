@@ -52,8 +52,8 @@ namespace is::components {
 
         void setPreset(const JoystickPresetComponent &preset);
 
-        float axisDeadzoneMin = 0.20;
-        float axisDeadzoneMax = 0.90;
+        double axisDeadzoneMin = 0.20;
+        double axisDeadzoneMax = 0.90;
 
     private:
         InputManagerComponent &_inputManager;

@@ -40,7 +40,7 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<
         irr::core::vector3df(0, -120, -70),
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
-    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
+    auto &animator = e->addComponent<AnimatorComponent>(e);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});

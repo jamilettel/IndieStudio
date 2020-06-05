@@ -8,6 +8,10 @@
 #include "Systems/Network.hpp"
 #include <algorithm>
 
+#ifndef MSG_DONTWAIT
+#define MSG_DONTWAIT 0x40
+#endif
+
 using namespace irr;
 using namespace std;
 
@@ -178,7 +182,7 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
         if (ptr->writeQueue.size() > 0) {
             std::string tmp = ptr->writeQueue.front();
             //std::cout << "-> " << tmp << std::endl;
-            write(ptr->serverSock, tmp.c_str(), tmp.size());
+            _write(ptr->serverSock, tmp.c_str(), tmp.size());
             ptr->writeQueue.pop();
         }
     }
@@ -188,8 +192,8 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
     //    ptr->writeQueueUdp.pop();
     //}
     if (FD_ISSET(ptr->serverSock, &ptr->efds)) {
-        close(ptr->serverSock);
-        close(ptr->serverSockUdp);
+        _close(ptr->serverSock);
+        _close(ptr->serverSockUdp);
         ptr->isOn = false;
     }
     //if (FD_ISSET(ptr->serverSockUdp, &ptr->efds)) {
