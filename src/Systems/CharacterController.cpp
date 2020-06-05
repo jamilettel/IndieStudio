@@ -18,11 +18,12 @@ void is::systems::CharacterControllerSystem::awake()
 void is::systems::CharacterControllerSystem::start()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
-        if (elem->getEntity()->isInit())
-            continue;
         auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
+        ptr->getCharacterComponent().startTime();
+        if (elem->getEntity()->isInit())
+            continue;
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
@@ -70,6 +71,7 @@ void is::systems::CharacterControllerSystem::update()
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
         if (ptr->isDead)
             continue;
+        ptr->getCharacterComponent().udpateTime();
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
@@ -109,7 +111,7 @@ void is::systems::CharacterControllerSystem::update()
                     throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
                 bm->get()->instantBomb++;
                 ptr->getCharacterComponent().setNbBombPosed(ptr->getCharacterComponent().getNbBombPosed() + 1);
-                auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
+                auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value(), *ptr));
                 auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
                 auto ptr_part = std::dynamic_pointer_cast<ParticuleComponent>(*e->getComponent<ParticuleComponent>());
                 ptr_mr->initModelRenderer(ptr_window);

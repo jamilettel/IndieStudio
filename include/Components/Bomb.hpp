@@ -12,6 +12,7 @@
 
 #include "ECS/Component.hpp"
 #include "Components/Bomberman.hpp"
+#include "Components/CharacterController.hpp"
 
 namespace is::components {
 
@@ -20,6 +21,7 @@ namespace is::components {
             BombComponent(std::shared_ptr<is::ecs::Entity> &e,
                 std::shared_ptr<is::components::BombermanComponent> &bm,
                 const irr::core::vector3df &pos,
+                CharacterControllerComponent &character,
                 float lt = 3,
                 int size = 2
             );
@@ -34,6 +36,11 @@ namespace is::components {
             float bombSize;
             std::shared_ptr<is::components::BombermanComponent> bomberman;
             irr::core::vector3df _pos;
+
+            CharacterControllerComponent &getCharacterController() const noexcept;
+
+        private:
+            CharacterControllerComponent &_character;
     };
 
 }

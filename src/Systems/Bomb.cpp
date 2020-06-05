@@ -10,6 +10,7 @@
 #include <utility>
 
 using namespace irr;
+using namespace is::components;
 
 void is::systems::BombSystem::awake()
 {
@@ -47,11 +48,11 @@ void is::systems::BombSystem::update()
             }
             if (!windowFound)
                 throw is::exceptions::Exception("BombComponent", "Could not find window");
-            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, i + 1); i++);
-            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, i + 1, 0); i++);
-            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, -(i + 1)); i++);
-            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, -(i + 1), 0); i++);
-            dropFire(ptr, ptr_window, 0, 0);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, i + 1, ptr->getCharacterController()); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, i + 1, 0, ptr->getCharacterController()); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, 0, -(i + 1), ptr->getCharacterController()); i++);
+            for (int i = 0; i < ptr->bombSize && dropFire(ptr, ptr_window, -(i + 1), 0, ptr->getCharacterController()); i++);
+            dropFire(ptr, ptr_window, 0, 0, ptr->getCharacterController());
             ptr->bomberman->instantBomb--;
             ptr->getEntity()->setDelete(true);
         }
@@ -61,7 +62,8 @@ void is::systems::BombSystem::update()
 bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombComponent> ptr,
                                        std::shared_ptr<is::components::WindowComponent> ptr_window,
                                        int x,
-                                       int y)
+                                       int y,
+                                       CharacterControllerComponent &ch)
 {
     irr::core::vector3df f = ptr->getEntity()->getComponent<is::components::TransformComponent>()->get()->position;
     f.X = ((int)((f.X + 1.5f) / 3) + x - (f.X < 0)) * 3;
@@ -71,7 +73,7 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
     auto part = std::dynamic_pointer_cast<is::components::ParticuleComponent>(*e->getComponent<is::components::ParticuleComponent>());
     part->init(ptr_window);
     auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*e->getComponent<is::components::ColliderComponent>());
-    if (checkFireCollision(*cc, ptr_window)) {
+    if (checkFireCollision(*cc, ptr_window, ch)) {
         e->setDelete(true);
         return (false);
     }
@@ -79,7 +81,11 @@ bool is::systems::BombSystem::dropFire(std::shared_ptr<is::components::BombCompo
 }
 
 
-bool is::systems::BombSystem::checkFireCollision(is::components::ColliderComponent &trcollider, const std::shared_ptr<is::components::WindowComponent>& ptr_window)
+bool is::systems::BombSystem::checkFireCollision(
+    is::components::ColliderComponent &trcollider,
+    const std::shared_ptr<is::components::WindowComponent>& ptr_window,
+    CharacterControllerComponent &ch
+)
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
     _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
@@ -113,6 +119,7 @@ bool is::systems::BombSystem::checkFireCollision(is::components::ColliderCompone
             }
             if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
                 ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get()->dead = true;
+                ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
                 return (false);
             }
             return (true);

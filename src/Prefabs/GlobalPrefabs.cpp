@@ -73,15 +73,18 @@ std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(const irr::core::vec
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createBomb(irr::core::vector3df position,
+std::shared_ptr<Entity> GlobalPrefabs::createBomb(
+    irr::core::vector3df position,
     int range,
-    std::shared_ptr<BombermanComponent> &bm)
+    std::shared_ptr<BombermanComponent> &bm,
+    CharacterControllerComponent &ch
+)
 {
     auto e = std::make_shared<Entity>(Entity::BOMB);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
-    e->addComponent<BombComponent>(e, bm, position, 3, range);
+    e->addComponent<BombComponent>(e, bm, position, ch, 3, range);
     e->addComponent<ParticuleComponent>(
         e,
         "Indie Studio",
@@ -257,7 +260,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         SOUND
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    character.reset();
     e->addComponent<CharacterControllerComponent>(
         e,
         transform,
@@ -267,12 +269,15 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         "Indie Studio",
         0.1
     );
+    TimeComponent &time = e->addComponent<TimeComponent>(e);
+    character.setTimeComponent(time);
+    character.reset();
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
-    e->addComponent<BombermanComponent>(e);
+    e->addComponent<BombermanComponent>(e, character);
     e->addComponent<JumpComponent>(e, movement);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
