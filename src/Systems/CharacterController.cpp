@@ -127,8 +127,14 @@ void is::systems::CharacterControllerSystem::update()
         }
         else if (ptr->canPlaceBomb)
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Idle");
-        else
+        else {
+            ptr->dropBombTimer += _time->get().getCurrentIntervalSeconds();
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb");
+            if (ptr->dropBombTimer > 0.5f) {
+                ptr->dropBombTimer = 0.0f;
+                ptr->canPlaceBomb = true;
+            }
+        }
         ptr->lastPos = ptr->getTransform().position;
     }
 }
