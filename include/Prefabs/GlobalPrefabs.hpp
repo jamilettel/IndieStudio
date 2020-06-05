@@ -124,6 +124,7 @@ namespace is::prefabs {
 
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
+    
     };
 
 }
