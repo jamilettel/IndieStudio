@@ -11,6 +11,7 @@
 #include <functional>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 #include "ECS/Component.hpp"
 

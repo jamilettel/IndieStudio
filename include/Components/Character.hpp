@@ -42,10 +42,10 @@ namespace is::components
             void setNbBonusCollected(size_t nbBonusCollected) noexcept;
             void setNbCharactersKilled(size_t nbCharactersKilled) noexcept;
 
-            [[nodiscard]] int getTimePlaying() const noexcept;
-            [[nodiscard]] int getNbBombPosed() const noexcept;
-            [[nodiscard]] int getNbBonueCollected() const noexcept;
-            [[nodiscard]] int getNbCharactersKilled() const noexcept;
+            [[nodiscard]] size_t getTimePlaying() const noexcept;
+            [[nodiscard]] size_t getNbBombPosed() const noexcept;
+            [[nodiscard]] size_t getNbBonueCollected() const noexcept;
+            [[nodiscard]] size_t getNbCharactersKilled() const noexcept;
             [[nodiscard]] bool isAI() const noexcept;
 
             void deleteComponent() override;
