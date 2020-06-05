@@ -38,22 +38,22 @@ void CharacterComponent::setNbCharactersKilled(size_t nbCharactersKilled) noexce
     _nbCharactersKilled = nbCharactersKilled;
 }
 
-int CharacterComponent::getTimePlaying() const noexcept
+size_t CharacterComponent::getTimePlaying() const noexcept
 {
     return (_timePlaying);
 }
 
-int CharacterComponent::getNbBombPosed() const noexcept
+size_t CharacterComponent::getNbBombPosed() const noexcept
 {
     return (_nbBombPosed);
 }
 
-int CharacterComponent::getNbBonusCollected() const noexcept
+size_t CharacterComponent::getNbBonusCollected() const noexcept
 {
     return (_nbBonusCollected);
 }
 
-int CharacterComponent::getNbCharactersKilled() const noexcept
+size_t CharacterComponent::getNbCharactersKilled() const noexcept
 {
     return (_nbCharactersKilled);
 }

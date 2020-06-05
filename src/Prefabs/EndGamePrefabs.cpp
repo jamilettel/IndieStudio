@@ -32,7 +32,7 @@ std::shared_ptr<Entity> is::prefabs::EndGamePrefabs::createBackground()
 
 std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
     std::vector<std::pair<std::string, std::string>> &infos,
-    bool isAI, 
+    bool isAI,
     const std::string &texture,
     float posWindow,
     std::pair<float, float> &posModelPlayer,
@@ -60,15 +60,15 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
     addLowTable(e, posWindow + 1);
     switch (position)
     {
-    case 1:
-        addMedal(e, posWindow + 7.5, "ui/EndGame/Star_03.png");
-        break;
-    case 2:
-        addMedal(e, posWindow + 7.5, "ui/EndGame/Star_02.png");
-        break;
-    case 3:
-        addMedal(e, posWindow + 7.5, "ui/EndGame/Star_01.png");
-        break;
+        case 1:
+            addMedal(e, posWindow + 7.5, "ui/EndGame/Star_03.png");
+            break;
+        case 2:
+            addMedal(e, posWindow + 7.5, "ui/EndGame/Star_02.png");
+            break;
+        case 3:
+            addMedal(e, posWindow + 7.5, "ui/EndGame/Star_01.png");
+            break;
     }
     addBackwardButton(e, posWindow + 2.5);
     addForwardButton(e, posWindow + 16.5);

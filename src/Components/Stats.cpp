@@ -35,7 +35,7 @@ void StatsComponent::prev() noexcept
 {
     _i--;
     if (_i == -1)
-        _i = _stats.size() - 1;
+        _i = static_cast<int>(_stats.size() - 1);
     _highText.setText(_stats[_i].first);
     _lowText.setText(_stats[_i].second);
 }
