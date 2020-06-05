@@ -32,6 +32,8 @@ void is::systems::CameraSystem::start()
 
 void is::systems::CameraSystem::update()
 {
+    static bool target = false;
+
     for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::CameraComponent).hash_code())) {
         std::vector<irr::core::vector2df> points;
         irr::core::vector2df centroid = {0, 0};
@@ -42,7 +44,7 @@ void is::systems::CameraSystem::update()
         double y1 = 0.0;
         double a = 0.0;
         int i=0;
-        
+
         auto ptr = std::dynamic_pointer_cast<is::components::CameraComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("CameraSystem", "Could not get CameraComponent pointer");
@@ -56,7 +58,7 @@ void is::systems::CameraSystem::update()
             if (!ptr_tr)
                 throw is::exceptions::Exception("CameraSystem", "Could not get TransformComponent pointer");
             irr::core::vector3df pos = ptr_tr->get()->position;
-            
+
             points.push_back({pos.X, pos.Z});
         }
         if (points.size() <= 0)
@@ -109,10 +111,13 @@ void is::systems::CameraSystem::update()
         // std::cout << "npos.y = " << npos.Y << std::endl;
         // std::cout << "ptr->node->getPosition().Y = " << ptr->node->getPosition().Y << std::endl;
         // std::cout << std::flush;
-        ptr->node->setPosition(irr::core::vector3df(npos.X - 15, ptr->node->getPosition().Y, npos.Y));
-        ptr->node->setTarget(irr::core::vector3df(npos.X - 3, ptr->node->getTarget().Y, npos.Y));
+        if (target)
+            ptr->node->setTarget(irr::core::vector3df(npos.X - 3, ptr->node->getTarget().Y, npos.Y));
+        else
+            ptr->node->setPosition(irr::core::vector3df(npos.X - 15, ptr->node->getPosition().Y, npos.Y));
 
     }
+    target = !target;
 }
 
 void is::systems::CameraSystem::stop()
@@ -130,4 +135,3 @@ void is::systems::CameraSystem::onTearDown()
 {
 
 }
-

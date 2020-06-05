@@ -114,7 +114,7 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
                 sc.initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(j * 3, 3, i * 3)));
             } else if (arrayMap[j + mid_h][i + mid_w] == 2) {
                 sc.initEntity(prefabs::GlobalPrefabs::createCenterBlock(irr::core::vector3df(j * 3, 0, i * 3)));
-            } else if (arrayMap[j + mid_h][i + mid_w] == 1)
+            } else if (arrayMap[j + mid_h][i + mid_w] == 1) {
                 if (network.empty()) {
                     sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
                 } else {
@@ -126,6 +126,7 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
                                             " " + std::to_string(i * 3.0f) + " \n");
                     }
                 }
+            }
         }
     }
 }
