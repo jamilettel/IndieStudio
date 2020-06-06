@@ -21,13 +21,7 @@ using namespace is::ecs;
 
 void ImageSystem::awake()
 {
-    auto &images = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
-
-    // std::sort(
-    //     images.begin(), images.end(),
-    //     [] (const std::shared_ptr<Component> &img1, const std::shared_ptr<Component> &img2)->bool {
-    //         return static_cast<ImageComponent *>(img1.get())->layer < static_cast<ImageComponent *>(img2.get())->layer;
-    //     });
+    const auto &images = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
 
     for (auto &elem : images) {
         if (elem->getEntity()->isInit())
@@ -36,21 +30,17 @@ void ImageSystem::awake()
         if (!ptr)
             throw is::exceptions::Exception("ImageSystem", "Could not getImageComponent pointer");
 
-        std::shared_ptr<WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("ImageComponent", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
-            throw is::exceptions::Exception("ImageComponent", "Could not find window");
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr->windowName;
+        });
+        if (ptr_window == componentList.end())
+            throw is::exceptions::Exception("ImageComponent", "Could not get WindowComponent pointer");
 
-        ptr->init(ptr_window);
+        auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        ptr->init(window);
     }
 }
 

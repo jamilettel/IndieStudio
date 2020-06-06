@@ -34,7 +34,7 @@ namespace is::components {
 
         void setPreset(const KeyboardPresetComponent &preset);
 
-        std::map<irr::EKEY_CODE, std::pair<std::string, float>> &getBindings();
+        const std::map<irr::EKEY_CODE, std::pair<std::string, float>> &getBindings() const;
         [[nodiscard]] InputManagerComponent &getInputManager() const;
 
         void unbindAll();
