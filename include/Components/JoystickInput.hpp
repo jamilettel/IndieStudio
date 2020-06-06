@@ -41,8 +41,8 @@ namespace is::components {
         bool changeAxisTargets(irr::u32 axis, float min, float max);
         bool changeAxisTarget(irr::u32 axis, float newTarget, bool max);
 
-        std::map<irr::u32, std::pair<std::string, float>> &getButtonBindings();
-        std::map<irr::u32, std::pair<std::string, float[2]>> &getAxisBindings();
+        const std::map<irr::u32, std::pair<std::string, float>> &getButtonBindings() const;
+        const std::map<irr::u32, std::pair<std::string, float[2]>> &getAxisBindings() const;
         [[nodiscard]] InputManagerComponent &getInputManager() const;
 
         void assignJoystick(int id);

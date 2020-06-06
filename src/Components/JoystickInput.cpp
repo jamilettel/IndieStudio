@@ -123,12 +123,12 @@ bool JoystickInputComponent::changeAxisTarget(irr::u32 axis, float target, bool 
     return true;
 }
 
-std::map<irr::u32, std::pair<std::string, float>> &JoystickInputComponent::getButtonBindings()
+const std::map<irr::u32, std::pair<std::string, float>> &JoystickInputComponent::getButtonBindings() const
 {
     return _buttons;
 }
 
-std::map<irr::u32, std::pair<std::string, float[2]>> &JoystickInputComponent::getAxisBindings()
+const std::map<irr::u32, std::pair<std::string, float[2]>> &JoystickInputComponent::getAxisBindings() const
 {
     return _axes;
 }
