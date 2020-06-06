@@ -83,7 +83,13 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
     if (select(ptr->serverSock + 1, &ptr->rfds, &ptr->wfds, &ptr->efds, &ptr->timeout) == -1)
         throw is::exceptions::Exception("NetworkSystem", "Select exception");        
     char buff[READ_SIZE] = {0};
-    if (recv(ptr->serverSock, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT        
+    #ifdef _MSC_VER
+    int mode = 1;
+    ioctlsocket(ptr->serverSock, FIONBIO, &mode);
+    if (recv(ptr->serverSock, buff, READ_SIZE, 0) >= 0) {
+    #else
+    if (recv(ptr->serverSock, buff, READ_SIZE, MSG_DONTWAIT) >= 0) {
+    #endif
         std::vector<std::string> cmd;
         split(std::string(buff), cmd, ' ');
         int remove = 0;

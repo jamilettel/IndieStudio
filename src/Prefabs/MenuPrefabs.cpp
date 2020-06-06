@@ -582,8 +582,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
-        [nc](){
-            nc->writeQueue.push("req jl -1 \n");
+        [nc, e](){
+            nc->writeQueue.push("req jl " + std::to_string(e->getComponent<NumberFieldComponent>()->get()->getEnteredNumber()) + " \n");
         },
         true,
         "ui/main_menu/button_play.png",
@@ -635,5 +635,16 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<Ne
         "ui/main_menu/button_play.png",
         "ui/main_menu/button_play_pressed.png"
     );
+    e->addComponent<TextComponent>(
+        e,
+        "Code to invite your friends: " + std::to_string(nc->lobby),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2, 130,
+        350, 100,
+        false,
+        true,
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
+        irr::video::SColor(255, 227, 245, 244)
+    ).layer = 4;
     return e;
 }

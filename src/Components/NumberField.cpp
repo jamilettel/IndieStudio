@@ -41,7 +41,7 @@ int NumberFieldComponent::getEnteredNumber() const
         nb *= 10;
         nb += _numbers[i];
     }
-    return 0;
+    return nb;
 }
 
 void NumberFieldComponent::changeNumber(int pos, int amount)
