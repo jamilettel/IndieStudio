@@ -424,21 +424,4 @@ void is::Game::resourcesInitialization(std::shared_ptr<is::components::WindowCom
         (void *)window->driver->getTexture(RESSOURCE("ui/EndGame/Star_02.png")));
     is::Game::addResource("ui/EndGame/Star_03.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/EndGame/Star_03.png")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-    is::Game::addResource("aaaaaaa",
-        (void *)window->driver->getTexture(RESSOURCE("aaaaaa")));
-
 }
