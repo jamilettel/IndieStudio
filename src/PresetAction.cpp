@@ -15,9 +15,9 @@ PresetAction::PresetAction(
     std::string desc,
     bool maximum
     ):
-    action(actionString),
+    action(std::move(actionString)),
     value(target),
-    description(desc),
+    description(std::move(desc)),
     max(maximum)
 {}
 

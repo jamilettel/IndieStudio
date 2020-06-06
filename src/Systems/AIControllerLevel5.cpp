@@ -41,7 +41,7 @@ void AIControllerLevel5System::start()
     std::vector<std::shared_ptr<Component>> &time =
         _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
-    if (!time.size())
+    if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
@@ -238,7 +238,7 @@ bool AIControllerLevel5System::canHideFromExplosion(
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
     successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
-    while (successors.size() != 0) {
+    while (!successors.empty()) {
         irr::core::vector2di newPos = successors[0];
 
         successors.erase(successors.begin());
@@ -316,7 +316,7 @@ bool AIControllerLevel5System::findBombEmplacement(
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
     successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
-    while (successors.size() != 0) {
+    while (!successors.empty()) {
         irr::core::vector2di newPos = successors[0];
 
         successors.erase(successors.begin());

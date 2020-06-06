@@ -51,8 +51,8 @@ namespace is::systems {
             void onTearDown() override;
 
             bool dropFire(
-                std::shared_ptr<is::components::BombComponent> ptr,
-                std::shared_ptr<is::components::WindowComponent> ptr_window,
+                const std::shared_ptr<is::components::BombComponent>& ptr,
+                const std::shared_ptr<is::components::WindowComponent>& ptr_window,
                 int x,
                 int y,
                 is::components::CharacterControllerComponent &character
@@ -65,7 +65,7 @@ namespace is::systems {
             );
  
             int generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
-                                       std::shared_ptr<is::components::WindowComponent> ptr_window);
+                                       const std::shared_ptr<is::components::WindowComponent>& ptr_window);
 
         private:
             std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;

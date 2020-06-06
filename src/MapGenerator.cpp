@@ -73,10 +73,9 @@ bool MapGenerator::checkSpawnBlock(int x, int y, int width, int height)
     if ((x == 1 && y == height - 2) || (x == 2 && y == height - 2) || 
         (x == 1 && y == height - 3))
         return (true);
-    if ((x == width - 2 && y == height - 2) || (x == width - 3 && y == height - 2) ||
-        (x == width - 2 && y == height - 3))
-        return (true);
-    return (false);
+    return (x == width - 2 && y == height - 2) ||
+           (x == width - 3 && y == height - 2) ||
+           (x == width - 2 && y == height - 3);
 }
 
 std::vector<std::vector<int>> MapGenerator::generateArray(int width, int height)

@@ -22,18 +22,18 @@ void AlertSystem::update()
 {
     auto &alerts = _componentManager->getComponentsByType(typeid(AlertComponent).hash_code());
 
-    if (!alerts.size())
+    if (alerts.empty())
         return;
 
     auto ptr = static_cast<AlertComponent*>(alerts[0].get());
 
     if (ptr->getQueueLength() && !ptr->hasAlert()) {
         ptr->setNextAlert();
-        if (!_disabledButtons.size()) {
+        if (_disabledButtons.empty()) {
             _disabledButtons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
             setDisabledButtons(true, ptr->getButton());
         }
-    } else if (_disabledButtons.size() && !ptr->hasAlert()) {
+    } else if (!_disabledButtons.empty() && !ptr->hasAlert()) {
         setDisabledButtons(false, ptr->getButton());
         _disabledButtons.clear();
     }
