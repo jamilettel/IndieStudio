@@ -16,8 +16,7 @@ void is::systems::FireSystem::awake()
 
 void is::systems::FireSystem::start()
 {
-    std::vector<std::shared_ptr<is::ecs::Component>> &time =
-        _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
+    const auto &time = _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
     if (time.empty())
         throw is::exceptions::Exception("Fire", "No time component in scene");
@@ -26,8 +25,8 @@ void is::systems::FireSystem::start()
 
 void is::systems::FireSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::FireComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::FireComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::FireComponent).hash_code())) {
+        const auto &ptr = static_cast<is::components::FireComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("FireComponent", "Could not get FireComponent pointer");
         ptr->lifeTime -= _time->get().getCurrentIntervalSeconds();
@@ -39,11 +38,9 @@ void is::systems::FireSystem::update()
 
 void is::systems::FireSystem::stop()
 {
-
 }
 
 void is::systems::FireSystem::onTearDown()
 {
-
 }
 
