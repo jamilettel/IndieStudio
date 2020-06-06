@@ -58,7 +58,8 @@ void WindowSystem::awake()
             ptr->joysticks[i].Joystick = i;
             initRuntimeEntity(is::prefabs::GlobalPrefabs::createJoystickCursor(ptr->joysticks[i].Joystick, ptr), true);
         }
-
+        
+        is::Game::resourcesInitialization(ptr);
     }
 }
 

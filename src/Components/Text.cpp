@@ -7,6 +7,7 @@
 
 #include "Components/Text.hpp"
 #include "IDGenerator.hpp"
+#include "Game.hpp"
 
 using namespace is::ecs;
 using namespace is::components;
@@ -56,14 +57,14 @@ bool drawBorder, bool dynamic, std::string font, irr::video::SColor color, bool 
 {
 }
 
-void TextComponent::init(std::shared_ptr<WindowComponent>& ptr_window)
+void TextComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
 {
     _window = ptr_window;
     element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, IDGenerator::getNewID());
     if (!element)
         throw is::exceptions::Exception("TextCompononent", "Could not create node from model");
     if (!_font.empty())
-        element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
+        element->setOverrideFont(static_cast<irr::gui::IGUIFont *>(is::Game::getResource(_font)));
     element->setOverrideColor(_color);
     element->setAlignment(irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE);
     element->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);

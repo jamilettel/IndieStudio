@@ -7,6 +7,7 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
+
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
 #endif
@@ -27,7 +28,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createWallBlock(const irr::core::vector3d
         *e->getComponent<TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
     );
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("cubb.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, "cubb.obj", "Indie Studio");
     return (e);
 }
 
@@ -41,7 +42,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createCenterBlock(const irr::core::vector
         *e->getComponent<TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
     );
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("poteau.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, "poteau.obj", "Indie Studio");
     return (e);
 }
 
@@ -55,7 +56,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createGrassBlock(const irr::core::vector3
         *e->getComponent<TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
     );
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("grass.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, "grass.obj", "Indie Studio");
     return (e);
 }
 
@@ -69,7 +70,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBreakableBlock(const irr::core::vec
         *e->getComponent<TransformComponent>()->get(),
         irr::core::vector3df(3, 3, 3)
     );
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("crate.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, "crate.obj", "Indie Studio");
     return (e);
 }
 
@@ -80,7 +81,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomb(irr::core::vector3df position,
     auto e = std::make_shared<Entity>(Entity::BOMB);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("bomb.obj"), "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, "bomb.obj", "Indie Studio");
     e->addComponent<BombComponent>(e, bm, position, 3, range);
     e->addComponent<ParticuleComponent>(
         e,
@@ -96,7 +97,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(const irr::core::vect
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("bombup.png"));
+    e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "bombup.png");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::BOMB_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -112,7 +113,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(const irr::core::vec
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("speedup.png"));
+    e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "speedup.png");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::SPEED_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -128,7 +129,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(const irr::core::vect
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("fireup.png"));
+    e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "fireup.png");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::FIRE_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -144,7 +145,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(const irr::core::ve
     auto e = std::make_shared<Entity>(Entity::POWERUP);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("powerup.b3d"), "Indie Studio", RESSOURCE("wallpass.png"));
+    e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "wallpass.png");
     e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::WALL_PASS);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -160,7 +161,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createFire(const irr::core::vector3df &po
     auto e = std::make_shared<Entity>(Entity::FIRE);
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3));
-    //e->addComponent<ModelRendererComponent>(e, RESSOURCE("Prop_Block_Pause.obj"), "Indie Studio");
     e->addComponent<FireComponent>(e);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
@@ -269,7 +269,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     );
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
+    e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
     e->addComponent<GravityComponent>(e, movement);
     transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e);
@@ -335,12 +335,12 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rule
         400, 100,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE("ui/Game/Table_02.png"),
+        "ui/Game/Table_02.png",
         "Indie Studio",
         irr::core::vector2df(1, 1),
         irr::core::vector2df(19.8, 10)

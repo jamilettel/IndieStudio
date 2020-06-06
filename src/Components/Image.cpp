@@ -7,6 +7,7 @@
 
 #include "Components/Image.hpp"
 #include "IDGenerator.hpp"
+#include "Game.hpp"
 
 using namespace is::components;
 using namespace is::ecs;
@@ -32,7 +33,13 @@ ImageComponent::ImageComponent(
 void ImageComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
 {
     _window = ptr_window;
-    element = ptr_window->canvas->addImage(ptr_window->driver->getTexture(_filename.c_str()), _dimension, false, nullptr, IDGenerator::getNewID(), L"ui");
+    std::cout << is::Game::getResource(_filename) << std::endl;
+    element = ptr_window->canvas->addImage(static_cast<irr::video::ITexture *>(is::Game::getResource(_filename)),
+                                           _dimension,
+                                           false,
+                                           nullptr,
+                                           IDGenerator::getNewID(),
+                                           L"ui");
     if (!element)
         throw is::exceptions::Exception("ImageCompononent", "Could not create node from model");
     if (_scale) {

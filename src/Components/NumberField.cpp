@@ -11,14 +11,6 @@
 using namespace is::components;
 using namespace is::ecs;
 
-#ifndef RESOURCES_PATH
-#define RESOURCES_PATH "./resources/"
-#endif
-
-#ifndef RESOURCE
-#define RESOURCE(str) RESOURCES_PATH str
-#endif
-
 NumberFieldComponent::NumberFieldComponent(
     std::shared_ptr<Entity> &e
     ):
@@ -74,8 +66,8 @@ void NumberFieldComponent::initOneComponent(
         50, 50,
         [this, num] () {changeNumber(num, -1);},
         true,
-        RESOURCE("ui/Multiplayer/down_btn.png"),
-        RESOURCE("ui/Multiplayer/down_btn_pressed.png")
+        "ui/Multiplayer/down_btn.png",
+        "ui/Multiplayer/down_btn_pressed.png"
         );
     _buttonDown[num]->layer = 5;
     _buttonUp[num] = &e->addComponent<ButtonComponent>(
@@ -86,13 +78,13 @@ void NumberFieldComponent::initOneComponent(
         50, 50,
         [this, num] () {changeNumber(num, 1);},
         true,
-        RESOURCE("ui/Multiplayer/up_btn.png"),
-        RESOURCE("ui/Multiplayer/up_btn_pressed.png")
+        "ui/Multiplayer/up_btn.png",
+        "ui/Multiplayer/up_btn_pressed.png"
         );
     _buttonUp[num]->layer = 5;
     _image[num] = &e->addComponent<ImageComponent>(
         e,
-        RESOURCE("ui/Multiplayer/number_frame.png"),
+        "ui/Multiplayer/number_frame.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 14 * (num + 5) - 38,
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 50
@@ -108,7 +100,7 @@ void NumberFieldComponent::initOneComponent(
         100,
         false,
         true,
-        RESOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
         );
     _text[num]->layer = 6;

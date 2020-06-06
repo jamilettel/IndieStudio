@@ -7,14 +7,6 @@
 
 #include "Components/Alert.hpp"
 
-#ifndef RESOURCES_PATH
-#define RESOURCES_PATH "./resources/"
-#endif
-
-#ifndef RESOURCE
-#define RESOURCE(str) RESOURCES_PATH str
-#endif
-
 using namespace is::components;
 using namespace is::ecs;
 
@@ -24,7 +16,7 @@ AlertComponent::AlertComponent(
     Component(e),
     _image(e->addComponent<ImageComponent>(
                e,
-               RESOURCE("ui/Alert/Box.png"),
+               "ui/Alert/Box.png",
                "Indie Studio",
                WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 375,
                WindowComponent::_windowsDimensions["Indie Studio"].second / 2 - 230,
@@ -40,8 +32,8 @@ AlertComponent::AlertComponent(
                 360, 101,
                 [this] () {this->acceptAlert();},
                 false,
-                RESOURCE("ui/Alert/OkButton.png"),
-                RESOURCE("ui/Alert/OkButtonPressed.png")
+                "ui/Alert/OkButton.png",
+                "ui/Alert/OkButtonPressed.png"
                 )),
     _text(e->addComponent<TextComponent>(
               e,
@@ -52,7 +44,7 @@ AlertComponent::AlertComponent(
               700, 260,
               false,
               true,
-              RESOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+              "fonts/fontVolumeSettings/fontVolumeSettings.xml",
               irr::video::SColor(255, 255, 255, 255),
               false
               ))

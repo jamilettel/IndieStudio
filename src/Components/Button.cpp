@@ -8,6 +8,7 @@
 #include <utility>
 #include "Components/Button.hpp"
 #include "IDGenerator.hpp"
+#include "Game.hpp"
 
 using namespace is::components;
 using namespace is::ecs;
@@ -94,12 +95,12 @@ void ButtonComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
     if (!element)
         throw is::exceptions::Exception("ButtonCompononent", "Could not create node from model");
     if (!_image.empty() && !_pressed.empty()) {
-        element->setImage(ptr_window->driver->getTexture(_image.c_str()));
-        element->setPressedImage(ptr_window->driver->getTexture(_pressed.c_str()));
+        element->setImage(static_cast<irr::video::ITexture *>(is::Game::getResource(_image)));
+        element->setPressedImage(static_cast<irr::video::ITexture *>(is::Game::getResource(_pressed)));
         element->setScaleImage(true);
     }
     if (!_font.empty())
-        element->setOverrideFont(ptr_window->canvas->getFont(_font.c_str()));
+        element->setOverrideFont(static_cast<irr::gui::IGUIFont *>(is::Game::getResource(_font)));
     element->setAlignment(irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE);
     element->setUseAlphaChannel(true);
     element->setDrawBorder(false);

@@ -6,6 +6,7 @@
 */
 
 #include "Components/ModelRenderer.hpp"
+#include "Game.hpp"
 
 using namespace is::ecs;
 using namespace is::components;
@@ -21,11 +22,11 @@ Component(e), fileName(std::move(name)), materialName(std::move(matName)), windo
 
 void ModelRendererComponent::initModelRenderer(const std::shared_ptr<WindowComponent>& ptr_window)
 {
-    node = ptr_window->scenemgr->addAnimatedMeshSceneNode(ptr_window->scenemgr->getMesh(fileName.c_str()));
+    node = ptr_window->scenemgr->addAnimatedMeshSceneNode(static_cast<irr::scene::IAnimatedMesh *>(is::Game::getResource(fileName)));
     if (!node)
         throw is::exceptions::Exception("ModelRendererComponent", "Could not create node from model");
     if (!materialName.empty())
-        node->setMaterialTexture(0, ptr_window->driver->getTexture(materialName.c_str()));
+        node->setMaterialTexture(0, static_cast<irr::video::ITexture *>(is::Game::getResource(materialName)));
     if (modelShadow)
         node->addShadowVolumeSceneNode();
 }

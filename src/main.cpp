@@ -6,23 +6,6 @@
 */
 
 #include "Game.hpp"
-#include "Scenes/SplashScreenScene.hpp"
-#include "Scenes/MainMenuScene.hpp"
-#include "Scenes/CreditScene.hpp"
-#include "Scenes/RecordScene.hpp"
-#include "Scenes/HowToPlayScene.hpp"
-#include "Scenes/PauseScene.hpp"
-#include "Scenes/SettingsScene.hpp"
-#include "Scenes/ControllersScene.hpp"
-#include "Scenes/PresetSelectionScene.hpp"
-#include "Scenes/MultiplayerHubScene.hpp"
-#include "Scenes/MultiplayerLobbyChoiceScene.hpp"
-#include "Scenes/MultiplayerLobbyScene.hpp"
-#include "Scenes/MultiplayerGameScene.hpp"
-#include "Scenes/GameScene.hpp"
-#include "Scenes/EndGameScene.hpp"
-#include "Scenes/RuleSettingsScene.hpp"
-
 #include "Exception.hpp"
 
 int main(int argc, char const *argv[])
