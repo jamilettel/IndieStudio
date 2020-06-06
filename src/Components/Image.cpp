@@ -33,7 +33,6 @@ ImageComponent::ImageComponent(
 void ImageComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
 {
     _window = ptr_window;
-    std::cout << is::Game::getResource(_filename) << std::endl;
     element = ptr_window->canvas->addImage(static_cast<irr::video::ITexture *>(is::Game::getResource(_filename)),
                                            _dimension,
                                            false,

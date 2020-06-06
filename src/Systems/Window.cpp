@@ -103,7 +103,6 @@ void WindowSystem::update()
         if (!ptr)
             throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         if (!ptr->device->run()) {
-            std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
             return;
         }
