@@ -79,6 +79,9 @@ void AIControllerLevel4System::update()
 
         if (ai.getLevel() != 4)
             continue;
+        ai.getInputManager().setValue("DropBomb", 0);
+        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
         ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
         if (ai.timeBeforeBegin > 0)
             continue;
@@ -92,9 +95,6 @@ void AIControllerLevel4System::update()
             ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
             continue;
         }
-        ai.getInputManager().setValue("DropBomb", 0);
-        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
-        ai.getInputManager().setValue("MoveVerticalAxis", 0);
 
         (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, characterComponents);
     }
