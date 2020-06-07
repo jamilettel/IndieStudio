@@ -432,7 +432,7 @@ static bool findPlayer(
         CharacterControllerComponent &aiComponent = *static_cast<CharacterControllerComponent *>(component.get());
         CharacterControllerComponent &character = *ai.getEntity()->getComponent<CharacterControllerComponent>().value();
 
-        if (character == aiComponent)
+        if (character == aiComponent || aiComponent.isDead)
             return (false);
         TransformComponent &tr = *static_cast<TransformComponent *>(aiComponent.getEntity()->getComponent<TransformComponent>()->get());
         irr::core::vector2di aiPos;
