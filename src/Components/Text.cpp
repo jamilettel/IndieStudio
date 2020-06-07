@@ -60,7 +60,13 @@ bool drawBorder, bool dynamic, std::string font, irr::video::SColor color, bool 
 void TextComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
 {
     _window = ptr_window;
-    element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(), _text.end()).c_str(), _dimension, _drawBorder, true, 0, IDGenerator::getNewID());
+    element = ptr_window->canvas->addStaticText(std::wstring(_text.begin(),
+                                                             _text.end()).c_str(),
+                                                             _dimension,
+                                                             _drawBorder,
+                                                             true,
+                                                             0,
+                                                             IDGenerator::getNewID());
     if (!element)
         throw is::exceptions::Exception("TextCompononent", "Could not create node from model");
     if (!_font.empty())

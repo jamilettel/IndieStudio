@@ -42,7 +42,10 @@ void ImageComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
     if (!element)
         throw is::exceptions::Exception("ImageCompononent", "Could not create node from model");
     if (_scale) {
-        element->setAlignment(irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE);
+        element->setAlignment(irr::gui::EGUIA_SCALE,
+                              irr::gui::EGUIA_SCALE,
+                              irr::gui::EGUIA_SCALE,
+                              irr::gui::EGUIA_SCALE);
         element->setScaleImage(true);
     }
     element->setUseAlphaChannel(true);
