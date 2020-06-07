@@ -16,31 +16,27 @@ using namespace is::components;
 void ButtonSystem::awake()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ButtonComponent>(elem);
 
+        const auto &ptr = std::static_pointer_cast<ButtonComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("ButtonSystem", "Could not getButtonComponent pointer");
 
-        std::shared_ptr<WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("ButtonComponent", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
-            throw is::exceptions::Exception("ButtonComponent", "Could not find window");
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr->windowName;
+        });
+        if (ptr_window == componentList.end())
+            throw is::exceptions::Exception("BombComponent", "Could not find window");
 
-        ptr_window->eventManager.addButton(ptr);
+        auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        window->eventManager.addButton(ptr);
 
         if (elem->getEntity()->isInit())
             continue;
 
-        ptr->init(ptr_window);
+        ptr->init(window);
     }
 }
 
@@ -51,7 +47,7 @@ void ButtonSystem::start()
 void ButtonSystem::update()
 {
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<ButtonComponent>(elem);
+        const auto &ptr = static_cast<ButtonComponent*>(elem.get());
         if (ptr->isClicked()) {
             ptr->callCallback();
             ptr->setClicked(false);
@@ -66,7 +62,7 @@ void ButtonSystem::stop()
 void ButtonSystem::onTearDown()
 {
     for (auto &elem: _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
+        const auto &ptr = static_cast<WindowComponent*>(elem.get());
         ptr->eventManager.removeAllButtons();
     }
 }

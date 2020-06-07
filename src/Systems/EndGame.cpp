@@ -21,13 +21,21 @@ void EndGameSystem::start()
 
 void EndGameSystem::update()
 {
-    std::vector<std::shared_ptr<Component>> &characterComponents = _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code());
+    const auto &characterComponents = _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code());
     int count = 0;
-    RulesComponent &rules = *std::static_pointer_cast<RulesComponent>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0]);
+    const RulesComponent &rules = *static_cast<RulesComponent*>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0].get());
 
     for (auto &elem : characterComponents) {
-        auto ptr = std::dynamic_pointer_cast<is::components::CharacterControllerComponent>(elem);
+        const auto &ptr = static_cast<is::components::CharacterControllerComponent*>(elem.get());
         count += ptr->isDead;
+    }
+
+    for (auto &elem: characterComponents) {
+        const auto &ptr = static_cast<is::components::CharacterControllerComponent*>(elem.get());
+    
+        if (ptr->isDead && ptr->getCharacterComponent().getPosition() == 1) {
+            ptr->getCharacterComponent().setPosition(rules.getNumberOfPlayers() - count + 1);
+        }
     }
 
     if (count >= rules.getNumberOfPlayers() - 1) {

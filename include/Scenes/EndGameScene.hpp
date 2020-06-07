@@ -43,6 +43,8 @@ namespace is::scenes {
 
         private:
             is::components::RulesComponent &getRulesComponent() const;
+            std::vector<int> initWindowPosForPlayer(int nbPlayers) const;
+            std::vector<std::pair<float, float>> initPosModelPlayer(int nbPlayers) const;
     };
 
 }

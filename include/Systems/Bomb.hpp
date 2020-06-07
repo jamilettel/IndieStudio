@@ -28,6 +28,7 @@
 #include "Components/Time.hpp"
 #include "Components/Network.hpp"
 #include "Components/Rules.hpp"
+#include "Components/CharacterController.hpp"
 
 #include "Systems/Collider.hpp"
 
@@ -49,16 +50,22 @@ namespace is::systems {
             void stop() override;
             void onTearDown() override;
 
-            bool dropFire(std::shared_ptr<is::components::BombComponent> ptr,
-                         std::shared_ptr<is::components::WindowComponent> ptr_window,
-                         int x,
-                         int y);
+            bool dropFire(
+                const std::shared_ptr<is::components::BombComponent>& ptr,
+                const std::shared_ptr<is::components::WindowComponent>& ptr_window,
+                int x,
+                int y,
+                is::components::CharacterControllerComponent &character
+            );
 
-            bool checkFireCollision(is::components::ColliderComponent &trigger,
-                                    const std::shared_ptr<is::components::WindowComponent>& ptr_window);
+            bool checkFireCollision(
+                is::components::ColliderComponent &trigger,
+                const std::shared_ptr<is::components::WindowComponent>& ptr_window,
+                is::components::CharacterControllerComponent &ch
+            );
  
             int generateRandomPowerUp(is::components::ColliderComponent *ptr_cc,
-                                       std::shared_ptr<is::components::WindowComponent> ptr_window);
+                                       const std::shared_ptr<is::components::WindowComponent>& ptr_window);
 
         private:
             std::optional<std::reference_wrapper<is::components::TimeComponent>> _time;

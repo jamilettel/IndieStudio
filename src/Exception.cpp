@@ -37,3 +37,8 @@ is::exceptions::EventManagerException::EventManagerException(const std::string &
 is::exceptions::Exception("EventManager", message)
 {
 }
+
+is::exceptions::WindowException::WindowException(const std::string &message) :
+        is::exceptions::Exception("Window", message)
+{
+}

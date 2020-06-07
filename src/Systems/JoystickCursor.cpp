@@ -27,7 +27,7 @@ void JoystickCursorSystem::awake()
     auto &timeList = _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
     if (timeList.size() == 0)
         throw is::exceptions::Exception("JoystickCursorSystem", "Could not find Time Component");
-    _time = std::dynamic_pointer_cast<TimeComponent>(timeList[0]);
+    _time = std::static_pointer_cast<TimeComponent>(timeList[0]);
 }
 
 void JoystickCursorSystem::start()
@@ -35,11 +35,11 @@ void JoystickCursorSystem::start()
 
 void JoystickCursorSystem::update()
 {
-    auto joystickCursors = _componentManager->getComponentsByType(typeid(JoystickCursorComponent).hash_code());
-    auto buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
+    const auto &joystickCursors = _componentManager->getComponentsByType(typeid(JoystickCursorComponent).hash_code());
+    const auto &buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
 
-    for (auto cursor: joystickCursors) {
-        auto ptr = static_cast<JoystickCursorComponent *>(cursor.get());
+    for (const auto &cursor: joystickCursors) {
+        const auto &ptr = static_cast<JoystickCursorComponent *>(cursor.get());
         float horizontal = ptr->getJoystickInput().getInputManager().getInput("Horizontal") * _time->getCurrentIntervalMilliseconds();
         float vertical = ptr->getJoystickInput().getInputManager().getInput("Vertical") * _time->getCurrentIntervalMilliseconds();
         auto pos = ptr->getCursor().getPosition();
@@ -57,8 +57,8 @@ void JoystickCursorSystem::update()
 
         bool click = ptr->getJoystickInput().getInputManager().getInput("Click") == 1;
         if (!click && ptr->clicked) {
-            for (auto &button: buttons) {
-                auto buttonPtr = static_cast<ButtonComponent*>(button.get());
+            for (const auto &button: buttons) {
+                const auto &buttonPtr = static_cast<ButtonComponent*>(button.get());
 
                 if (buttonPtr->contains(ptr->getCursor().getPosition())) {
                     buttonPtr->callCallback(ptr->getJoystickId());
@@ -70,7 +70,9 @@ void JoystickCursorSystem::update()
 }
 
 void JoystickCursorSystem::stop()
-{}
+{
+}
 
 void JoystickCursorSystem::onTearDown()
-{}
+{
+}

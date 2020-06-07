@@ -12,12 +12,17 @@
 
 #include "ECS/Component.hpp"
 #include "Components/PowerUp.hpp"
+#include "Components/Character.hpp"
+#include "Components/Time.hpp"
 
 namespace is::components {
 
     class BombermanComponent : public is::ecs::Component {
         public:
-            explicit BombermanComponent(std::shared_ptr<is::ecs::Entity> &e);
+            explicit BombermanComponent(
+                std::shared_ptr<is::ecs::Entity> &e,
+                CharacterComponent &character
+            );
             ~BombermanComponent() override = default;
 
             BombermanComponent(const BombermanComponent &) = delete;
@@ -25,6 +30,9 @@ namespace is::components {
 
             void deleteComponent() override;
 
+            CharacterComponent &getCharacter() const noexcept;
+
+        public:
             int bombNumber;
             int bombRange;
             float speedMult;
@@ -34,6 +42,8 @@ namespace is::components {
 
             bool dead;
             float deathTimer;
+        private:
+            CharacterComponent &_character;
     };
 
 }

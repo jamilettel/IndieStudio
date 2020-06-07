@@ -38,22 +38,22 @@ void CharacterComponent::setNbCharactersKilled(size_t nbCharactersKilled) noexce
     _nbCharactersKilled = nbCharactersKilled;
 }
 
-int CharacterComponent::getTimePlaying() const noexcept
+size_t CharacterComponent::getTimePlaying() const noexcept
 {
     return (_timePlaying);
 }
 
-int CharacterComponent::getNbBombPosed() const noexcept
+size_t CharacterComponent::getNbBombPosed() const noexcept
 {
     return (_nbBombPosed);
 }
 
-int CharacterComponent::getNbBonueCollected() const noexcept
+size_t CharacterComponent::getNbBonusCollected() const noexcept
 {
     return (_nbBonusCollected);
 }
 
-int CharacterComponent::getNbCharactersKilled() const noexcept
+size_t CharacterComponent::getNbCharactersKilled() const noexcept
 {
     return (_nbCharactersKilled);
 }
@@ -73,4 +73,53 @@ void CharacterComponent::reset() noexcept
     _nbBombPosed = 0;
     _nbBonusCollected = 0;
     _nbCharactersKilled = 0;
+    _stop = true;
+    _position = 1;
+    _time.value().get().resetStartTime();
+}
+
+void CharacterComponent::startTime() noexcept
+{
+    _stop = false;
+    _timePlaying = 0;
+    _time.value().get().resetStartTime();
+    _time.value().get().start();
+}
+
+void CharacterComponent::stopTime() noexcept
+{
+    _stop = true;
+}
+
+void CharacterComponent::udpateTime()
+{
+    if (_stop || !_time.has_value())
+        return;
+    _time.value().get().update();
+    _timePlaying += _time.value().get().getCurrentIntervalSeconds();
+}
+
+const std::string CharacterComponent::getTimeString() const noexcept
+{
+    return (std::string(
+        (_timePlaying / 60 < 10 ? "0" : "" ) + 
+        std::to_string(static_cast<int>(_timePlaying) / 60) + ":" + 
+        (static_cast<int>(_timePlaying) % 60 < 10 ? "0" : "") + 
+        std::to_string(static_cast<int>(_timePlaying) % 60)
+    ));
+}
+
+void CharacterComponent::setTimeComponent(TimeComponent &time) noexcept
+{
+    _time.emplace(time);
+}
+
+void CharacterComponent::setPosition(int position) noexcept
+{
+    _position = position;
+}
+
+int CharacterComponent::getPosition() const noexcept
+{
+    return (_position);
 }

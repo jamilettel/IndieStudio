@@ -17,12 +17,13 @@ void is::systems::CharacterControllerSystem::awake()
 
 void is::systems::CharacterControllerSystem::start()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
-        if (elem->getEntity()->isInit())
-            continue;
-        auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
+        const auto &ptr = static_cast<CharacterControllerComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
+        ptr->getCharacterComponent().startTime();
+        if (elem->getEntity()->isInit())
+            continue;
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
@@ -32,7 +33,7 @@ void is::systems::CharacterControllerSystem::start()
 
     if (!time.size())
         throw is::exceptions::Exception("Movement", "No time component in scene");
-    _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
+    _time.emplace(*static_cast<TimeComponent*>(time[0].get()));
 }
 
 void is::systems::CharacterControllerSystem::rotateToAngle(irr::core::vector3df &rotate,
@@ -64,12 +65,13 @@ void is::systems::CharacterControllerSystem::rotateToDirection(irr::core::vector
 
 void is::systems::CharacterControllerSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<CharacterControllerComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(CharacterControllerComponent).hash_code())) {
+        const auto &ptr = static_cast<CharacterControllerComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
         if (ptr->isDead)
             continue;
+        ptr->getCharacterComponent().udpateTime();
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
@@ -77,43 +79,37 @@ void is::systems::CharacterControllerSystem::update()
             bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
             if (bm->get()->deathTimer <= 0) {
                 ptr->isDead = true;
-                //ptr->getEntity()->setDelete(true);
             }
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
             continue;
         }
-        auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
+        const auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
         if (!im)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
         ptr->move.X = im->get()->getInput("MoveVerticalAxis");
         ptr->move.Z = im->get()->getInput("MoveHorizontalAxis");
         ptr->dropBombFrame = false;
         if (im->get()->getInput("DropBomb") == 1 && ptr->canPlaceBomb) {
-            auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
-            if (!bm)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
             if (bm->get()->instantBomb + 1 <= bm->get()->bombNumber) {
                 ptr->dropBombFrame = true;
-                std::shared_ptr<WindowComponent> ptr_window;
-                bool windowFound = false;
-                for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-                    ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-                    if (!ptr_window)
-                        throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
-                    if (ptr_window->windowName == ptr->windowName) {
-                        windowFound = true;
-                        break;
-                    }
-                }
-                if (!windowFound)
-                    throw is::exceptions::Exception("CharacterControllerSystem", "Could not found window");
+
+                const auto &windows = _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
+                const auto &window = std::find_if(windows.begin(), windows.end(), [ptr](const std::shared_ptr<is::ecs::Component> &it){
+                    const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+                    return p->windowName == ptr->getEntity()->getComponent<is::components::ModelRendererComponent>()->get()->windowName;
+                });
+                if (window == windows.end())
+                    throw is::exceptions::Exception("CharacterControllerSystem", "Could not find window");
+
+                const auto &w = std::static_pointer_cast<is::components::WindowComponent>(*window);
+
                 bm->get()->instantBomb++;
                 ptr->getCharacterComponent().setNbBombPosed(ptr->getCharacterComponent().getNbBombPosed() + 1);
-                auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value()));
+                auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value(), *ptr));
                 auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
                 auto ptr_part = std::dynamic_pointer_cast<ParticuleComponent>(*e->getComponent<ParticuleComponent>());
-                ptr_mr->initModelRenderer(ptr_window);
-                ptr_part->init(ptr_window);
+                ptr_mr->initModelRenderer(w);
+                ptr_part->init(w);
                 ptr->canPlaceBomb = false;
             }
         } else if (im->get()->getInput("DropBomb") != 1 && ptr->getTransform().position != ptr->lastPos) {

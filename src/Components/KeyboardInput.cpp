@@ -65,7 +65,7 @@ bool KeyboardInputComponent::changeTarget(irr::EKEY_CODE key, float target)
     return true;
 }
 
-std::map<irr::EKEY_CODE, std::pair<std::string, float>> &KeyboardInputComponent::getBindings()
+const std::map<irr::EKEY_CODE, std::pair<std::string, float>> &KeyboardInputComponent::getBindings() const
 {
     return _bindings;
 }

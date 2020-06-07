@@ -68,41 +68,43 @@ void GameScene::initEntities()
     mg.generateMap(*this, 1, 15, 13, a);
 
     for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
+        auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
+    
         switch (i)
         {
         case 0:
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(-5 * 3, 0, 6 * 3),
-                *static_cast<CharacterComponent *>(characters[0].get()),
-                *_componentManager,
-                "player_white.png",
+                ch,
+                *_componentManager.get(),
+                ch.texturePath,
                 rules.getAiLevels()[0]
             ));
             break;
         case 1:
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(5 * 3, 0, -6 * 3),
-                *static_cast<CharacterComponent *>(characters[1].get()),
-                *_componentManager,
-                "player_blue.png",
-                rules.getAiLevels()[2]
+                ch,
+                *_componentManager.get(),
+                ch.texturePath,
+                rules.getAiLevels()[1]
             ));
             break;
         case 2:
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(-5 * 3, 0, -6 * 3),
-                *static_cast<CharacterComponent *>(characters[2].get()),
-                *_componentManager,
-                "player_black.png",
-                rules.getAiLevels()[1]
+                ch,
+                *_componentManager.get(),
+                ch.texturePath,
+                rules.getAiLevels()[2]
             ));
             break;
         case 3:
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 irr::core::vector3df(5 * 3, 0, 6 * 3),
-                *static_cast<CharacterComponent *>(characters[3].get()),
-                *_componentManager,
-                "player_red.png",
+                ch,
+                *_componentManager.get(),
+                ch.texturePath,
                 rules.getAiLevels()[3]
             ));
             break;

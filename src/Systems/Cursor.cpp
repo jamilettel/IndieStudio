@@ -19,10 +19,10 @@ void CursorSystem::start()
 
 void CursorSystem::update()
 {
-    auto &list = _componentManager->getComponentsByType(typeid(CursorComponent).hash_code());
+    const auto &list = _componentManager->getComponentsByType(typeid(CursorComponent).hash_code());
 
-    for (auto &elem: list) {
-        CursorComponent *cursor = static_cast<CursorComponent *>(elem.get());
+    for (const auto &elem: list) {
+        auto cursor = static_cast<CursorComponent *>(elem.get());
         std::pair<float, float> pos;
 
         if (cursor->isMouseCursor) {

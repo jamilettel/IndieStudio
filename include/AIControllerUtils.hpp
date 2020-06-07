@@ -22,9 +22,9 @@ namespace is
     class AIControllerUtils {
         public:
 
-            static bool isAirBlock(is::ecs::Entity::Layer, const BombermanComponent &bomberman) noexcept;
+            static bool isAirBlock(is::ecs::Entity::Layer, const BombermanComponent &bomberman, bool enableWallPass = false) noexcept;
             static bool isValid(const irr::core::vector2di &pos, const std::vector<std::vector<is::ecs::Entity::Layer>> &map) noexcept;
-            static bool layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman) noexcept;
+            static bool layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman, bool enableWallPass = false) noexcept;
             static void setNewShortObjective(
                 is::components::AIControllerComponent &ai,
                 irr::core::vector2di aiPos,

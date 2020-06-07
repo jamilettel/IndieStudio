@@ -11,6 +11,9 @@
 #include "PresetAction.hpp"
 #include "ECS/Component.hpp"
 
+#include "Components/Time.hpp"
+#include <optional>
+
 namespace is::components
 {
     class CharacterComponent : public is::ecs::Component {
@@ -42,14 +45,22 @@ namespace is::components
             void setNbBonusCollected(size_t nbBonusCollected) noexcept;
             void setNbCharactersKilled(size_t nbCharactersKilled) noexcept;
 
-            [[nodiscard]] int getTimePlaying() const noexcept;
-            [[nodiscard]] int getNbBombPosed() const noexcept;
-            [[nodiscard]] int getNbBonueCollected() const noexcept;
-            [[nodiscard]] int getNbCharactersKilled() const noexcept;
+            [[nodiscard]] size_t getTimePlaying() const noexcept;
+            [[nodiscard]] size_t getNbBombPosed() const noexcept;
+            [[nodiscard]] size_t getNbBonusCollected() const noexcept;
+            [[nodiscard]] size_t getNbCharactersKilled() const noexcept;
+
             [[nodiscard]] bool isAI() const noexcept;
 
             void deleteComponent() override;
             void reset() noexcept;
+            void startTime() noexcept;
+            void stopTime() noexcept;
+            void udpateTime();
+            const std::string getTimeString() const noexcept;
+            void setTimeComponent(TimeComponent &time) noexcept;
+            void setPosition(int position) noexcept;
+            int getPosition() const noexcept;
 
             int number;
             std::string texturePath;
@@ -61,10 +72,13 @@ namespace is::components
             int multiplayerId = -1;
 
         private:
-            size_t _timePlaying = 0;
+            float _timePlaying = 0;
             size_t _nbBombPosed = 0;
             size_t _nbBonusCollected = 0;
             size_t _nbCharactersKilled = 0;
+            bool _stop = true;
+            std::optional<std::reference_wrapper<TimeComponent>> _time;
+            int _position = 1;
     };
 }
 

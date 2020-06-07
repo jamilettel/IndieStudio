@@ -41,6 +41,12 @@ namespace is::exceptions {
             ~EventManagerException() override = default;
     };
 
+    class WindowException: public Exception {
+    public:
+        explicit WindowException(const std::string &message);
+        ~WindowException() override = default;
+    };
+
     class AStarAlgorithmException: public Exception {
         public:
             explicit AStarAlgorithmException(const std::string &message);

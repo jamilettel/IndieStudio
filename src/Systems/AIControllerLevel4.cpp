@@ -41,7 +41,7 @@ void AIControllerLevel4System::start()
     std::vector<std::shared_ptr<Component>> &time =
         _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
-    if (!time.size())
+    if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
     _time.emplace(*static_cast<TimeComponent *>(time[0].get()));
 }
@@ -79,6 +79,9 @@ void AIControllerLevel4System::update()
 
         if (ai.getLevel() != 4)
             continue;
+        ai.getInputManager().setValue("DropBomb", 0);
+        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
         ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
         if (ai.timeBeforeBegin > 0)
             continue;
@@ -88,9 +91,10 @@ void AIControllerLevel4System::update()
 
         aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
-        ai.getInputManager().setValue("DropBomb", 0);
-        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
-        ai.getInputManager().setValue("MoveVerticalAxis", 0);
+        if (!AIControllerUtils::isValid(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
+            continue;
+        }
 
         (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, characterComponents);
     }
@@ -218,7 +222,7 @@ bool AIControllerLevel4System::canHideFromExplosion(
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
     successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
     successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
-    while (successors.size() != 0) {
+    while (!successors.empty()) {
         irr::core::vector2di newPos = successors[0];
 
         successors.erase(successors.begin());
@@ -276,7 +280,7 @@ bool AIControllerLevel4System::findBombEmplacement(
     successors.emplace_back(irr::core::vector2di(aiPos.X, aiPos.Y + 1));
     successors.emplace_back(irr::core::vector2di(aiPos.X - 1, aiPos.Y));
     successors.emplace_back(irr::core::vector2di(aiPos.X, aiPos.Y - 1));
-    while (successors.size() != 0) {
+    while (!successors.empty()) {
         irr::core::vector2di newPos = successors[0];
 
         successors.erase(successors.begin());
@@ -432,7 +436,7 @@ static bool findPlayer(
         CharacterControllerComponent &aiComponent = *static_cast<CharacterControllerComponent *>(component.get());
         CharacterControllerComponent &character = *ai.getEntity()->getComponent<CharacterControllerComponent>().value();
 
-        if (character == aiComponent)
+        if (character == aiComponent || aiComponent.isDead)
             return (false);
         TransformComponent &tr = *static_cast<TransformComponent *>(aiComponent.getEntity()->getComponent<TransformComponent>()->get());
         irr::core::vector2di aiPos;

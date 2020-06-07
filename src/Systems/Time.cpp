@@ -16,10 +16,10 @@ void TimeSystem::awake()
 
 void TimeSystem::start()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<is::components::TimeComponent>(elem);
+        const auto &ptr = static_cast<is::components::TimeComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("TimeSystem", "Could not get TimeComponent pointer");
         ptr->start();
@@ -28,8 +28,8 @@ void TimeSystem::start()
 
 void TimeSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code())) {
-        auto ptr = static_cast<is::components::TimeComponent *>(elem.get());
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code())) {
+        const auto &ptr = static_cast<is::components::TimeComponent *>(elem.get());
         ptr->update();
     }
 }

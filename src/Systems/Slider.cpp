@@ -14,28 +14,24 @@ using namespace is::components;
 
 void SliderSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(SliderComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(SliderComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<SliderComponent>(elem);
+        const auto &ptr = static_cast<SliderComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("SliderSystem", "Could not getSliderComponent pointer");
-        
-        std::shared_ptr<WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("SliderComponent", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
+
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [&ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr->windowName;
+        });
+        if (ptr_window == componentList.end())
             throw is::exceptions::Exception("SliderComponent", "Could not find window");
 
-        ptr->init(ptr_window);
+        _window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        ptr->init(_window);
     }
 }
 
@@ -45,23 +41,10 @@ void SliderSystem::start()
 
 void SliderSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(SliderComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<SliderComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(SliderComponent).hash_code())) {
+        const auto &ptr = static_cast<SliderComponent*>(elem.get());
         if (ptr->isPressed()) {
-            std::shared_ptr<WindowComponent> ptr_window;
-            bool windowFound = false;
-            for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-                ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-                if (!ptr_window)
-                    throw is::exceptions::Exception("SliderComponent", "Could not get WindowComponent pointer");
-                if (ptr_window->windowName == ptr->windowName) {
-                    windowFound = true;
-                    break;
-                }
-            }
-            if (!windowFound)
-                throw is::exceptions::Exception("SliderSystem", "Could not find window");
-            ptr->setPosition(ptr_window->eventManager.getMousePosition().first);
+            ptr->setPosition(_window->eventManager.getMousePosition().first);
         }
     }
 }

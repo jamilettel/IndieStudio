@@ -73,17 +73,16 @@ bool MapGenerator::checkSpawnBlock(int x, int y, int width, int height)
     if ((x == 1 && y == height - 2) || (x == 2 && y == height - 2) || 
         (x == 1 && y == height - 3))
         return (true);
-    if ((x == width - 2 && y == height - 2) || (x == width - 3 && y == height - 2) ||
-        (x == width - 2 && y == height - 3))
-        return (true);
-    return (false);
+    return (x == width - 2 && y == height - 2) ||
+           (x == width - 3 && y == height - 2) ||
+           (x == width - 2 && y == height - 3);
 }
 
 std::vector<std::vector<int>> MapGenerator::generateArray(int width, int height)
 {
     std::vector<std::vector<int>> toReturn;
     for (int i = 0; i < height; i++) {
-        toReturn.push_back(std::vector<int>(15));
+        toReturn.emplace_back(15);
         for (int j = 0; j < width; j++) {
             if (i == 0 || j == 0 || j == width - 1 || i == height -1)
                 toReturn[i][j] = 3;
@@ -92,7 +91,7 @@ std::vector<std::vector<int>> MapGenerator::generateArray(int width, int height)
             else if (checkSpawnBlock(j, i, width, height))
                 toReturn[i][j] = 0;
             else
-                toReturn[i][j] = round((generatePerlinNoise(j, i, 1.1) + 1) * 0.5);
+                toReturn[i][j] = (int)round((generatePerlinNoise((float)j, (float)i, 1.1) + 1) * (float)0.5);
         }
     }
     return (toReturn);
@@ -114,10 +113,10 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
                 sc.initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(j * 3, 3, i * 3)));
             } else if (arrayMap[j + mid_h][i + mid_w] == 2) {
                 sc.initEntity(prefabs::GlobalPrefabs::createCenterBlock(irr::core::vector3df(j * 3, 0, i * 3)));
-            } else if (arrayMap[j + mid_h][i + mid_w] == 1)
-                if (network.empty())
+            } else if (arrayMap[j + mid_h][i + mid_w] == 1) {
+                if (network.empty()) {
                     sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
-                else {
+                } else {
                     auto nw = std::dynamic_pointer_cast<is::components::NetworkComponent>(network[0]);
                     if (nw->playerIdx == 0) {
                         sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
@@ -126,6 +125,7 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
                                             " " + std::to_string(i * 3.0f) + " \n");
                     }
                 }
+            }
         }
     }
 }

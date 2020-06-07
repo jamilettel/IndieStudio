@@ -8,6 +8,10 @@
 #include "Systems/Network.hpp"
 #include <algorithm>
 
+#ifndef MSG_DONTWAIT
+#define MSG_DONTWAIT 0x40
+#endif
+
 using namespace irr;
 using namespace std;
 

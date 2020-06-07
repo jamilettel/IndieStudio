@@ -10,11 +10,26 @@
 using namespace is::components;
 using namespace is::ecs;
 
-BombermanComponent::BombermanComponent(std::shared_ptr<is::ecs::Entity> &e) :
-Component(e), bombNumber(1), bombRange(1), speedMult(1), wallPass(false), instantBomb(0), dead(false), deathTimer(0.7f)
+BombermanComponent::BombermanComponent(
+    std::shared_ptr<is::ecs::Entity> &e,
+    CharacterComponent &character
+) : Component(e),
+    bombNumber(1),
+    bombRange(1), 
+    speedMult(1),
+    wallPass(false),
+    instantBomb(0),
+    dead(false),
+    deathTimer(0.7f),
+    _character(character)
 {
 }
 
 void BombermanComponent::deleteComponent()
 {
+}
+
+CharacterComponent &BombermanComponent::getCharacter() const noexcept
+{
+    return (_character);
 }
