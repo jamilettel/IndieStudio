@@ -88,6 +88,10 @@ void AIControllerLevel4System::update()
 
         aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
+        if (!AIControllerUtils::isValid(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
+            continue;
+        }
         ai.getInputManager().setValue("DropBomb", 0);
         ai.getInputManager().setValue("MoveHorizontalAxis", 0);
         ai.getInputManager().setValue("MoveVerticalAxis", 0);

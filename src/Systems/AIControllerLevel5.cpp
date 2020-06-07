@@ -88,6 +88,10 @@ void AIControllerLevel5System::update()
 
         aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
+        if (!AIControllerUtils::isValid(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
+            continue;
+        }
         ai.getInputManager().setValue("DropBomb", 0);
         ai.getInputManager().setValue("MoveHorizontalAxis", 0);
         ai.getInputManager().setValue("MoveVerticalAxis", 0);
@@ -133,7 +137,7 @@ void AIControllerLevel5System::setNewLongObjective(
             [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) ->bool {
                 if (posIsHideFromBombs(ai, aiPos, map) && !posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map))
                     return (true);
-                return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman));
+                return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman, true));
         });
         astar.searchPath();
         std::optional<std::pair<int, int>> pos;
@@ -165,7 +169,7 @@ bool AIControllerLevel5System::posIsHideFromABomb(
 
         int a = 0;
         for (int tmp = aiPos.Y; tmp != bombPos.Y; tmp += incr, a++) {
-            if (AIControllerUtils::layerIsABlock(map[bombPos.X][tmp], bomberman) || a == bombSize)
+            if (AIControllerUtils::layerIsABlock(map[bombPos.X][tmp], bomberman, true) || a == bombSize)
                 return (true);
         }
         return (false);
@@ -174,7 +178,7 @@ bool AIControllerLevel5System::posIsHideFromABomb(
 
         int a = 0;
         for (int tmp = aiPos.X; tmp != bombPos.X; tmp += incr, a++) {
-            if (AIControllerUtils::layerIsABlock(map[tmp][bombPos.Y], bomberman) || a == bombSize)
+            if (AIControllerUtils::layerIsABlock(map[tmp][bombPos.Y], bomberman, true) || a == bombSize)
                 return (true);
         }
         return (false);
@@ -244,7 +248,7 @@ bool AIControllerLevel5System::canHideFromExplosion(
         successors.erase(successors.begin());
         if (std::find_if(closeList.begin(), closeList.end(), [&newPos](const irr::core::vector2di &pos) -> bool {return pos == newPos;}) != closeList.end())
             continue;
-        if (!AIControllerUtils::isValid(newPos, map) || !AIControllerUtils::isAirBlock(map[newPos.X][newPos.Y], bomberman))
+        if (!AIControllerUtils::isValid(newPos, map) || !AIControllerUtils::isAirBlock(map[newPos.X][newPos.Y], bomberman, true))
             continue;
         if (posIsHideFromABomb(newPos, map, pos, bomberman, bomberman.bombRange) && posIsHideFromBombs(ai, newPos, map)) {
             ai.posToEscape = newPos;
@@ -322,7 +326,7 @@ bool AIControllerLevel5System::findBombEmplacement(
         successors.erase(successors.begin());
         if (std::find_if(closeList.begin(), closeList.end(), [&newPos](const irr::core::vector2di &pos) -> bool {return pos == newPos;}) != closeList.end())
             continue;
-        if (!AIControllerUtils::isValid(newPos, map) || !AIControllerUtils::isAirBlock(map[newPos.X][newPos.Y], bomberman))
+        if (!AIControllerUtils::isValid(newPos, map) || !AIControllerUtils::isAirBlock(map[newPos.X][newPos.Y], bomberman, true))
             continue;
         // if he is not in danger and the new pos is in danger
         if (posIsHideFromBombs(ai, pos, map) && !posIsHideFromBombs(ai, newPos, map))
@@ -405,7 +409,7 @@ void AIControllerLevel5System::putBombState(
                 std::pair<int, int>(aiPos.X, aiPos.Y),
                 std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
                 [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
-                    return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman));
+                    return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman, true));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
@@ -450,7 +454,7 @@ void AIControllerLevel5System::waitingState(
                 [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
                     if (posIsHideFromBombs(ai, aiPos, map) && !posIsHideFromBombs(ai, irr::core::vector2di(pos.first, pos.second), map))
                         return (true);
-                    return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman));
+                    return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman, true));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
@@ -545,7 +549,7 @@ bool AIControllerLevel5System::bombPosAimForPlayer(
     BombermanComponent &bombermanComponent = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     for (int i = bombPos.X; i < width && i - bombPos.X <= bombermanComponent.bombRange; i++) {
-        if (AIControllerUtils::layerIsABlock(map[i][bombPos.Y], bombermanComponent))
+        if (AIControllerUtils::layerIsABlock(map[i][bombPos.Y], bombermanComponent, true))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (i == aiPos.X && bombPos.Y == aiPos.Y);
@@ -553,7 +557,7 @@ bool AIControllerLevel5System::bombPosAimForPlayer(
             return (true);
     }
     for (int i = bombPos.X; i > 0 && bombPos.X - i <= bombermanComponent.bombRange; i--) {
-        if (AIControllerUtils::layerIsABlock(map[i][bombPos.Y], bombermanComponent))
+        if (AIControllerUtils::layerIsABlock(map[i][bombPos.Y], bombermanComponent, true))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (i == aiPos.X && bombPos.Y == aiPos.Y);
@@ -561,7 +565,7 @@ bool AIControllerLevel5System::bombPosAimForPlayer(
             return (true);
     }
     for (int i = bombPos.Y; i < height && i - bombPos.Y <= bombermanComponent.bombRange; i++) {
-        if (AIControllerUtils::layerIsABlock(map[bombPos.X][i], bombermanComponent))
+        if (AIControllerUtils::layerIsABlock(map[bombPos.X][i], bombermanComponent, true))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (bombPos.X == aiPos.X && i == aiPos.Y);
@@ -569,7 +573,7 @@ bool AIControllerLevel5System::bombPosAimForPlayer(
             return (true);
     }
     for (int i = bombPos.Y; i > 0 && bombPos.Y - i <= bombermanComponent.bombRange; i--) {
-        if (AIControllerUtils::layerIsABlock(map[bombPos.X][i], bombermanComponent))
+        if (AIControllerUtils::layerIsABlock(map[bombPos.X][i], bombermanComponent, true))
             break;
         if (findPlayer(aiComponents, bombPos, ai, i, [](int i, const irr::core::vector2di &aiPos, const irr::core::vector2di &bombPos) -> bool {
             return (bombPos.X == aiPos.X && i == aiPos.Y);
