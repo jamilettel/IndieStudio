@@ -27,7 +27,7 @@ void PauseSystem::start()
 void PauseSystem::update()
 {
     for (const auto &p : _inputManagers) {
-        const auto &im = std::static_pointer_cast<is::components::InputManagerComponent>(p);
+        const auto &im = static_cast<is::components::InputManagerComponent*>(p.get());
         if (!im->isActionSet("Pause"))
             continue;
         if (im->getInput("Pause") != 0) {

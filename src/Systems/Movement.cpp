@@ -18,8 +18,7 @@ void MovementSystem::awake()
 
 void MovementSystem::start()
 {
-    std::vector<std::shared_ptr<Component>> &time =
-        _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
+    const auto &time = _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
     if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
@@ -38,8 +37,8 @@ void MovementSystem::checkCollisions(
     )
 {
     ColliderSystem::precomputeCollisionVariables(collider);
-    for (auto & i : colliders) {
-        auto *ptr = static_cast<ColliderComponent *>(i.get());
+    for (const auto &i : colliders) {
+        const auto &ptr = static_cast<ColliderComponent *>(i.get());
 
         if (&collider == ptr || !collider.collidesWith(ptr->getEntity()->layer))
             continue;
