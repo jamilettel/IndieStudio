@@ -52,7 +52,7 @@ namespace is {
 
             static void addResource(const std::string &path, void *resource);
             static void *getResource(const std::string &path);
-            static void resourcesInitialization(std::shared_ptr<is::components::WindowComponent> &window);
+            static void resourcesInitialization(const std::shared_ptr<is::components::WindowComponent> &window);
 
         private:
             std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;

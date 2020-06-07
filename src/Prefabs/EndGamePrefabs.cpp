@@ -24,88 +24,14 @@ std::shared_ptr<Entity> is::prefabs::EndGamePrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
-    e->addComponent<TransformComponent>(
-        e,
-        irr::core::vector3df(-6, 10, 18),
-        irr::core::vector3df(0, -120, -70),
-        irr::core::vector3df(0.7, 0.7, 0.7)
-    );
-    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
-    animator.animators.push_back({0, 25, "Walk"});
-    animator.animators.push_back({26, 41, "DropBomb"});
-    animator.animators.push_back({41, 60, "Death"});
-    animator.animators.push_back({61, 86, "Idle"});
-    addWindow(e, 2.5);
-    addStatsPlayer(e, addTextHigh(e, 102), addTextLow(e, 102), infos);
-    addContinueButton(e, 80, addWaitingText(e, 140), isAI);
-    addHighTable(e, 3.5);
-    addLowTable(e, 3.5);
-    addMedal(e, 10, "ui/EndGame/Star_01.png");
-    addBackwardButton(e, 100);
-    addForwardButton(e, 340);
-    return (e);
-}
-
-std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer2(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
-    e->addComponent<TransformComponent>(
-        e,
-        irr::core::vector3df(-6, 10, 6),
-        irr::core::vector3df(0, -100, -70),
-        irr::core::vector3df(0.7, 0.7, 0.7)
-    );
-    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
-    animator.animators.push_back({0, 25, "Walk"});
-    animator.animators.push_back({26, 41, "DropBomb"});
-    animator.animators.push_back({41, 60, "Death"});
-    animator.animators.push_back({61, 86, "Idle"});
-    addWindow(e, 26.3);
-    addStatsPlayer(e, addTextHigh(e, 565), addTextLow(e, 565), infos);
-    addContinueButton(e, 540, addWaitingText(e, 600), isAI);
-    addHighTable(e, 27.2);
-    addLowTable(e, 27.2);
-    addMedal(e, 34, "ui/EndGame/Star_02.png");
-    addBackwardButton(e, 560);
-    addForwardButton(e, 800);
-    return (e);
-}
-
-std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer3(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
-{
-    std::shared_ptr<Entity> e = std::make_shared<Entity>();
-
-    e->addComponent<TransformComponent>(
-        e,
-        irr::core::vector3df(-6, 10, -6),
-        irr::core::vector3df(0, -70, -70),
-        irr::core::vector3df(0.7, 0.7, 0.7)
-    );
-    AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
-    animator.animators.push_back({0, 25, "Walk"});
-    animator.animators.push_back({26, 41, "DropBomb"});
-    animator.animators.push_back({41, 60, "Death"});
-    animator.animators.push_back({61, 86, "Idle"});
-    addWindow(e, 51.3);
-    addStatsPlayer(e, addTextHigh(e, 1045), addTextLow(e, 1045), infos);
-    addContinueButton(e, 1020, addWaitingText(e, 1080), isAI);
-    addHighTable(e, 52.2);
-    addLowTable(e, 52.2);
-    addMedal(e, 58, "ui/EndGame/Star_03.png");
-    addBackwardButton(e, 1040);
-    addForwardButton(e, 1280);
-    return (e);
-}
-
-std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer4(std::vector<std::pair<std::string, std::string>> &infos, bool isAI, const std::string &texture)
+std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
+    std::vector<std::pair<std::string, std::string>> &infos,
+    bool isAI,
+    const std::string &texture,
+    float posWindow,
+    std::pair<float, float> &posModelPlayer,
+    int position
+)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 

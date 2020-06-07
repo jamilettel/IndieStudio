@@ -100,7 +100,7 @@ void *is::Game::getResource(const std::string &path)
     return (*(resources[path].get()));
 }
 
-void is::Game::resourcesInitialization(std::shared_ptr<is::components::WindowComponent> &window)
+void is::Game::resourcesInitialization(const std::shared_ptr<is::components::WindowComponent> &window)
 {
     is::Game::addResource("ui/splashscreen.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/splashscreen.png")));
