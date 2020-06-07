@@ -496,8 +496,6 @@ void AIControllerLevel5System::getPowerupState(
     std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
 ) const
 {
-    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
-
     AIControllerUtils::moveAI(ai, aiPos);
     if (AIControllerUtils::hasReachedObjective(ai, aiPos)) {
         if (!posIsHideFromBombs(ai, ai.longObjective, map)) {

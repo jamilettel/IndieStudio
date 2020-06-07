@@ -151,7 +151,7 @@ void PresetSystem::onTearDown()
 
 void PresetSystem::reloadPresetAxes(const std::shared_ptr<is::components::PresetComponent> &p)
 {
-    for (int i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
+    for (size_t i = 0; CharacterComponent::playerActions[i].value != -9999; i++) {
 
         if (p->_imagePreset.size() <= i)
             return;

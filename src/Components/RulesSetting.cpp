@@ -32,7 +32,7 @@ void RulesSettingComponent::up()
 {
     if (_rules.empty())
         return;
-    if (_i + 1 == _rules.size())
+    if (_i + 1 == static_cast<int>(_rules.size()))
         return;
     std::get<1>(_rules[_i])();
     _i++;
