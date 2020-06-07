@@ -34,6 +34,7 @@ void AIControllerLevel5System::awake()
     _mapFunctionState[AIControllerComponent::AIState::ESCAPE_EXPLOSION] = &AIControllerLevel5System::escapeExplosionState;
     _mapFunctionState[AIControllerComponent::AIState::PUT_BOMB] = &AIControllerLevel5System::putBombState;
     _mapFunctionState[AIControllerComponent::AIState::WAITING] = &AIControllerLevel5System::waitingState;
+    _mapFunctionState[AIControllerComponent::AIState::GET_POWERUP] = &AIControllerLevel5System::getPowerupState;
 }
 
 void AIControllerLevel5System::start()
@@ -331,6 +332,11 @@ bool AIControllerLevel5System::findBombEmplacement(
         // if he is not in danger and the new pos is in danger
         if (posIsHideFromBombs(ai, pos, map) && !posIsHideFromBombs(ai, newPos, map))
             continue;
+        if (map[newPos.X][newPos.Y] == is::ecs::Entity::Layer::POWERUP) {
+            ai.state = AIControllerComponent::AIState::GET_POWERUP;
+            ai.longObjective = newPos;
+            return true;
+        }
         if (bombPosIsUseful(ai, newPos, map, pos, aiComponents) && canHideFromExplosion(ai, newPos, map)) {
             ai.state = AIControllerComponent::AIState::PUT_BOMB;
             ai.longObjective = newPos;
@@ -487,7 +493,20 @@ void AIControllerLevel5System::getPowerupState(
     std::vector<std::shared_ptr<is::ecs::Component>> &aiComponents
 ) const
 {
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
+    AIControllerUtils::moveAI(ai, aiPos);
+    if (AIControllerUtils::hasReachedObjective(ai, aiPos)) {
+        if (!posIsHideFromBombs(ai, ai.longObjective, map)) {
+            ai.state = AIControllerComponent::NONE;
+            return;
+        }
+        if (ai.shortObjective == ai.longObjective) {
+            ai.state = AIControllerComponent::NONE;
+            return;
+        }
+        AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+    }
 }
 
 
