@@ -8,6 +8,7 @@
 #include "Systems/PowerUp.hpp"
 
 using namespace irr;
+using namespace is::components;
 
 void is::systems::PowerUpSystem::awake()
 {
@@ -21,26 +22,21 @@ void is::systems::PowerUpSystem::start()
 
 void is::systems::PowerUpSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::PowerUpComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::PowerUpComponent>(elem);
-        if (!ptr)
-            throw is::exceptions::Exception("BombComponent", "Could not get BombComponent pointer");
-        
-        std::shared_ptr<is::components::WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("CharacterControllerSystem", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->getEntity()->getComponent<is::components::ModelRendererComponent>()->get()->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::PowerUpComponent).hash_code())) {
+        const auto &ptr = *static_cast<is::components::PowerUpComponent*>(elem.get());
+
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [&ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr.getEntity()->getComponent<ModelRendererComponent>()->get()->windowName;
+        });
+        if (ptr_window == componentList.end())
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not find window");
-        auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*ptr->getEntity()->getComponent<is::components::ColliderComponent>());
-        checkPowerUpCollision(*cc, ptr_window, ptr->type);
+
+        auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        const auto &cc = static_cast<is::components::ColliderComponent*>(ptr.getEntity()->getComponent<is::components::ColliderComponent>()->get());
+        checkPowerUpCollision(*cc, window, ptr.type);
     }
 }
 
@@ -48,12 +44,11 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
     const std::shared_ptr<is::components::WindowComponent>& ptr_window,
     is::components::PowerUpComponent::PowerUpType type)
 {
-    std::vector<std::shared_ptr<is::ecs::Component>> &colliders =
-    _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
+    const auto &colliders = _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
 
     is::systems::ColliderSystem::precomputeCollisionVariables(trcollider);
-    for (auto & collider : colliders) {
-        auto *ptr = static_cast<is::components::ColliderComponent *>(collider.get());
+    for (const auto &collider : colliders) {
+        const auto &ptr = static_cast<is::components::ColliderComponent *>(collider.get());
 
         if (&trcollider == ptr || !trcollider.collidesWith(ptr->getEntity()->layer))
             continue;
@@ -80,7 +75,7 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
             auto network = _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code());
 
             if (!network.empty()) {
-                auto nw = std::dynamic_pointer_cast<is::components::NetworkComponent>(network[0]);
+                const auto &nw = static_cast<is::components::NetworkComponent*>(network[0].get());
                 nw->writeQueue.push("evt gpu " + std::to_string(nw->lobby) +
                     " " + std::to_string(nw->playerIdx) + " " + std::to_string(type) + " \n");
             }

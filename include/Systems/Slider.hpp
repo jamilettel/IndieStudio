@@ -28,6 +28,9 @@ namespace is::systems {
             void update() override;
             void stop() override;
             void onTearDown() override;
+
+        private:
+            std::shared_ptr<is::components::WindowComponent> _window;
     };
 }
 

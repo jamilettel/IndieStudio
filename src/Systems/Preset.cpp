@@ -16,13 +16,13 @@ using namespace is::components;
 
 void PresetSystem::awake()
 {
-    auto windows = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+    const auto &windows = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
 
     if (windows.empty())
         throw is::exceptions::Exception(
             "Component missing",
             "Window component required for Keyboard Input System");
-    auto window = std::dynamic_pointer_cast<WindowComponent>(windows[0]);
+    const auto &window = std::static_pointer_cast<WindowComponent>(windows[0]);
     _eventManager.emplace(window->eventManager);
     _joysticks = window->joysticks;
     _window = window;
@@ -32,12 +32,14 @@ void PresetSystem::start()
 {
     std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
 
+    if (components.empty())
+        return;
     _eventManager->get().resetLastKeyPressed();
-    const auto &p = std::static_pointer_cast<PresetComponent>(components[0]);
+    const auto &p = static_cast<PresetComponent*>(components[0].get());
     p->_onSelect = true;
 
-    for (auto &preset : components) {
-        const auto &ptr = std::static_pointer_cast<PresetComponent>(preset);
+    for (const auto &preset : components) {
+        const auto &ptr = static_cast<PresetComponent*>(preset.get());
         ptr->_toChange.reset();
         ptr->_toChangeUI.reset();
     }
@@ -45,10 +47,13 @@ void PresetSystem::start()
 
 void PresetSystem::update()
 {
-    std::vector<std::shared_ptr<is::ecs::Component>> &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
-    const auto &alertComponent = std::static_pointer_cast<AlertComponent>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0]);
+    const auto &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
+    if (components.empty())
+        return;
 
-    for (auto &preset : components) {
+    const auto &alertComponent = static_cast<AlertComponent*>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0].get());
+
+    for (const auto &preset : components) {
         const auto &p = std::static_pointer_cast<PresetComponent>(preset);
 
         if (!p->_onSelect)
