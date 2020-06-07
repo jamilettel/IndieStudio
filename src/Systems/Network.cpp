@@ -84,7 +84,7 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
         throw is::exceptions::Exception("NetworkSystem", "Select exception");        
     char buff[READ_SIZE] = {0};
     #ifdef _MSC_VER
-    int mode = 1;
+    u_long mode = 1;
     ioctlsocket(ptr->serverSock, FIONBIO, &mode);
     if (recv(ptr->serverSock, buff, READ_SIZE, 0) >= 0) {
     #else
