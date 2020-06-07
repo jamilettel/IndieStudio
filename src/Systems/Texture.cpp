@@ -18,27 +18,24 @@ using namespace is::components;
 
 void TextureSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(TextureComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(TextureComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
+        const auto &ptr = static_cast<is::components::TextureComponent*>(elem.get());
         if (!ptr)
-            throw is::exceptions::Exception("ModelRendererSystem", "Could not get ModelRendererComponent pointer");
+            throw is::exceptions::Exception("TextSystem", "Could not get TextComponent pointer");
 
-        std::shared_ptr<is::components::WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("ModelRendererSystem", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
-            throw is::exceptions::Exception("ModelRendererSystem", "Could not find window");
-        ptr->init(ptr_window);
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [&ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr->windowName;
+        });
+        if (ptr_window == componentList.end())
+            throw is::exceptions::Exception("TextSystem", "Could not find window");
+
+        auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        ptr->init(window);
     }
 }
 

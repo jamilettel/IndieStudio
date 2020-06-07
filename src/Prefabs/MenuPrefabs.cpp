@@ -16,7 +16,7 @@ using namespace is::ecs;
 using namespace is::prefabs;
 using namespace is::components;
 
-std::shared_ptr<Entity> GlobalPrefabs::createJoystickCursor(int joystickId, std::shared_ptr<WindowComponent> &window)
+std::shared_ptr<Entity> GlobalPrefabs::createJoystickCursor(int joystickId, const std::shared_ptr<WindowComponent> &window)
 {
     auto e = std::make_shared<Entity>();
 

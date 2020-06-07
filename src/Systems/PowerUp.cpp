@@ -35,7 +35,7 @@ void is::systems::PowerUpSystem::update()
 
         auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
 
-        auto cc = std::dynamic_pointer_cast<is::components::ColliderComponent>(*ptr.getEntity()->getComponent<is::components::ColliderComponent>());
+        const auto &cc = static_cast<is::components::ColliderComponent*>(ptr.getEntity()->getComponent<is::components::ColliderComponent>()->get());
         checkPowerUpCollision(*cc, window, ptr.type);
     }
 }
