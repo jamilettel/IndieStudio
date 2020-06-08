@@ -117,7 +117,7 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
                 if (network.empty()) {
                     sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
                 } else {
-                    auto nw = std::dynamic_pointer_cast<is::components::NetworkComponent>(network[0]);
+                    const auto &nw = static_cast<is::components::NetworkComponent*>(network[0].get());
                     if (nw->playerIdx == 0) {
                         sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
                         nw->writeQueue.push("evt bb " + std::to_string(nw->lobby) +

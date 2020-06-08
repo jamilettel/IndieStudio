@@ -15,7 +15,6 @@
 #include "Scenes/SplashScreenScene.hpp"
 #include "Scenes/MainMenuScene.hpp"
 #include "Scenes/CreditScene.hpp"
-#include "Scenes/RecordScene.hpp"
 #include "Scenes/HowToPlayScene.hpp"
 #include "Scenes/PauseScene.hpp"
 #include "Scenes/SettingsScene.hpp"

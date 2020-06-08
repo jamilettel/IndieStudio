@@ -43,7 +43,7 @@ namespace is::ecs {
 
                 for (std::shared_ptr<Component> &component: _components) {
                     if (dynamic_cast<T *>(component.get())) {
-                        ret.emplace(std::dynamic_pointer_cast<T>(component));
+                        ret.emplace(std::static_pointer_cast<T>(component));
                         break;
                     }
                 }
@@ -66,7 +66,7 @@ namespace is::ecs {
             template<class T>
             void deleteComponent() {
                 std::remove_if(_components.begin(), _components.end(), [](const std::shared_ptr<Component> &component) -> bool {
-                    return (dynamic_cast<T *>(component.get()) ? true : false);
+                    return dynamic_cast<T *>(component.get()) != nullptr;
                 });
             }
 

@@ -59,8 +59,8 @@ void is::Game::launchGame(is::ecs::Scenes startScene)
 
 void is::Game::setActualScene(is::ecs::Scenes scene, bool loadScene, bool destroyScene)
 {
-    currentScene = scene;
     _previousScene = currentScene;
+    currentScene = scene;
     _loadScene = loadScene;
     _destroyScene = destroyScene;
 }
@@ -288,12 +288,6 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/Return_BTN.png")));
     is::Game::addResource("ui/HowToPlay/Return_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/Return_BTN_pressed.png")));
-    is::Game::addResource("ui/Record/Record.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/Record/Record.png")));
-    is::Game::addResource("ui/Record/Return_BTN.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/Record/Return_BTN.png")));
-    is::Game::addResource("ui/Record/Return_BTN_pressed.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/Record/Return_BTN_pressed.png")));
     is::Game::addResource("ui/PresetSelection/button_play.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/button_play.png")));
     is::Game::addResource("ui/PresetSelection/button_play_pressed.png",
@@ -338,6 +332,8 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN.png")));
     is::Game::addResource("ui/RuleSettings/Backward_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")));
+    is::Game::addResource("ui/RuleSettings/Backward_BTN.png",
+                (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN.png")));
     is::Game::addResource("ui/RuleSettings/Table.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Table.png")));
     is::Game::addResource("ui/RuleSettings/Upward_BTN.png",
@@ -352,8 +348,6 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Dot_01.png")));
     is::Game::addResource("ui/RuleSettings/Table_01.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Table_01.png")));
-    is::Game::addResource("ui/RuleSettings/Backward_BTN.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")));
     is::Game::addResource("ui/RuleSettings/Forward_BTN.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Forward_BTN.png")));
     is::Game::addResource("ui/RuleSettings/Forward_BTN_pressed.png",
@@ -410,6 +404,10 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/up_btn_pressed.png")));
     is::Game::addResource("ui/Multiplayer/number_frame.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/number_frame.png")));
+    is::Game::addResource("ui/Multiplayer/Return_BTN_pressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/Return_BTN_pressed.png")));
+    is::Game::addResource("ui/Multiplayer/Return_BTN.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/Return_BTN.png")));
     is::Game::addResource("player_white.png",
         (void *)window->driver->getTexture(RESSOURCE("player_white.png")));
     is::Game::addResource("player_black.png",

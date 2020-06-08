@@ -35,7 +35,7 @@ void NetworkInputSystem::start()
         throw is::exceptions::Exception(
             "Component missing",
             "Network component required for Network Input System");
-    _network = std::dynamic_pointer_cast<NetworkComponent>(network[0]);
+    _network = std::static_pointer_cast<NetworkComponent>(network[0]);
 }
 
 void NetworkInputSystem::stop()
@@ -71,7 +71,7 @@ void NetworkInputSystem::update()
                 _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
             if (!window.size())
                 throw is::exceptions::Exception("NetworkInput", "No window component in scene");
-            auto ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(window[0]);
+            const auto &ptr_window = std::static_pointer_cast<is::components::WindowComponent>(window[0]);
 
             if (i == 0)
                 e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBombUpPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
@@ -81,13 +81,13 @@ void NetworkInputSystem::update()
                 e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createFireUpPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
             else if (i == 3)
                 e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallPassPowerUp({_network->playerStates[idx].positionPowerUp.X, 0, _network->playerStates[idx].positionPowerUp.Y}));
-            auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
+            const auto &ptr = static_cast<is::components::ModelRendererComponent*>(e->getComponent<is::components::ModelRendererComponent>()->get());
             ptr->initModelRenderer(std::move(ptr_window));
             _network->playerStates[idx].powerUpSpawn = 0;
         }
         if (_network->playerStates[idx].powerUpTake) {
             int i = _network->playerStates[idx].powerUpTake - 1;
-            auto bm = network.getEntity()->getComponent<BombermanComponent>()->get();
+            const auto &bm = network.getEntity()->getComponent<BombermanComponent>()->get();
             if (!bm)
                 throw is::exceptions::Exception("NetworkInputSystem", "Could not find bomberman");
             switch (i) {

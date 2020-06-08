@@ -23,10 +23,10 @@ void ImageSystem::awake()
 {
     const auto &images = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
 
-    for (auto &elem : images) {
+    for (const auto &elem : images) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<ImageComponent>(elem);
+        const auto &ptr = static_cast<ImageComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("ImageSystem", "Could not getImageComponent pointer");
 

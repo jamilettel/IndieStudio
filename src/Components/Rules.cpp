@@ -100,3 +100,19 @@ void RulesComponent::setAiLevel(int ai, int level)
         return;
     _aiLevels.at(ai - 1) = level;
 }
+
+int RulesComponent::getSeed() const noexcept
+{
+    return (_seed);
+}
+
+void RulesComponent::incSeed() noexcept
+{
+    _seed++;
+}
+
+void RulesComponent::decSeed() noexcept
+{
+    if (_seed != 1)
+        _seed--;
+}

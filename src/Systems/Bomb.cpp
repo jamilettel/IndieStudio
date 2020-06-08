@@ -120,8 +120,10 @@ bool is::systems::BombSystem::checkFireCollision(
                 }
             }
             if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
-                ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get()->dead = true;
-                ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
+                auto &bmEnemy = *ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get();
+                if (!bmEnemy.dead)
+                    ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
+                bmEnemy.dead = true;
                 return (false);
             }
             return (true);

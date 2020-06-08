@@ -50,12 +50,17 @@ namespace is::components
             [[nodiscard]] const std::vector<int> &getAiLevels() const;
             void setAiLevel(int ai, int level);
 
+            [[nodiscard]] int getSeed() const noexcept;
+            void incSeed() noexcept;
+            void decSeed() noexcept;
+
         private:
             int _numberOfPlayers = 4;
             std::map<Icon, bool> _icons;
             float _maxTime = 180; // in seconds
             bool _fpsMode = false;
             std::vector<int> _aiLevels;
+            int _seed = 1;
     };
 }
 

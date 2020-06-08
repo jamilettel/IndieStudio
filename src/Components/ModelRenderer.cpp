@@ -20,7 +20,7 @@ Component(e), fileName(std::move(name)), materialName(std::move(matName)), windo
 {
 }
 
-void ModelRendererComponent::initModelRenderer(const std::shared_ptr<WindowComponent>& ptr_window)
+void ModelRendererComponent::initModelRenderer(const std::shared_ptr<WindowComponent> &ptr_window)
 {
     node = ptr_window->scenemgr->addAnimatedMeshSceneNode(static_cast<irr::scene::IAnimatedMesh *>(is::Game::getResource(fileName)));
     if (!node)

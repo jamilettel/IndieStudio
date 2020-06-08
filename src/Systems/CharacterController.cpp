@@ -107,8 +107,8 @@ void is::systems::CharacterControllerSystem::update()
                 bm->get()->instantBomb++;
                 ptr->getCharacterComponent().setNbBombPosed(ptr->getCharacterComponent().getNbBombPosed() + 1);
                 auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value(), *ptr));
-                auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
-                auto ptr_part = std::dynamic_pointer_cast<ParticuleComponent>(*e->getComponent<ParticuleComponent>());
+                const auto &ptr_mr = static_cast<ModelRendererComponent*>(e->getComponent<ModelRendererComponent>()->get());
+                const auto &ptr_part = static_cast<ParticuleComponent*>(e->getComponent<ParticuleComponent>()->get());
                 ptr_mr->initModelRenderer(w);
                 ptr_part->init(w);
                 ptr->canPlaceBomb = false;
