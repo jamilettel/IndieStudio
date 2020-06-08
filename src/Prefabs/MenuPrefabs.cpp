@@ -175,20 +175,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         e,
         "",
         "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
-        50, 50,
-        [](){
-            is::Game::setActualScene(SCENE_RECORD);
-        },
-        true,
-        "ui/main_menu/Scores_BTN.png",
-        "ui/main_menu/Scores_BTN_pressed.png"
-    );
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
         30,
         WindowComponent::_windowsDimensions["Indie Studio"].second - 150,
         50, 50,
@@ -294,20 +280,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause()
         true,
         "ui/Pause/Settings_BTN.png",
         "ui/Pause/Settings_BTN_pressed.png"
-    ).layer = 2;
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 50 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second - 100,
-        50, 50,
-        [](){
-            is::Game::setActualScene(SCENE_RECORD);
-        },
-        true,
-        "ui/Pause/Scores_BTN.png",
-        "ui/Pause/Scores_BTN_pressed.png"
     ).layer = 2;
     return e;
 }
@@ -453,38 +425,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createHowToPlay()
     return e;
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createRecord()
-{
-    auto e = std::make_shared<Entity>();
-
-    e->addComponent<ImageComponent>(
-        e,
-        "ui/background.jpg",
-        "Indie Studio",
-        0, -1, false
-    ).layer = -9999;
-    e->addComponent<ImageComponent>(
-        e,
-        "ui/Record/Record.png",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
-    ).layer = 1;
-    e->addComponent<ButtonComponent>(
-        e,
-        "",
-        "Indie Studio",
-        30, 30,
-        50, 50,
-        [](){
-            is::Game::setActualScene(is::Game::getPreviousScene());
-        },
-        true,
-        "ui/Record/Return_BTN.png",
-        "ui/Record/Return_BTN_pressed.png"
-    ).layer = 2;
-    return e;
-}
-
 std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<NetworkComponent> nc)
 {
     auto e = std::make_shared<Entity>();
@@ -495,12 +435,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
         "Indie Studio",
         0, -1, false
     ).layer = -9999;
-    e->addComponent<ImageComponent>(
-        e,
-        "ui/Record/Record.png",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
-    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -511,8 +445,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
         true,
-        "ui/Record/Return_BTN.png",
-        "ui/Record/Return_BTN_pressed.png"
+        "ui/Multiplayer/Return_BTN.png",
+        "ui/Multiplayer/Return_BTN_pressed.png"
     ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
@@ -556,12 +490,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
         "Indie Studio",
         0, -1, false
     ).layer = -9999;
-    e->addComponent<ImageComponent>(
-        e,
-        "ui/Record/Record.png",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
-    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -572,8 +500,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
         true,
-        "ui/Record/Return_BTN.png",
-        "ui/Record/Return_BTN_pressed.png"
+        "ui/Multiplayer/Return_BTN.png",
+        "ui/Multiplayer/Return_BTN_pressed.png"
     ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
@@ -602,12 +530,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<Ne
         "Indie Studio",
         0, -1, false
     ).layer = -9999;
-    e->addComponent<ImageComponent>(
-        e,
-        "ui/Record/Record.png",
-        "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 280 / 2, 50, true
-    ).layer = 1;
     e->addComponent<ButtonComponent>(
         e,
         "",
@@ -618,8 +540,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<Ne
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
         true,
-        "ui/Record/Return_BTN.png",
-        "ui/Record/Return_BTN_pressed.png"
+        "ui/Multiplayer/Return_BTN.png",
+        "ui/Multiplayer/Return_BTN_pressed.png"
     ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,

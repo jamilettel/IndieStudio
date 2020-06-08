@@ -82,7 +82,6 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createPause();
         static std::shared_ptr<is::ecs::Entity> createCredit();
         static std::shared_ptr<is::ecs::Entity> createHowToPlay();
-        static std::shared_ptr<is::ecs::Entity> createRecord();
         static std::shared_ptr<is::ecs::Entity> createEndGame();
 
         static std::shared_ptr<is::ecs::Entity> createPresetSelection(const is::ecs::ComponentManager &manager);

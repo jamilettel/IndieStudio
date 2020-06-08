@@ -288,12 +288,6 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/Return_BTN.png")));
     is::Game::addResource("ui/HowToPlay/Return_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/Return_BTN_pressed.png")));
-    is::Game::addResource("ui/Record/Record.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/Record/Record.png")));
-    is::Game::addResource("ui/Record/Return_BTN.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/Record/Return_BTN.png")));
-    is::Game::addResource("ui/Record/Return_BTN_pressed.png",
-        (void *)window->driver->getTexture(RESSOURCE("ui/Record/Return_BTN_pressed.png")));
     is::Game::addResource("ui/PresetSelection/button_play.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/button_play.png")));
     is::Game::addResource("ui/PresetSelection/button_play_pressed.png",
@@ -410,6 +404,10 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/up_btn_pressed.png")));
     is::Game::addResource("ui/Multiplayer/number_frame.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/number_frame.png")));
+    is::Game::addResource("ui/Multiplayer/Return_BTN_pressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/Return_BTN_pressed.png")));
+    is::Game::addResource("ui/Multiplayer/Return_BTN.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/Return_BTN.png")));
     is::Game::addResource("player_white.png",
         (void *)window->driver->getTexture(RESSOURCE("player_white.png")));
     is::Game::addResource("player_black.png",

@@ -20,7 +20,6 @@ namespace is::ecs {
         SCENE_PAUSE,
         SCENE_CREDIT,
         SCENE_HOWTOPLAY,
-        SCENE_RECORD,
         SCENE_SETTINGS,
         SCENE_CONTROLLERS,
         SCENE_PRESETSELECTION,
