@@ -59,8 +59,8 @@ void is::Game::launchGame(is::ecs::Scenes startScene)
 
 void is::Game::setActualScene(is::ecs::Scenes scene, bool loadScene, bool destroyScene)
 {
-    currentScene = scene;
     _previousScene = currentScene;
+    currentScene = scene;
     _loadScene = loadScene;
     _destroyScene = destroyScene;
 }
