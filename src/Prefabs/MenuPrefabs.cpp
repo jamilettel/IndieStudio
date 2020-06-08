@@ -18,13 +18,14 @@ using namespace is::ecs;
 using namespace is::prefabs;
 using namespace is::components;
 
-std::shared_ptr<Entity> GlobalPrefabs::createJoystickCursor(int joystickId, const std::shared_ptr<WindowComponent> &window)
+std::shared_ptr<Entity> GlobalPrefabs::createJoystickCursor(int joystickId, const std::shared_ptr<WindowComponent> &window, int cursorNb)
 {
     auto e = std::make_shared<Entity>();
+    std::string cursorImage = "ui/cursor/cursor" + std::to_string(cursorNb) + ".png";
 
     auto &cursorJoystick = e->addComponent<ImageComponent>(
         e,
-        "ui/cursor/cursor.png",
+        cursorImage,
         "Indie Studio",
         0,
         0);

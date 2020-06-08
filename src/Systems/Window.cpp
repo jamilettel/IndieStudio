@@ -54,11 +54,10 @@ void WindowSystem::awake()
         ptr->device->getCursorControl()->setVisible(false);
         ptr->device->activateJoysticks(ptr->joysticks);
 
-        for (size_t i = 0; i < ptr->joysticks.size(); i++) {
+        for (size_t i = 0; i < ptr->joysticks.size() && i<3u; i++) {
             ptr->joysticks[i].Joystick = i;
-            initRuntimeEntity(is::prefabs::GlobalPrefabs::createJoystickCursor(ptr->joysticks[i].Joystick, ptr), true);
+            initRuntimeEntity(is::prefabs::GlobalPrefabs::createJoystickCursor(ptr->joysticks[i].Joystick, ptr, i + 2), true);
         }
-        
         is::Game::resourcesInitialization(ptr);
     }
 }

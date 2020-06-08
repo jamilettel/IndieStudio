@@ -106,6 +106,12 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/splashscreen.png")));
     is::Game::addResource("ui/cursor/cursor.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/cursor/cursor.png")));
+    is::Game::addResource("ui/cursor/cursor2.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/cursor/cursor2.png")));
+    is::Game::addResource("ui/cursor/cursor3.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/cursor/cursor3.png")));
+    is::Game::addResource("ui/cursor/cursor4.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/cursor/cursor4.png")));
     is::Game::addResource("ui/Alert/Box.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Alert/Box.png")));
     is::Game::addResource("ui/Alert/OkButton.png",
@@ -114,7 +120,7 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/Alert/OkButtonPressed.png")));
     is::Game::addResource("fonts/fontVolumeSettings/fontVolumeSettings.xml",
         (void *)window->canvas->getFont(RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml")));
-    
+
     is::Game::addResource("ui/Controllers/LS_RIGHT.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Controllers/LS_RIGHT.png")));
     is::Game::addResource("ui/Controllers/LS_UP.png",
