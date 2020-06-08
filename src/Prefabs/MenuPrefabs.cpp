@@ -479,7 +479,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
     return e;
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_ptr<NetworkComponent> nc)
+std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(const std::shared_ptr<NetworkComponent> &nc)
 {
     auto e = std::make_shared<Entity>();
 
@@ -520,7 +520,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(std::shared_
     return e;
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(std::shared_ptr<NetworkComponent> nc)
+std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(const std::shared_ptr<NetworkComponent> &nc)
 {
     auto e = std::make_shared<Entity>();
 

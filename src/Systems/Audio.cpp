@@ -15,20 +15,20 @@ using namespace is::components;
 
 void AudioSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
+        const auto &ptr = static_cast<AudioComponent*>(elem.get());
         ptr->init();
     }
 }
 
 void AudioSystem::start()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
+        const auto &ptr = static_cast<AudioComponent*>(elem.get());
         if (ptr->getStatus() == TO_PLAY) {
             ptr->play();
             ptr->nothing();
@@ -39,8 +39,8 @@ void AudioSystem::start()
 
 void AudioSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+        const auto &ptr = static_cast<AudioComponent*>(elem.get());
         ptr->setVolume();
         if (ptr->getStatus() == TO_PLAY && !ptr->isPlaying()) {
             ptr->play();
@@ -54,10 +54,10 @@ void AudioSystem::update()
 
 void AudioSystem::stop()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
         if (!(elem->getEntity()->shouldBeDeleted()))
             continue;
-        auto ptr = std::dynamic_pointer_cast<AudioComponent>(elem);
+        const auto &ptr = static_cast<AudioComponent*>(elem.get());
         ptr->stop();
     }
 }

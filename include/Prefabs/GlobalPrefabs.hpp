@@ -114,8 +114,8 @@ namespace is::prefabs {
 
         static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);
         static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
-        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
-        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(const std::shared_ptr<is::components::NetworkComponent> &nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(const std::shared_ptr<is::components::NetworkComponent> &nc);
         static std::shared_ptr<is::ecs::Entity> createControllers();
         static std::shared_ptr<is::ecs::Entity> createRules();
 
