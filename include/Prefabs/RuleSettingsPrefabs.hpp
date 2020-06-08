@@ -28,6 +28,7 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
+            static std::shared_ptr<is::ecs::Entity> createSeedRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
 
         private:
     };
