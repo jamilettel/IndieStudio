@@ -42,11 +42,10 @@ void is::systems::ModelRendererSystem::update()
 {
     for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::ModelRendererComponent).hash_code())) {
         const auto &ptr = static_cast<is::components::ModelRendererComponent*>(elem.get());
-        if (!ptr)
-            throw is::exceptions::Exception("ModelRendererSystem", "Could not get ModelRendererComponent pointer");
         const auto &tr = ptr->getEntity()->getComponent<is::components::TransformComponent>();
-        if (!tr)
-            throw is::exceptions::Exception("ModelRendererSystem", "Could not get TransformComponent pointer");
+
+        if (!ptr->node)
+            continue;
         ptr->node->setPosition(tr->get()->position);
         ptr->node->setRotation(tr->get()->rotation);
         ptr->node->setScale(tr->get()->scale);

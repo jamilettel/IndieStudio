@@ -112,7 +112,6 @@ void AIControllerLevel2System::noneState(
     ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
     ai.shortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
     if (findBombEmplacement(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map, aiComponents)) {
-        // std::cout << "New long objective Y :" << ai.longObjective.Y << ", X :" << ai.longObjective.X << std::endl;
         AStarAlgorithm astar(
             _mapX,
             _mapY,

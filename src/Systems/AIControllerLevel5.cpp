@@ -368,7 +368,6 @@ void AIControllerLevel5System::escapeExplosionState(
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
 {
-    // std::cout << "ESCAPE EXPLOSION STATE" << std::endl;
     AIControllerUtils::moveAI(ai, aiPos);
     if (AIControllerUtils::hasReachedObjective(ai, aiPos)) {
         if (ai.shortObjective == ai.longObjective) {
@@ -394,7 +393,6 @@ void AIControllerLevel5System::putBombState(
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
 {
-    // std::cout << "PUT BOMB STATE" << std::endl;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
     AIControllerUtils::moveAI(ai, aiPosF);
@@ -408,7 +406,6 @@ void AIControllerLevel5System::putBombState(
             ai.bombPos = ai.longObjective;
             ai.state = AIControllerComponent::ESCAPE_EXPLOSION;
             ai.longObjective = ai.posToEscape;
-            // std::cout << "New long objective X: " << ai.longObjective.X << ", Y: " << ai.longObjective.Y << std::endl;
             ai.lastShortObjective = ai.shortObjective;
             irr::core::vector2di aiPos(aiPosF.X, aiPosF.Y);
 
@@ -448,13 +445,10 @@ void AIControllerLevel5System::waitingState(
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
     irr::core::vector2di aiPos(aiPosF.X, aiPosF.Y);
 
-    // std::cout << "WAITING STATE" << std::endl;
     if (!posIsHideFromBombs(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
-        // std::cout << "I am not hide" << std::endl;
         if (canHideFromExplosion(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
             ai.longObjective = ai.posToEscape;
             ai.state = AIControllerComponent::AIState::ESCAPE_EXPLOSION;
-            // std::cout << "Hide to position Y: " << ai.longObjective.Y << ", X: " << ai.longObjective.X << std::endl;
             AStarAlgorithm astar(
                 _mapX,
                 _mapY,
@@ -474,12 +468,9 @@ void AIControllerLevel5System::waitingState(
             AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
             return;
         }
-        // std::cout << "SHIT I AM DEAD" << std::endl;
     }
     if (bomberman.bombNumber != bomberman.instantBomb)
         ai.state = AIControllerComponent::NONE;
-    // if (map[ai.bombPos.X][ai.bombPos.Y] != is::ecs::Entity::Layer::BOMB)
-    //     ai.state = AIControllerComponent::NONE;
 }
 
 

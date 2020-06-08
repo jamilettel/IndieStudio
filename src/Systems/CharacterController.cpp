@@ -75,10 +75,11 @@ void is::systems::CharacterControllerSystem::update()
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
-        if (bm->get()->dead) {
+        if (bm->get()->dead && !ptr->isDead) {
             bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
             if (bm->get()->deathTimer <= 0) {
                 ptr->isDead = true;
+                ptr->getEntity()->getComponent<ModelRendererComponent>().value()->deleteComponent();
             }
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
             continue;

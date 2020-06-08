@@ -120,8 +120,10 @@ bool is::systems::BombSystem::checkFireCollision(
                 }
             }
             if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
-                ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get()->dead = true;
-                ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
+                auto &bmEnemy = *ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get();
+                if (!bmEnemy.dead)
+                    ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
+                bmEnemy.dead = true;
                 return (false);
             }
             return (true);
@@ -137,7 +139,7 @@ int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderCompo
     auto rules = static_cast<is::components::RulesComponent*>(rulesComponents[0].get());
 
     int i = rand() % 4;
-    if (rand() % 4 != 0)
+    if (rand() % 7 != 0)
         return (0);
     std::shared_ptr<is::ecs::Entity> e;
 

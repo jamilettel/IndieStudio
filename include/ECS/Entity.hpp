@@ -13,6 +13,7 @@
 #include "ECS/Component.hpp"
 #include <optional>
 #include "Exception.hpp"
+#include <algorithm>
 
 namespace is::ecs {
 
@@ -62,6 +63,12 @@ namespace is::ecs {
                 return ret;
             }
 
+            template<class T>
+            void deleteComponent() {
+                std::remove_if(_components.begin(), _components.end(), [](const std::shared_ptr<Component> &component) -> bool {
+                    return (dynamic_cast<T *>(component.get()) ? true : false);
+                });
+            }
 
             template <typename T, typename ...U>
             T &addComponent(U &&...args) {
