@@ -38,5 +38,8 @@ irr::scene::IAnimatedMeshSceneNode *ModelRendererComponent::getElement() const
 
 void ModelRendererComponent::deleteComponent()
 {
+    if (!node)
+        return;
     node->remove();
+    node = nullptr;
 }
