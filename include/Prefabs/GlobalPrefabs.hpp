@@ -9,7 +9,6 @@
 #define GLOBALPREFABS_HPP_
 
 #include "ECS/Entity.hpp"
-
 #include "Components/Window.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Transform.hpp"
@@ -105,7 +104,6 @@ namespace is::prefabs {
                                      const std::shared_ptr<components::RulesComponent> &ruleComponent);
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
 
-
         static std::shared_ptr<is::ecs::Entity> createSettings();
         static std::shared_ptr<is::ecs::Entity> createControllersBase();
         static std::shared_ptr<is::ecs::Entity> createCharacter();
@@ -122,9 +120,11 @@ namespace is::prefabs {
 
         static std::shared_ptr<is::ecs::Entity> createTimer(is::components::RulesComponent &rules);
 
+        static std::shared_ptr<is::ecs::Entity> createPauseController(const is::components::CharacterComponent &character, is::ecs::ComponentManager &componentManager);
+
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
-    
+
     };
 
 }
