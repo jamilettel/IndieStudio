@@ -63,7 +63,8 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
                 bm->get()->bombNumber++;
                 break;
             case is::components::PowerUpComponent::SPEED_UP:
-                bm->get()->speedMult++;
+                if (bm->get()->speedMult == 1)
+                    bm->get()->speedMult += 0.5;
                 break;
             case is::components::PowerUpComponent::FIRE_UP:
                 bm->get()->bombRange++;

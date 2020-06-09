@@ -21,17 +21,17 @@ void AnimatorComponent::deleteComponent()
 
 void AnimatorComponent::changeAnimation(const std::string &anim)
 {
-    bool animFound = false;
-
     if (anim == currentAnim)
         return;
     for (auto &elem : animators) {
         if (elem.name == anim) {
-            getEntity()->getComponent<ModelRendererComponent>()->get()->node->setFrameLoop(elem.start, elem.end);
-            animFound = true;
+            auto renderer = getEntity()->getComponent<ModelRendererComponent>();
+
+            if (renderer->get()->node)
+                renderer->get()->node->setFrameLoop(elem.start, elem.end);
             currentAnim = anim;
+            return;
         }
     }
-    if (!animFound)
-        throw is::exceptions::Exception("AnimatorComponent", "Animation not found");
+    throw is::exceptions::Exception("AnimatorComponent", "Animation not found");
 }

@@ -124,7 +124,7 @@ bool is::systems::BombSystem::checkFireCollision(
                 if (!bmEnemy.dead)
                     ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
                 bmEnemy.dead = true;
-                return (false);
+                continue;
             }
             return (true);
         }
