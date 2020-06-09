@@ -6,6 +6,7 @@
 */
 
 #include "Components/Hud.hpp"
+#include <iostream>
 
 using namespace is::components;
 using namespace is::ecs;
@@ -29,6 +30,6 @@ void HudComponent::update()
 {
     _bombNb.setText("x " + std::to_string(_bm.bombNumber - 1));
     _range.setText ("x " + std::to_string(_bm.bombRange - 1));
-    _speed.setText ("x " + std::to_string(static_cast<int>(_bm.speedMult - 1)));
+    _speed.setText ("x " + std::to_string(_bm.speedCount));
     _pass.setText  (std::string(_bm.wallPass ? "yes" : "no"));
 }

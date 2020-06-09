@@ -15,7 +15,8 @@ BombermanComponent::BombermanComponent(
     CharacterComponent &character
 ) : Component(e),
     bombNumber(1),
-    bombRange(1), 
+    bombRange(1),
+    speedCount(0),
     speedMult(1),
     wallPass(false),
     instantBomb(0),
