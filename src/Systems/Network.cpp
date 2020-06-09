@@ -26,9 +26,11 @@ void is::systems::NetworkSystem::awake()
         try {
             ptr->startMultiplayer();
         } catch(const std::exception &e) {
-            std::cout << e.what() << std::endl;
-            //is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
-            //ptr->getEntity()->setDelete(true);
+            const auto &alertComponent = static_cast<AlertComponent*>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0].get());
+            alertComponent->addAlert("Can't connect to server", []() {
+                is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
+            });
+            ptr->isLock = true;
         }
     }
 }
@@ -39,7 +41,7 @@ void is::systems::NetworkSystem::start()
         _componentManager->getComponentsByType(typeid(is::components::TimeComponent).hash_code());
 
     if (!time.size())
-        throw is::exceptions::Exception("Movement", "No time component in scene");
+        throw is::exceptions::Exception("NetworkSystem", "No time component in scene");
     _time.emplace(*static_cast<is::components::TimeComponent *>(time[0].get()));
 }
 
@@ -65,7 +67,7 @@ void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::comp
         throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterControllerComponent pointer");
     const auto &tr = ptr_char->getEntity()->getComponent<is::components::TransformComponent>()->get();
     if (!tr)
-        throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
+        throw is::exceptions::Exception("NetworkSystem", "Could not found bomberman");
     
     irr::core::vector3df playerPos = tr->position;
     ptr->timeBeforeSharePos += _time->get().getCurrentIntervalSeconds();
@@ -100,7 +102,16 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
         while (cmd.size() > 1) {
             std::cout << buff << std::endl;
             std::cout << cmd.size() << std::endl;
-            if (cmd[0] == "res") {
+            if (cmd[0] == "err") {
+                if (cmd [1] == "lnf") {
+                    const auto &alertComponent = static_cast<AlertComponent*>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0].get());
+                    alertComponent->addAlert("Lobby not found", []() {
+                        is::Game::setActualScene(is::ecs::SCENE_MULTIPLAYER_HUB);
+                    });
+                    remove = 2;
+                }
+            }
+            else if (cmd[0] == "res") {
                 if (cmd[1] == "cl" || cmd[1] == "jl") {
                     ptr->lobby = atoi(cmd[2].c_str());
                     is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
@@ -117,8 +128,7 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                         if (i == ptr->playerIdx) {
                             ptr_char->characterType = is::components::CharacterComponent::Type::KEYBOARD_PLAYER;
                             ptr_char->presetNumber = 1;
-                        }
-                        else {
+                        } else {
                             ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
                             ptr_char->multiplayerId = i;
                         }

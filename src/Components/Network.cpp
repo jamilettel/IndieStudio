@@ -12,6 +12,7 @@ is::components::NetworkComponent::NetworkComponent(std::shared_ptr<is::ecs::Enti
 Component(e)
 {
     isOn = false;
+    isLock = false;
     timeout.tv_sec = 0;
     timeout.tv_usec = 10000;
 }
@@ -25,10 +26,15 @@ void is::components::NetworkComponent::startMultiplayer()
 {
     int n = 1;
 
+    if (isLock) {
+        isOn = false;
+        return;
+    }
+
     // init player states
+    playerStates.push_back({{-5 * 3, 6 * 3}, {0, 0}, 0, false, 0, 0});
     playerStates.push_back({{-5 * 3, -6 * 3}, {0, 0}, 0, false, 0, 0});
     playerStates.push_back({{5 * 3, -6 * 3}, {0, 0}, 0, false, 0, 0});
-    playerStates.push_back({{-5 * 3, 6 * 3}, {0, 0}, 0, false, 0, 0});
     playerStates.push_back({{5 * 3, 6 * 3}, {0, 0}, 0, false, 0, 0});
     timeBeforeSharePos = 0;
     

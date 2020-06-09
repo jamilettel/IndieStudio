@@ -64,16 +64,22 @@ namespace is::components {
             std::queue<std::string> writeQueue;
             std::queue<std::string> writeQueueUdp;
             std::vector<PlayerStates> playerStates;
+
             fd_set rfds;
             fd_set wfds;
             fd_set efds;
+
             struct timeval timeout;
             struct sockaddr_in addr;
+
             int serverSock;
             int serverSockUdp;
             int lobby;
             int playerIdx;
+
             bool isOn;
+            bool isLock;
+
             float timeBeforeSharePos;
     };
 

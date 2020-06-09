@@ -74,36 +74,7 @@ void MultiplayerGameScene::initEntities()
             ch.texturePath,
             i
         ));
-    }/*
-    initEntity(GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(-5 * 3, 0, 6 * 3),
-        *static_cast<CharacterComponent *>(characters[0].get()),
-        *_componentManager.get(),
-        "player_white.png"
-    ));
-    initEntity(GlobalPrefabs::createPlayerHud(
-        *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),
-        ch.texturePath,
-        0
-    ));
-    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(-5 * 3, 0, -6 * 3),
-        *static_cast<CharacterComponent *>(characters[1].get()),
-        *_componentManager.get(),
-        "player_black.png"
-    ));
-    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(5 * 3, 0, -6 * 3),
-        *static_cast<CharacterComponent *>(characters[2].get()),
-        *_componentManager.get(),
-        "player_blue.png"
-    ));
-    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(5 * 3, 0, 6 * 3),
-        *static_cast<CharacterComponent *>(characters[3].get()),
-        *_componentManager.get(),
-        "player_red.png"
-    ));*/
+    }
 }
 
 void MultiplayerGameScene::awake()
