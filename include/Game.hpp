@@ -27,6 +27,7 @@
 #include "Scenes/GameScene.hpp"
 #include "Scenes/EndGameScene.hpp"
 #include "Scenes/RuleSettingsScene.hpp"
+#include "Scenes/MultiplayerRuleSettingsScene.hpp"
 
 namespace is {
 
