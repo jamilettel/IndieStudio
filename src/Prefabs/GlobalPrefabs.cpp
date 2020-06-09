@@ -347,7 +347,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rule
     );
     auto &texture = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/Game/Table.png"),
+        "ui/Game/Table.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 139,
         0,
@@ -371,7 +371,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
 
     auto &texture = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/Game/playerHud.png"),
+        "ui/Game/playerHud.png",
         "Indie Studio",
         (player == 0 || player == 3 ? 0 : WindowComponent::_windowsDimensions["Indie Studio"].first - 277),
         (player == 1 || player == 3 ? 0 : WindowComponent::_windowsDimensions["Indie Studio"].second - 101),
@@ -379,7 +379,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
     ).layer=-11;
     auto &icon = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("icon"+skin.substr(6)),
+        "icon"+skin.substr(6),
         "Indie Studio",
         (player == 0 || player == 3 ? 10 : WindowComponent::_windowsDimensions["Indie Studio"].first - 267),
         (player == 1 || player == 3 ? 5 : WindowComponent::_windowsDimensions["Indie Studio"].second - 96),
@@ -394,7 +394,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
         50, 40,
         false,
         false,
-        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        "fonts/EndGame/endGameFont.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
     TextComponent &range = e->addComponent<TextComponent>(
@@ -406,7 +406,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
         50, 40,
         false,
         false,
-        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        "fonts/EndGame/endGameFont.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
     TextComponent &speed = e->addComponent<TextComponent>(
@@ -418,7 +418,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
         50, 40,
         false,
         false,
-        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        "fonts/EndGame/endGameFont.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
     TextComponent &pass = e->addComponent<TextComponent>(
@@ -430,7 +430,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
         50, 40,
         false,
         false,
-        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        "fonts/EndGame/endGameFont.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
     e->addComponent<HudComponent>(

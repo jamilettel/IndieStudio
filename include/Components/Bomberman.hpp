@@ -35,6 +35,7 @@ namespace is::components {
         public:
             int bombNumber;
             int bombRange;
+            int speedCount;
             float speedMult;
             bool wallPass;
 

@@ -427,6 +427,8 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
     is::Game::addResource("ui/Multiplayer/join_lobby_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/join_lobby_BTN_pressed.png")));
 
+    is::Game::addResource("fire.bmp",
+        (void *)window->driver->getTexture(RESSOURCE("fire.bmp")));
     is::Game::addResource("player_white.png",
         (void *)window->driver->getTexture(RESSOURCE("player_white.png")));
     is::Game::addResource("player_black.png",
@@ -441,6 +443,21 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/EndGame/Star_02.png")));
     is::Game::addResource("ui/EndGame/Star_03.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/EndGame/Star_03.png")));
-    is::Game::addResource("fire.bmp",
-        (void *)window->driver->getTexture(RESSOURCE("fire.bmp")));
+    is::Game::addResource("icon_white.png",
+        (void *)window->driver->getTexture(RESSOURCE("icon_white.png")));
+    is::Game::addResource("icon_blue.png",
+        (void *)window->driver->getTexture(RESSOURCE("icon_blue.png")));
+    is::Game::addResource("icon_pink.png",
+        (void *)window->driver->getTexture(RESSOURCE("icon_pink.png")));
+    is::Game::addResource("icon_yellow.png",
+        (void *)window->driver->getTexture(RESSOURCE("icon_yellow.png")));
+    is::Game::addResource("icon_red.png",
+        (void *)window->driver->getTexture(RESSOURCE("icon_red.png")));
+    is::Game::addResource("icon_black.png",
+        (void *)window->driver->getTexture(RESSOURCE("icon_black.png")));
+    is::Game::addResource("ui/Game/Table.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Game/Table.png")));
+    is::Game::addResource("ui/Game/playerHud.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Game/playerHud.png")));
+    
 }
