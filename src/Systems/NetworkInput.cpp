@@ -96,6 +96,7 @@ void NetworkInputSystem::update()
                 break;
             case is::components::PowerUpComponent::SPEED_UP:
                 bm->speedMult++;
+                bm->speedCount++;
                 break;
             case is::components::PowerUpComponent::FIRE_UP:
                 bm->bombRange++;

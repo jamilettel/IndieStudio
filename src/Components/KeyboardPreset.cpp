@@ -59,6 +59,5 @@ void KeyboardPresetComponent::createBasicPreset(KeyboardPresetComponent &preset)
     preset.bind(irr::KEY_KEY_D, PresetAction("MoveHorizontalAxis", -1, "Move right"));
     preset.bind(irr::KEY_KEY_A, PresetAction("MoveHorizontalAxis", 1, "Move left"));
     preset.bind(irr::KEY_KEY_E, PresetAction("DropBomb", 1, "Drop bomb"));
-    preset.bind(irr::KEY_SPACE, PresetAction("Jump", 1, "Jump"));
     preset.bind(irr::KEY_KEY_P, PresetAction("Pause", 1, "Pause menu"));
 }

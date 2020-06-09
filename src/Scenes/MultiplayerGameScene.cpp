@@ -45,6 +45,7 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<NetworkSystem>());
     _systemManager->addSystem(std::make_shared<NetworkInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<HudSystem>());
 
 }
 
@@ -59,7 +60,7 @@ void MultiplayerGameScene::initEntities()
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
-    for (int i = 0; i != 4; i++) {
+    for (int i = 0; i != characters.size(); i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
         x = (i % 2 ? 5 : -5);
         y = (i == 1 || i == 2 ? -6 : 6);
