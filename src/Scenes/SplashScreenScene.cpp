@@ -56,7 +56,7 @@ void SplashScreenScene::update()
 {
     AScene::update();
     if (_time->get().getElapsedTime() > 3000) {
-        is::Game::setActualScene(SCENE_MAIN_MENU);
+        is::Game::setActualScene(SCENE_MULTIPLAYER_RULE_SETTINGS);
         return;
     }
 }

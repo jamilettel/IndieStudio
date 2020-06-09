@@ -31,6 +31,9 @@ namespace is::scenes
 
             void initSystems() override;
             void initEntities() override;
+
+        private:
+            is::components::RulesComponent &getRulesComponent() const;
     };
 }
 
