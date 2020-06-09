@@ -31,8 +31,6 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<AudioSystem>());
-    _systemManager->addSystem(std::make_shared<JumpSystem>());
-    _systemManager->addSystem(std::make_shared<GravitySystem>());
     _systemManager->addSystem(std::make_shared<MovementSystem>());
     _systemManager->addSystem(std::make_shared<BombSystem>());
     _systemManager->addSystem(std::make_shared<FireSystem>());

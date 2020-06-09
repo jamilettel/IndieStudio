@@ -279,10 +279,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
-    e->addComponent<GravityComponent>(e, movement);
-    transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e, character);
-    e->addComponent<JumpComponent>(e, movement);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
