@@ -181,9 +181,7 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
             cmd.erase(cmd.begin(), cmd.begin() + remove);
         }
     }
-    //if (recv(ptr->serverSockUdp, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT
-    //    std::cout << buff << std::endl;
-    //}
+    std::cout << ptr->writeQueue.size() << std::endl;
     if (FD_ISSET(ptr->serverSock, &ptr->wfds)) {
         if (ptr->writeQueue.size() > 0) {
             std::string tmp = ptr->writeQueue.front();
@@ -196,11 +194,6 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
             ptr->writeQueue.pop();
         }
     }
-    //if (ptr->writeQueueUdp.size() > 0) {
-    //    std::string tmp = ptr->writeQueueUdp.front();
-    //    sendto(ptr->serverSockUdp, (const char*)tmp.c_str(), tmp.size(), 0, (const struct sockaddr*)&ptr->addr, sizeof(ptr->addr)); 
-    //    ptr->writeQueueUdp.pop();
-    //}
     if (FD_ISSET(ptr->serverSock, &ptr->efds)) {
 #ifdef _WIN32
         _close(ptr->serverSock);
@@ -211,11 +204,6 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
 #endif
         ptr->isOn = false;
     }
-    //if (FD_ISSET(ptr->serverSockUdp, &ptr->efds)) {
-    //    close(ptr->serverSockUdp);
-    //    close(ptr->serverSock);
-    //    ptr->isOn = false;
-    //}
 }
 
 void is::systems::NetworkSystem::stop()

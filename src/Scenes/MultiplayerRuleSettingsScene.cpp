@@ -33,6 +33,7 @@ void MultiplayerRuleSettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<TextureSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
     _systemManager->addSystem(std::make_shared<TextSystem>());
+    _systemManager->addSystem(std::make_shared<NetworkSystem>());
 }
 
 RulesComponent &MultiplayerRuleSettingsScene::getRulesComponent() const
@@ -52,8 +53,11 @@ void MultiplayerRuleSettingsScene::initEntities()
 {
     RulesComponent &rules = getRulesComponent();
 
+    auto e = _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())[0];
+    const auto &ptr = std::static_pointer_cast<is::components::NetworkComponent>(e);
+
     initEntity(RuleSettingsPrefabs::createBackground());
-    initEntity(RuleSettingsPrefabs::createOkButton());
+    initEntity(RuleSettingsPrefabs::createOkButton(ptr));
     initEntity(RuleSettingsPrefabs::createReturnButton());
     initEntity(RuleSettingsPrefabs::createRuleSettings(), false);
 

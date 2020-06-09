@@ -418,6 +418,15 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/Return_BTN_pressed.png")));
     is::Game::addResource("ui/Multiplayer/Return_BTN.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/Return_BTN.png")));
+    is::Game::addResource("ui/Multiplayer/create_lobby_BTN.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/create_lobby_BTN.png")));
+    is::Game::addResource("ui/Multiplayer/create_lobby_BTN_pressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/create_lobby_BTN_pressed.png")));
+    is::Game::addResource("ui/Multiplayer/join_lobby_BTN.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/join_lobby_BTN.png")));
+    is::Game::addResource("ui/Multiplayer/join_lobby_BTN_pressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Multiplayer/join_lobby_BTN_pressed.png")));
+
     is::Game::addResource("player_white.png",
         (void *)window->driver->getTexture(RESSOURCE("player_white.png")));
     is::Game::addResource("player_black.png",

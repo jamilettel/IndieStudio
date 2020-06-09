@@ -26,7 +26,7 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createBackground()
     return (e);
 }
 
-std::shared_ptr<Entity> RuleSettingsPrefabs::createOkButton()
+std::shared_ptr<Entity> RuleSettingsPrefabs::createOkButton(const std::shared_ptr<NetworkComponent> &nc)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -38,8 +38,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createOkButton()
         WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 100.0f,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
-        [](){
-            is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
+        [nc]() {
+            std::cout << nc->writeQueue.size() << std::endl;
+            nc->writeQueue.push("req cl \n");
+            std::cout << nc->writeQueue.size() << std::endl;
+
         },
         true,
         "ui/RuleSettings/OkButton.png",
