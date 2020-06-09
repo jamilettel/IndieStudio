@@ -372,6 +372,10 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/explosion_expander.png")));
     is::Game::addResource("ui/RuleSettings/wall_pass.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/wall_pass.png")));
+    is::Game::addResource("ui/RuleSettings/OkButton.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/OkButton.png")));
+    is::Game::addResource("ui/RuleSettings/OkButtonPressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/OkButtonPressed.png")));
     is::Game::addResource("ui/settings/Header.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/settings/Header.png")));
     is::Game::addResource("ui/settings/Return_BTN.png",

@@ -26,6 +26,28 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createBackground()
     return (e);
 }
 
+std::shared_ptr<Entity> RuleSettingsPrefabs::createOkButton()
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 85 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        [](){
+            is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
+        },
+        true,
+        "ui/RuleSettings/OkButton.png",
+        "ui/RuleSettings/OkButtonPressed.png"
+    );
+    return (e);
+}
+
 std::shared_ptr<Entity> RuleSettingsPrefabs::createReturnButton()
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
