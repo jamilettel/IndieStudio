@@ -104,13 +104,16 @@ void MovementSystem::update()
     std::vector<std::shared_ptr<Component>> &colliders =
         _componentManager->getComponentsByType(typeid(ColliderComponent).hash_code());
     irr::core::vector3df zero;
+    float deltaTime = _time->get().getCurrentIntervalSeconds() * 100.0;
 
+    if (deltaTime > 10)
+        deltaTime = 10;
     for (auto & movement : movements) {
         auto *ptr = static_cast<MovementComponent *>(movement.get());
 
         if (ptr->velocity == zero)
             continue;
-        ptr->getTransform().position += ptr->velocity * _time->get().getCurrentIntervalSeconds() * 100.0;
+        ptr->getTransform().position += ptr->velocity * deltaTime;
 
         if (ptr->clipping) {
             checkCollisions(ptr->getCollider(), colliders);
