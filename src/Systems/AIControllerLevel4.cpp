@@ -79,6 +79,9 @@ void AIControllerLevel4System::update()
 
         if (ai.getLevel() != 4)
             continue;
+        ai.getInputManager().setValue("DropBomb", 0);
+        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
         ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
         if (ai.timeBeforeBegin > 0)
             continue;
@@ -88,9 +91,10 @@ void AIControllerLevel4System::update()
 
         aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
-        ai.getInputManager().setValue("DropBomb", 0);
-        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
-        ai.getInputManager().setValue("MoveVerticalAxis", 0);
+        if (!AIControllerUtils::isValid(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
+            continue;
+        }
 
         (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, characterComponents);
     }
@@ -432,7 +436,7 @@ static bool findPlayer(
         CharacterControllerComponent &aiComponent = *static_cast<CharacterControllerComponent *>(component.get());
         CharacterControllerComponent &character = *ai.getEntity()->getComponent<CharacterControllerComponent>().value();
 
-        if (character == aiComponent)
+        if (character == aiComponent || aiComponent.isDead)
             return (false);
         TransformComponent &tr = *static_cast<TransformComponent *>(aiComponent.getEntity()->getComponent<TransformComponent>()->get());
         irr::core::vector2di aiPos;

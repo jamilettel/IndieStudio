@@ -9,7 +9,25 @@
 #define GAME_HPP_
 
 #include <vector>
+#include <map>
 #include "ECS/IScene.hpp"
+
+#include "Scenes/SplashScreenScene.hpp"
+#include "Scenes/MainMenuScene.hpp"
+#include "Scenes/CreditScene.hpp"
+#include "Scenes/HowToPlayScene.hpp"
+#include "Scenes/PauseScene.hpp"
+#include "Scenes/SettingsScene.hpp"
+#include "Scenes/ControllersScene.hpp"
+#include "Scenes/PresetSelectionScene.hpp"
+#include "Scenes/MultiplayerHubScene.hpp"
+#include "Scenes/MultiplayerLobbyChoiceScene.hpp"
+#include "Scenes/MultiplayerLobbyScene.hpp"
+#include "Scenes/MultiplayerGameScene.hpp"
+#include "Scenes/GameScene.hpp"
+#include "Scenes/EndGameScene.hpp"
+#include "Scenes/RuleSettingsScene.hpp"
+#include "Scenes/MultiplayerRuleSettingsScene.hpp"
 
 namespace is {
 
@@ -32,6 +50,10 @@ namespace is {
             static is::ecs::Scenes getCurrentScene();
             static void setUnloadScene(is::ecs::Scenes scene);
 
+            static void addResource(const std::string &path, void *resource);
+            static void *getResource(const std::string &path);
+            static void resourcesInitialization(const std::shared_ptr<is::components::WindowComponent> &window);
+
         private:
             std::map<is::ecs::Scenes, std::shared_ptr<is::ecs::IScene>> _scenes;
             static is::ecs::Scenes currentScene;
@@ -40,6 +62,7 @@ namespace is {
             static bool _loadScene;
             is::ecs::Scenes changeScene;
             static std::pair<bool, is::ecs::Scenes> _unloadScene;
+            static std::map<std::string, std::shared_ptr<void *>> resources;
     };
 
 }

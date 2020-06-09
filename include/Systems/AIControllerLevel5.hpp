@@ -21,7 +21,6 @@
 #include "AStarAlgorithm.hpp"
 #include "ECS/Component.hpp"
 #include "Components/Bomberman.hpp"
-#include <list>
 
 #include <cmath>
 

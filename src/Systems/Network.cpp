@@ -17,8 +17,8 @@ using namespace std;
 
 void is::systems::NetworkSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::NetworkComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())) {
+        const auto &ptr = static_cast<is::components::NetworkComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("MultiplayerScene::initEntities", "Could not get NetworkComponent pointer");
         if (ptr->isOn)
@@ -45,8 +45,8 @@ void is::systems::NetworkSystem::start()
 
 void is::systems::NetworkSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<is::components::NetworkComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())) {
+        const auto &ptr = std::static_pointer_cast<is::components::NetworkComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("NetworkSystem", "Could not get NetworkComponent pointer");
         if (!ptr->isOn)
@@ -57,13 +57,13 @@ void is::systems::NetworkSystem::update()
     }
 }
 
-void is::systems::NetworkSystem::refreshGameState(std::shared_ptr<is::components::NetworkComponent> ptr)
+void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::components::NetworkComponent> &ptr)
 {
-    auto characters = _componentManager->getComponentsByType(typeid(is::components::CharacterControllerComponent).hash_code());
-    auto ptr_char = std::dynamic_pointer_cast<is::components::CharacterControllerComponent>(characters[ptr->playerIdx]);
+    const auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterControllerComponent).hash_code());
+    const auto &ptr_char = static_cast<is::components::CharacterControllerComponent*>(characters[ptr->playerIdx].get());
     if (!ptr_char)
         throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterControllerComponent pointer");
-    auto tr = ptr_char->getEntity()->getComponent<is::components::TransformComponent>()->get();
+    const auto &tr = ptr_char->getEntity()->getComponent<is::components::TransformComponent>()->get();
     if (!tr)
         throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
     
@@ -82,12 +82,18 @@ void is::systems::NetworkSystem::refreshGameState(std::shared_ptr<is::components
     }
 }
 
-void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::NetworkComponent> ptr) // TODO: Tristan debug ici stp mec.
+void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::components::NetworkComponent> &ptr) // TODO: Tristan debug ici stp mec.
 {
     if (select(ptr->serverSock + 1, &ptr->rfds, &ptr->wfds, &ptr->efds, &ptr->timeout) == -1)
         throw is::exceptions::Exception("NetworkSystem", "Select exception");        
     char buff[READ_SIZE] = {0};
-    if (recv(ptr->serverSock, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT        
+    #ifdef _WIN32
+    u_long mode = 1;
+    ioctlsocket(ptr->serverSock, FIONBIO, &mode);
+    if (recv(ptr->serverSock, buff, READ_SIZE, 0) >= 0) {
+    #else
+    if (recv(ptr->serverSock, buff, READ_SIZE, MSG_DONTWAIT) >= 0) {
+    #endif
         std::vector<std::string> cmd;
         split(std::string(buff), cmd, ' ');
         int remove = 0;
@@ -104,8 +110,8 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
                     if (ptr->playerIdx < 0 || ptr->playerIdx > 3)
                         throw is::exceptions::Exception("NetworkSystem", "init multiplayer game exception");        
                     for (int i = 0; i < 4; i++) {
-                        auto characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
-                        auto ptr_char = std::dynamic_pointer_cast<is::components::CharacterComponent>(characters[i]);
+                        const auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
+                        const auto &ptr_char = static_cast<is::components::CharacterComponent*>(characters[i].get());
                         if (!ptr_char)
                             throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterComponent pointer");
                         if (i == ptr->playerIdx) {
@@ -131,14 +137,14 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
                     ptr->playerStates[idx].rotationY = rotY;
                     remove = 7;
                 }
-                if (cmd[1] == "db") {            
+                if (cmd[1] == "db") {
                     int idx = atoi(cmd[3].c_str());
 
                     std::cout << "DB" << std::endl;
                     ptr->playerStates[idx].dropBomb = true;
                     remove = 4;
                 }
-                if (cmd[1] == "pu") {            
+                if (cmd[1] == "pu") {
                     int idx = atoi(cmd[3].c_str());
                     int pu = atoi(cmd[4].c_str());
                     int posX = atoi(cmd[5].c_str());
@@ -165,42 +171,39 @@ void is::systems::NetworkSystem::selectHandling(std::shared_ptr<is::components::
                     _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
                     if (!window.size())
                         throw is::exceptions::Exception("Network", "No window component in scene");
-                    auto ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(window[0]);
+                    const auto &ptr_window = std::static_pointer_cast<is::components::WindowComponent>(window[0]);
                     std::shared_ptr<is::ecs::Entity> e = initRuntimeEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(posX, 0, posY)));
-                    auto ptr = std::dynamic_pointer_cast<is::components::ModelRendererComponent>(*e->getComponent<is::components::ModelRendererComponent>());
-                    ptr->initModelRenderer(std::move(ptr_window));
+                    const auto &modelRenderer = static_cast<is::components::ModelRendererComponent*>(e->getComponent<is::components::ModelRendererComponent>()->get());
+                    modelRenderer->initModelRenderer(std::move(ptr_window));
                     remove = 5;
                 }
             }
             cmd.erase(cmd.begin(), cmd.begin() + remove);
         }
     }
-    //if (recv(ptr->serverSockUdp, buff, READ_SIZE, MSG_DONTWAIT) >= 0) { // WINDOW CONNAIT PAS DONTWAIT
-    //    std::cout << buff << std::endl;
-    //}
+    std::cout << ptr->writeQueue.size() << std::endl;
     if (FD_ISSET(ptr->serverSock, &ptr->wfds)) {
         if (ptr->writeQueue.size() > 0) {
             std::string tmp = ptr->writeQueue.front();
-            //std::cout << "-> " << tmp << std::endl;
+            std::cout << "-> " << tmp << std::endl;
+#ifdef _WIN32
+            send(ptr->serverSock, tmp.c_str(), tmp.size(), 0);
+#else
             write(ptr->serverSock, tmp.c_str(), tmp.size());
+#endif
             ptr->writeQueue.pop();
         }
     }
-    //if (ptr->writeQueueUdp.size() > 0) {
-    //    std::string tmp = ptr->writeQueueUdp.front();
-    //    sendto(ptr->serverSockUdp, (const char*)tmp.c_str(), tmp.size(), 0, (const struct sockaddr*)&ptr->addr, sizeof(ptr->addr)); 
-    //    ptr->writeQueueUdp.pop();
-    //}
     if (FD_ISSET(ptr->serverSock, &ptr->efds)) {
+#ifdef _WIN32
+        _close(ptr->serverSock);
+        _close(ptr->serverSockUdp);
+#else
         close(ptr->serverSock);
         close(ptr->serverSockUdp);
+#endif
         ptr->isOn = false;
     }
-    //if (FD_ISSET(ptr->serverSockUdp, &ptr->efds)) {
-    //    close(ptr->serverSockUdp);
-    //    close(ptr->serverSock);
-    //    ptr->isOn = false;
-    //}
 }
 
 void is::systems::NetworkSystem::stop()

@@ -6,37 +6,22 @@
 */
 
 #include "Game.hpp"
-#include "Scenes/SplashScreenScene.hpp"
-#include "Scenes/MainMenuScene.hpp"
-#include "Scenes/CreditScene.hpp"
-#include "Scenes/RecordScene.hpp"
-#include "Scenes/HowToPlayScene.hpp"
-#include "Scenes/PauseScene.hpp"
-#include "Scenes/SettingsScene.hpp"
-#include "Scenes/ControllersScene.hpp"
-#include "Scenes/PresetSelectionScene.hpp"
-#include "Scenes/MultiplayerHubScene.hpp"
-#include "Scenes/MultiplayerLobbyChoiceScene.hpp"
-#include "Scenes/MultiplayerLobbyScene.hpp"
-#include "Scenes/MultiplayerGameScene.hpp"
-#include "Scenes/GameScene.hpp"
-#include "Scenes/EndGameScene.hpp"
-#include "Scenes/RuleSettingsScene.hpp"
-
 #include "Exception.hpp"
 
 int main(int argc, char const *argv[])
 {
     is::Game game;
     try {
-        #ifdef MSVC
+#ifdef _WIN32
+            WSADATA data;
+
             if (!SetProcessDPIAware())
                 throw is::exceptions::WindowException("SetProcessDPIAware failed.");
-        #endif
+            WSAStartup(MAKEWORD(2, 2), &data);
+#endif
         game.addScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN, std::make_shared<is::scenes::SplashScreenScene>());
         game.addScene(is::ecs::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
         game.addScene(is::ecs::Scenes::SCENE_CREDIT, std::make_shared<is::scenes::CreditScene>());
-        game.addScene(is::ecs::Scenes::SCENE_RECORD, std::make_shared<is::scenes::RecordScene>());
         game.addScene(is::ecs::Scenes::SCENE_HOWTOPLAY, std::make_shared<is::scenes::HowToPlayScene>());
         game.addScene(is::ecs::Scenes::SCENE_PAUSE, std::make_shared<is::scenes::PauseScene>());
         game.addScene(is::ecs::Scenes::SCENE_GAME, std::make_shared<is::scenes::GameScene>());
@@ -49,6 +34,7 @@ int main(int argc, char const *argv[])
         game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME, std::make_shared<is::scenes::MultiplayerGameScene>());
         game.addScene(is::ecs::Scenes::SCENE_ENDGAME, std::make_shared<is::scenes::EndGameScene>());
         game.addScene(is::ecs::Scenes::SCENE_RULE_SETTINGS, std::make_shared<is::scenes::RuleSettingsScene>());
+        game.addScene(is::ecs::Scenes::SCENE_MULTIPLAYER_RULE_SETTINGS, std::make_shared<is::scenes::MultiplayerRuleSettingsScene>());
         game.launchGame(is::ecs::Scenes::SCENE_SPLASH_SCREEN);
     } catch (is::exceptions::Exception &e) {
         std::cerr << "CAUGHT EXCEPTION:" << std::endl;

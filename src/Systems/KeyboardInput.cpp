@@ -16,13 +16,13 @@ void KeyboardInputSystem::awake()
 
 void KeyboardInputSystem::start()
 {
-    auto window = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+    const auto &window = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
 
     if (window.empty())
         throw is::exceptions::Exception(
             "Component missing",
             "Window component required for Keyboard Input System");
-    _window = std::dynamic_pointer_cast<WindowComponent>(window[0]);
+    _window = std::static_pointer_cast<WindowComponent>(window[0]);
 }
 
 void KeyboardInputSystem::stop()
@@ -33,11 +33,10 @@ void KeyboardInputSystem::onTearDown()
 
 void KeyboardInputSystem::update()
 {
-    std::vector<std::shared_ptr<Component>> &keyboardComponents =
-        _componentManager->getComponentsByType(typeid(KeyboardInputComponent).hash_code());
+    const auto &keyboardComponents = _componentManager->getComponentsByType(typeid(KeyboardInputComponent).hash_code());
 
-    for (std::shared_ptr<Component> &component: keyboardComponents) {
-        KeyboardInputComponent &keyboard = *static_cast<KeyboardInputComponent *>(component.get());
+    for (const auto &component: keyboardComponents) {
+        const auto &keyboard = *static_cast<KeyboardInputComponent *>(component.get());
         auto &bindings = keyboard.getBindings();
         auto &manager = keyboard.getInputManager();
 

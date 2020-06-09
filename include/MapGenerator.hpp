@@ -18,15 +18,17 @@ class MapGenerator {
         MapGenerator& operator=(const MapGenerator& rhs) = default;
         ~MapGenerator() = default;
 
-        void generateMap(is::ecs::AScene &sc, int seed, int widht, int height, std::vector<std::shared_ptr<is::ecs::Component>> network);
+        void generateMap(is::ecs::AScene &sc, int seed, int width, int height, std::vector<std::shared_ptr<is::ecs::Component>> network);
     
     private:
-        static std::vector<size_t> permTable;
-        bool checkSpawnBlock(int x, int y, int width, int height);
-        void generatePermTable(int seed);
-        std::vector<std::vector<int>> generateArray(int width, int height);
         float getVectorPermTable(float x, float y, float x0, float y0, int addX, int);
+        std::vector<std::vector<int>> generateArray(int width, int height);
+        bool checkSpawnBlock(int x, int y, int width, int height);
         float generatePerlinNoise(float x, float y, float res);
+        void generatePermTable(int seed);
+
+    private:
+        static std::vector<size_t> permTable;
 };
 
 #endif

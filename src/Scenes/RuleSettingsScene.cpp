@@ -54,11 +54,13 @@ void RuleSettingsScene::initEntities()
     initEntity(is::prefabs::RuleSettingsPrefabs::createReturnButton());
     initEntity(is::prefabs::RuleSettingsPrefabs::createRuleSettings(), false);
 
-    is::components::RulesSettingComponent &rulesSetting = *static_cast<is::components::RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(is::components::RulesSettingComponent).hash_code())[0].get());
+    is::components::RulesSettingComponent &rulesSetting =
+        *static_cast<is::components::RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(is::components::RulesSettingComponent).hash_code())[0].get());
 
     initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
     initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
     initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
     initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createSeedRule(rulesSetting, rules));
     // initEntity(is::prefabs::RuleSettingsPrefabs::createModeFpsRule(rulesSetting, rules));
 }

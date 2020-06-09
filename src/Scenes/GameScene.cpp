@@ -24,7 +24,6 @@ void GameScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
@@ -32,8 +31,6 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JumpSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
@@ -69,7 +66,8 @@ void GameScene::initEntities()
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    mg.generateMap(*this, 1, 15, 13, a);
+    std::cout << "Seed :" << rules.getSeed() << std::endl;
+    mg.generateMap(*this, rules.getSeed(), 15, 13, a);
 
     initEntity(GlobalPrefabs::createTimer(rules));
 

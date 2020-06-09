@@ -8,12 +8,6 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
 
-#ifndef RESOURCES_PATH
-#define RESOURCES_PATH "./resources/"
-#endif
-
-#define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
-
 using namespace is::ecs;
 using namespace is::components;
 
@@ -44,7 +38,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase(st
 {
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/background.jpg"),
+        "ui/background.jpg",
         "Indie Studio",
         0, -1, false
     ).layer = -1;
@@ -59,8 +53,8 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase(st
             is::Game::setActualScene(SCENE_GAME);
         },
         true,
-        RESSOURCE("ui/PresetSelection/button_play.png"),
-        RESSOURCE("ui/PresetSelection/button_play_pressed.png")
+        "ui/PresetSelection/button_play.png",
+        "ui/PresetSelection/button_play_pressed.png"
     );
     e->addComponent<ButtonComponent>(
         e,
@@ -73,8 +67,8 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase(st
             is::Game::setActualScene(SCENE_RULE_SETTINGS);
         },
         true,
-        RESSOURCE("ui/PresetSelection/Settings_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Settings_BTN_pressed.png")
+        "ui/PresetSelection/Settings_BTN.png",
+        "ui/PresetSelection/Settings_BTN_pressed.png"
     );
     /* BUTTON PLAY */
     e->addComponent<ButtonComponent>(
@@ -87,8 +81,8 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase(st
             is::Game::setActualScene(SCENE_MAIN_MENU);
         },
         true,
-        RESSOURCE("ui/PresetSelection/Return_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Return_BTN_pressed.png")
+        "ui/PresetSelection/Return_BTN.png",
+        "ui/PresetSelection/Return_BTN_pressed.png"
     ).layer = 2;
     return e;
 }
@@ -101,7 +95,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
 {
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
+        "ui/PresetSelection/Box.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
@@ -117,13 +111,13 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
 
     auto &IAImage1 = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/AI.png"),
+        "ui/PresetSelection/AI.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
@@ -139,7 +133,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         200, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA1.layer = 2;
@@ -152,7 +146,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255),
         false
     );
@@ -166,7 +160,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         160, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 0, 0, 0),
         false
     );
@@ -181,8 +175,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+        "ui/PresetSelection/Activate_BTN.png",
+        "ui/PresetSelection/Activate_BTN_pressed.png"
     );
     auto &closeButton1 = e->addComponent<ButtonComponent>(
         e,
@@ -194,8 +188,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+        "ui/PresetSelection/Close_BTN.png",
+        "ui/PresetSelection/Close_BTN_pressed.png"
     );
     auto &leftPresetButton1 = e->addComponent<ButtonComponent>(
         e,
@@ -207,8 +201,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightPresetButton1 = e->addComponent<ButtonComponent>(
         e,
@@ -220,8 +214,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     auto &leftAiLevelButton1 = e->addComponent<ButtonComponent>(
         e,
@@ -233,8 +227,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightAiLevelButton1 = e->addComponent<ButtonComponent>(
         e,
@@ -246,8 +240,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     const auto &characterComponent1 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton1.layer = 3;
@@ -343,7 +337,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
 {
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
+        "ui/PresetSelection/Box.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second / 3 - 332 / 3,
@@ -358,13 +352,13 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
 
     auto &IAImage2 = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/AI.png"),
+        "ui/PresetSelection/AI.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40 - 10,
@@ -380,7 +374,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         200, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA2.layer = 2;
@@ -393,7 +387,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255),
         false
     );
@@ -407,7 +401,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         160, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 0, 0, 0),
         false
     );
@@ -422,8 +416,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+        "ui/PresetSelection/Activate_BTN.png",
+        "ui/PresetSelection/Activate_BTN_pressed.png"
     );
     auto &closeButton2 = e->addComponent<ButtonComponent>(
         e,
@@ -435,8 +429,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+        "ui/PresetSelection/Close_BTN.png",
+        "ui/PresetSelection/Close_BTN_pressed.png"
     );
     auto &leftPresetButton2 = e->addComponent<ButtonComponent>(
         e,
@@ -448,8 +442,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightPresetButton2 = e->addComponent<ButtonComponent>(
         e,
@@ -461,8 +455,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     auto &leftAiLevelButton2 = e->addComponent<ButtonComponent>(
         e,
@@ -474,8 +468,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightAiLevelButton2 = e->addComponent<ButtonComponent>(
         e,
@@ -487,8 +481,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     const auto &characterComponent2 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton2.layer = 3;
@@ -584,7 +578,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
 {
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
+        "ui/PresetSelection/Box.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 650 - 250 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
@@ -600,13 +594,13 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
 
     auto &IAImage3 = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/AI.png"),
+        "ui/PresetSelection/AI.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 4 / 20 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
@@ -622,7 +616,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         200, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA3.layer = 2;
@@ -635,7 +629,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255),
         false
     );
@@ -649,7 +643,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         160, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 0, 0, 0),
         false
     );
@@ -664,8 +658,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+        "ui/PresetSelection/Activate_BTN.png",
+        "ui/PresetSelection/Activate_BTN_pressed.png"
     );
     auto &closeButton3 = e->addComponent<ButtonComponent>(
         e,
@@ -677,8 +671,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+        "ui/PresetSelection/Close_BTN.png",
+        "ui/PresetSelection/Close_BTN_pressed.png"
     );
     auto &leftPresetButton3 = e->addComponent<ButtonComponent>(
         e,
@@ -690,8 +684,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightPresetButton3 = e->addComponent<ButtonComponent>(
         e,
@@ -703,8 +697,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     auto &leftAiLevelButton3 = e->addComponent<ButtonComponent>(
         e,
@@ -716,8 +710,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightAiLevelButton3 = e->addComponent<ButtonComponent>(
         e,
@@ -729,8 +723,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     const auto &characterComponent3 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton3.layer = 3;
@@ -826,7 +820,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
 {
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/Box.png"),
+        "ui/PresetSelection/Box.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 250 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second - 400,
@@ -842,13 +836,13 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     ).layer = 4;
 
     auto &IAImage4 = e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/PresetSelection/AI.png"),
+        "ui/PresetSelection/AI.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 27 / 40 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40 - 10,
@@ -864,7 +858,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         200, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255)
     );
     TextIA4.layer = 2;
@@ -877,7 +871,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255),
         false
     );
@@ -891,7 +885,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         160, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 0, 0, 0),
         false
     );
@@ -906,8 +900,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Activate_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Activate_BTN_pressed.png")
+        "ui/PresetSelection/Activate_BTN.png",
+        "ui/PresetSelection/Activate_BTN_pressed.png"
     );
     auto &closeButton4 = e->addComponent<ButtonComponent>(
         e,
@@ -919,8 +913,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Close_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Close_BTN_pressed.png")
+        "ui/PresetSelection/Close_BTN.png",
+        "ui/PresetSelection/Close_BTN_pressed.png"
     );
     auto &leftPresetButton4 = e->addComponent<ButtonComponent>(
         e,
@@ -932,8 +926,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightPresetButton4 = e->addComponent<ButtonComponent>(
         e,
@@ -945,8 +939,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         [](){
         },
         false,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     auto &leftAiLevelButton4 = e->addComponent<ButtonComponent>(
         e,
@@ -958,8 +952,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Backward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Backward_BTN_pressed.png")
+        "ui/PresetSelection/Backward_BTN.png",
+        "ui/PresetSelection/Backward_BTN_pressed.png"
     );
     auto &rightAiLevelButton4 = e->addComponent<ButtonComponent>(
         e,
@@ -971,8 +965,8 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
         [](){
         },
         true,
-        RESSOURCE("ui/PresetSelection/Forward_BTN.png"),
-        RESSOURCE("ui/PresetSelection/Forward_BTN_pressed.png")
+        "ui/PresetSelection/Forward_BTN.png",
+        "ui/PresetSelection/Forward_BTN_pressed.png"
     );
     const auto &characterComponent4 = std::static_pointer_cast<CharacterComponent>(player);
     activateButton4.layer = 3;

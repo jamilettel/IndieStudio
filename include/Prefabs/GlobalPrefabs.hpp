@@ -9,7 +9,6 @@
 #define GLOBALPREFABS_HPP_
 
 #include "ECS/Entity.hpp"
-
 #include "Components/Window.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Transform.hpp"
@@ -84,7 +83,6 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createPause();
         static std::shared_ptr<is::ecs::Entity> createCredit();
         static std::shared_ptr<is::ecs::Entity> createHowToPlay();
-        static std::shared_ptr<is::ecs::Entity> createRecord();
         static std::shared_ptr<is::ecs::Entity> createEndGame();
 
         static std::shared_ptr<is::ecs::Entity> createPresetSelection(const is::ecs::ComponentManager &manager);
@@ -107,27 +105,28 @@ namespace is::prefabs {
                                      const std::shared_ptr<components::RulesComponent> &ruleComponent);
         static std::shared_ptr<is::ecs::Entity> createPresetSelectionOptions(const is::ecs::ComponentManager &manager);
 
-
         static std::shared_ptr<is::ecs::Entity> createSettings();
         static std::shared_ptr<is::ecs::Entity> createControllersBase();
         static std::shared_ptr<is::ecs::Entity> createCharacter();
         static std::shared_ptr<is::ecs::Entity> createPresets();
-        static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, std::shared_ptr<components::WindowComponent> &window);
+        static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, const std::shared_ptr<components::WindowComponent> &window, int cursorNb);
         static std::shared_ptr<is::ecs::Entity> createControllersOptions(const is::ecs::ComponentManager &manager);
 
         static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character);
         static std::shared_ptr<is::ecs::Entity> createMultiplayerHub(std::shared_ptr<is::components::NetworkComponent> nc);
-        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(std::shared_ptr<is::components::NetworkComponent> nc);
-        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(std::shared_ptr<is::components::NetworkComponent> nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobbyChoice(const std::shared_ptr<is::components::NetworkComponent> &nc);
+        static std::shared_ptr<is::ecs::Entity> createMultiplayerLobby(const std::shared_ptr<is::components::NetworkComponent> &nc);
         static std::shared_ptr<is::ecs::Entity> createControllers();
         static std::shared_ptr<is::ecs::Entity> createRules();
 
         static std::shared_ptr<is::ecs::Entity> createTimer(is::components::RulesComponent &rules);
         static std::shared_ptr<is::ecs::Entity> createPlayerHud(is::components::BombermanComponent &bm, const std::string &skin, int player);
 
+        static std::shared_ptr<is::ecs::Entity> createPauseController(const is::components::CharacterComponent &character, is::ecs::ComponentManager &componentManager);
+
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
-    
+
     };
 
 }

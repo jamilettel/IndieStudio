@@ -14,7 +14,6 @@ SystemManager::SystemManager(const std::shared_ptr<ComponentManager>& componentM
 _componentManager(componentManager),
 _entityManager(std::move(entityManager))
 {
-    std::cout << "SYSTEM : " << componentManager.get() << std::endl; 
 }
 
 SystemManager::~SystemManager()

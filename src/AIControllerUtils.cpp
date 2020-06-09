@@ -9,9 +9,9 @@
 
 using namespace is;
 
-bool AIControllerUtils::isAirBlock(is::ecs::Entity::Layer layer, const BombermanComponent &bomberman) noexcept
+bool AIControllerUtils::isAirBlock(is::ecs::Entity::Layer layer, const BombermanComponent &bomberman, bool enableWallPass) noexcept
 {
-    if (bomberman.wallPass)
+    if (bomberman.wallPass && enableWallPass)
         if (layer == is::ecs::Entity::BRKBL_BLK)
             return (true);
     return (layer == is::ecs::Entity::Layer::DEFAULT ||
@@ -26,9 +26,9 @@ bool AIControllerUtils::isValid(const irr::core::vector2di &pos, const std::vect
     return (pos.X >= 0 && pos.X < static_cast<int>(map.size()) && pos.Y >= 0 && pos.Y < static_cast<int>(map[0].size()));
 }
 
-bool AIControllerUtils::layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman) noexcept
+bool AIControllerUtils::layerIsABlock(const is::ecs::Entity::Layer &layer, const BombermanComponent &bomberman, bool enableWallPass) noexcept
 {
-    if (bomberman.wallPass)
+    if (bomberman.wallPass && enableWallPass)
         if (layer == is::ecs::Entity::BRKBL_BLK)
             return (false);
     return (layer == is::ecs::Entity::Layer::BRKBL_BLK || layer == is::ecs::Entity::Layer::GROUND || layer == is::ecs::Entity::Layer::FIRE); 

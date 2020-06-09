@@ -46,6 +46,8 @@ namespace is::components {
             float playerSpeed;
             std::string windowName;
 
+            float dropBombTimer = 0;
+
             bool dropBombFrame;
             irr::core::vector3df lastPos;
 

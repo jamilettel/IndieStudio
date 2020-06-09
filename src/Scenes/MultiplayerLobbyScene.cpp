@@ -33,6 +33,6 @@ void is::scenes::MultiplayerLobbyScene::initSystems()
 void is::scenes::MultiplayerLobbyScene::initEntities()
 {
     auto e = _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())[0];
-    auto ptr = std::dynamic_pointer_cast<is::components::NetworkComponent>(e);
+    const auto &ptr = std::static_pointer_cast<is::components::NetworkComponent>(e);
     initEntity(prefabs::GlobalPrefabs::createMultiplayerLobby(ptr), false);
 }

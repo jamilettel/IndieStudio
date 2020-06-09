@@ -7,12 +7,6 @@
 
 #include "Prefabs/EndGamePrefabs.hpp"
 
-#ifndef RESOURCES_PATH
-#define RESOURCES_PATH "./resources/"
-#endif
-
-#define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
-
 using namespace is::ecs;
 using namespace is::components;
 
@@ -22,7 +16,7 @@ std::shared_ptr<Entity> is::prefabs::EndGamePrefabs::createBackground()
 
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE("ui/background.jpg"),
+        "ui/background.jpg",
         "Indie Studio",
         irr::core::vector2df(0, -1),
         irr::core::vector2df(100, 120)
@@ -48,7 +42,7 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
         irr::core::vector3df(0.7, 0.7, 0.7)
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    e->addComponent<ModelRendererComponent>(e, RESSOURCE("player.b3d"), "Indie Studio", RESSOURCE(texture));
+    e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
@@ -98,7 +92,7 @@ void is::prefabs::EndGamePrefabs::addWindow(std::shared_ptr<::Entity> &e, double
 {
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Table_01.png"),
+        "ui/EndGame/Table_01.png",
         "Indie Studio",
         irr::core::vector2df(posX, 10),
         irr::core::vector2df(21.85, 80)
@@ -122,8 +116,8 @@ void is::prefabs::EndGamePrefabs::addContinueButton(std::shared_ptr<::Entity> &e
         WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
         [](){},
         true,
-        RESSOURCE("ui/EndGame/continue_button.png"),
-        RESSOURCE("ui/EndGame/continue_button_pressed.png")
+        "ui/EndGame/continue_button.png",
+        "ui/EndGame/continue_button_pressed.png"
     );
     button.layer = 1;
     button.setCallback([&button, &text, e]() {
@@ -147,8 +141,8 @@ void is::prefabs::EndGamePrefabs::addBackwardButton(std::shared_ptr<::Entity> &e
             e->getComponent<StatsComponent>().value()->prev();
         },
         true,
-        RESSOURCE("ui/EndGame/Backward_BTN.png"),
-        RESSOURCE("ui/EndGame/Backward_BTN_pressed.png")
+        "ui/EndGame/Backward_BTN.png",
+        "ui/EndGame/Backward_BTN_pressed.png"
     );
 }
 
@@ -166,8 +160,8 @@ void is::prefabs::EndGamePrefabs::addForwardButton(std::shared_ptr<::Entity> &e,
             e->getComponent<StatsComponent>().value()->next();
         },
         true,
-        RESSOURCE("ui/EndGame/Forward_BTN.png"),
-        RESSOURCE("ui/EndGame/Forward_BTN_pressed.png")
+        "ui/EndGame/Forward_BTN.png",
+        "ui/EndGame/Forward_BTN_pressed.png"
     );
 }
 
@@ -175,7 +169,7 @@ void is::prefabs::EndGamePrefabs::addHighTable(std::shared_ptr<::Entity> &e, dou
 {
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Table.png"),
+        "ui/EndGame/Table.png",
         "Indie Studio",
         irr::core::vector2df(posX, 50),
         irr::core::vector2df(19.8, 10)
@@ -186,7 +180,7 @@ void is::prefabs::EndGamePrefabs::addLowTable(std::shared_ptr<::Entity> &e, doub
 {
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE("ui/EndGame/Table.png"),
+        "ui/EndGame/Table.png",
         "Indie Studio",
         irr::core::vector2df(posX, 60),
         irr::core::vector2df(19.8, 10)
@@ -197,7 +191,7 @@ void is::prefabs::EndGamePrefabs::addMedal(std::shared_ptr<::Entity> &e, double 
 {
     e->addComponent<TextureComponent>(
         e,
-        RESSOURCE(filename),
+        filename,
         "Indie Studio",
         irr::core::vector2df(posX, 12),
         irr::core::vector2df(7, 10)
@@ -216,7 +210,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextHigh(std::shared_ptr<::Entity
         WindowComponent::_windowsDimensions["Indie Studio"].second * 9 / 100,
         false,
         true,
-        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        "fonts/EndGame/endGameFont.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
 }
@@ -233,7 +227,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addTextLow(std::shared_ptr<::Entity>
         WindowComponent::_windowsDimensions["Indie Studio"].second * 9 / 100,
         false,
         true,
-        RESSOURCE("fonts/EndGame/endGameFont.xml"),
+        "fonts/EndGame/endGameFont.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
 }
@@ -250,7 +244,7 @@ TextComponent &is::prefabs::EndGamePrefabs::addWaitingText(std::shared_ptr<::Ent
         WindowComponent::_windowsDimensions["Indie Studio"].second * 9 / 100,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
 }

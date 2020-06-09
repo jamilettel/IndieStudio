@@ -16,28 +16,24 @@ using namespace is::components;
 
 void TextSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<TextComponent>(elem);
+        const auto &ptr = static_cast<TextComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("TextSystem", "Could not getTextComponent pointer");
-        
-        std::shared_ptr<WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("TextComponent", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
+
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [&ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr->windowName;
+        });
+        if (ptr_window == componentList.end())
             throw is::exceptions::Exception("TextComponent", "Could not find window");
 
-        ptr->init(ptr_window);
+        auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        ptr->init(window);
     }
 }
 
@@ -47,8 +43,8 @@ void TextSystem::start()
 
 void TextSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<TextComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(TextComponent).hash_code())) {
+        const auto &ptr = static_cast<TextComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("TextSystem", "Could not getTextComponent pointer");
         ptr->updateText();

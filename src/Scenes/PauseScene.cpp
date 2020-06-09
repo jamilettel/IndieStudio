@@ -32,10 +32,19 @@ void PauseScene::initSystems()
     _systemManager->addSystem(std::make_shared<CursorSystem>());
     _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
+    _systemManager->addSystem(std::make_shared<KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<PauseSystem>());
 }
 
 void PauseScene::initEntities()
 {
+    auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
+
     initEntity(prefabs::GlobalPrefabs::createPause(), false);
+    for (auto character : characters) {
+        auto ptr = static_cast<is::components::CharacterComponent*>(character.get());
+
+        initEntity(prefabs::GlobalPrefabs::createPauseController(*ptr, *_componentManager.get()), false);
+    }
 }

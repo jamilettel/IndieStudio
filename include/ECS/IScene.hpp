@@ -20,7 +20,6 @@ namespace is::ecs {
         SCENE_PAUSE,
         SCENE_CREDIT,
         SCENE_HOWTOPLAY,
-        SCENE_RECORD,
         SCENE_SETTINGS,
         SCENE_CONTROLLERS,
         SCENE_PRESETSELECTION,
@@ -31,6 +30,7 @@ namespace is::ecs {
         SCENE_GAME,
         SCENE_ENDGAME,
         SCENE_RULE_SETTINGS,
+        SCENE_MULTIPLAYER_RULE_SETTINGS,
         NOTHING
     };
 

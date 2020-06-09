@@ -20,10 +20,10 @@ using namespace is::ecs;
 
 void WindowSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
+        const auto ptr = std::static_pointer_cast<WindowComponent>(elem);
         if (!ptr)
             throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
 
@@ -54,18 +54,17 @@ void WindowSystem::awake()
         ptr->device->getCursorControl()->setVisible(false);
         ptr->device->activateJoysticks(ptr->joysticks);
 
-        for (size_t i = 0; i < ptr->joysticks.size(); i++) {
+        for (size_t i = 0; i < ptr->joysticks.size() && i<3u; i++) {
             ptr->joysticks[i].Joystick = i;
-            initRuntimeEntity(is::prefabs::GlobalPrefabs::createJoystickCursor(ptr->joysticks[i].Joystick, ptr), true);
+            initRuntimeEntity(is::prefabs::GlobalPrefabs::createJoystickCursor(ptr->joysticks[i].Joystick, ptr, i + 2), true);
         }
-
+        is::Game::resourcesInitialization(ptr);
     }
 }
 
 void WindowSystem::start()
 {
-    std::vector<std::shared_ptr<Component>> &time =
-        _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
+    const auto &time = _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
     if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
@@ -75,9 +74,9 @@ void WindowSystem::start()
 
 void WindowSystem::sortGUIElements()
 {
-    auto guiElements = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
-    auto &buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
-    auto &texts = _componentManager->getComponentsByType(typeid(TextComponent).hash_code());
+    auto &guiElements = _componentManager->getComponentsByType(typeid(ImageComponent).hash_code());
+    const auto &buttons = _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code());
+    const auto &texts = _componentManager->getComponentsByType(typeid(TextComponent).hash_code());
 
     guiElements.reserve(guiElements.size() + buttons.size() + texts.size());
     std::for_each(buttons.begin(), buttons.end(), [&guiElements] (auto &elem) {guiElements.push_back(elem);});
@@ -90,39 +89,38 @@ void WindowSystem::sortGUIElements()
         });
     std::for_each(
         guiElements.begin(), guiElements.end(),
-        [] (auto &elem) {
+        [] (const auto &elem) {
             static_cast<GUIElementComponent *>(elem.get())->bringToFront();
         });
 }
 
 void WindowSystem::update()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
-        auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+        const auto &ptr = static_cast<WindowComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         if (!ptr->device->run()) {
-            std::cout << ptr->windowName << std::endl;
             is::Game::isRunning = false;
             return;
         }
         ptr->driver->beginScene(true, true, video::SColor(255, 255, 255, 255));
-        for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
-            auto texture = std::dynamic_pointer_cast<is::components::TextureComponent>(elem);
+        for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::TextureComponent).hash_code())) {
+            const auto &texture = *static_cast<is::components::TextureComponent*>(elem.get());
 
-            if (!texture->isVisible())
+            if (!texture.isVisible())
                 continue;
             std::pair<int, int> wDim = is::components::WindowComponent::_windowsDimensions["Indie Studio"];
 
             ptr->driver->draw2DImage(
-                texture->getNode(),
+                texture.getNode(),
                 irr::core::rect<s32>(
-                    wDim.first * texture->getPosition().X / 100,
-                    wDim.second * texture->getPosition().Y / 100,
-                    wDim.first * texture->getPosition().X / 100 + wDim.first * texture->getSize().X / 100,
-                    wDim.second * texture->getPosition().Y / 100 + wDim.second * texture->getSize().Y / 100
+                    wDim.first * texture.getPosition().X / 100,
+                    wDim.second * texture.getPosition().Y / 100,
+                    wDim.first * texture.getPosition().X / 100 + wDim.first * texture.getSize().X / 100,
+                    wDim.second * texture.getPosition().Y / 100 + wDim.second * texture.getSize().Y / 100
                 ),
-                irr::core::rect<s32>(0, 0, texture->getNode()->getOriginalSize().Width, texture->getNode()->getOriginalSize().Height),
+                irr::core::rect<s32>(0, 0, texture.getNode()->getOriginalSize().Width, texture.getNode()->getOriginalSize().Height),
                 0, 0, true
             );
         }
@@ -135,10 +133,10 @@ void WindowSystem::update()
 
 void WindowSystem::stop()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(WindowComponent).hash_code())) {
         if (!(elem->getEntity()->shouldBeDeleted()))
             continue;
-        auto ptr = std::dynamic_pointer_cast<WindowComponent>(elem);
+        const auto &ptr = static_cast<WindowComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("WindowSystem", "Could not get WindowComponent pointer");
         ptr->device->drop();

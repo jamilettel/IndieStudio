@@ -29,9 +29,9 @@ namespace is::components
             float getTime() const noexcept;
 
         private:
-            float _time; // * in seconds
             TextComponent &_text;
             TimeComponent &_timeC;
+            float _time; // * in seconds
     };
 }
 

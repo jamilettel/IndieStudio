@@ -75,10 +75,11 @@ void is::systems::CharacterControllerSystem::update()
         auto bm = ptr->getEntity()->getComponent<is::components::BombermanComponent>();
         if (!bm)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not found bomberman");
-        if (bm->get()->dead) {
+        if (bm->get()->dead && !ptr->isDead) {
             bm->get()->deathTimer -= _time->get().getCurrentIntervalSeconds();
             if (bm->get()->deathTimer <= 0) {
                 ptr->isDead = true;
+                ptr->getEntity()->getComponent<ModelRendererComponent>().value()->deleteComponent();
             }
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death", false);
             continue;
@@ -106,8 +107,8 @@ void is::systems::CharacterControllerSystem::update()
                 bm->get()->instantBomb++;
                 ptr->getCharacterComponent().setNbBombPosed(ptr->getCharacterComponent().getNbBombPosed() + 1);
                 auto e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBomb(ptr->getTransform().position, bm->get()->bombRange, bm.value(), *ptr));
-                auto ptr_mr = std::dynamic_pointer_cast<ModelRendererComponent>(*e->getComponent<ModelRendererComponent>());
-                auto ptr_part = std::dynamic_pointer_cast<ParticuleComponent>(*e->getComponent<ParticuleComponent>());
+                const auto &ptr_mr = static_cast<ModelRendererComponent*>(e->getComponent<ModelRendererComponent>()->get());
+                const auto &ptr_part = static_cast<ParticuleComponent*>(e->getComponent<ParticuleComponent>()->get());
                 ptr_mr->initModelRenderer(w);
                 ptr_part->init(w);
                 ptr->canPlaceBomb = false;
@@ -123,8 +124,14 @@ void is::systems::CharacterControllerSystem::update()
         }
         else if (ptr->canPlaceBomb)
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Idle");
-        else
-            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb", false);
+        else {
+            ptr->dropBombTimer += _time->get().getCurrentIntervalSeconds();
+            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb");
+            if (ptr->dropBombTimer > 0.5f) {
+                ptr->dropBombTimer = 0.0f;
+                ptr->canPlaceBomb = true;
+            }
+        }
         ptr->lastPos = ptr->getTransform().position;
     }
 }

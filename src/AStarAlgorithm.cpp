@@ -36,7 +36,10 @@ bool AStarAlgorithm::searchPath()
     while (!_openList.empty()) {
 
         // Find in open list the node with the smallest f
-        auto ptr = std::min_element(_openList.begin(), _openList.end(), [](const std::shared_ptr<Node> &first, const std::shared_ptr<Node> &second) {
+        auto ptr = std::min_element(_openList.begin(),
+                                    _openList.end(),
+                                    [](const std::shared_ptr<Node> &first,
+                                       const std::shared_ptr<Node> &second) {
             return (first->f < second->f);
         });
         std::shared_ptr<Node> currentNode = *ptr;

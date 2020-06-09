@@ -10,7 +10,9 @@
 using namespace is::components;
 using namespace is::ecs;
 
-GravityComponent::GravityComponent(std::shared_ptr<is::ecs::Entity> &e, MovementComponent &movement) : Component(e), _movement(movement)
+GravityComponent::GravityComponent(std::shared_ptr<is::ecs::Entity> &e,
+                                   MovementComponent &movement)
+: Component(e), _movement(movement)
 {
 }
 

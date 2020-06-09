@@ -36,7 +36,7 @@ namespace is::components {
             std::string materialName;
             std::string windowName;
             bool modelShadow;
-            irr::scene::IAnimatedMeshSceneNode *node{};
+            irr::scene::IAnimatedMeshSceneNode *node = nullptr;
     };
 
 }

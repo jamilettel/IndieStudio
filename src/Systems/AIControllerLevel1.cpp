@@ -79,6 +79,9 @@ void AIControllerLevel1System::update()
 
         if (ai.getLevel() != 1)
             continue;
+        ai.getInputManager().setValue("DropBomb", 0);
+        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
+        ai.getInputManager().setValue("MoveVerticalAxis", 0);
         ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
         if (ai.timeBeforeBegin > 0)
             continue;
@@ -88,9 +91,10 @@ void AIControllerLevel1System::update()
         
         aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
-        ai.getInputManager().setValue("DropBomb", 0);
-        ai.getInputManager().setValue("MoveHorizontalAxis", 0);
-        ai.getInputManager().setValue("MoveVerticalAxis", 0);
+        if (!AIControllerUtils::isValid(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
+            continue;
+        }
 
         (this->*(_mapFunctionState)[ai.state])(ai, aiPos, map, characterComponents);
     }
@@ -116,7 +120,10 @@ void AIControllerLevel1System::noneState(
             [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) ->bool {
                 return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman));
         });
-        astar.searchPath();
+        if (!astar.searchPath()) {
+            ai.state = AIControllerComponent::NONE;
+            return;
+        }
         std::optional<std::pair<int, int>> pos;
         ai.path.clear();
         while ((pos = astar.getNextPos()).has_value()) {
@@ -268,10 +275,6 @@ void AIControllerLevel1System::putBombState(
 
     AIControllerUtils::moveAI(ai, aiPos);
     if (AIControllerUtils::hasReachedObjective(ai, aiPos)) {
-        if (!bombPosIsUseful(ai, ai.longObjective, map, irr::core::vector2di(aiPos.X, aiPos.Y), aiComponents)) {
-            ai.state = AIControllerComponent::NONE;
-            return;
-        }
         if (ai.shortObjective == ai.longObjective) {
             ai.timeBeforeBegin = 2.0f;
             ai.waitTime = true;

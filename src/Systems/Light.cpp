@@ -8,30 +8,26 @@
 #include "Systems/Light.hpp"
 
 using namespace irr;
+using namespace is::components;
 
 void is::systems::LightSystem::awake()
 {
-    for (auto &elem : _componentManager->getComponentsByType(typeid(is::components::LightComponent).hash_code())) {
+    for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::LightComponent).hash_code())) {
         if (elem->getEntity()->isInit())
             continue;
-        auto ptr = std::dynamic_pointer_cast<is::components::LightComponent>(elem);
-        if (!ptr)
-            throw is::exceptions::Exception("LightSystem", "Could not get LightComponent pointer");
+        const auto &ptr = static_cast<is::components::LightComponent*>(elem.get());
 
-        std::shared_ptr<is::components::WindowComponent> ptr_window;
-        bool windowFound = false;
-        for (auto &wc : _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code())) {
-            ptr_window = std::dynamic_pointer_cast<is::components::WindowComponent>(wc);
-            if (!ptr_window)
-                throw is::exceptions::Exception("LightSystem", "Could not get WindowComponent pointer");
-            if (ptr_window->windowName == ptr->windowName) {
-                windowFound = true;
-                break;
-            }
-        }
-        if (!windowFound)
-            throw is::exceptions::Exception("LightSystem", "Could not find window");
-        irr::scene::ILightSceneNode *light = ptr_window->scenemgr->addLightSceneNode(nullptr, ptr->position, ptr->color, ptr->radius);
+        const auto &componentList = _componentManager->getComponentsByType(typeid(WindowComponent).hash_code());
+        const auto &ptr_window = std::find_if(componentList.begin(), componentList.end(), [ptr](const std::shared_ptr<is::ecs::Component> &it){
+            const auto &p = static_cast<is::components::WindowComponent*>(it.get());
+            return p->windowName == ptr->windowName;
+        });
+        if (ptr_window == componentList.end())
+            throw is::exceptions::Exception("LightSystem", "Could not get WindowComponent pointer");
+
+        auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
+
+        irr::scene::ILightSceneNode *light = window->scenemgr->addLightSceneNode(nullptr, ptr->position, ptr->color, ptr->radius);
         light->enableCastShadow();
     }
 }

@@ -18,8 +18,7 @@ void MovementSystem::awake()
 
 void MovementSystem::start()
 {
-    std::vector<std::shared_ptr<Component>> &time =
-        _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
+    const auto &time = _componentManager->getComponentsByType(typeid(TimeComponent).hash_code());
 
     if (time.empty())
         throw is::exceptions::Exception("Movement", "No time component in scene");
@@ -38,8 +37,8 @@ void MovementSystem::checkCollisions(
     )
 {
     ColliderSystem::precomputeCollisionVariables(collider);
-    for (auto & i : colliders) {
-        auto *ptr = static_cast<ColliderComponent *>(i.get());
+    for (const auto &i : colliders) {
+        const auto &ptr = static_cast<ColliderComponent *>(i.get());
 
         if (&collider == ptr || !collider.collidesWith(ptr->getEntity()->layer))
             continue;
@@ -105,13 +104,16 @@ void MovementSystem::update()
     std::vector<std::shared_ptr<Component>> &colliders =
         _componentManager->getComponentsByType(typeid(ColliderComponent).hash_code());
     irr::core::vector3df zero;
+    float deltaTime = _time->get().getCurrentIntervalSeconds() * 100.0;
 
+    if (deltaTime > 10)
+        deltaTime = 10;
     for (auto & movement : movements) {
         auto *ptr = static_cast<MovementComponent *>(movement.get());
 
         if (ptr->velocity == zero)
             continue;
-        ptr->getTransform().position += ptr->velocity * _time->get().getCurrentIntervalSeconds() * 100.0;
+        ptr->getTransform().position += ptr->velocity * deltaTime;
 
         if (ptr->clipping) {
             checkCollisions(ptr->getCollider(), colliders);

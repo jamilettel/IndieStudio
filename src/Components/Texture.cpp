@@ -7,6 +7,7 @@
 
 #include "Components/Texture.hpp"
 #include "Exception.hpp"
+#include "Game.hpp"
 
 using namespace is::ecs;
 using namespace is::components;
@@ -24,7 +25,7 @@ TextureComponent::TextureComponent(
 
 void TextureComponent::init(std::shared_ptr<WindowComponent> &ptrWindow)
 {
-    _node = ptrWindow->driver->getTexture(filename.c_str());
+    _node = static_cast<irr::video::ITexture *>(is::Game::getResource(filename));
     if (!_node)
         throw is::exceptions::Exception("TextureComponent", "Could not create node from model");
     ptrWindow->driver->makeColorKeyTexture(_node, irr::core::position2d<irr::s32>(0,0));

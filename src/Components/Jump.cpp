@@ -10,7 +10,9 @@
 using namespace is::components;
 using namespace is::ecs;
 
-JumpComponent::JumpComponent(std::shared_ptr<Entity> &e, MovementComponent &movement) : Component(e), _movement(movement)
+JumpComponent::JumpComponent(std::shared_ptr<Entity> &e,
+                             MovementComponent &movement)
+: Component(e), _movement(movement)
 {
 }
 

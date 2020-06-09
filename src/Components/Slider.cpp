@@ -21,18 +21,26 @@ is::components::SliderComponent::SliderComponent(std::shared_ptr<is::ecs::Entity
 
 void is::components::SliderComponent::init(const std::shared_ptr<is::components::WindowComponent>& ptr_window)
 {
-    elementSlider = ptr_window->canvas->addButton(irr::core::rect<irr::s32>(_dimension.UpperLeftCorner.X, _dimension.UpperLeftCorner.Y, _dimension.UpperLeftCorner.X + (_dimension.getWidth() / _step), _dimension.UpperLeftCorner.Y + _dimension.getHeight()), 0, IDGenerator::getNewID(), L"");
+    elementSlider = ptr_window->canvas->addButton(irr::core::rect<irr::s32>(_dimension.UpperLeftCorner.X,
+                                                                            _dimension.UpperLeftCorner.Y,
+                                                                            _dimension.UpperLeftCorner.X + (_dimension.getWidth() / _step),
+                                                                            _dimension.UpperLeftCorner.Y + _dimension.getHeight()),
+                                                                            0,
+                                                                            IDGenerator::getNewID(), L"");
     if (!elementSlider)
         throw is::exceptions::Exception("SliderComponent", "Could not create bode from model");
 }
 
 void is::components::SliderComponent::setPosition(float position)
 {
-    elementSlider->setRelativePosition(irr::core::vector2di(position - (float)(_dimension.getWidth() / _step / 2), _dimension.UpperLeftCorner.Y));
+    elementSlider->setRelativePosition(irr::core::vector2di(position - (float)(_dimension.getWidth() / _step / 2),
+                                                            _dimension.UpperLeftCorner.Y));
     if (elementSlider->getRelativePosition().UpperLeftCorner.X < _dimension.UpperLeftCorner.X)
-        elementSlider->setRelativePosition(irr::core::vector2di(_dimension.UpperLeftCorner.X, _dimension.UpperLeftCorner.Y));
+        elementSlider->setRelativePosition(irr::core::vector2di(_dimension.UpperLeftCorner.X,
+                                                                _dimension.UpperLeftCorner.Y));
     else if (elementSlider->getRelativePosition().UpperLeftCorner.X > _dimension.UpperLeftCorner.X + _dimension.getWidth())
-        elementSlider->setRelativePosition(irr::core::vector2di(_dimension.UpperLeftCorner.X + _dimension.getWidth(), _dimension.UpperLeftCorner.Y));
+        elementSlider->setRelativePosition(irr::core::vector2di(_dimension.UpperLeftCorner.X + _dimension.getWidth(),
+                                                                _dimension.UpperLeftCorner.Y));
 }
 
 bool is::components::SliderComponent::isPressed() const

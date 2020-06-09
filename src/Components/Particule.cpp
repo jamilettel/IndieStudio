@@ -6,6 +6,7 @@
 */
 
 #include "Components/Particule.hpp"
+#include "Game.hpp"
 
 using namespace is::ecs;
 using namespace is::components;
@@ -26,7 +27,7 @@ void wickParticule(irr::scene::IParticleSystemSceneNode *element, const std::sha
     e->drop();
     element->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     element->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
-    element->setMaterialTexture(0, ptr_window->driver->getTexture("../resources/fire.bmp"));
+    element->setMaterialTexture(0, static_cast<irr::video::ITexture *>(is::Game::getResource("fire.bmp")));
     element->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
 }
 
@@ -47,7 +48,7 @@ void fireParticule(irr::scene::IParticleSystemSceneNode *element, const std::sha
     e->drop();
     element->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     element->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
-    element->setMaterialTexture(0, ptr_window->driver->getTexture("../resources/fire.bmp"));
+    element->setMaterialTexture(0, static_cast<irr::video::ITexture *>(is::Game::getResource("fire.bmp")));
     element->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
 }
 

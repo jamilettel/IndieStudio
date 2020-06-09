@@ -14,10 +14,10 @@ std::vector<size_t> MapGenerator::permTable;
 
 const std::vector<std::vector<float>> gradientVector
 {
-    {static_cast<float>(1.0f/sqrt(2)), static_cast<float>(1.0f/sqrt(2))},
-    {static_cast<float>(- (1.0f/sqrt(2))), static_cast<float>(1.0f/sqrt(2))},
-    {static_cast<float>(1.0f/sqrt(2)), static_cast<float>(-(1.0f/sqrt(2)))},
-    {static_cast<float>(-(1.0f/sqrt(2))), static_cast<float>(-(1.0f/sqrt(2)))},
+    {static_cast<float>(1.0f / sqrt(2)), static_cast<float>(1.0f / sqrt(2))},
+    {static_cast<float>(-(1.0f / sqrt(2))), static_cast<float>(1.0f / sqrt(2))},
+    {static_cast<float>(1.0f / sqrt(2)), static_cast<float>(-(1.0f / sqrt(2)))},
+    {static_cast<float>(-(1.0f / sqrt(2))), static_cast<float>(-(1.0f / sqrt(2)))},
     {1, 0},
     {-1, 0},
     {0, 1},
@@ -26,7 +26,7 @@ const std::vector<std::vector<float>> gradientVector
 
 void MapGenerator::generatePermTable(int seed)
 {
-    for (size_t i = 0; i < 256; permTable.push_back(i), i++);
+    for (size_t i = 0; i < 300; permTable.push_back(i), i++);
 
     std::default_random_engine permRandom(seed);
     shuffle(permTable.begin(), permTable.end(), permRandom);
@@ -36,7 +36,8 @@ float MapGenerator::getVectorPermTable(float x, float y, float x0, float y0, int
 {
     int tmpX = (static_cast<int>(x0) & 255) + addX;
     int tmpY = (static_cast<int>(y0) & 255) + addY;
-    
+
+    std::cout << "[index] : " << tmpX << " - " << permTable[tmpY] << std::endl;
     int tmpVector = permTable[tmpX + permTable[tmpY]] % 8;
     return ((gradientVector[tmpVector][0] * (x - (x0 + addX))) + 
             (gradientVector[tmpVector][1] * (y - (y0 + addY))));
@@ -117,7 +118,7 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
                 if (network.empty()) {
                     sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
                 } else {
-                    auto nw = std::dynamic_pointer_cast<is::components::NetworkComponent>(network[0]);
+                    const auto &nw = static_cast<is::components::NetworkComponent*>(network[0].get());
                     if (nw->playerIdx == 0) {
                         sc.initEntity(prefabs::GlobalPrefabs::createBreakableBlock(irr::core::vector3df(j * 3, 0, i * 3)));
                         nw->writeQueue.push("evt bb " + std::to_string(nw->lobby) +

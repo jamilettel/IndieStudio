@@ -8,12 +8,6 @@
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
 
-#ifndef RESOURCES_PATH
-#define RESOURCES_PATH "./resources/"
-#endif
-
-#define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
-
 using namespace is::ecs;
 using namespace is::components;
 
@@ -25,13 +19,13 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
 
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/background.jpg"),
+        "ui/background.jpg",
         "Indie Studio",
         0, -1, false
     ).layer = -9999;
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/Controllers/Controls_title.png"),
+        "ui/Controllers/Controls_title.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 700 / 2, 40, true
     ).layer = 1;
@@ -45,12 +39,12 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
             is::Game::setActualScene(is::Game::getPreviousScene());
         },
         true,
-        RESSOURCE("ui/Controllers/Return_BTN.png"),
-        RESSOURCE("ui/Controllers/Return_BTN_pressed.png")
+        "ui/Controllers/Return_BTN.png",
+        "ui/Controllers/Return_BTN_pressed.png"
     ).layer = 2;
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/Controllers/Controller.png"),
+        "ui/Controllers/Controller.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 14 / 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40 + 20,
@@ -58,7 +52,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersBase()
     ).layer = 1;
     e->addComponent<ImageComponent>(
         e,
-        RESSOURCE("ui/Controllers/Keyboard.png"),
+        "ui/Controllers/Keyboard.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 8 / 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 40,
@@ -82,7 +76,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
         150, 40,
         false,
         true,
-        RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 255, 255, 255),
         true
     );
@@ -127,8 +121,8 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
             np->_onSelect = true;
         },
         true,
-        RESSOURCE("ui/Controllers/Forward_BTN.png"),
-        RESSOURCE("ui/Controllers/Forward_BTN_pressed.png")
+        "ui/Controllers/Forward_BTN.png",
+        "ui/Controllers/Forward_BTN_pressed.png"
     );
     changePresetNext.layer = 3;
 
@@ -171,8 +165,8 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
             np->_onSelect = true;
         },
         true,
-        RESSOURCE("ui/Controllers/Backward_BTN.png"),
-        RESSOURCE("ui/Controllers/Backward_BTN_pressed.png")
+        "ui/Controllers/Backward_BTN.png",
+        "ui/Controllers/Backward_BTN_pressed.png"
     );
     changePresetPrev.layer = 3;
 
@@ -191,8 +185,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
             300, 100,
             true,
             false,
-            RESSOURCE(
-                "fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+            "fonts/fontVolumeSettings/fontVolumeSettings.xml",
             irr::video::SColor(255, 255, 255, 255),
             true
         );
@@ -212,7 +205,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 140, 100,
                 true,
                 true,
-                RESSOURCE("fonts/fontVolumeSettings/fontVolumeSettings.xml"),
+                "fonts/fontVolumeSettings/fontVolumeSettings.xml",
                 irr::video::SColor(255, 255, 255, 255),
                 count == 0
             );
@@ -238,8 +231,8 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createControllersOptions(con
                 []() {
                 },
                 count == 0,
-                RESSOURCE("ui/Controllers/Change_BTN.png"),
-                RESSOURCE("ui/Controllers/Change_BTN_pressed.png")
+                "ui/Controllers/Change_BTN.png",
+                "ui/Controllers/Change_BTN_pressed.png"
             );
             buttonAction.layer = 3;
             buttonAction.setCallback([&buttonAction, &keyboardAction, &controllerAction, p, i](){
