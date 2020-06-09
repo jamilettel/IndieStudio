@@ -87,7 +87,7 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
     if (select(ptr->serverSock + 1, &ptr->rfds, &ptr->wfds, &ptr->efds, &ptr->timeout) == -1)
         throw is::exceptions::Exception("NetworkSystem", "Select exception");        
     char buff[READ_SIZE] = {0};
-    #ifdef _MSC_VER
+    #ifdef _WIN32
     u_long mode = 1;
     ioctlsocket(ptr->serverSock, FIONBIO, &mode);
     if (recv(ptr->serverSock, buff, READ_SIZE, 0) >= 0) {
@@ -187,8 +187,12 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
     if (FD_ISSET(ptr->serverSock, &ptr->wfds)) {
         if (ptr->writeQueue.size() > 0) {
             std::string tmp = ptr->writeQueue.front();
-            //std::cout << "-> " << tmp << std::endl;
+            std::cout << "-> " << tmp << std::endl;
+#ifdef _WIN32
+            send(ptr->serverSock, tmp.c_str(), tmp.size(), 0);
+#else
             write(ptr->serverSock, tmp.c_str(), tmp.size());
+#endif
             ptr->writeQueue.pop();
         }
     }
@@ -198,8 +202,13 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
     //    ptr->writeQueueUdp.pop();
     //}
     if (FD_ISSET(ptr->serverSock, &ptr->efds)) {
+#ifdef _WIN32
+        _close(ptr->serverSock);
+        _close(ptr->serverSockUdp);
+#else
         close(ptr->serverSock);
         close(ptr->serverSockUdp);
+#endif
         ptr->isOn = false;
     }
     //if (FD_ISSET(ptr->serverSockUdp, &ptr->efds)) {

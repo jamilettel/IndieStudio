@@ -12,10 +12,13 @@ int main(int argc, char const *argv[])
 {
     is::Game game;
     try {
-        #ifdef MSVC
+#ifdef _WIN32
+            WSADATA data;
+
             if (!SetProcessDPIAware())
                 throw is::exceptions::WindowException("SetProcessDPIAware failed.");
-        #endif
+            WSAStartup(MAKEWORD(2, 2), &data);
+#endif
         game.addScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN, std::make_shared<is::scenes::SplashScreenScene>());
         game.addScene(is::ecs::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
         game.addScene(is::ecs::Scenes::SCENE_CREDIT, std::make_shared<is::scenes::CreditScene>());
