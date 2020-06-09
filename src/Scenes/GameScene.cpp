@@ -54,10 +54,14 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TimerSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::HudSystem>());
 }
 
 void GameScene::initEntities()
 {
+    int x = 0;
+    int y = 0;
+    std::shared_ptr<is::ecs::Entity> e;
     auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     auto &rules = getRulesComponent();
     MapGenerator mg;
@@ -67,53 +71,26 @@ void GameScene::initEntities()
         throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13, a);
 
+    initEntity(GlobalPrefabs::createTimer(rules));
+
     for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
-    
-        switch (i)
-        {
-        case 0:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(-5 * 3, 0, 6 * 3),
+        x = (i % 2 ? 5 : -5);
+        y = (i == 1 || i == 2 ? -6 : 6);
+        e = initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(x * 3, 0, y * 3),
                 ch,
                 *_componentManager.get(),
                 ch.texturePath,
-                rules.getAiLevels()[0]
-            ));
-            break;
-        case 1:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(5 * 3, 0, -6 * 3),
-                ch,
-                *_componentManager.get(),
-                ch.texturePath,
-                rules.getAiLevels()[1]
-            ));
-            break;
-        case 2:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(-5 * 3, 0, -6 * 3),
-                ch,
-                *_componentManager.get(),
-                ch.texturePath,
-                rules.getAiLevels()[2]
-            ));
-            break;
-        case 3:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(5 * 3, 0, 6 * 3),
-                ch,
-                *_componentManager.get(),
-                ch.texturePath,
-                rules.getAiLevels()[3]
-            ));
-            break;
-        default:
-            break;
-        }
+                rules.getAiLevels()[i]
+        ));
+        initEntity(GlobalPrefabs::createPlayerHud(
+            *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),
+            ch.texturePath,
+            i
+        ));
     }
 
-    initEntity(GlobalPrefabs::createTimer(rules));
 }
 
 RulesComponent &GameScene::getRulesComponent() const

@@ -80,7 +80,7 @@ void is::systems::CharacterControllerSystem::update()
             if (bm->get()->deathTimer <= 0) {
                 ptr->isDead = true;
             }
-            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
+            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death", false);
             continue;
         }
         const auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();
@@ -124,7 +124,7 @@ void is::systems::CharacterControllerSystem::update()
         else if (ptr->canPlaceBomb)
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Idle");
         else
-            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb");
+            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("DropBomb", false);
         ptr->lastPos = ptr->getTransform().position;
     }
 }

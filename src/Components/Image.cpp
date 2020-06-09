@@ -34,7 +34,7 @@ void ImageComponent::init(std::shared_ptr<WindowComponent> &ptr_window)
     _window = ptr_window;
     element = ptr_window->canvas->addImage(ptr_window->driver->getTexture(_filename.c_str()), _dimension, false, nullptr, IDGenerator::getNewID(), L"ui");
     if (!element)
-        throw is::exceptions::Exception("ImageCompononent", "Could not create node from model");
+        throw is::exceptions::Exception("ImageComponent", "Could not create node from model");
     if (_scale) {
         element->setAlignment(irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE, irr::gui::EGUIA_SCALE);
         element->setScaleImage(true);

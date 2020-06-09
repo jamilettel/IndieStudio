@@ -19,7 +19,7 @@ void AnimatorComponent::deleteComponent()
 {
 }
 
-void AnimatorComponent::changeAnimation(const std::string &anim)
+void AnimatorComponent::changeAnimation(const std::string &anim, bool loop)
 {
     bool animFound = false;
 
@@ -28,6 +28,7 @@ void AnimatorComponent::changeAnimation(const std::string &anim)
     for (auto &elem : animators) {
         if (elem.name == anim) {
             getEntity()->getComponent<ModelRendererComponent>()->get()->node->setFrameLoop(elem.start, elem.end);
+            getEntity()->getComponent<ModelRendererComponent>()->get()->node->setLoopMode(loop);
             animFound = true;
             currentAnim = anim;
         }

@@ -14,6 +14,7 @@
 #include "Components/Camera.hpp"
 #include "Components/Transform.hpp"
 #include "Components/ModelRenderer.hpp"
+#include "Components/Bomberman.hpp"
 #include "Components/CharacterController.hpp"
 #include "Components/Light.hpp"
 #include "Components/Audio.hpp"
@@ -49,6 +50,7 @@
 #include "Components/JoystickCursor.hpp"
 #include "Components/Texture.hpp"
 #include "Components/Timer.hpp"
+#include "Components/Hud.hpp"
 #include "Components/NumberField.hpp"
 
 namespace is::prefabs {
@@ -121,6 +123,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createRules();
 
         static std::shared_ptr<is::ecs::Entity> createTimer(is::components::RulesComponent &rules);
+        static std::shared_ptr<is::ecs::Entity> createPlayerHud(is::components::BombermanComponent &bm, const std::string &skin, int player);
 
         private:
             static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);

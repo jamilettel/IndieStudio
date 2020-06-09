@@ -52,17 +52,41 @@ void MultiplayerGameScene::initSystems()
 
 void MultiplayerGameScene::initEntities()
 {
+    int x = 0;
+    int y = 0;
+    std::shared_ptr<is::ecs::Entity> e;
     auto characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     MapGenerator mg;
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, 1, 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
+    for (int i = 0; i != 4; i++) {
+        auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
+        x = (i % 2 ? 5 : -5);
+        y = (i == 1 || i == 2 ? -6 : 6);
+        e = initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(x * 3, 0, y * 3),
+                ch,
+                *_componentManager.get(),
+                ch.texturePath
+        ));
+        initEntity(GlobalPrefabs::createPlayerHud(
+            *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),
+            ch.texturePath,
+            i
+        ));
+    }/*
     initEntity(GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, 6 * 3),
         *static_cast<CharacterComponent *>(characters[0].get()),
         *_componentManager.get(),
         "player_white.png"
+    ));
+    initEntity(GlobalPrefabs::createPlayerHud(
+        *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),
+        ch.texturePath,
+        0
     ));
     initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
         irr::core::vector3df(-5 * 3, 0, -6 * 3),
@@ -81,7 +105,7 @@ void MultiplayerGameScene::initEntities()
         *static_cast<CharacterComponent *>(characters[3].get()),
         *_componentManager.get(),
         "player_red.png"
-    ));
+    ));*/
 }
 
 void MultiplayerGameScene::awake()
