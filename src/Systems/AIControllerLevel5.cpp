@@ -281,6 +281,8 @@ bool AIControllerLevel5System::bombPosIsUseful(
 
     if (bombPosAimForPlayer(ai, bombPos, map, aiComponents))
         return (true);
+    if (bomberman.wallPass)
+        return (false);
     for (int i = 0; i < 4; i++) {
         if (dirX[i]) {
             int incr = dirX[i] < 0 ? -1 : 1;
@@ -423,8 +425,14 @@ void AIControllerLevel5System::putBombState(
             while ((pos = astar.getNextPos()).has_value()) {
                 ai.path.emplace_back(pos.value());
             }
+            AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPosF.X, aiPosF.Y), map);
+            return;
         }
         AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPosF.X, aiPosF.Y), map);
+        // if (!posIsHideFromBombs(ai, ai.shortObjective, map) && posIsHideFromBombs(ai, irr::core::vector2di(aiPosF.X, aiPosF.Y), map)) {
+        //     ai.state = AIControllerComponent::NONE;
+        //     return;
+        // }
     }
 }
 
