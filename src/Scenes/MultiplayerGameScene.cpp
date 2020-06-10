@@ -61,6 +61,7 @@ void MultiplayerGameScene::initEntities()
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
     mg.generateMap(*this, rules.getSeed(), 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
+    initEntity(GlobalPrefabs::createTimer(rules));
     for (int i = 0; i != rules.getNumberOfPlayers(); i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
         x = (i % 2 ? 5 : -5);

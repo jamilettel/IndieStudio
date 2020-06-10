@@ -33,8 +33,8 @@ void is::components::NetworkComponent::startMultiplayer()
 
     // init player states
     playerStates.push_back({{-5 * 3, 6 * 3}, {0, 0}, 0, false, 0, 0});
-    playerStates.push_back({{-5 * 3, -6 * 3}, {0, 0}, 0, false, 0, 0});
     playerStates.push_back({{5 * 3, -6 * 3}, {0, 0}, 0, false, 0, 0});
+    playerStates.push_back({{-5 * 3, -6 * 3}, {0, 0}, 0, false, 0, 0});
     playerStates.push_back({{5 * 3, 6 * 3}, {0, 0}, 0, false, 0, 0});
     timeBeforeSharePos = 0;
     

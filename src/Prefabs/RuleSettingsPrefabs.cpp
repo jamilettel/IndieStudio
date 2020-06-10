@@ -39,7 +39,7 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createOkButton(const std::shared_pt
         WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 100.0f,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         [nc, &rules]() {
-        nc->writeQueue.push("req cl " + std::to_string(rules.getNumberOfPlayers()) + " \n");
+            nc->writeQueue.push("req cl " + std::to_string(rules.getNumberOfPlayers()) + " " + std::to_string(rules.getMaxTime()) + " \n");
         },
         true,
         "ui/RuleSettings/OkButton.png",

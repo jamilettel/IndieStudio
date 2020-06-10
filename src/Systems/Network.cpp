@@ -62,13 +62,14 @@ void is::systems::NetworkSystem::update()
 void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::components::NetworkComponent> &ptr)
 {
     const auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterControllerComponent).hash_code());
-    const auto &ptr_char = static_cast<is::components::CharacterControllerComponent*>(characters[ptr->playerIdx].get());
+    const auto &ptr_char = static_cast<is::components::CharacterControllerComponent *>(characters[ptr->playerIdx].get());
+
     if (!ptr_char)
         throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterControllerComponent pointer");
     const auto &tr = ptr_char->getEntity()->getComponent<is::components::TransformComponent>()->get();
     if (!tr)
         throw is::exceptions::Exception("NetworkSystem", "Could not found bomberman");
-    
+
     irr::core::vector3df playerPos = tr->position;
     ptr->timeBeforeSharePos += _time->get().getCurrentIntervalSeconds();
     if (ptr_char->lastPos != playerPos && ptr->timeBeforeSharePos >= 0.05f) {    
@@ -117,12 +118,17 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                     is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
                     remove = 3;
                 } else if (cmd[1] == "sg") {
-                    int nb = atoi(cmd[2].c_str());
+                    int nb = atoi(cmd[3].c_str());
+                    int time = atoi(cmd[4].c_str());
+
                     ptr->playerIdx = atoi(cmd[2].c_str());
+
                     static_cast<RulesComponent *>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0].get())->setNumberOfPlayers(nb);
+                    static_cast<RulesComponent *>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0].get())->setMaxTime(time);
+                    
                     if (ptr->playerIdx < 0 || ptr->playerIdx > 3)
                         throw is::exceptions::Exception("NetworkSystem", "init multiplayer game exception");        
-                    for (int i = 0; i < nb; i++) {
+                    for (int i = 0; i < 4; i++) {
                         const auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
                         const auto &ptr_char = static_cast<is::components::CharacterComponent*>(characters[i].get());
                         if (!ptr_char)
@@ -136,7 +142,7 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                         }
                     }
                     is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME);
-                    remove = 3;
+                    remove = 5;
                 }
             } else if (cmd[0] == "evt") {
                 if (cmd[1] == "ps") {            
