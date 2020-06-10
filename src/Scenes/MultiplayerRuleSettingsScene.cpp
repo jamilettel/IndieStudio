@@ -57,7 +57,7 @@ void MultiplayerRuleSettingsScene::initEntities()
     const auto &ptr = std::static_pointer_cast<is::components::NetworkComponent>(e);
 
     initEntity(RuleSettingsPrefabs::createBackground());
-    initEntity(RuleSettingsPrefabs::createOkButton(ptr));
+    initEntity(RuleSettingsPrefabs::createOkButton(ptr, rules));
     initEntity(RuleSettingsPrefabs::createReturnButton());
     initEntity(RuleSettingsPrefabs::createRuleSettings(), false);
 
