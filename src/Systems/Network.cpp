@@ -117,10 +117,12 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                     is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_LOBBY);
                     remove = 3;
                 } else if (cmd[1] == "sg") {
+                    int nb = atoi(cmd[2].c_str());
                     ptr->playerIdx = atoi(cmd[2].c_str());
+                    static_cast<RulesComponent *>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0].get())->setNumberOfPlayers(nb);
                     if (ptr->playerIdx < 0 || ptr->playerIdx > 3)
                         throw is::exceptions::Exception("NetworkSystem", "init multiplayer game exception");        
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < nb; i++) {
                         const auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
                         const auto &ptr_char = static_cast<is::components::CharacterComponent*>(characters[i].get());
                         if (!ptr_char)
@@ -149,8 +151,7 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                 }
                 if (cmd[1] == "db") {
                     int idx = atoi(cmd[3].c_str());
-
-                    std::cout << "DB" << std::endl;
+                
                     ptr->playerStates[idx].dropBomb = true;
                     remove = 4;
                 }
@@ -160,7 +161,6 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                     int posX = atoi(cmd[5].c_str());
                     int posY = atoi(cmd[6].c_str());
 
-                    std::cout << "PU" << std::endl;
                     ptr->playerStates[idx].powerUpSpawn = pu;
                     ptr->playerStates[idx].positionPowerUp.X = posX;
                     ptr->playerStates[idx].positionPowerUp.Y = posY;
@@ -170,13 +170,13 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                     int idx = atoi(cmd[3].c_str());
                     int pu = atoi(cmd[4].c_str());
 
-                    std::cout << "GPU" << std::endl;
                     ptr->playerStates[idx].powerUpTake = pu;
                     remove = 5;
                 }
                 if (cmd[1] == "bb") {  
                     float posX = atoi(cmd[3].c_str());
                     float posY = atoi(cmd[4].c_str());
+        
                     std::vector<std::shared_ptr<is::ecs::Component>> &window =
                     _componentManager->getComponentsByType(typeid(is::components::WindowComponent).hash_code());
                     if (!window.size())
@@ -191,11 +191,9 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
             cmd.erase(cmd.begin(), cmd.begin() + remove);
         }
     }
-    std::cout << ptr->writeQueue.size() << std::endl;
     if (FD_ISSET(ptr->serverSock, &ptr->wfds)) {
         if (ptr->writeQueue.size() > 0) {
             std::string tmp = ptr->writeQueue.front();
-            std::cout << "-> " << tmp << std::endl;
 #ifdef _WIN32
             send(ptr->serverSock, tmp.c_str(), tmp.size(), 0);
 #else

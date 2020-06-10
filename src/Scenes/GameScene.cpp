@@ -66,11 +66,9 @@ void GameScene::initEntities()
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    std::cout << "Seed :" << rules.getSeed() << std::endl;
     mg.generateMap(*this, rules.getSeed(), 15, 13, a);
 
     initEntity(GlobalPrefabs::createTimer(rules));
-
     for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
         x = (i % 2 ? 5 : -5);

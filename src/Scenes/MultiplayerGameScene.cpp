@@ -56,11 +56,12 @@ void MultiplayerGameScene::initEntities()
     std::shared_ptr<is::ecs::Entity> e;
     auto characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     MapGenerator mg;
+    auto &rules = getRulesComponent();
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    mg.generateMap(*this, 1, 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
-    for (int i = 0; i != characters.size(); i++) {
+    mg.generateMap(*this, rules.getSeed(), 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
+    for (int i = 0; i != rules.getNumberOfPlayers(); i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
         x = (i % 2 ? 5 : -5);
         y = (i == 1 || i == 2 ? -6 : 6);
@@ -99,4 +100,17 @@ void MultiplayerGameScene::onTearDown()
         WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
         window.eventManager.removeEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P);
     }
+}
+
+is::components::RulesComponent &MultiplayerGameScene::getRulesComponent() const
+{ 
+    auto entities = AScene::_entitySaver->getEntities();
+
+    for (const auto &entity : entities) {
+        auto rules = entity->getComponent<is::components::RulesComponent>();
+
+        if (rules.has_value())
+            return (*rules.value().get());
+    }
+    throw is::exceptions::ECSException("Could not found Rules component");
 }

@@ -50,6 +50,8 @@ namespace is::scenes {
             MultiplayerGameScene(const MultiplayerGameScene &) = default;
             MultiplayerGameScene &operator=(const MultiplayerGameScene &) = default;
 
+            is::components::RulesComponent &getRulesComponent() const;
+
             void initSystems() override;
             void initEntities() override;
 
