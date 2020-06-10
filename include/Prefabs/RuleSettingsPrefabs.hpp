@@ -24,6 +24,7 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createBackground();
             static std::shared_ptr<is::ecs::Entity> createReturnButton();
             static std::shared_ptr<is::ecs::Entity> createRuleSettings();
+            static std::shared_ptr<is::ecs::Entity> createOkButton(const std::shared_ptr<NetworkComponent> &nc, RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createSettingsBackground(is::components::RulesSettingComponent &component);
             static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);

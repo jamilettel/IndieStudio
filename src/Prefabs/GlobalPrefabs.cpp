@@ -279,14 +279,12 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
-    e->addComponent<GravityComponent>(e, movement);
-    transform.position.Y = 10;
     e->addComponent<BombermanComponent>(e, character);
-    e->addComponent<JumpComponent>(e, movement);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
     animator.animators.push_back({61, 86, "Idle"});
+
     return (e);
 }
 
@@ -340,20 +338,23 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rule
         e,
         rules.getTimeString(),
         "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 950, 5,
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 200, -3,
         400, 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
-    e->addComponent<TextureComponent>(
+    text.layer = 1;
+    auto &texture = e->addComponent<ImageComponent>(
         e,
-        "ui/Game/Table_02.png",
+        "ui/Game/Table.png",
         "Indie Studio",
-        irr::core::vector2df(1, 1),
-        irr::core::vector2df(19.8, 10)
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 139,
+        0,
+        false
     );
+    texture.layer = 0;
     TimeComponent &timeC = e->addComponent<TimeComponent>(
         e
     );
@@ -362,6 +363,85 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rule
         text,
         timeC,
         rules.getMaxTime()
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanComponent &bm, const std::string &skin, int player)
+{
+    auto e = std::make_shared<is::ecs::Entity>();
+
+    auto &texture = e->addComponent<ImageComponent>(
+        e,
+        "ui/Game/playerHud.png",
+        "Indie Studio",
+        (player == 0 || player == 3 ? 0 : WindowComponent::_windowsDimensions["Indie Studio"].first - 277),
+        (player == 1 || player == 3 ? 0 : WindowComponent::_windowsDimensions["Indie Studio"].second - 101),
+        false
+    ).layer=-11;
+    auto &icon = e->addComponent<ImageComponent>(
+        e,
+        "icon"+skin.substr(6),
+        "Indie Studio",
+        (player == 0 || player == 3 ? 10 : WindowComponent::_windowsDimensions["Indie Studio"].first - 267),
+        (player == 1 || player == 3 ? 5 : WindowComponent::_windowsDimensions["Indie Studio"].second - 96),
+        false
+    ).layer=-10;
+    TextComponent &bombNb = e->addComponent<TextComponent>(
+        e,
+        "",
+        "Indie Studio",
+        (player == 0 || player == 3 ? 120 : WindowComponent::_windowsDimensions["Indie Studio"].first - 157),
+        (player == 1 || player == 3 ? 5 : WindowComponent::_windowsDimensions["Indie Studio"].second - 95),
+        50, 40,
+        false,
+        false,
+        "fonts/EndGame/endGameFont.xml",
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &range = e->addComponent<TextComponent>(
+        e,
+        "",
+        "Indie Studio",
+        (player == 0 || player == 3 ? 200 : WindowComponent::_windowsDimensions["Indie Studio"].first - 77),
+        (player == 1 || player == 3 ? 5 : WindowComponent::_windowsDimensions["Indie Studio"].second - 95),
+        50, 40,
+        false,
+        false,
+        "fonts/EndGame/endGameFont.xml",
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &speed = e->addComponent<TextComponent>(
+        e,
+        "",
+        "Indie Studio",
+        (player == 0 || player == 3 ? 120 : WindowComponent::_windowsDimensions["Indie Studio"].first - 157),
+        (player == 1 || player == 3 ? 40 : WindowComponent::_windowsDimensions["Indie Studio"].second - 60),
+        50, 40,
+        false,
+        false,
+        "fonts/EndGame/endGameFont.xml",
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    TextComponent &pass = e->addComponent<TextComponent>(
+        e,
+        "",
+        "Indie Studio",
+        (player == 0 || player == 3 ? 200 : WindowComponent::_windowsDimensions["Indie Studio"].first - 77),
+        (player == 1 || player == 3 ? 40 : WindowComponent::_windowsDimensions["Indie Studio"].second - 60),
+        50, 40,
+        false,
+        false,
+        "fonts/EndGame/endGameFont.xml",
+        irr::video::SColor(255, 227, 245, 244)
+    );
+    e->addComponent<HudComponent>(
+        e,
+        bm,
+        bombNb,
+        range,
+        speed,
+        pass
     );
     return (e);
 }

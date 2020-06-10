@@ -31,8 +31,6 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<AudioSystem>());
-    _systemManager->addSystem(std::make_shared<JumpSystem>());
-    _systemManager->addSystem(std::make_shared<GravitySystem>());
     _systemManager->addSystem(std::make_shared<MovementSystem>());
     _systemManager->addSystem(std::make_shared<BombSystem>());
     _systemManager->addSystem(std::make_shared<FireSystem>());
@@ -47,41 +45,39 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<NetworkSystem>());
     _systemManager->addSystem(std::make_shared<NetworkInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<HudSystem>());
 
 }
 
 void MultiplayerGameScene::initEntities()
 {
+    int x = 0;
+    int y = 0;
+    std::shared_ptr<is::ecs::Entity> e;
     auto characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     MapGenerator mg;
+    auto &rules = getRulesComponent();
 
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
-    mg.generateMap(*this, 1, 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
-    initEntity(GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(-5 * 3, 0, 6 * 3),
-        *static_cast<CharacterComponent *>(characters[0].get()),
-        *_componentManager.get(),
-        "player_white.png"
-    ));
-    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(-5 * 3, 0, -6 * 3),
-        *static_cast<CharacterComponent *>(characters[1].get()),
-        *_componentManager.get(),
-        "player_black.png"
-    ));
-    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(5 * 3, 0, -6 * 3),
-        *static_cast<CharacterComponent *>(characters[2].get()),
-        *_componentManager.get(),
-        "player_blue.png"
-    ));
-    initEntity(prefabs::GlobalPrefabs::createBombermanCharacter(
-        irr::core::vector3df(5 * 3, 0, 6 * 3),
-        *static_cast<CharacterComponent *>(characters[3].get()),
-        *_componentManager.get(),
-        "player_red.png"
-    ));
+    mg.generateMap(*this, rules.getSeed(), 15, 13, _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code()));
+    initEntity(GlobalPrefabs::createTimer(rules));
+    for (int i = 0; i != rules.getNumberOfPlayers(); i++) {
+        auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
+        x = (i % 2 ? 5 : -5);
+        y = (i == 1 || i == 2 ? -6 : 6);
+        e = initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(x * 3, 0, y * 3),
+                ch,
+                *_componentManager.get(),
+                ch.texturePath
+        ));
+        initEntity(GlobalPrefabs::createPlayerHud(
+            *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),
+            ch.texturePath,
+            i
+        ));
+    }
 }
 
 void MultiplayerGameScene::awake()
@@ -105,4 +101,17 @@ void MultiplayerGameScene::onTearDown()
         WindowComponent &window = *static_cast<WindowComponent *>(elem.get());
         window.eventManager.removeEventKeyReleased(irr::EKEY_CODE::KEY_KEY_P);
     }
+}
+
+is::components::RulesComponent &MultiplayerGameScene::getRulesComponent() const
+{ 
+    auto entities = AScene::_entitySaver->getEntities();
+
+    for (const auto &entity : entities) {
+        auto rules = entity->getComponent<is::components::RulesComponent>();
+
+        if (rules.has_value())
+            return (*rules.value().get());
+    }
+    throw is::exceptions::ECSException("Could not found Rules component");
 }

@@ -33,7 +33,7 @@ namespace is::components {
 
             void deleteComponent() override;
 
-            void changeAnimation(const std::string &anim);
+            void changeAnimation(const std::string &anim, bool loop = true);
 
             std::vector<AnimatorElem> animators;
             std::string currentAnim;

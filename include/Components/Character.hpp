@@ -25,13 +25,12 @@ namespace is::components
                 MULTIPLAYER_PLAYER
             };
 
-            static inline const PresetAction playerActions[8] = {
+            static inline const PresetAction playerActions[7] = {
                 {"MoveVerticalAxis", 1, "Move forward", true},
                 {"MoveVerticalAxis", -1, "Move backward", false},
                 {"MoveHorizontalAxis", -1, "Move right", false},
                 {"MoveHorizontalAxis", 1, "Move left", true},
                 {"DropBomb", 1, "Drop bomb"},
-                {"Jump", 1, "Jump"},
                 {"Pause", 1, "Pause menu"},
                 {"", -9999, ""},
             };

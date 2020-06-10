@@ -61,7 +61,7 @@ void EndGameScene::initEntities()
         {
         case 0:
             initEntity(prefabs::EndGamePrefabs::createPlayer(infos,
-                                                             c.characterType == c.MULTIPLAYER_PLAYER,
+                                                             c.characterType == c.MULTIPLAYER_PLAYER || c.isAI(),
                                                              c.texturePath,
                                                              windowPos[i],
                                                              posModelPlayer[i],
@@ -70,7 +70,7 @@ void EndGameScene::initEntities()
             break;
         case 1:
             initEntity(prefabs::EndGamePrefabs::createPlayer(infos,
-                                                             c.characterType == c.MULTIPLAYER_PLAYER,
+                                                             c.characterType == c.MULTIPLAYER_PLAYER || c.isAI(),
                                                              c.texturePath,
                                                              windowPos[i],
                                                              posModelPlayer[i],
@@ -79,7 +79,7 @@ void EndGameScene::initEntities()
             break;
         case 2:
             initEntity(prefabs::EndGamePrefabs::createPlayer(infos,
-                                                             c.characterType == c.MULTIPLAYER_PLAYER,
+                                                             c.characterType == c.MULTIPLAYER_PLAYER || c.isAI(),
                                                              c.texturePath,
                                                              windowPos[i],
                                                              posModelPlayer[i],
@@ -88,7 +88,7 @@ void EndGameScene::initEntities()
             break;
         case 3:
             initEntity(prefabs::EndGamePrefabs::createPlayer(infos,
-                                                             c.characterType == c.MULTIPLAYER_PLAYER,
+                                                             c.characterType == c.MULTIPLAYER_PLAYER || c.isAI(),
                                                              c.texturePath,
                                                              windowPos[i],
                                                              posModelPlayer[i],

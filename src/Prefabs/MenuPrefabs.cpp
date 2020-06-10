@@ -452,7 +452,15 @@ std::shared_ptr<Entity> GlobalPrefabs::createHowToPlay()
         true,
         "ui/HowToPlay/Return_BTN.png",
         "ui/HowToPlay/Return_BTN_pressed.png"
-    ).layer = 2;
+    ).layer = 1;
+    e->addComponent<ImageComponent>(
+        e,
+        "ui/HowToPlay/HTP.png",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 1594 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        true
+    ).layer = 4;
     return e;
 }
 
@@ -473,7 +481,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::Game::getPreviousScene());
+            is::Game::setActualScene(is::ecs::SCENE_MAIN_MENU);
         },
         true,
         "ui/Multiplayer/Return_BTN.png",
@@ -487,11 +495,11 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
         WindowComponent::_windowsDimensions["Indie Studio"].second / 2.5 + 300,
         350, 100,
         [nc](){
-            nc->writeQueue.push("req cl \n");
+            is::Game::setActualScene(Scenes::SCENE_MULTIPLAYER_RULE_SETTINGS);
         },
         true,
-        "ui/main_menu/button_play.png",
-        "ui/main_menu/button_play_pressed.png"
+        "ui/Multiplayer/create_lobby_BTN.png",
+        "ui/Multiplayer/create_lobby_BTN_pressed.png"
     );
     e->addComponent<ButtonComponent>(
         e,
@@ -504,8 +512,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerHub(std::shared_ptr<Netw
             is::Game::setActualScene(Scenes::SCENE_MULTIPLAYER_LOBBY_CHOICE);
         },
         true,
-        "ui/main_menu/button_play.png",
-        "ui/main_menu/button_play_pressed.png"
+        "ui/Multiplayer/join_lobby_BTN.png",
+        "ui/Multiplayer/join_lobby_BTN_pressed.png"
     );
     return e;
 }
@@ -528,7 +536,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobbyChoice(const std::s
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::Game::getPreviousScene());
+            is::Game::setActualScene(is::ecs::SCENE_MULTIPLAYER_HUB);
         },
         true,
         "ui/Multiplayer/Return_BTN.png",
@@ -568,7 +576,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMultiplayerLobby(const std::shared_
         30, 30,
         50, 50,
         [](){
-            is::Game::setActualScene(is::Game::getPreviousScene());
+            is::Game::setActualScene(is::ecs::SCENE_MULTIPLAYER_HUB);
         },
         true,
         "ui/Multiplayer/Return_BTN.png",

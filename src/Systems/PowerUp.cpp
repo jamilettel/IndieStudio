@@ -63,12 +63,14 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
                 bm->get()->bombNumber++;
                 break;
             case is::components::PowerUpComponent::SPEED_UP:
-                bm->get()->speedMult++;
+                bm->get()->speedMult += 0.5;
+                bm->get()->speedCount++;
                 break;
             case is::components::PowerUpComponent::FIRE_UP:
                 bm->get()->bombRange++;
                 break;
             case is::components::PowerUpComponent::WALL_PASS:
+                bm->get()->wallPass = true;
                 ptr->getEntity()->getComponent<is::components::ColliderComponent>()->get()->removeCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
                 break;
             }

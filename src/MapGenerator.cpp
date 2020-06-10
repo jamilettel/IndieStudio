@@ -37,7 +37,6 @@ float MapGenerator::getVectorPermTable(float x, float y, float x0, float y0, int
     int tmpX = (static_cast<int>(x0) & 255) + addX;
     int tmpY = (static_cast<int>(y0) & 255) + addY;
 
-    std::cout << "[index] : " << tmpX << " - " << permTable[tmpY] << std::endl;
     int tmpVector = permTable[tmpX + permTable[tmpY]] % 8;
     return ((gradientVector[tmpVector][0] * (x - (x0 + addX))) + 
             (gradientVector[tmpVector][1] * (y - (y0 + addY))));

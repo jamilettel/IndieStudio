@@ -43,6 +43,7 @@
 #include "Systems/Alert.hpp"
 #include "Systems/Texture.hpp"
 #include "Systems/Timer.hpp"
+#include "Systems/Hud.hpp"
 #include "Systems/Pause.hpp"
 
 namespace is::scenes {

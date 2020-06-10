@@ -30,6 +30,7 @@ namespace is::ecs {
         SCENE_GAME,
         SCENE_ENDGAME,
         SCENE_RULE_SETTINGS,
+        SCENE_MULTIPLAYER_RULE_SETTINGS,
         NOTHING
     };
 

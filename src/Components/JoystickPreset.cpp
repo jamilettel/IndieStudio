@@ -75,6 +75,5 @@ void JoystickPresetComponent::createBasicPreset(JoystickPresetComponent &preset)
     preset.bind(0, PresetAction("MoveHorizontalAxis", -1, "Move right", false));
     preset.bind(0, PresetAction("MoveHorizontalAxis", 1, "Move left", true));
     preset.bind(-3, PresetAction("DropBomb", 1, "Drop bomb", false));
-    preset.bind(-1, PresetAction("Jump", 1, "Jump", false));
     preset.bind(-8, PresetAction("Pause", 1, "Pause menu", false));
 }

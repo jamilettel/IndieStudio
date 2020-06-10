@@ -45,7 +45,7 @@ void PauseSystem::update()
             if (canChange) {
                 if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
                     is::Game::setActualScene(is::ecs::SCENE_PAUSE, true, false);
-                else if (is::Game::getCurrentScene() == is::ecs::SCENE_PAUSE)
+                else
                     is::Game::setActualScene(is::ecs::SCENE_GAME, false, true);
             }
             break;

@@ -34,8 +34,6 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::JumpSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::GravitySystem>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
@@ -56,10 +54,14 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TimerSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::HudSystem>());
 }
 
 void GameScene::initEntities()
 {
+    int x = 0;
+    int y = 0;
+    std::shared_ptr<is::ecs::Entity> e;
     auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     //std::cout << " size : " << characters.size() << std::endl;
     auto &rules = getRulesComponent();
@@ -76,51 +78,25 @@ void GameScene::initEntities()
         mg.createMap(*this, tmpMap, MapLoader::x / 2, MapLoader::y / 2, a);
     }
 
+    initEntity(GlobalPrefabs::createTimer(rules));
     if (!loadMap) {
+    mg.generateMap(*this, rules.getSeed(), 15, 13, a);
     for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
-    
-        switch (i)
-        {
-        case 0:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(-5 * 3, 0, 6 * 3),
+        x = (i % 2 ? 5 : -5);
+        y = (i == 1 || i == 2 ? -6 : 6);
+        e = initEntity(GlobalPrefabs::createBombermanCharacter(
+                irr::core::vector3df(x * 3, 0, y * 3),
                 ch,
                 *_componentManager.get(),
                 ch.texturePath,
-                rules.getAiLevels()[0]
-            ));
-            break;
-        case 1:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(5 * 3, 0, -6 * 3),
-                ch,
-                *_componentManager.get(),
-                ch.texturePath,
-                rules.getAiLevels()[1]
-            ));
-            break;
-        case 2:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(-5 * 3, 0, -6 * 3),
-                ch,
-                *_componentManager.get(),
-                ch.texturePath,
-                rules.getAiLevels()[2]
-            ));
-            break;
-        case 3:
-            initEntity(GlobalPrefabs::createBombermanCharacter(
-                irr::core::vector3df(5 * 3, 0, 6 * 3),
-                ch,
-                *_componentManager.get(),
-                ch.texturePath,
-                rules.getAiLevels()[3]
-            ));
-            break;
-        default:
-            break;
-        }
+                rules.getAiLevels()[i]
+        ));
+        initEntity(GlobalPrefabs::createPlayerHud(
+            *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),
+            ch.texturePath,
+            i
+        ));
     }
     } else {
         for (size_t i = 0; i < MapLoader::playerNumber; i++) {

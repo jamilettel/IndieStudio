@@ -81,7 +81,7 @@ void is::systems::CharacterControllerSystem::update()
                 ptr->isDead = true;
                 ptr->getEntity()->getComponent<ModelRendererComponent>().value()->deleteComponent();
             }
-            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death");
+            ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Death", false);
             continue;
         }
         const auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();

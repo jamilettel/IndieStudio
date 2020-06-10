@@ -48,6 +48,8 @@ def clientCommandHandler(request, connection):
 
     # request create a lobby
     if request.startswith("req cl"):
+        nb = int(request.split(" ")[2])
+        time = int(request.split(" ")[3])
         while True:
             ranid = random.randint(10000, 99999)
             exist = False
@@ -58,7 +60,9 @@ def clientCommandHandler(request, connection):
                 break;
         lobbys.append({
             "id": ranid,
-            "players": [connection]
+            "players": [connection],
+            "max": nb,
+            "time": time
         })
         print("Create lobby with index " + str(ranid))
         connection.send(("res cl " + str(ranid) + " \n").encode())
@@ -69,7 +73,7 @@ def clientCommandHandler(request, connection):
             idx = int(request.split(" ")[2])
             exist = False
             for lobby in lobbys:
-                if (idx == lobby["id"] or idx == -1) and len(lobby["players"]) < 4:
+                if (idx == lobby["id"] or idx == -1) and len(lobby["players"]) < lobby["max"]:
                     idx = lobby["id"]
                     lobby["players"].append(connection)
                     exist = True
@@ -91,7 +95,7 @@ def clientCommandHandler(request, connection):
                     i = 0
                     print("Start game for lobby " + str(idx))
                     for player in lobby["players"]:
-                        player.send(("res sg " + str(i) + " \n").encode())
+                        player.send(("res sg " + str(i) + " " + str(lobby["max"]) + " " + str(lobby["time"]) + " \n").encode())
                         i += 1
                     exist = True
             if not exist:
