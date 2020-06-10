@@ -345,6 +345,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rule
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 227, 245, 244)
     );
+    text.layer = 1;
     auto &texture = e->addComponent<ImageComponent>(
         e,
         "ui/Game/Table.png",
@@ -353,6 +354,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createTimer(RulesComponent &rule
         0,
         false
     );
+    texture.layer = 0;
     TimeComponent &timeC = e->addComponent<TimeComponent>(
         e
     );
