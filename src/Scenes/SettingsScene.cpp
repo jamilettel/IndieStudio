@@ -33,9 +33,24 @@ void SettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    if (is::Game::getPreviousScene() == SCENE_PAUSE) {
+        _systemManager->addSystem(std::make_shared<PauseSystem>());
+        _systemManager->addSystem(std::make_shared<KeyboardInputSystem>());
+    }
 }
 
 void SettingsScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createSettings(), false);
+
+    if (is::Game::getPreviousScene() == SCENE_PAUSE) {
+        auto &characters = _componentManager->getComponentsByType(
+            typeid(is::components::CharacterComponent).hash_code());
+
+        for (auto character : characters) {
+            auto ptr = static_cast<is::components::CharacterComponent *>(character.get());
+
+            initEntity(prefabs::GlobalPrefabs::createPauseController(*ptr, *_componentManager.get()), false);
+        }
+    }
 }
