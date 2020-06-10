@@ -45,7 +45,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         "ui/settings/Window.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 500, 250, true
-    ).layer = 2;
+    ).layer = 1;
     e->addComponent<ImageComponent>(
         e,
         "ui/settings/Music.png",
@@ -139,7 +139,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         "ui/settings/Sound.png",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 + 260, 265, true
-    ).layer = 1;
+    ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
         "",
