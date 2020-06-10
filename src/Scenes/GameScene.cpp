@@ -6,11 +6,14 @@
 */
 
 #include "Scenes/GameScene.hpp"
+#include "MapLoader.hpp"
 
 using namespace is::systems;
 using namespace is::scenes;
 using namespace is::ecs;
 using namespace is::prefabs;
+
+bool GameScene::loadMap = false;
 
 GameScene::GameScene() :
 AScene(Scenes::SCENE_GAME)
@@ -58,6 +61,7 @@ void GameScene::initSystems()
 void GameScene::initEntities()
 {
     auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
+    //std::cout << " size : " << characters.size() << std::endl;
     auto &rules = getRulesComponent();
     MapGenerator mg;
     std::vector<std::shared_ptr<is::ecs::Component>> a;
@@ -65,8 +69,14 @@ void GameScene::initEntities()
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
     std::cout << "Seed :" << rules.getSeed() << std::endl;
-    mg.generateMap(*this, rules.getSeed(), 15, 13, a);
+    if (!loadMap)
+        mg.generateMap(*this, rules.getSeed(), 15, 13, a);
+    else {
+        std::vector<std::vector<int>> tmpMap = MapLoader::loadMap("./testmap");
+        mg.createMap(*this, tmpMap, MapLoader::x / 2, MapLoader::y / 2, a);
+    }
 
+    if (!loadMap) {
     for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
         auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
     
@@ -112,8 +122,37 @@ void GameScene::initEntities()
             break;
         }
     }
+    } else {
+        for (size_t i = 0; i < MapLoader::playerNumber; i++) {
+            std::cout << i << std::endl;
+        auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
+        ch.characterType = MapLoader::charactersInfo[i].type;
+        ch.presetNumber = MapLoader::charactersInfo[i].preset; 
+            initEntity(GlobalPrefabs::createBombermanCharacter(
+                MapLoader::charactersInfo[i].position,
+                ch,
+                *_componentManager.get(),
+                ch.texturePath,
+                MapLoader::charactersInfo[i].level
+            ));
+        }
+        for (size_t i = 0; i < MapLoader::bonusNumber; i++) {
+            std::cout << i << std::endl;
+            switch (MapLoader::bonusInfo[i].type) {
+                case (0):
+                    initEntity(GlobalPrefabs::createBombUpPowerUp(MapLoader::bonusInfo[i].position));
+                case (1):
+                    initEntity(GlobalPrefabs::createFireUpPowerUp(MapLoader::bonusInfo[i].position));
+                case (2):
+                    initEntity(GlobalPrefabs::createSpeedUpPowerUp(MapLoader::bonusInfo[i].position));
+                default:
+                    initEntity(GlobalPrefabs::createWallPassPowerUp(MapLoader::bonusInfo[i].position));
+            }
+        }
+    }
 
     initEntity(GlobalPrefabs::createTimer(rules));
+    MapLoader::componentManager = _componentManager;
 }
 
 RulesComponent &GameScene::getRulesComponent() const

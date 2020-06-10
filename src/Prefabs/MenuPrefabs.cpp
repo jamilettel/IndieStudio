@@ -7,6 +7,7 @@
 
 #include "Prefabs/GlobalPrefabs.hpp"
 #include "Game.hpp"
+#include "MapLoader.hpp"
 
 #ifndef RESOURCES_PATH
 #define RESOURCES_PATH "./resources/"
@@ -115,13 +116,28 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         "ui/main_menu/button_play.png",
         "ui/main_menu/button_play_pressed.png"
     );
+     e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
+        350, 100,
+        [](){
+            is::scenes::GameScene::loadMap = true;
+            is::Game::setActualScene(SCENE_GAME);
+        },
+        true,
+        "ui/main_menu/button_play.png",
+        "ui/main_menu/button_play_pressed.png"
+    );
     // MULTIPLAYER TEMP
     e->addComponent<ButtonComponent>(
         e,
         "",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
         350, 100,
         [](){
             is::Game::setActualScene(SCENE_MULTIPLAYER_HUB);
@@ -135,7 +151,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         "",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 17 / 20,
         350, 100,
         [](){
             is::Game::isRunning = false;
@@ -203,7 +219,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
     return e;
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createPause()
+std::shared_ptr<Entity> GlobalPrefabs::createPause(std::shared_ptr<is::ecs::ComponentManager> &componentManager)
 {
     auto e = std::make_shared<Entity>();
 
@@ -260,6 +276,20 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause()
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
+        350, 100,
+        [&componentManager](){
+            MapLoader::saveMap("./testmap");
+        },
+        true,
+        "ui/Pause/button_quit.png",
+        "ui/Pause/button_quit_pressed.png"
+    ).layer = 2;
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 17 / 20,
         350, 100,
         [](){
             is::Game::isRunning = false;

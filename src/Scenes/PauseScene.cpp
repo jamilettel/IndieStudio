@@ -41,7 +41,7 @@ void PauseScene::initEntities()
 {
     auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
 
-    initEntity(prefabs::GlobalPrefabs::createPause(), false);
+    initEntity(prefabs::GlobalPrefabs::createPause(_componentManager), false);
     for (auto character : characters) {
         auto ptr = static_cast<is::components::CharacterComponent*>(character.get());
 

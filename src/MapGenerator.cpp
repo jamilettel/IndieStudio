@@ -97,15 +97,17 @@ std::vector<std::vector<int>> MapGenerator::generateArray(int width, int height)
     }
     return (toReturn);
 }
-
-void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height, std::vector<std::shared_ptr<is::ecs::Component>> network)
+#include "MapLoader.hpp"
+void MapGenerator::createMap(ecs::AScene &sc, std::vector<std::vector<int>> arrayMap, int mid_w, int mid_h, std::vector<std::shared_ptr<is::ecs::Component>> network)
 {
-    int mid_w = width / 2;
-    int mid_h = height / 2;
-
-    generatePermTable(seed);
-    std::vector<std::vector<int>> arrayMap = generateArray(width, height);
-
+    /*for (int a = 0; a < arrayMap.size(); a++) {
+        for (int e = 0; e < arrayMap[a].size(); e++) {
+            std::cout << arrayMap[a][e];
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "test x : " << MapLoader::x << "   y : " << MapLoader::y << std::endl;
+    std::cout << "test x : " << mid_w << "   y : " << mid_h << std::endl;*/
     for (int i = -mid_w; i < mid_w + 1; i++) {
         for (int j = -mid_h; j < mid_h + 1; j++) {
             sc.initEntity(prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df(j * 3, -3, i * 3)));
@@ -129,4 +131,14 @@ void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height,
             }
         }
     }
+}
+
+void MapGenerator::generateMap(ecs::AScene &sc, int seed, int width, int height, std::vector<std::shared_ptr<is::ecs::Component>> network)
+{
+    int mid_w = width / 2;
+    int mid_h = height / 2;
+
+    generatePermTable(seed);
+    std::vector<std::vector<int>> arrayMap = generateArray(width, height);
+    createMap(sc, arrayMap, mid_w, mid_h, network);
 }

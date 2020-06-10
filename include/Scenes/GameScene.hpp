@@ -49,7 +49,7 @@ namespace is::scenes {
 
     class GameScene : public is::ecs::AScene {
         public:
-            GameScene();
+            GameScene(); 
             ~GameScene() override = default;
 
             GameScene(const GameScene &) = default;
@@ -57,6 +57,7 @@ namespace is::scenes {
 
             void initSystems() override;
             void initEntities() override;
+            static bool loadMap;
         private:
             RulesComponent &getRulesComponent() const;
     };
