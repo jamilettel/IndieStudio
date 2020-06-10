@@ -95,6 +95,8 @@ def clientCommandHandler(request, connection):
                     i = 0
                     print("Start game for lobby " + str(idx))
                     for player in lobby["players"]:
+                        print("a")
+                        print(lobby["max"] - len(lobby["players"]))
                         player.send(("res sg " + str(i) + " " + str(lobby["max"]) + " " + str(lobby["max"] - len(lobby["players"])) + " " + str(lobby["time"]) + " \n").encode())
                         i += 1
                     exist = True
