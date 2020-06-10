@@ -77,8 +77,11 @@ void AIControllerLevel5System::update()
 
     for (std::shared_ptr<Component> &component: aiComponents) {
         AIControllerComponent &ai = *static_cast<AIControllerComponent *>(component.get());
+        CharacterControllerComponent &ch = *ai.getEntity()->getComponent<CharacterControllerComponent>().value();
 
         if (ai.getLevel() != 5)
+            continue;
+        if (ch.isDead)
             continue;
         ai.timeBeforeBegin -= _time->get().getCurrentIntervalSeconds();
         ai.getInputManager().setValue("DropBomb", 0);
@@ -93,7 +96,7 @@ void AIControllerLevel5System::update()
         aiPos.X = (tr.position.X + (int)(_mapX * 3 / 2)) / 3;
         aiPos.Y = (tr.position.Z + (int)(_mapY * 3 / 2)) / 3;
         if (!AIControllerUtils::isValid(irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
-            ai.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead = true;
+            ch.isDead = true;
             continue;
         }
 
@@ -115,8 +118,32 @@ void AIControllerLevel5System::noneState(
     std::vector<std::shared_ptr<Component>> &aiComponents
 ) const
 {
+    BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
+
     ai.lastShortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
     ai.shortObjective = irr::core::vector2di(aiPos.X, aiPos.Y);
+    if (!posIsHideFromBombs(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+        if (canHideFromExplosion(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.longObjective = ai.posToEscape;
+            ai.state = AIControllerComponent::AIState::ESCAPE_EXPLOSION;
+            AStarAlgorithm astar(
+                _mapX,
+                _mapY,
+                std::pair<int, int>(aiPos.X, aiPos.Y),
+                std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
+                [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
+                    return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman, true));
+            });
+            astar.searchPath();
+            std::optional<std::pair<int, int>> pos;
+            ai.path.clear();
+            while ((pos = astar.getNextPos()).has_value()) {
+                ai.path.emplace_back(pos.value());
+            }
+            AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+            return;
+        }
+    }
     setNewLongObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map, aiComponents);
 }
 
@@ -281,6 +308,8 @@ bool AIControllerLevel5System::bombPosIsUseful(
 
     if (bombPosAimForPlayer(ai, bombPos, map, aiComponents))
         return (true);
+    if (bomberman.wallPass)
+        return (false);
     for (int i = 0; i < 4; i++) {
         if (dirX[i]) {
             int incr = dirX[i] < 0 ? -1 : 1;
@@ -376,6 +405,10 @@ void AIControllerLevel5System::escapeExplosionState(
             return;
         }
         AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map);
+        if (!posIsHideFromBombs(ai, ai.shortObjective, map) && posIsHideFromBombs(ai, irr::core::vector2di(aiPos.X, aiPos.Y), map)) {
+            ai.state = AIControllerComponent::NONE;
+            return;
+        }
     }
 }
 
@@ -415,7 +448,7 @@ void AIControllerLevel5System::putBombState(
                 std::pair<int, int>(aiPos.X, aiPos.Y),
                 std::pair<int, int>(ai.longObjective.X, ai.longObjective.Y),
                 [this, &bomberman, &map, &ai, &aiPos](const std::pair<int, int> &pos) -> bool {
-                    return (!AIControllerUtils::isAirBlock(map[pos.first][pos.second], bomberman, true));
+                    return (AIControllerUtils::layerIsABlock(map[pos.first][pos.second], bomberman, true));
             });
             astar.searchPath();
             std::optional<std::pair<int, int>> pos;
@@ -425,6 +458,10 @@ void AIControllerLevel5System::putBombState(
             }
         }
         AIControllerUtils::setNewShortObjective(ai, irr::core::vector2di(aiPosF.X, aiPosF.Y), map);
+        if (!posIsHideFromBombs(ai, ai.shortObjective, map) && posIsHideFromBombs(ai, irr::core::vector2di(aiPosF.X, aiPosF.Y), map)) {
+            ai.state = AIControllerComponent::NONE;
+            return;
+        }
     }
 }
 
