@@ -14,6 +14,7 @@
 #include "ECS/ASystem.hpp"
 #include "Components/Particule.hpp"
 #include "Components/Window.hpp"
+#include "Game.hpp"
 #include "Exception.hpp"
 
 namespace is::systems {

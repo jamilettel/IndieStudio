@@ -11,7 +11,7 @@
 using namespace is::systems;
 using namespace is::components;
 
-#define JOYSTICK_MAX_AXIS_VALUE 32767.0
+#define JOYSTICK_MAX_AXIS_VALUE_PRESET 32767.0
 #define AXISDEADZONEMIN 0.50
 
 void PresetSystem::awake()
@@ -92,7 +92,7 @@ void PresetSystem::update()
                     goto end;
                 }
                 p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
-                std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
+                std::get<1>(p->_toChangeUI.value()).get().setImage(static_cast<irr::video::ITexture *>(is::Game::getResource(PresetComponent::EquivalentButtons[i]._filename)));
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
                 p->_toChange.reset();
@@ -103,9 +103,9 @@ void PresetSystem::update()
                 continue;
 
             irr::s16 axis = _eventManager->get().getAxisValue(p->_callerID, PresetComponent::EquivalentButtons[i]._button);
-            float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE;
+            float value = static_cast<float>(axis) / JOYSTICK_MAX_AXIS_VALUE_PRESET;
 
-            if ((PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5) && axis == -JOYSTICK_MAX_AXIS_VALUE)
+            if ((PresetComponent::EquivalentButtons[i]._button == 2 || PresetComponent::EquivalentButtons[i]._button == 5) && axis == -JOYSTICK_MAX_AXIS_VALUE_PRESET)
                 continue;
 
             if (!((value >= 0 && value <= AXISDEADZONEMIN) || (value < 0 && value >= -AXISDEADZONEMIN))) {
@@ -119,7 +119,7 @@ void PresetSystem::update()
                     p->getJoystickPreset().bind(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
                 else
                     p->getJoystickPreset().bindAxis(PresetComponent::EquivalentButtons[i]._button, p->_toChange.value());
-                std::get<1>(p->_toChangeUI.value()).get().setImage(_window->driver->getTexture(PresetComponent::EquivalentButtons[i]._filename.c_str()));
+                std::get<1>(p->_toChangeUI.value()).get().setImage(static_cast<irr::video::ITexture *>(is::Game::getResource(PresetComponent::EquivalentButtons[i]._filename)));
                 reloadPresetAxes(p);
                 p->_callerID = -1;
                 p->_toChangeUI.reset();
@@ -157,7 +157,7 @@ void PresetSystem::reloadPresetAxes(const std::shared_ptr<is::components::Preset
             return;
 
         auto &image = p->_imagePreset[i];
-        image.get().setImage(_window->driver->getTexture(PresetComponent::getEquivalentButton(p->getJoystickPreset().getBindings().at(CharacterComponent::playerActions[i])).c_str()));
+        image.get().setImage(static_cast<irr::video::ITexture *>(is::Game::getResource((PresetComponent::getEquivalentButton(p->getJoystickPreset().getBindings().at(CharacterComponent::playerActions[i]))))));
 
     }
 }
