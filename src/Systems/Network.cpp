@@ -68,7 +68,7 @@ void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::comp
         throw is::exceptions::Exception("NetworkSystem", "Could not get CharacterControllerComponent pointer");
     const auto &tr = ptr_char->getEntity()->getComponent<is::components::TransformComponent>()->get();
     if (!tr)
-        throw is::exceptions::Exception("NetworkSystem", "Could not found bomberman");
+        throw is::exceptions::Exception("NetworkSystem", "Could not found transform");
 
     irr::core::vector3df playerPos = tr->position;
     ptr->timeBeforeSharePos += _time->get().getCurrentIntervalSeconds();
@@ -78,6 +78,20 @@ void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::comp
             std::to_string(playerPos.X) + " " + std::to_string(playerPos.Z) + " " +
             std::to_string(tr->rotation.Y) + " \n");
         ptr->timeBeforeSharePos = 0;
+        if (ptr->playerIdx == 0) {
+            for (int i = 0; i < characters.size(); i++) {
+                if (static_cast<CharacterComponent *>(characters[i]->getEntity()->getComponent<CharacterComponent>()->get())->characterType == is::components::CharacterComponent::AI) {
+                    const auto &trAi = characters[i]->getEntity()->getComponent<is::components::TransformComponent>()->get();
+                    if (!trAi)
+                        throw is::exceptions::Exception("NetworkSystem", "Could not found transform");
+                    irr::core::vector3df playerPosAi = trAi->position;
+                    ptr->writeQueue.push("evt ps " + std::to_string(ptr->lobby) +
+                        " " + std::to_string(i) + " " +
+                        std::to_string(playerPosAi.X) + " " + std::to_string(playerPosAi.Z) + " " +
+                        std::to_string(trAi->rotation.Y) + " \n");
+                }
+            }
+        }
     }
     if (ptr_char->dropBombFrame) {
         ptr->writeQueue.push("evt db " + std::to_string(ptr->lobby) +
@@ -119,7 +133,8 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                     remove = 3;
                 } else if (cmd[1] == "sg") {
                     int nb = atoi(cmd[3].c_str());
-                    int time = atoi(cmd[4].c_str());
+                    int nbAi = atoi(cmd[4].c_str());
+                    int time = atoi(cmd[5].c_str());
 
                     ptr->playerIdx = atoi(cmd[2].c_str());
 
@@ -137,12 +152,16 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                             ptr_char->characterType = is::components::CharacterComponent::Type::KEYBOARD_PLAYER;
                             ptr_char->presetNumber = 1;
                         } else {
-                            ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
-                            ptr_char->multiplayerId = i;
+                            if (ptr->playerIdx == 0 && i >= nb - nbAi) {
+                                ptr_char->characterType = is::components::CharacterComponent::Type::AI;
+                            } else {
+                                ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
+                                ptr_char->multiplayerId = i;
+                            }
                         }
                     }
                     is::Game::setActualScene(is::ecs::Scenes::SCENE_MULTIPLAYER_GAME);
-                    remove = 5;
+                    remove = 6;
                 }
             } else if (cmd[0] == "evt") {
                 if (cmd[1] == "ps") {            
