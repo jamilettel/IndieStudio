@@ -294,6 +294,8 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/Return_BTN.png")));
     is::Game::addResource("ui/HowToPlay/Return_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/Return_BTN_pressed.png")));
+    is::Game::addResource("ui/HowToPlay/HTP.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/HowToPlay/HTP.png")));
     is::Game::addResource("ui/PresetSelection/button_play.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/button_play.png")));
     is::Game::addResource("ui/PresetSelection/button_play_pressed.png",

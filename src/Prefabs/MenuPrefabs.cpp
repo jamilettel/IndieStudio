@@ -422,7 +422,15 @@ std::shared_ptr<Entity> GlobalPrefabs::createHowToPlay()
         true,
         "ui/HowToPlay/Return_BTN.png",
         "ui/HowToPlay/Return_BTN_pressed.png"
-    ).layer = 2;
+    ).layer = 1;
+    e->addComponent<ImageComponent>(
+        e,
+        "ui/HowToPlay/HTP.png",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 1594 / 2,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 4 / 20,
+        true
+    ).layer = 4;
     return e;
 }
 
