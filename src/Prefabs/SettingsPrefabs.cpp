@@ -34,10 +34,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         30, 30,
         50, 50,
         [](){
-            if (is::Game::getPreviousScene() == SCENE_PAUSE)
-                is::Game::setActualScene(is::Game::getPreviousScene(), false, true);
-            else
-                is::Game::setActualScene(is::Game::getPreviousScene());
+            is::Game::setActualScene(is::Game::getPreviousScene());
         },
         true,
         "ui/settings/Return_BTN.png",
