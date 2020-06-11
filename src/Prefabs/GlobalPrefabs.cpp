@@ -86,7 +86,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomb(
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
     e->addComponent<ModelRendererComponent>(e, "bomb.obj", "Indie Studio");
     e->addComponent<BombComponent>(e, bm, position, ch, 3, range);
-    
     e->addComponent<ParticuleComponent>(
         e,
         "Indie Studio",
