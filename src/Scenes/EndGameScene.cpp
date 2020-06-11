@@ -115,7 +115,6 @@ void EndGameScene::update()
     });
     if (changeScene) {
         is::Game::setActualScene(SCENE_MAIN_MENU);
-        is::Game::setActualScene(SCENE_PRESETSELECTION);
     }
 }
 
