@@ -38,8 +38,8 @@ def selectLoop(server, server_udp):
                     else:
                         inputs.remove(s)
                         s.close()
-                except:
-                    pass
+                except Exception as e:
+                    print(e)
         for s in exceptional:
             inputs.remove(s)
             s.close()
@@ -49,7 +49,7 @@ def clientCommandHandler(request, connection):
     # request create a lobby
     if request.startswith("req cl"):
         nb = int(request.split(" ")[2])
-        time = int(request.split(" ")[3])
+        time = float(request.split(" ")[3])
         while True:
             ranid = random.randint(10000, 99999)
             exist = False

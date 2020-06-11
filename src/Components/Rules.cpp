@@ -35,7 +35,6 @@ void RulesComponent::setIconUse(Icon icon, bool use) noexcept
 
 void RulesComponent::setNumberOfPlayers(int nb) noexcept
 {
-    std::cout << "sdklcjsdlkcjsdlkcjsdlkcjsdlkcj" << std::endl;
     _numberOfPlayers = nb;
 }
 

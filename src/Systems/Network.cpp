@@ -61,6 +61,7 @@ void is::systems::NetworkSystem::update()
 
 void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::components::NetworkComponent> &ptr)
 {
+    const auto &charactersCo = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
     const auto &characters = _componentManager->getComponentsByType(typeid(is::components::CharacterControllerComponent).hash_code());
     const auto &ptr_char = static_cast<is::components::CharacterControllerComponent *>(characters[ptr->playerIdx].get());
 
@@ -72,30 +73,36 @@ void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::comp
 
     irr::core::vector3df playerPos = tr->position;
     ptr->timeBeforeSharePos += _time->get().getCurrentIntervalSeconds();
+    ptr->timeBeforeSharePosAi += _time->get().getCurrentIntervalSeconds();
+    if (ptr->playerIdx == 0 && ptr->timeBeforeSharePosAi >= 0.05f) {
+        for (int i = 0; i < characters.size(); i++) {
+            auto &ch = *static_cast<CharacterComponent *>(charactersCo[i].get());
+            if (ch.characterType == is::components::CharacterComponent::AI) {
+                const auto &trAi = characters[i]->getEntity()->getComponent<is::components::TransformComponent>()->get();
+                if (!trAi)
+                    throw is::exceptions::Exception("NetworkSystem", "Could not found transform");
+                irr::core::vector3df playerPosAi = trAi->position;
+                ptr->writeQueue.push("evt ps " + std::to_string(ptr->lobby) +
+                    " " + std::to_string(i) + " " +
+                    std::to_string(playerPosAi.X) + " " + std::to_string(playerPosAi.Z) + " " +
+                    std::to_string(trAi->rotation.Y) + " \n");
+            }
+        }
+        ptr->timeBeforeSharePosAi = 0;
+    }
     if (ptr_char->lastPos != playerPos && ptr->timeBeforeSharePos >= 0.05f) {    
         ptr->writeQueue.push("evt ps " + std::to_string(ptr->lobby) +
             " " + std::to_string(ptr->playerIdx) + " " +
             std::to_string(playerPos.X) + " " + std::to_string(playerPos.Z) + " " +
             std::to_string(tr->rotation.Y) + " \n");
         ptr->timeBeforeSharePos = 0;
-        if (ptr->playerIdx == 0) {
-            for (int i = 0; i < characters.size(); i++) {
-                if (static_cast<CharacterComponent *>(characters[i]->getEntity()->getComponent<CharacterComponent>()->get())->characterType == is::components::CharacterComponent::AI) {
-                    const auto &trAi = characters[i]->getEntity()->getComponent<is::components::TransformComponent>()->get();
-                    if (!trAi)
-                        throw is::exceptions::Exception("NetworkSystem", "Could not found transform");
-                    irr::core::vector3df playerPosAi = trAi->position;
-                    ptr->writeQueue.push("evt ps " + std::to_string(ptr->lobby) +
-                        " " + std::to_string(i) + " " +
-                        std::to_string(playerPosAi.X) + " " + std::to_string(playerPosAi.Z) + " " +
-                        std::to_string(trAi->rotation.Y) + " \n");
-                }
-            }
-        }
     }
-    if (ptr_char->dropBombFrame) {
-        ptr->writeQueue.push("evt db " + std::to_string(ptr->lobby) +
-        " " + std::to_string(ptr->playerIdx) + " \n");
+    
+    for (int i = 0; i < characters.size(); i++) {
+        if (static_cast<is::components::CharacterControllerComponent *>(characters[i].get())->dropBombFrame) { 
+            ptr->writeQueue.push("evt db " + std::to_string(ptr->lobby) +
+            " " + std::to_string(i) + " \n");
+        }
     }
 }
 
@@ -134,7 +141,7 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                 } else if (cmd[1] == "sg") {
                     int nb = atoi(cmd[3].c_str());
                     int nbAi = atoi(cmd[4].c_str());
-                    int time = atoi(cmd[5].c_str());
+                    float time = atof(cmd[5].c_str());
 
                     ptr->playerIdx = atoi(cmd[2].c_str());
 
@@ -153,7 +160,9 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                             ptr_char->presetNumber = 1;
                         } else {
                             if (ptr->playerIdx == 0 && i >= nb - nbAi) {
+                                std::cout << i << std::endl;
                                 ptr_char->characterType = is::components::CharacterComponent::Type::AI;
+                                
                             } else {
                                 ptr_char->characterType = is::components::CharacterComponent::Type::MULTIPLAYER_PLAYER;
                                 ptr_char->multiplayerId = i;

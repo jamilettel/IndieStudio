@@ -39,7 +39,7 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<SliderSystem>());
     _systemManager->addSystem(std::make_shared<ImageSystem>());
     _systemManager->addSystem(std::make_shared<PowerUpSystem>());
-    _systemManager->addSystem(std::make_shared<AIControllerLevel5System>());
+    _systemManager->addSystem(std::make_shared<AIControllerLevel2System>());
     _systemManager->addSystem(std::make_shared<ParticuleSystem>());
     _systemManager->addSystem(std::make_shared<CursorSystem>());
     _systemManager->addSystem(std::make_shared<NetworkSystem>());
@@ -70,7 +70,8 @@ void MultiplayerGameScene::initEntities()
                 irr::core::vector3df(x * 3, 0, y * 3),
                 ch,
                 *_componentManager.get(),
-                ch.texturePath
+                ch.texturePath,
+                2
         ));
         initEntity(GlobalPrefabs::createPlayerHud(
             *static_cast<BombermanComponent *>(e->getComponent<BombermanComponent>()->get()),

@@ -81,6 +81,7 @@ namespace is::components {
             bool isLock;
 
             float timeBeforeSharePos;
+            float timeBeforeSharePosAi;
     };
 
 }

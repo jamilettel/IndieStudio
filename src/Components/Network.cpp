@@ -37,6 +37,7 @@ void is::components::NetworkComponent::startMultiplayer()
     playerStates.push_back({{-5 * 3, -6 * 3}, {0, 0}, 0, false, 0, 0});
     playerStates.push_back({{5 * 3, 6 * 3}, {0, 0}, 0, false, 0, 0});
     timeBeforeSharePos = 0;
+    timeBeforeSharePosAi = 0;
     
     // connect network to server
     if ((serverSock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
