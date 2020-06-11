@@ -6,7 +6,6 @@
 */
 
 #include "MapLoader.hpp"
-#include <fstream>
 #include <iostream>
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
@@ -32,55 +31,51 @@ MapLoader::MapLoader()
 std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
 {
     std::ifstream toLoad(file);
-    std::string mot;
     std::vector<std::vector<int>> toReturn;
 
-    toLoad >> mot;
-    MapLoader::y = std::stoi(mot);
-    toLoad >> mot;
-    MapLoader::x = std::stoi(mot);
+    MapLoader::y = fileWord<int>(toLoad);
+    MapLoader::x = fileWord<int>(toLoad);
 
     for (int e = 0; e < y; e++) {
         toReturn.emplace_back(x);
         for (int z = 0; z < x; z++) {
-            toLoad >> mot;
-            toReturn[e][z] = std::stoi(mot);
+            toReturn[e][z] = fileWord<int>(toLoad);
         }
     }
 
-    toLoad >> mot;
-    playerNumber = std::stoul(mot);
+    playerNumber = fileWord<size_t>(toLoad);
+    std::cout << playerNumber << std::endl;
     for (size_t i = 0; i < playerNumber; i++) {
         CharacterInfo tmp;
-        toLoad >> mot;
-        tmp.type = stringToType(mot);
-        toLoad >> mot;
-        tmp.position.X = std::stoi(mot);
-        toLoad >> mot;
-        tmp.position.Z = std::stoi(mot);
-        toLoad >> mot;
-        tmp.level = std::stoi(mot);
-        toLoad >> mot;
-        tmp.preset = std::stoi(mot);
+        tmp.type = stringToType(fileWord<std::string>(toLoad));
+        tmp.position.X = fileWord<float>(toLoad);
+        tmp.position.Z = fileWord<float>(toLoad);
+        tmp.level = fileWord<int>(toLoad);
+        tmp.preset = fileWord<int>(toLoad);
+        tmp.bombNumber = fileWord<int>(toLoad);
+        tmp.speedUp = fileWord<int>(toLoad);
+        tmp.speedMult = fileWord<float>(toLoad);
+        tmp.bombRange = fileWord<int>(toLoad);
+        std::cout << "bombrange : " << tmp.bombRange << std::endl;
+        tmp.wallPass = (fileWord<int>(toLoad) == 1) ? true : false;
+        tmp.bombPosed = fileWord<int>(toLoad);
+        tmp.bonusCollected = fileWord<int>(toLoad);
+        tmp.kills = fileWord<int>(toLoad);
         tmp.position.Y = 0;
+        std::cout << tmp.position.X << "   " <<  tmp.position.Z << std::endl;
         if (charactersInfo.size() <= i)
             charactersInfo.push_back(tmp);
         else
             charactersInfo[i] = tmp;
     }
 
-    toLoad >> mot;
-    bonusNumber = std::stoul(mot);
+    bonusNumber = fileWord<size_t>(toLoad);
+    std::cout << bonusNumber << std::endl;
     for (size_t i = 0; i < bonusNumber; i++) {
-        std::cout << "lol" << std::endl;
         BonusInfo tmpBonus;
-        toLoad >> mot;
-        tmpBonus.type = stringToTypeBonus(mot);
-        toLoad >> mot;
-        tmpBonus.position.X = std::stoi(mot);
-        toLoad >> mot;
-        tmpBonus.position.Z = std::stoi(mot);
-        toLoad >> mot;
+        tmpBonus.type = stringToTypeBonus(fileWord<std::string>(toLoad));
+        tmpBonus.position.X = fileWord<float>(toLoad);
+        tmpBonus.position.Z = fileWord<float>(toLoad);
         tmpBonus.position.Y = 0;
         if (bonusInfo.size() <= i)
             bonusInfo.push_back(tmpBonus);
@@ -142,7 +137,15 @@ void MapLoader::saveMap(const std::string &file)
         toSave << charactersInfo[i].position.X << " ";
         toSave << charactersInfo[i].position.Z << " ";
         toSave << charactersInfo[i].level << " ";
-        toSave << charactersInfo[i].preset;
+        toSave << charactersInfo[i].preset << " ";
+        toSave << charactersInfo[i].bombNumber << " ";
+        toSave << charactersInfo[i].speedUp << " ";
+        toSave << charactersInfo[i].speedMult << " ";
+        toSave << charactersInfo[i].bombRange << " ";
+        toSave << ((charactersInfo[i].wallPass) ? 1 : 0) << " ";
+        toSave << charactersInfo[i].bombPosed << " ";
+        toSave << charactersInfo[i].bonusCollected << " ";
+        toSave << charactersInfo[i].kills << " ";
         toSave << std::endl;
     }
 
@@ -173,12 +176,23 @@ void MapLoader::addBonusToSave(TransformComponent &tr, size_t bonusCount)
 void MapLoader::addPlayerToSave(TransformComponent &tr, size_t playerCount)
 {
     CharacterInfo tmp;
+    CharacterComponent &ch = tr.getEntity()->getComponent<CharacterControllerComponent>().value()->getCharacterComponent();
+    BombermanComponent *bm = tr.getEntity()->getComponent<BombermanComponent>()->get();
     tmp.position = tr.position;
     tmp.preset =
-        tr.getEntity()->getComponent<CharacterControllerComponent>().value()->getCharacterComponent().presetNumber;
-    tmp.type = tr.getEntity()->getComponent<CharacterControllerComponent>().value()->getCharacterComponent().characterType;
+        ch.presetNumber;
+    tmp.type = ch.characterType;
     tmp.level = (tmp.type == CharacterComponent::Type::AI) ? 
         tr.getEntity()->getComponent<AIControllerComponent>().value()->getLevel() : 0;
+    tmp.bombNumber = bm->bombNumber ;
+    tmp.speedUp = bm->speedCount;
+    tmp.speedMult = bm->speedMult;
+    tmp.bombRange = bm->bombRange;
+    std::cout << "bombrange : " << tmp.bombRange << std::endl;
+    tmp.wallPass = bm->wallPass;
+    tmp.bombPosed = ch.getNbBombPosed();
+    tmp.bonusCollected = ch.getNbBonusCollected();
+    tmp.kills = ch.getNbCharactersKilled();
     if (charactersInfo.size() <= playerCount)
         charactersInfo.push_back(tmp);
     else

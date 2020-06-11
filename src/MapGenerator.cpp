@@ -103,12 +103,14 @@ void MapGenerator::createMap(ecs::AScene &sc, std::vector<std::vector<int>> arra
         for (int e = 0; e < arrayMap[a].size(); e++) {
             std::cout << arrayMap[a][e];
         }
-        std::cout << std::endl;
     }
     std::cout << "test x : " << MapLoader::x << "   y : " << MapLoader::y << std::endl;
     std::cout << "test x : " << mid_w << "   y : " << mid_h << std::endl;*/
+        std::cout << "MAP" << std::endl;
     for (int i = -mid_w; i < mid_w + 1; i++) {
         for (int j = -mid_h; j < mid_h + 1; j++) {
+            std::cout << "test x : " << i << "   y : " << j << std::endl;
+
             sc.initEntity(prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df(j * 3, -3, i * 3)));
             if (arrayMap[j + mid_h][i + mid_w] == 3) {
                 sc.initEntity(prefabs::GlobalPrefabs::createWallBlock(irr::core::vector3df(j * 3, 0, i * 3)));

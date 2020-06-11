@@ -16,6 +16,8 @@
 #   include "ECS/ComponentManager.hpp"
 #   include "ECS/Entity.hpp"
 #   include "Components/PowerUp.hpp"
+#   include <fstream>
+#   include "Components/Bomberman.hpp"
 
 namespace is {
 
@@ -25,6 +27,15 @@ namespace is {
         int level;
         int preset;
         bool alive;
+        int bombNumber;
+        int speedUp;
+        float speedMult;
+        int bombRange;
+        bool wallPass;
+        size_t bombPosed;
+        size_t bonusCollected;
+        size_t kills;
+        std::string time;
     };
     
     struct BonusInfo {
@@ -60,6 +71,12 @@ namespace is {
             static std::vector<BonusInfo> bonusInfo;
             static std::shared_ptr<is::ecs::ComponentManager> componentManager;
 
+            template<typename T>
+            static T fileWord(std::ifstream &stream) {
+                T toReturn;
+                stream >> toReturn;
+                return (toReturn);
+            }
     };
 }
 
