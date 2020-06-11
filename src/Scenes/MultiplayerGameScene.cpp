@@ -46,6 +46,8 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<NetworkInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
     _systemManager->addSystem(std::make_shared<HudSystem>());
+    _systemManager->addSystem(std::make_shared<EndGameSystem>());
+    _systemManager->addSystem(std::make_shared<TimerSystem>());
 
 }
 
