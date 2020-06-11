@@ -66,7 +66,7 @@ void MultiplayerRuleSettingsScene::initEntities()
 
     initEntity(RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
     initEntity(RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
-    initEntity(RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
+    //initEntity(RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
     initEntity(RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
     initEntity(RuleSettingsPrefabs::createSeedRule(rulesSetting, rules));
 }
