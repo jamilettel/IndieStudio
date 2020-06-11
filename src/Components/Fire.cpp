@@ -18,19 +18,9 @@ using namespace is::ecs;
 
 FireComponent::FireComponent(std::shared_ptr<Entity> &e, float lt):
     Component(e),
-    lifeTime(lt),
-    _explosionSound(
-        e->addComponent<AudioComponent>(
-            e,
-            RESSOURCE("explosion.ogg"),
-            SOUND
-            ))
+    lifeTime(lt)
 {
-    _explosionSound.init();
-    _explosionSound.toPlay();
 }
 
 void FireComponent::deleteComponent()
-{
-    
-}
+{}

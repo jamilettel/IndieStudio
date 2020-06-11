@@ -28,8 +28,7 @@ namespace is::components {
 
         float lifeTime;
 
-    private:
-        AudioComponent &_explosionSound;
+        bool shouldPlaySound = true;
     };
 
 }

@@ -42,7 +42,8 @@ void AudioSystem::update()
     for (const auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
         const auto &ptr = static_cast<AudioComponent*>(elem.get());
         ptr->setVolume();
-        if (ptr->getStatus() == TO_PLAY && !ptr->isPlaying()) {
+        if (ptr->getStatus() == TO_PLAY // && !ptr->isPlaying()
+            ) {
             ptr->play();
             ptr->nothing();
         } else if (ptr->getStatus() == TO_STOP && ptr->isPlaying()) {

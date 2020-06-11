@@ -71,11 +71,11 @@ namespace is::prefabs {
 
         static std::shared_ptr<is::ecs::Entity> createMultiplayer(std::shared_ptr<is::components::NetworkComponent> nc);
         static std::shared_ptr<is::ecs::Entity> createBombermanCharacter(
-                const irr::core::vector3df &pos,
-                is::components::CharacterComponent &character,
-                const is::ecs::ComponentManager &manager,
-                const std::string &texture,
-                int level = 1
+            const irr::core::vector3df &pos,
+            is::components::CharacterComponent &character,
+            const is::ecs::ComponentManager &manager,
+            const std::string &texture,
+            int level = 1
             );
 
         static std::shared_ptr<is::ecs::Entity> createSplashScreen();
@@ -123,9 +123,10 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createPlayerHud(is::components::BombermanComponent &bm, const std::string &skin, int player);
 
         static std::shared_ptr<is::ecs::Entity> createPauseController(const is::components::CharacterComponent &character, is::ecs::ComponentManager &componentManager);
+        static std::shared_ptr<is::ecs::Entity> createFireSound();
 
-        private:
-            static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
+    private:
+        static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture);
 
     };
 

@@ -11,7 +11,11 @@ using namespace irr;
 
 void is::systems::FireSystem::awake()
 {
+    auto &entity = initRuntimeEntity(prefabs::GlobalPrefabs::createFireSound(), false);
 
+    _explosionSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _explosionSound->get().init();
+    entity->setInit(true);
 }
 
 void is::systems::FireSystem::start()
@@ -32,6 +36,10 @@ void is::systems::FireSystem::update()
         ptr->lifeTime -= _time->get().getCurrentIntervalSeconds();
         if (ptr->lifeTime < 0) {
             ptr->getEntity()->setDelete(true);
+        }
+        if (ptr->shouldPlaySound) {
+            _explosionSound->get().toPlay();
+            ptr->shouldPlaySound = false;
         }
     }
 }

@@ -487,3 +487,11 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPauseController(const is::
     }
     return e;
 }
+
+std::shared_ptr<Entity> GlobalPrefabs::createFireSound()
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<AudioComponent>(e, RESSOURCE("explosion.ogg"), SOUND);
+    return e;
+}
