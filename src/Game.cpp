@@ -341,7 +341,7 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
     is::Game::addResource("ui/RuleSettings/Backward_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN_pressed.png")));
     is::Game::addResource("ui/RuleSettings/Backward_BTN.png",
-                (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN.png")));
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Backward_BTN.png")));
     is::Game::addResource("ui/RuleSettings/Table.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/Table.png")));
     is::Game::addResource("ui/RuleSettings/Upward_BTN.png",
@@ -461,5 +461,13 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/Game/Table.png")));
     is::Game::addResource("ui/Game/playerHud.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/Game/playerHud.png")));
-    
+
+    is::Game::addResource("ui/Save/Load_BTN.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Save/Load_BTN.png")));
+    is::Game::addResource("ui/Save/Load_BTN_pressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Save/Load_BTN_pressed.png")));
+    is::Game::addResource("ui/Save/Save_BTN.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Save/Save_BTN.png")));
+    is::Game::addResource("ui/Save/Save_BTN_pressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/Save/Save_BTN_pressed.png")));
 }

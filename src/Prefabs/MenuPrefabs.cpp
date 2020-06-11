@@ -128,8 +128,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
             is::Game::setActualScene(SCENE_GAME);
         },
         true,
-        "ui/main_menu/button_play.png",
-        "ui/main_menu/button_play_pressed.png"
+        "ui/Save/Load_BTN.png",
+        "ui/Save/Load_BTN_pressed.png"
     );
     // MULTIPLAYER TEMP
     e->addComponent<ButtonComponent>(
@@ -262,13 +262,12 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause(std::shared_ptr<is::ecs::Comp
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
         350, 100,
-        [](){
-            is::Game::setUnloadScene(SCENE_GAME);
-            is::Game::setActualScene(SCENE_MAIN_MENU);
+        [&componentManager](){
+            MapLoader::saveMap("./testmap");
         },
         true,
-        "ui/Pause/Menu_BTN.png",
-        "ui/Pause/Menu_BTN_pressed.png"
+        "ui/Save/Save_BTN.png",
+        "ui/Save/Save_BTN_pressed.png"
     ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
@@ -277,12 +276,13 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause(std::shared_ptr<is::ecs::Comp
         WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 350 / 2,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 14 / 20,
         350, 100,
-        [&componentManager](){
-            MapLoader::saveMap("./testmap");
+        [](){
+            is::Game::setUnloadScene(SCENE_GAME);
+            is::Game::setActualScene(SCENE_MAIN_MENU);
         },
         true,
-        "ui/Pause/button_quit.png",
-        "ui/Pause/button_quit_pressed.png"
+        "ui/Pause/Menu_BTN.png",
+        "ui/Pause/Menu_BTN_pressed.png"
     ).layer = 2;
     e->addComponent<ButtonComponent>(
         e,
