@@ -101,7 +101,9 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         e,
         "ui/main_menu/logo.png",
         "Indie Studio",
-        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2, 50, true
+        WindowComponent::_windowsDimensions["Indie Studio"].first / 2 - 541 / 2,
+        50,
+        true
     );
     e->addComponent<ButtonComponent>(
         e,

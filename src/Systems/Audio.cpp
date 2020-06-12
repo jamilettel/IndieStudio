@@ -56,8 +56,6 @@ void AudioSystem::update()
 void AudioSystem::stop()
 {
     for (const auto &elem : _componentManager->getComponentsByType(typeid(AudioComponent).hash_code())) {
-        if (!(elem->getEntity()->shouldBeDeleted()))
-            continue;
         const auto &ptr = static_cast<AudioComponent*>(elem.get());
         ptr->stop();
     }

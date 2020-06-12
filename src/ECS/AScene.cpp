@@ -67,8 +67,8 @@ void AScene::update()
 
 void AScene::stop()
 {
-    deleteNonStaticEntities();
     _systemManager->stop();
+    deleteNonStaticEntities();
 }
 
 void AScene::onTearDown()

@@ -37,4 +37,5 @@ void MainMenuScene::initSystems()
 void MainMenuScene::initEntities()
 {
     initEntity(prefabs::GlobalPrefabs::createMainMenu(), false);
+    initEntity(prefabs::GlobalPrefabs::createMainMusic(), false);
 }

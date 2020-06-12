@@ -504,3 +504,19 @@ std::shared_ptr<Entity> GlobalPrefabs::createClickSound()
     e->addComponent<AudioComponent>(e, RESSOURCE("sounds/click.ogg"), SOUND);
     return e;
 }
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMusic()
+{
+    auto e = std::make_shared<Entity>();
+
+    auto &mainMusic = e->addComponent<AudioComponent>(
+        e,
+        RESSOURCE("sounds/main.ogg"),
+        MUSIC
+    );
+    mainMusic.init();
+    mainMusic.toPlay();
+    e->setInit(true);
+
+    return e;
+}
