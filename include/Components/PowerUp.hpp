@@ -23,7 +23,7 @@ namespace is::components {
                 WALL_PASS
             };
 
-            PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e, PowerUpType tp, AudioComponent &audio);
+            PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e, PowerUpType tp);
             ~PowerUpComponent() override = default;
 
             PowerUpComponent(const PowerUpComponent &) = delete;
@@ -31,10 +31,7 @@ namespace is::components {
 
             void deleteComponent() override;
 
-            AudioComponent &getAudio() const noexcept;
-            PowerUpType type;
-        private:
-            AudioComponent &_audio;
+            PowerUpType type;   
     };
 
 }

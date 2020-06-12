@@ -127,6 +127,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createFireSound();
         static std::shared_ptr<is::ecs::Entity> createClickSound();
         static std::shared_ptr<is::ecs::Entity> createMainMusic();
+        static std::shared_ptr<is::ecs::Entity> createPowerupSound();
 
     private:
         static std::shared_ptr<is::ecs::Entity> createBomberman(const irr::core::vector3df &pos, is::components::CharacterComponent &character, const std::string &texture, bool alive);

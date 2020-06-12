@@ -101,9 +101,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombUpPowerUp(const irr::core::vect
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "bombup.png");
-    AudioComponent &audio = e->addComponent<AudioComponent>(e, RESSOURCE("sounds/powerup.wav"), SOUND);
-    audio.init();
-    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::BOMB_UP, audio);
+    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::BOMB_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
@@ -119,9 +117,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createSpeedUpPowerUp(const irr::core::vec
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "speedup.png");
-    AudioComponent &audio = e->addComponent<AudioComponent>(e, RESSOURCE("sounds/powerup.wav"), SOUND);
-    audio.init();
-    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::SPEED_UP, audio);
+    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::SPEED_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
@@ -137,9 +133,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createFireUpPowerUp(const irr::core::vect
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "fireup.png");
-    AudioComponent &audio = e->addComponent<AudioComponent>(e, RESSOURCE("sounds/powerup.wav"), SOUND);
-    audio.init();
-    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::FIRE_UP, audio);
+    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::FIRE_UP);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
@@ -155,9 +149,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createWallPassPowerUp(const irr::core::ve
 
     TransformComponent &transform = e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.5f));
     e->addComponent<ModelRendererComponent>(e, "powerup.b3d", "Indie Studio", "wallpass.png");
-    AudioComponent &audio = e->addComponent<AudioComponent>(e, RESSOURCE("sounds/powerup.wav"), SOUND);
-    audio.init();
-    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::WALL_PASS, audio);
+    e->addComponent<PowerUpComponent>(e, PowerUpComponent::PowerUpType::WALL_PASS);
     ColliderComponent &collider = e->addComponent<ColliderComponent>(
         e,
         transform,
@@ -520,6 +512,14 @@ std::shared_ptr<Entity> GlobalPrefabs::createClickSound()
     auto e = std::make_shared<Entity>();
 
     e->addComponent<AudioComponent>(e, RESSOURCE("sounds/click.ogg"), SOUND);
+    return e;
+}
+
+std::shared_ptr<Entity> GlobalPrefabs::createPowerupSound()
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<AudioComponent>(e, RESSOURCE("sounds/powerup.wav"), SOUND);
     return e;
 }
 

@@ -12,7 +12,11 @@ using namespace is::components;
 
 void is::systems::PowerUpSystem::awake()
 {
+    auto &entity = initRuntimeEntity(prefabs::GlobalPrefabs::createPowerupSound(), false);
 
+    _powerupSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _powerupSound->get().init();
+    entity->setInit(true);
 }
 
 void is::systems::PowerUpSystem::start()
@@ -58,7 +62,7 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
             if (!bm)
                 throw is::exceptions::Exception("PowerUpSystem", "Could not find bomberman");
             bm->get()->getCharacter().setNbBonusCollected(bm->get()->getCharacter().getNbBonusCollected() + 1);
-            power.getAudio().toPlay();
+            _powerupSound.value().get().toPlay();
             switch (type) {
             case is::components::PowerUpComponent::BOMB_UP:
                 bm->get()->bombNumber++;
