@@ -21,7 +21,6 @@ void is::systems::CharacterControllerSystem::start()
         const auto &ptr = static_cast<CharacterControllerComponent*>(elem.get());
         if (!ptr)
             throw is::exceptions::Exception("CharacterControllerSystem", "Could not get CharacterControllerComponent pointer");
-        //ptr->getCharacterComponent().startTime();
         if (elem->getEntity()->isInit())
             continue;
         auto im = ptr->getEntity()->getComponent<is::components::InputManagerComponent>();

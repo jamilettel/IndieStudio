@@ -291,6 +291,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     TimeComponent &time = e->addComponent<TimeComponent>(e);
     character.setTimeComponent(time);
     character.reset();
+    character.startTime();
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
     if (alive)
