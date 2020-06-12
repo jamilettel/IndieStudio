@@ -269,10 +269,7 @@ bool AIControllerLevel5System::canHideFromExplosion(
     std::vector<irr::core::vector2di> closeList;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
-    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
-    successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
-    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
+    AIControllerUtils::setSuccessors(pos, successors);
     while (!successors.empty()) {
         irr::core::vector2di newPos = successors[0];
 
@@ -286,10 +283,7 @@ bool AIControllerLevel5System::canHideFromExplosion(
             return true;
         }
         closeList.emplace_back(newPos);
-        successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
-        successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
-        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
-        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
+        AIControllerUtils::setSuccessors(newPos, successors);
     }
     return false;
 }
@@ -349,10 +343,7 @@ bool AIControllerLevel5System::findBombEmplacement(
     std::vector<irr::core::vector2di> closeList;
     BombermanComponent &bomberman = *ai.getEntity()->getComponent<BombermanComponent>().value();
 
-    successors.emplace_back(irr::core::vector2di(pos.X + 1, pos.Y));
-    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y + 1));
-    successors.emplace_back(irr::core::vector2di(pos.X - 1, pos.Y));
-    successors.emplace_back(irr::core::vector2di(pos.X, pos.Y - 1));
+    AIControllerUtils::setSuccessors(pos, successors);
     while (!successors.empty()) {
         irr::core::vector2di newPos = successors[0];
 
@@ -375,10 +366,7 @@ bool AIControllerLevel5System::findBombEmplacement(
             return true;
         }
         closeList.emplace_back(newPos);
-        successors.emplace_back(irr::core::vector2di(newPos.X - 1, newPos.Y));
-        successors.emplace_back(irr::core::vector2di(newPos.X + 1, newPos.Y));
-        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y - 1));
-        successors.emplace_back(irr::core::vector2di(newPos.X, newPos.Y + 1));
+        AIControllerUtils::setSuccessors(newPos, successors);
     }
     return false;
 }

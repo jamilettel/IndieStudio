@@ -32,6 +32,7 @@ namespace is
             );
             static bool hasReachedObjective(AIControllerComponent &ai, irr::core::vector2df &aiPos) noexcept;
             static void moveAI(AIControllerComponent &ai, irr::core::vector2df &aiPos);
+            static void setSuccessors(const irr::core::vector2di &pos, std::vector<irr::core::vector2di> &successors);
     };
 } // namespace is
 
