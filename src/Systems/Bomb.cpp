@@ -138,18 +138,21 @@ int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderCompo
     auto rulesComponents = _componentManager->getComponentsByType(typeid(is::components::RulesComponent).hash_code());
     auto rules = static_cast<is::components::RulesComponent*>(rulesComponents[0].get());
 
-    int i = rand() % 4;
+    if (!rules->getNbIcons())
+        return (0);
+    int i = rand() % rules->getNbIcons();
     if (rand() % rules->getPowerupFrequency() != 0)
         return (0);
     std::shared_ptr<is::ecs::Entity> e;
 
-    if (i == 0 && rules->useIcon(rules->BOMB))
+    std::cout << i << std::endl;
+    if (rules->getIcon(i) == rules->BOMB && rules->useIcon(rules->BOMB))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBombUpPowerUp(ptr_cc->getTransform().position));
-    else if (i == 1 && rules->useIcon(rules->ACCELERATOR))
+    else if (rules->getIcon(i) == rules->ACCELERATOR && rules->useIcon(rules->ACCELERATOR))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createSpeedUpPowerUp(ptr_cc->getTransform().position));
-    else if (i == 2 && rules->useIcon(rules->EXPLOSION))
+    else if (rules->getIcon(i) == rules->EXPLOSION && rules->useIcon(rules->EXPLOSION))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createFireUpPowerUp(ptr_cc->getTransform().position));
-    else if (i == 3 && rules->useIcon(rules->WALL_PASS))
+    else if (rules->getIcon(i) == rules->WALL_PASS && rules->useIcon(rules->WALL_PASS))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createWallPassPowerUp(ptr_cc->getTransform().position));
     else
         return (0);
