@@ -145,7 +145,6 @@ int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderCompo
         return (0);
     std::shared_ptr<is::ecs::Entity> e;
 
-    std::cout << i << std::endl;
     if (rules->getIcon(i) == rules->BOMB && rules->useIcon(rules->BOMB))
         e = this->initRuntimeEntity(prefabs::GlobalPrefabs::createBombUpPowerUp(ptr_cc->getTransform().position));
     else if (rules->getIcon(i) == rules->ACCELERATOR && rules->useIcon(rules->ACCELERATOR))

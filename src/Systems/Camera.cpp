@@ -20,7 +20,6 @@ void is::systems::CameraSystem::awake()
             if (ptr->windowName != ptr_window->windowName)
                 continue;
             ptr->node = ptr_window->scenemgr->addCameraSceneNode(0, ptr->position, ptr->rotation);
-            //std::cout << "X :" << ptr->node->getTarget().X << " Y : " << ptr->node->getTarget().Y << " Z : " << ptr->node->getTarget().Z << std::endl;
         }
     }
 }

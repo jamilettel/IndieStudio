@@ -47,7 +47,6 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
     }
 
     playerNumber = fileWord<size_t>(toLoad);
-    std::cout << playerNumber << std::endl;
     for (size_t i = 0; i < playerNumber; i++) {
         CharacterInfo tmp;
         tmp.type = stringToType(fileWord<std::string>(toLoad));
@@ -59,7 +58,6 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
         tmp.speedUp = fileWord<int>(toLoad);
         tmp.speedMult = fileWord<float>(toLoad);
         tmp.bombRange = fileWord<int>(toLoad);
-        std::cout << "bombrange : " << tmp.bombRange << std::endl;
         tmp.wallPass = (fileWord<int>(toLoad) == 1) ? true : false;
         tmp.bombPosed = fileWord<int>(toLoad);
         tmp.bonusCollected = fileWord<int>(toLoad);
@@ -67,7 +65,6 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
         tmp.alive = (fileWord<int>(toLoad) == 1) ? true : false;
         tmp.time = fileWord<size_t>(toLoad);
         tmp.position.Y = 0;
-        std::cout << tmp.position.X << "   " <<  tmp.position.Z << std::endl;
         if (charactersInfo.size() <= i)
             charactersInfo.push_back(tmp);
         else
@@ -75,7 +72,6 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
     }
 
     bonusNumber = fileWord<size_t>(toLoad);
-    std::cout << bonusNumber << std::endl;
     for (size_t i = 0; i < bonusNumber; i++) {
         BonusInfo tmpBonus;
         tmpBonus.type = stringToTypeBonus(fileWord<std::string>(toLoad));
@@ -100,7 +96,6 @@ void MapLoader::saveMap(const std::string &file)
     std::vector<std::shared_ptr<Component>> &trComponents = 
         componentManager->getComponentsByType(typeid(TransformComponent).hash_code());
 
-    std::cout << trComponents.size() << std::endl;
     for (std::shared_ptr<Component> &component: trComponents) {
         TransformComponent &tr = *static_cast<TransformComponent *>(component.get());
         if (tr.getEntity()->layer == Entity::Layer::PLAYER) {

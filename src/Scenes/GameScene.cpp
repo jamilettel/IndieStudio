@@ -63,7 +63,6 @@ void GameScene::initEntities()
     int y = 0;
     std::shared_ptr<is::ecs::Entity> e;
     auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
-    //std::cout << " size : " << characters.size() << std::endl;
     auto &rules = getRulesComponent();
     MapGenerator mg;
     std::vector<std::shared_ptr<is::ecs::Component>> a;
@@ -95,12 +94,9 @@ void GameScene::initEntities()
     }
     } else {
         for (size_t i = 0; i < MapLoader::playerNumber; i++) {
-            std::cout << i << std::endl;
             auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
             ch.characterType = MapLoader::charactersInfo[i].type;
             ch.presetNumber = MapLoader::charactersInfo[i].preset;
-            std::cout << "time : ";
-            std::cout << MapLoader::charactersInfo[i].time << std::endl;
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 MapLoader::charactersInfo[i].position,
                 ch,
@@ -129,7 +125,6 @@ void GameScene::initEntities()
             ));
         }
         for (size_t i = 0; i < MapLoader::bonusNumber; i++) {
-            std::cout << i << std::endl;
             switch (MapLoader::bonusInfo[i].type) {
                 case (0):
                     initEntity(GlobalPrefabs::createBombUpPowerUp(MapLoader::bonusInfo[i].position));

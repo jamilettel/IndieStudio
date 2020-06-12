@@ -122,8 +122,6 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
         split(std::string(buff), cmd, ' ');
         int remove = 0;
         while (cmd.size() > 1) {
-            std::cout << buff << std::endl;
-            std::cout << cmd.size() << std::endl;
             if (cmd[0] == "err") {
                 if (cmd [1] == "lnf") {
                     const auto &alertComponent = static_cast<AlertComponent*>(_componentManager->getComponentsByType(typeid(AlertComponent).hash_code())[0].get());
@@ -160,7 +158,6 @@ void is::systems::NetworkSystem::selectHandling(const std::shared_ptr<is::compon
                             ptr_char->presetNumber = 1;
                         } else {
                             if (ptr->playerIdx == 0 && i >= nb - nbAi) {
-                                std::cout << i << std::endl;
                                 ptr_char->characterType = is::components::CharacterComponent::Type::AI;
                                 
                             } else {
