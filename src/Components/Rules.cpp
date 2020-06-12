@@ -133,3 +133,28 @@ void RulesComponent::incPowerupFrequency() noexcept
 {
     _powerupFrequency++;
 }
+
+int RulesComponent::getNbIcons() const noexcept
+{
+    int count = 0;
+
+    for (const auto &icon : _icons) {
+        if (icon.second)
+            count++;
+    }
+    return (count);
+}
+
+RulesComponent::Icon RulesComponent::getIcon(int nb) const noexcept
+{
+    int i = 0;
+
+    for (const auto &icon : _icons) {
+        if (i == nb && icon.second)
+            return (icon.first);
+        if (icon.second)
+            i++;
+    }
+    return (BOMB);
+}
+
