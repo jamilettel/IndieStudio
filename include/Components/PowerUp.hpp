@@ -11,6 +11,7 @@
 #include <irrlicht.h>
 
 #include "ECS/Component.hpp"
+#include "Components/Audio.hpp"
 
 namespace is::components {
     class PowerUpComponent : public is::ecs::Component {
@@ -22,7 +23,7 @@ namespace is::components {
                 WALL_PASS
             };
 
-            PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e, PowerUpType tp);
+            PowerUpComponent(std::shared_ptr<is::ecs::Entity> &e, PowerUpType tp, AudioComponent &audio);
             ~PowerUpComponent() override = default;
 
             PowerUpComponent(const PowerUpComponent &) = delete;
@@ -30,7 +31,10 @@ namespace is::components {
 
             void deleteComponent() override;
 
+            AudioComponent &getAudio() const noexcept;
             PowerUpType type;
+        private:
+            AudioComponent &_audio;
     };
 
 }

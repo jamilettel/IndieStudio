@@ -36,13 +36,13 @@ void is::systems::PowerUpSystem::update()
         auto window = std::static_pointer_cast<is::components::WindowComponent>(*ptr_window);
 
         const auto &cc = static_cast<is::components::ColliderComponent*>(ptr.getEntity()->getComponent<is::components::ColliderComponent>()->get());
-        checkPowerUpCollision(*cc, window, ptr.type);
+        checkPowerUpCollision(*cc, window, ptr.type, ptr);
     }
 }
 
 void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderComponent &trcollider,
     const std::shared_ptr<is::components::WindowComponent>& ptr_window,
-    is::components::PowerUpComponent::PowerUpType type)
+    is::components::PowerUpComponent::PowerUpType type, const is::components::PowerUpComponent &power)
 {
     const auto &colliders = _componentManager->getComponentsByType(typeid(is::components::ColliderComponent).hash_code());
 
@@ -58,6 +58,7 @@ void is::systems::PowerUpSystem::checkPowerUpCollision(is::components::ColliderC
             if (!bm)
                 throw is::exceptions::Exception("PowerUpSystem", "Could not find bomberman");
             bm->get()->getCharacter().setNbBonusCollected(bm->get()->getCharacter().getNbBonusCollected() + 1);
+            power.getAudio().toPlay();
             switch (type) {
             case is::components::PowerUpComponent::BOMB_UP:
                 bm->get()->bombNumber++;

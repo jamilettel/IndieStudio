@@ -45,7 +45,7 @@ namespace is::systems {
 
             void checkPowerUpCollision(is::components::ColliderComponent &trcollider,
                 const std::shared_ptr<is::components::WindowComponent>& ptr_window,
-                is::components::PowerUpComponent::PowerUpType type);
+                is::components::PowerUpComponent::PowerUpType type, const is::components::PowerUpComponent &power);
     };
 
 }
