@@ -54,6 +54,10 @@ namespace is::components
             void incSeed() noexcept;
             void decSeed() noexcept;
 
+            int getPowerupFrequency() const noexcept;
+            void decPowerupFrequency() noexcept;
+            void incPowerupFrequency() noexcept;
+
         private:
             int _numberOfPlayers = 4;
             std::map<Icon, bool> _icons;
@@ -61,6 +65,7 @@ namespace is::components
             bool _fpsMode = false;
             std::vector<int> _aiLevels;
             int _seed = 1;
+            int _powerupFrequency = 7;
     };
 }
 

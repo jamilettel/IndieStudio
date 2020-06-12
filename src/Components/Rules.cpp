@@ -117,3 +117,19 @@ void RulesComponent::decSeed() noexcept
     if (_seed != 1)
         _seed--;
 }
+
+int RulesComponent::getPowerupFrequency() const noexcept
+{
+    return (_powerupFrequency);
+}
+
+void RulesComponent::decPowerupFrequency() noexcept
+{
+    if (_powerupFrequency > 1)
+        _powerupFrequency--;
+}
+
+void RulesComponent::incPowerupFrequency() noexcept
+{
+    _powerupFrequency++;
+}

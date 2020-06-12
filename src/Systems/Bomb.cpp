@@ -139,7 +139,7 @@ int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderCompo
     auto rules = static_cast<is::components::RulesComponent*>(rulesComponents[0].get());
 
     int i = rand() % 4;
-    if (rand() % 7 != 0)
+    if (rand() % rules->getPowerupFrequency() != 0)
         return (0);
     std::shared_ptr<is::ecs::Entity> e;
 

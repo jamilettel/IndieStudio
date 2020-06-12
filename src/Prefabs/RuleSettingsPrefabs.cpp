@@ -967,3 +967,156 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::compone
     );
     return (e);
 }
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    TextureComponent &dot = e->addComponent<TextureComponent>(
+        e,
+        "ui/RuleSettings/Dot_01.png",
+        "Indie Studio",
+        irr::core::vector2df(11.3, 76),
+        irr::core::vector2df(3, 5),
+        false
+    );
+    TextureComponent &firstTable = e->addComponent<TextureComponent>(
+        e,
+        "ui/RuleSettings/Table_01.png",
+        "Indie Studio",
+        irr::core::vector2df(15, 75),
+        irr::core::vector2df(20, 8),
+        false
+    );
+    TextureComponent &secondTable = e->addComponent<TextureComponent>(
+        e,
+        "ui/RuleSettings/Table_01.png",
+        "Indie Studio",
+        irr::core::vector2df(36, 75),
+        irr::core::vector2df(7, 8),
+        false
+    );
+    TextComponent &title = e->addComponent<TextComponent>(
+        e,
+        "Powerup rate",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15.5 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 75 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        false,
+        true,
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
+        irr::video::SColor(255, 227, 245, 244),
+        false
+    );
+    TextComponent &value = e->addComponent<TextComponent>(
+        e,
+        std::to_string(rules.getPowerupFrequency()),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 75.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        false,
+        true,
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
+        irr::video::SColor(255, 227, 245, 244),
+        false
+    );
+    TextComponent &valueToChange = e->addComponent<TextComponent>(
+        e,
+        std::to_string(rules.getPowerupFrequency()),
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 72.5f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 49 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        false,
+        true,
+        "fonts/fontVolumeSettings/fontVolumeSettings.xml",
+        irr::video::SColor(255, 227, 245, 244),
+        false
+    );
+    ButtonComponent &backward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 67 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 50 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
+        [&value, &valueToChange, &rules](){
+            rules.decPowerupFrequency();
+            value.setText(std::to_string(rules.getPowerupFrequency()));
+            valueToChange.setText(std::to_string(rules.getPowerupFrequency()));
+        },
+        false,
+        "ui/RuleSettings/Backward_BTN.png",
+        "ui/RuleSettings/Backward_BTN_pressed.png"
+    );
+    ButtonComponent &forward = e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 82 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 50 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 2.7f / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 5 / 100,
+        [&value, &valueToChange, &rules](){
+            rules.incPowerupFrequency();
+            value.setText(std::to_string(rules.getPowerupFrequency()));
+            valueToChange.setText(std::to_string(rules.getPowerupFrequency()));
+        },
+        false,
+        "ui/RuleSettings/Forward_BTN.png",
+        "ui/RuleSettings/Forward_BTN_pressed.png"
+    );
+    component.addRule(
+        // On select
+        [&dot, &backward, &forward, &valueToChange](){
+            dot.setVisible(true);
+            backward.setVisible(true);
+            forward.setVisible(true);
+            valueToChange.setVisible(true);
+        },
+        // On exit
+        [&dot, &backward, &forward, &valueToChange](){
+            dot.setVisible(false);
+            backward.setVisible(false);
+            forward.setVisible(false);
+            valueToChange.setVisible(false);
+        },
+        // On disappear
+        [&firstTable, &secondTable, &title, &value](){
+            firstTable.setVisible(false);
+            secondTable.setVisible(false);
+            title.setVisible(false);
+            value.setVisible(false);
+        },
+        // On rule up
+        [&dot, &firstTable, &secondTable, &title, &value](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y - 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y - 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y - 10));
+            title.move(irr::core::vector2di(0, -105));
+            value.move(irr::core::vector2di(0, -105));
+        },
+        // On rule down
+        [&dot, &firstTable, &secondTable, &title, &value](){
+            dot.setPosition(irr::core::vector2df(dot.getPosition().X, dot.getPosition().Y + 10));
+            firstTable.setPosition(irr::core::vector2df(firstTable.getPosition().X, firstTable.getPosition().Y + 10));
+            secondTable.setPosition(irr::core::vector2df(secondTable.getPosition().X, secondTable.getPosition().Y + 10));
+            title.move(irr::core::vector2di(0, 105));
+            value.move(irr::core::vector2di(0, 105));
+        },
+        // On appear
+        [&firstTable, &secondTable, &title, &value](){
+            firstTable.setVisible(true);
+            secondTable.setVisible(true);
+            title.setVisible(true);
+            value.setVisible(true);
+        }
+    );
+    return (e);
+}
