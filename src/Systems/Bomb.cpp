@@ -141,7 +141,10 @@ int is::systems::BombSystem::generateRandomPowerUp(is::components::ColliderCompo
     if (!rules->getNbIcons())
         return (0);
     int i = rand() % rules->getNbIcons();
-    if (rand() % rules->getPowerupFrequency() != 0)
+    int fq = 11 - rules->getPowerupFrequency();
+    if (fq > 10 || fq < 0)
+        return (0);
+    if (rand() % fq != 0)
         return (0);
     std::shared_ptr<is::ecs::Entity> e;
 

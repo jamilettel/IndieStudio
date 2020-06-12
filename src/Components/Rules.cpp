@@ -125,13 +125,14 @@ int RulesComponent::getPowerupFrequency() const noexcept
 
 void RulesComponent::decPowerupFrequency() noexcept
 {
-    if (_powerupFrequency > 1)
+    if (_powerupFrequency > 0)
         _powerupFrequency--;
 }
 
 void RulesComponent::incPowerupFrequency() noexcept
 {
-    _powerupFrequency++;
+    if (_powerupFrequency < 10)
+        _powerupFrequency++;
 }
 
 int RulesComponent::getNbIcons() const noexcept

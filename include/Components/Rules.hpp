@@ -69,7 +69,7 @@ namespace is::components
             bool _fpsMode = false;
             std::vector<int> _aiLevels;
             int _seed = 1;
-            int _powerupFrequency = 7;
+            int _powerupFrequency = 4;
     };
 }
 
