@@ -21,7 +21,6 @@ RuleSettingsScene::RuleSettingsScene() : AScene(Scenes::SCENE_RULE_SETTINGS)
 void RuleSettingsScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::ImageSystem>());
@@ -31,6 +30,7 @@ void RuleSettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::ModelRendererSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
 }
 
 is::components::RulesComponent &RuleSettingsScene::getRulesComponent() const

@@ -22,7 +22,6 @@ AScene(is::ecs::Scenes::SCENE_MAIN_MENU)
 void MainMenuScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<TimeSystem>());
-    _systemManager->addSystem(std::make_shared<AudioSystem>());
     _systemManager->addSystem(std::make_shared<WindowSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<CameraSystem>());
@@ -32,6 +31,7 @@ void MainMenuScene::initSystems()
     _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
 }
 
 void MainMenuScene::initEntities()

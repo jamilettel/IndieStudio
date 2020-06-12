@@ -13,6 +13,8 @@
 #include "Components/Button.hpp"
 #include "Exception.hpp"
 
+#include "Prefabs/GlobalPrefabs.hpp"
+
 namespace is::systems {
 
     class ButtonSystem: public is::ecs::ASystem {
@@ -28,6 +30,9 @@ namespace is::systems {
             void update() override;
             void stop() override;
             void onTearDown() override;
+
+        private:
+            std::optional<std::reference_wrapper<is::components::AudioComponent>> _clickSound;
     };
 }
 

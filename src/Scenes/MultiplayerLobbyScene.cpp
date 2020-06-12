@@ -18,7 +18,6 @@ AScene(is::ecs::Scenes::SCENE_PRESETSELECTION)
 void is::scenes::MultiplayerLobbyScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
@@ -28,6 +27,7 @@ void is::scenes::MultiplayerLobbyScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::CursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::NetworkSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
 }
 
 void is::scenes::MultiplayerLobbyScene::initEntities()

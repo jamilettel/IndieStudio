@@ -22,7 +22,6 @@ AScene(Scenes::SCENE_PAUSE)
 void PauseScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<TimeSystem>());
-    _systemManager->addSystem(std::make_shared<AudioSystem>());
     _systemManager->addSystem(std::make_shared<WindowSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<CameraSystem>());
@@ -35,6 +34,7 @@ void PauseScene::initSystems()
     _systemManager->addSystem(std::make_shared<KeyboardInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
     _systemManager->addSystem(std::make_shared<PauseSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
 }
 
 void PauseScene::initEntities()

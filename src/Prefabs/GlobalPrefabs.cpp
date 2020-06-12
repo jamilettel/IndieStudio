@@ -259,7 +259,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
     );
     AudioComponent &audio = e->addComponent<AudioComponent>(
         e,
-        RESSOURCE("footstep.wav"),
+        RESSOURCE("sounds/footstep.wav"),
         SOUND
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
@@ -492,6 +492,15 @@ std::shared_ptr<Entity> GlobalPrefabs::createFireSound()
 {
     auto e = std::make_shared<Entity>();
 
-    e->addComponent<AudioComponent>(e, RESSOURCE("explosion.ogg"), SOUND);
+    e->addComponent<AudioComponent>(e, RESSOURCE("sounds/explosion.ogg"),
+        SOUND);
+    return e;
+}
+
+std::shared_ptr<Entity> GlobalPrefabs::createClickSound()
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<AudioComponent>(e, RESSOURCE("sounds/click.ogg"), SOUND);
     return e;
 }

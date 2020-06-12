@@ -30,7 +30,6 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
-    _systemManager->addSystem(std::make_shared<AudioSystem>());
     _systemManager->addSystem(std::make_shared<MovementSystem>());
     _systemManager->addSystem(std::make_shared<BombSystem>());
     _systemManager->addSystem(std::make_shared<FireSystem>());
@@ -48,7 +47,7 @@ void MultiplayerGameScene::initSystems()
     _systemManager->addSystem(std::make_shared<HudSystem>());
     _systemManager->addSystem(std::make_shared<EndGameSystem>());
     _systemManager->addSystem(std::make_shared<TimerSystem>());
-
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
 }
 
 void MultiplayerGameScene::initEntities()

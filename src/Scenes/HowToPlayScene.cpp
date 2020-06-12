@@ -22,7 +22,6 @@ AScene(is::ecs::Scenes::SCENE_HOWTOPLAY)
 void is::scenes::HowToPlayScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<is::systems::TimeSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::WindowSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CameraSystem>());
@@ -33,6 +32,7 @@ void is::scenes::HowToPlayScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
 }
 
 void is::scenes::HowToPlayScene::initEntities()

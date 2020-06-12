@@ -22,7 +22,6 @@ AScene(Scenes::SCENE_SPLASH_SCREEN)
 void SplashScreenScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<TimeSystem>());
-    _systemManager->addSystem(std::make_shared<AudioSystem>());
     _systemManager->addSystem(std::make_shared<WindowSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<CameraSystem>());
@@ -30,6 +29,7 @@ void SplashScreenScene::initSystems()
     _systemManager->addSystem(std::make_shared<CursorSystem>());
     _systemManager->addSystem(std::make_shared<ButtonSystem>());
     _systemManager->addSystem(std::make_shared<TextSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
 }
 
 void SplashScreenScene::initEntities()

@@ -23,7 +23,6 @@ AScene(Scenes::SCENE_CONTROLLERS)
 void ControllersScene::initSystems()
 {
     _systemManager->addSystem(std::make_shared<TimeSystem>());
-    _systemManager->addSystem(std::make_shared<AudioSystem>());
     _systemManager->addSystem(std::make_shared<WindowSystem>());
     _systemManager->addSystem(std::make_shared<LightSystem>());
     _systemManager->addSystem(std::make_shared<CameraSystem>());
@@ -35,6 +34,7 @@ void ControllersScene::initSystems()
     _systemManager->addSystem(std::make_shared<TextSystem>());
     _systemManager->addSystem(std::make_shared<PresetSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<AudioSystem>());
 }
 
 void ControllersScene::initEntities()

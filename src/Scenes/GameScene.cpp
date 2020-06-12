@@ -33,7 +33,6 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::PauseSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::CharacterControllerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::LightSystem>());
-    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::MovementSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::BombSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::FireSystem>());
@@ -55,6 +54,7 @@ void GameScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::TextureSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TimerSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::HudSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
 }
 
 void GameScene::initEntities()

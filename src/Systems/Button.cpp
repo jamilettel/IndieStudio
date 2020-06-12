@@ -15,6 +15,12 @@ using namespace is::components;
 
 void ButtonSystem::awake()
 {
+    auto &entity = initRuntimeEntity(prefabs::GlobalPrefabs::createClickSound(), false);
+
+    _clickSound.emplace(**entity->getComponent<AudioComponent>());
+    _clickSound->get().init();
+    entity->setInit(true);
+
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
 
         const auto &ptr = std::static_pointer_cast<ButtonComponent>(elem);
@@ -49,6 +55,7 @@ void ButtonSystem::update()
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
         const auto &ptr = static_cast<ButtonComponent*>(elem.get());
         if (ptr->isClicked()) {
+            _clickSound->get().toPlay();
             ptr->callCallback();
             ptr->setClicked(false);
         }
