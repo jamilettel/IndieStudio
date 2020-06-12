@@ -370,7 +370,6 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         "ui/RuleSettings/disable.png"
     );
     acceleratorDisable.layer = 1;
-    acceleratorDisable.setDisabled(true);
     ButtonComponent &accelerator = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -400,6 +399,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         value.setText((rules.noIconUsed() ? "Off" : "On"));
         valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
+    if (!rules.useIcon(rules.ACCELERATOR)) {
+        accelerator.setDisabled(true);
+    } else {
+        acceleratorDisable.setDisabled(true);
+    }
 
     ButtonComponent &bombDisable = e->addComponent<ButtonComponent>(
         e,
@@ -415,7 +419,6 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         "ui/RuleSettings/disable.png"
     );
     bombDisable.layer = 1;
-    bombDisable.setDisabled(true);
     ButtonComponent &bomb = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -445,6 +448,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         value.setText((rules.noIconUsed() ? "Off" : "On"));
         valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
+    if (!rules.useIcon(rules.BOMB)) {
+        bomb.setDisabled(true);
+    } else {
+        bombDisable.setDisabled(true);
+    }
 
     ButtonComponent &explosionDisable = e->addComponent<ButtonComponent>(
         e,
@@ -460,7 +468,6 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         "ui/RuleSettings/disable.png"
     );
     explosionDisable.layer = 1;
-    explosionDisable.setDisabled(true);
     ButtonComponent &explosion = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -490,6 +497,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         value.setText((rules.noIconUsed() ? "Off" : "On"));
         valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
+    if (!rules.useIcon(rules.EXPLOSION)) {
+        explosion.setDisabled(true);
+    } else {
+        explosionDisable.setDisabled(true);
+    }
 
     ButtonComponent &wallPassDisable = e->addComponent<ButtonComponent>(
         e,
@@ -505,7 +517,6 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         "ui/RuleSettings/disable.png"
     );
     wallPassDisable.layer = 1;
-    wallPassDisable.setDisabled(true);
     ButtonComponent &wallPass = e->addComponent<ButtonComponent>(
         e,
         "",
@@ -535,6 +546,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         value.setText((rules.noIconUsed() ? "Off" : "On"));
         valueToChange.setText((rules.noIconUsed() ? "Off" : "On"));
     });
+    if (!rules.useIcon(rules.WALL_PASS)) {
+        wallPass.setDisabled(true);
+    } else {
+        wallPassDisable.setDisabled(true);
+    }
 
     ButtonComponent &backward = e->addComponent<ButtonComponent>(
         e,
