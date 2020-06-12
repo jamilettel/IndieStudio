@@ -127,6 +127,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
         350, 100,
         [](){
+            if( access("./testmap", F_OK) == -1 )
+                return;
             is::scenes::GameScene::loadMap = true;
             is::Game::setActualScene(SCENE_GAME);
         },

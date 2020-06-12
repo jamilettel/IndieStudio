@@ -38,3 +38,8 @@ float TimerComponent::getTime() const noexcept
 {
     return (_time);
 }
+
+void TimerComponent::setTime(float time) noexcept
+{
+    _time = time;
+}

@@ -74,7 +74,6 @@ void GameScene::initEntities()
         mg.createMap(*this, tmpMap, MapLoader::x / 2, MapLoader::y / 2, a);
     }
 
-    initEntity(GlobalPrefabs::createTimer(rules));
     if (!loadMap) {
         mg.generateMap(*this, rules.getSeed(), 15, 13, a);
     for (int i = 0; i < rules.getNumberOfPlayers() && i != 4; i++) {
@@ -100,26 +99,28 @@ void GameScene::initEntities()
             auto &ch = *static_cast<CharacterComponent *>(characters[i].get());
             ch.characterType = MapLoader::charactersInfo[i].type;
             ch.presetNumber = MapLoader::charactersInfo[i].preset;
-            ch.setNbBombPosed(MapLoader::charactersInfo[i].bombPosed);
-            ch.setNbBonusCollected(MapLoader::charactersInfo[i].bonusCollected);
-            ch.setNbCharactersKilled(MapLoader::charactersInfo[i].kills);
+            std::cout << "time : ";
+            std::cout << MapLoader::charactersInfo[i].time << std::endl;
             initEntity(GlobalPrefabs::createBombermanCharacter(
                 MapLoader::charactersInfo[i].position,
                 ch,
                 *_componentManager.get(),
                 ch.texturePath,
-                MapLoader::charactersInfo[i].level
+                MapLoader::charactersInfo[i].level,
+                MapLoader::charactersInfo[i].alive
             ));
-            std::cout << "lol0" << std::endl;
             auto &tmp = _componentManager->getComponentsByType(typeid(is::components::BombermanComponent).hash_code());
             auto &bm = *static_cast<BombermanComponent *>(tmp[i].get());
             bm.bombRange = MapLoader::charactersInfo[i].bombRange;
-            std::cout << "test : " << bm.bombRange << std::endl;
             bm.bombNumber = MapLoader::charactersInfo[i].bombNumber;
             bm.speedCount = MapLoader::charactersInfo[i].speedUp;
             bm.speedMult = MapLoader::charactersInfo[i].speedMult;
             bm.wallPass = MapLoader::charactersInfo[i].wallPass;
-            if (bm.wallPass)
+            ch.setNbBombPosed(MapLoader::charactersInfo[i].bombPosed);
+            ch.setNbBonusCollected(MapLoader::charactersInfo[i].bonusCollected);
+            ch.setNbCharactersKilled(MapLoader::charactersInfo[i].kills);
+            ch.setTimePlaying(MapLoader::charactersInfo[i].time);
+            if (bm.wallPass)    
                 bm.getEntity()->getComponent<is::components::ColliderComponent>()->get()->removeCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
             initEntity(GlobalPrefabs::createPlayerHud(
                 bm,
@@ -143,6 +144,11 @@ void GameScene::initEntities()
     }
 
     initEntity(GlobalPrefabs::createTimer(rules));
+    if (loadMap) {
+        auto &tmpRule = _componentManager->getComponentsByType(typeid(TimerComponent).hash_code())[0];
+        auto &tmpTime = *static_cast<TimerComponent *>(tmpRule.get());
+        tmpTime.setTime(MapLoader::timer);
+    }
     MapLoader::componentManager = _componentManager;
 }
 

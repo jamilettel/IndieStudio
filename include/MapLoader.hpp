@@ -35,7 +35,7 @@ namespace is {
         size_t bombPosed;
         size_t bonusCollected;
         size_t kills;
-        std::string time;
+        size_t time;
     };
     
     struct BonusInfo {
@@ -63,6 +63,7 @@ namespace is {
             static std::vector<std::vector<int>> loadMap(const std::string &file);
             static void saveMap(const std::string &file);
             
+            static float timer;
             static int x;
             static int y;
             static size_t playerNumber;

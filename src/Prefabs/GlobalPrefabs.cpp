@@ -195,10 +195,11 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     CharacterComponent &character,
     const ComponentManager &manager,
     const std::string &texture,
-    int level
+    int level,
+    bool alive
     )
 {
-    auto e = createBomberman(pos, character, texture);
+    auto e = createBomberman(pos, character, texture, alive);
     InputManagerComponent &input = e->addComponent<InputManagerComponent>(e);
 
     switch (character.characterType) {
@@ -245,7 +246,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBombermanCharacter(
     return (e);
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3df &pos, CharacterComponent &character, const std::string &texture)
+std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3df &pos, CharacterComponent &character, const std::string &texture, bool alive)
 {
     auto e = std::make_shared<Entity>(Entity::PLAYER);
 
@@ -271,7 +272,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         SOUND
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
-    e->addComponent<CharacterControllerComponent>(
+    auto &tmp = e->addComponent<CharacterControllerComponent>(
         e,
         transform,
         movement,
@@ -280,12 +281,14 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         "Indie Studio",
         0.1
     );
+    tmp.isDead = !alive;
     TimeComponent &time = e->addComponent<TimeComponent>(e);
     character.setTimeComponent(time);
     character.reset();
     collider.addCollisionWithLayer(Entity::GROUND);
     collider.addCollisionWithLayer(Entity::BRKBL_BLK);
-    e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
+    if (alive)
+        e->addComponent<ModelRendererComponent>(e, "player.b3d", "Indie Studio", texture);
     e->addComponent<BombermanComponent>(e, character);
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});

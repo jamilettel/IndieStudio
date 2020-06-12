@@ -27,6 +27,7 @@ namespace is::components
 
             void update();
             float getTime() const noexcept;
+            void setTime(float time) noexcept;
 
         private:
             TextComponent &_text;

@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
+#include "Components/Timer.hpp"
 
 using namespace is;
 using namespace is::components;
@@ -19,6 +20,8 @@ int MapLoader::y = 0;
 
 size_t MapLoader::playerNumber = 0;
 size_t MapLoader::bonusNumber = 0;
+
+float MapLoader::timer = 0;
 
 std::vector<is::CharacterInfo> MapLoader::charactersInfo;
 std::vector<is::BonusInfo> MapLoader::bonusInfo;
@@ -61,6 +64,8 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
         tmp.bombPosed = fileWord<int>(toLoad);
         tmp.bonusCollected = fileWord<int>(toLoad);
         tmp.kills = fileWord<int>(toLoad);
+        tmp.alive = (fileWord<int>(toLoad) == 1) ? true : false;
+        tmp.time = fileWord<size_t>(toLoad);
         tmp.position.Y = 0;
         std::cout << tmp.position.X << "   " <<  tmp.position.Z << std::endl;
         if (charactersInfo.size() <= i)
@@ -82,7 +87,8 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
         else
             bonusInfo[i] = tmpBonus;
     }
-
+    
+    timer = fileWord<float>(toLoad);
     return (toReturn);
 }
 
@@ -146,6 +152,8 @@ void MapLoader::saveMap(const std::string &file)
         toSave << charactersInfo[i].bombPosed << " ";
         toSave << charactersInfo[i].bonusCollected << " ";
         toSave << charactersInfo[i].kills << " ";
+        toSave << ((charactersInfo[i].alive) ? 1 : 0) << " ";
+        toSave << charactersInfo[i].time << " ";
         toSave << std::endl;
     }
 
@@ -158,6 +166,10 @@ void MapLoader::saveMap(const std::string &file)
         toSave << bonusInfo[i].position.Z << " ";
         toSave << std::endl;
     }
+    toSave << std::endl;
+    auto tmpRule = componentManager->getComponentsByType(typeid(TimerComponent).hash_code())[0];
+    auto &tmpTime = *static_cast<TimerComponent *>(tmpRule.get());
+    toSave << tmpTime.getTime();
 
 }
 
@@ -178,6 +190,7 @@ void MapLoader::addPlayerToSave(TransformComponent &tr, size_t playerCount)
     CharacterInfo tmp;
     CharacterComponent &ch = tr.getEntity()->getComponent<CharacterControllerComponent>().value()->getCharacterComponent();
     BombermanComponent *bm = tr.getEntity()->getComponent<BombermanComponent>()->get();
+    
     tmp.position = tr.position;
     tmp.preset =
         ch.presetNumber;
@@ -188,11 +201,12 @@ void MapLoader::addPlayerToSave(TransformComponent &tr, size_t playerCount)
     tmp.speedUp = bm->speedCount;
     tmp.speedMult = bm->speedMult;
     tmp.bombRange = bm->bombRange;
-    std::cout << "bombrange : " << tmp.bombRange << std::endl;
     tmp.wallPass = bm->wallPass;
     tmp.bombPosed = ch.getNbBombPosed();
     tmp.bonusCollected = ch.getNbBonusCollected();
     tmp.kills = ch.getNbCharactersKilled();
+    tmp.alive = !(tr.getEntity()->getComponent<CharacterControllerComponent>().value()->isDead);
+    tmp.time = ch.getTimePlaying();
     if (charactersInfo.size() <= playerCount)
         charactersInfo.push_back(tmp);
     else
