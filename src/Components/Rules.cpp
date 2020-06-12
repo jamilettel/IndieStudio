@@ -145,6 +145,11 @@ int RulesComponent::getNbIcons() const noexcept
     return (count);
 }
 
+std::map<RulesComponent::Icon, bool> RulesComponent::getIcons() const noexcept
+{
+    return (_icons);
+}
+
 RulesComponent::Icon RulesComponent::getIcon(int nb) const noexcept
 {
     int i = 0;
@@ -158,3 +163,8 @@ RulesComponent::Icon RulesComponent::getIcon(int nb) const noexcept
     return (BOMB);
 }
 
+
+void RulesComponent::setPowerUpFrequency(int nb) noexcept
+{
+    _powerupFrequency = nb;
+}

@@ -123,6 +123,12 @@ void GameScene::initEntities()
                 ch.texturePath,
                 i
             ));
+            rules.setMaxTime(MapLoader::maxTime);
+            rules.setNumberOfPlayers(MapLoader::playerNumber);
+            rules.setPowerUpFrequency(MapLoader::powerUpFrequency);
+            for (int i = 0; i < 4; i++) {
+                rules.setIconUse(rules.getIcon(i), MapLoader::icons[i]);
+            }
         }
         for (size_t i = 0; i < MapLoader::bonusNumber; i++) {
             switch (MapLoader::bonusInfo[i].type) {

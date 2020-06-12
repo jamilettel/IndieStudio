@@ -66,6 +66,10 @@ namespace is {
             static float timer;
             static int x;
             static int y;
+            
+            static bool icons[4];
+            static int powerUpFrequency;
+            static float maxTime;
             static size_t playerNumber;
             static size_t bonusNumber;
             static std::vector<CharacterInfo> charactersInfo;

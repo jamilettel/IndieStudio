@@ -37,6 +37,7 @@ namespace is::components
             void setNumberOfPlayers(int nb) noexcept;
             void setFpsMode(bool mode) noexcept;
             void setMaxTime(float time) noexcept;
+            void setPowerUpFrequency(int frequency) noexcept;
 
             [[nodiscard]] int getNumberOfPlayers() const noexcept;
             [[nodiscard]] float getMaxTime() const noexcept;
@@ -59,6 +60,7 @@ namespace is::components
             void incPowerupFrequency() noexcept;
             int getNbIcons() const noexcept;
             Icon getIcon(int nb) const noexcept;
+            std::map<Icon, bool> getIcons() const noexcept;
 
         private:
             int _numberOfPlayers = 4;

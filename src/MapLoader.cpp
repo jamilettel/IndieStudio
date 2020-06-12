@@ -10,6 +10,7 @@
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
 #include "Components/Timer.hpp"
+#include "Components/Rules.hpp"
 
 using namespace is;
 using namespace is::components;
@@ -18,6 +19,9 @@ using namespace is::ecs;
 int MapLoader::x = 0;
 int MapLoader::y = 0;
 
+bool MapLoader::icons[4] = {true, true, true, true};
+float MapLoader::maxTime = 0;
+int MapLoader::powerUpFrequency = 0;
 size_t MapLoader::playerNumber = 0;
 size_t MapLoader::bonusNumber = 0;
 
@@ -85,6 +89,11 @@ std::vector<std::vector<int>> MapLoader::loadMap(const std::string &file)
     }
     
     timer = fileWord<float>(toLoad);
+    powerUpFrequency = fileWord<int>(toLoad);
+    maxTime = fileWord<float>(toLoad);
+    for (int i = 0; i < 4; i++) {
+        icons[i] = (fileWord<int>(toLoad) == 1) ? true : false;
+    }
     return (toReturn);
 }
 
@@ -95,7 +104,8 @@ void MapLoader::saveMap(const std::string &file)
     std::vector<std::vector<int>> map(13, std::vector<int>(15, 0));
     std::vector<std::shared_ptr<Component>> &trComponents = 
         componentManager->getComponentsByType(typeid(TransformComponent).hash_code());
-
+    auto &tmpRule = componentManager->getComponentsByType(typeid(RulesComponent).hash_code());
+    auto &rules = *static_cast<RulesComponent *>(tmpRule[0].get());
     for (std::shared_ptr<Component> &component: trComponents) {
         TransformComponent &tr = *static_cast<TransformComponent *>(component.get());
         if (tr.getEntity()->layer == Entity::Layer::PLAYER) {
@@ -162,10 +172,15 @@ void MapLoader::saveMap(const std::string &file)
         toSave << std::endl;
     }
     toSave << std::endl;
-    auto tmpRule = componentManager->getComponentsByType(typeid(TimerComponent).hash_code())[0];
-    auto &tmpTime = *static_cast<TimerComponent *>(tmpRule.get());
-    toSave << tmpTime.getTime();
+    auto tmpTime = componentManager->getComponentsByType(typeid(TimerComponent).hash_code())[0];
+    auto &time = *static_cast<TimerComponent *>(tmpTime.get());
+    toSave << time.getTime() << std::endl;
 
+    toSave << rules.getPowerupFrequency() << " ";
+    toSave << rules.getMaxTime() << " ";
+    for (auto &tmpicon : rules.getIcons()) {
+        toSave << ((tmpicon.second == true) ? 1 : 0) << " ";
+    }
 }
 
 void MapLoader::addBonusToSave(TransformComponent &tr, size_t bonusCount)
