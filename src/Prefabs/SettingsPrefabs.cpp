@@ -102,7 +102,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         [&volumeMusicText](){
             if (AudioComponent::_volumeMusic > 99)
                 return;
-            AudioComponent::_volumeMusic++;
+            AudioComponent::_volumeMusic += 10;
             std::string text = std::to_string(AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
@@ -119,7 +119,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         [&volumeMusicText](){
             if (AudioComponent::_volumeMusic < 1)
                 return;
-            AudioComponent::_volumeMusic--;
+            AudioComponent::_volumeMusic -= 10;
             std::string text = std::to_string(AudioComponent::_volumeMusic);
             volumeMusicText.setText(text.erase(text.find('.')));
         },
@@ -164,7 +164,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         [&volumeSoundText](){
             if (AudioComponent::_volumeSound < 1)
                 return;
-            AudioComponent::_volumeSound--;
+            AudioComponent::_volumeSound -= 10;
             std::string text = std::to_string(AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },
@@ -181,7 +181,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createSettings()
         [&volumeSoundText](){
             if (AudioComponent::_volumeSound > 99)
                 return;
-            AudioComponent::_volumeSound++;
+            AudioComponent::_volumeSound += 10;
             std::string text = std::to_string(AudioComponent::_volumeSound);
             volumeSoundText.setText(text.erase(text.find('.')));
         },

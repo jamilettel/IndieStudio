@@ -71,3 +71,20 @@ void AIControllerUtils::moveAI(AIControllerComponent &ai, irr::core::vector2df &
     else if (ai.lastShortObjective.X < ai.shortObjective.X)
         ai.getInputManager().setValue("MoveVerticalAxis", 1);
 }
+
+void AIControllerUtils::setSuccessors(const irr::core::vector2di &pos, std::vector<irr::core::vector2di> &successors)
+{
+    std::vector<irr::core::vector2di> nextPos = {
+        irr::core::vector2di(pos.X + 1, pos.Y),
+        irr::core::vector2di(pos.X, pos.Y + 1),
+        irr::core::vector2di(pos.X - 1, pos.Y),
+        irr::core::vector2di(pos.X, pos.Y - 1)
+    };
+
+    for (size_t i = 0; i < 4; i++) {
+        int next = std::rand() % nextPos.size();
+
+        successors.emplace_back(nextPos[next]);
+        nextPos.erase(nextPos.begin() + next);
+    }
+}
