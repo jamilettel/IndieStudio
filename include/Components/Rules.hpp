@@ -57,6 +57,8 @@ namespace is::components
             int getPowerupFrequency() const noexcept;
             void decPowerupFrequency() noexcept;
             void incPowerupFrequency() noexcept;
+            int getNbIcons() const noexcept;
+            Icon getIcon(int nb) const noexcept;
 
         private:
             int _numberOfPlayers = 4;
