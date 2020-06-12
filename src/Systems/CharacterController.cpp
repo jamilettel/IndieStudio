@@ -13,6 +13,11 @@ using namespace is::components;
 
 void is::systems::CharacterControllerSystem::awake()
 {
+    auto &entity = initRuntimeEntity(prefabs::GlobalPrefabs::createbombsetSound(), false);
+
+    _bombsetSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _bombsetSound->get().init();
+    entity->setInit(true);
 }
 
 void is::systems::CharacterControllerSystem::start()
@@ -111,6 +116,7 @@ void is::systems::CharacterControllerSystem::update()
                 ptr_mr->initModelRenderer(w);
                 ptr_part->init(w);
                 ptr->canPlaceBomb = false;
+                _bombsetSound.value().get().toPlay();
             }
         } else if (im->get()->getInput("DropBomb") != 1 && ptr->getTransform().position != ptr->lastPos) {
             ptr->canPlaceBomb = true;

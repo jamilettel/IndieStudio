@@ -538,3 +538,11 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMusic()
 
     return e;
 }
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createbombsetSound()
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<AudioComponent>(e, RESSOURCE("sounds/bomb_set.wav"), SOUND);
+    return e;
+}
