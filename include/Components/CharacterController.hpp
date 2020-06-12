@@ -23,7 +23,8 @@ namespace is::components {
                 std::shared_ptr<is::ecs::Entity> &e,
                 TransformComponent &transform,
                 MovementComponent &movementComponent,
-                AudioComponent &audio,
+                AudioComponent &footstep_1,
+                AudioComponent &footstep_2,
                 CharacterComponent &character,
                 std::string wn = "MainWindow",
                 float ps = 0
@@ -37,7 +38,7 @@ namespace is::components {
 
             [[nodiscard]] MovementComponent &getMovementComponent() const noexcept;
             [[nodiscard]] TransformComponent &getTransform() const noexcept;
-            [[nodiscard]] AudioComponent &getAudioComponent() const noexcept;
+            [[nodiscard]] AudioComponent &getAudioComponent() noexcept;
             [[nodiscard]] CharacterComponent &getCharacterComponent() const noexcept;
 
             irr::core::vector3df move;
@@ -52,17 +53,21 @@ namespace is::components {
             irr::core::vector3df lastPos;
 
             bool canPlaceBomb = true;
-
             bool isDead = false;
-
             bool operator==(const CharacterControllerComponent &character) const noexcept;
-
             int _id;
+
+            bool shouldPlayFootstepSound(float secondsElapsed);
+
         private:
             MovementComponent &_movementComponent;
             TransformComponent &_transform;
-            AudioComponent &_audioComponent;
+            AudioComponent &_footstep_1;
+            AudioComponent &_footstep_2;
             CharacterComponent &_character;
+
+            float _footstepElapsedTime =  0;
+            bool _fs_1 = false;
     };
 
 }

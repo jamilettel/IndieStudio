@@ -265,9 +265,14 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         transform,
         collider
     );
-    AudioComponent &audio = e->addComponent<AudioComponent>(
+    AudioComponent &fs1 = e->addComponent<AudioComponent>(
         e,
-        RESSOURCE("sounds/footstep.wav"),
+        RESSOURCE("sounds/footstep_01.ogg"),
+        SOUND
+    );
+    AudioComponent &fs2 = e->addComponent<AudioComponent>(
+        e,
+        RESSOURCE("sounds/footstep_02.ogg"),
         SOUND
     );
     AnimatorComponent &animator = e->addComponent<AnimatorComponent>(e);
@@ -275,7 +280,8 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomberman(const irr::core::vector3d
         e,
         transform,
         movement,
-        audio,
+        fs1,
+        fs2,
         character,
         "Indie Studio",
         0.1

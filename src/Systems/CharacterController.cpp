@@ -119,7 +119,8 @@ void is::systems::CharacterControllerSystem::update()
         ptr->getMovementComponent().velocity = ptr->move * ptr->playerSpeed * bm->get()->speedMult;
         rotateToDirection(ptr->move, ptr->getTransform().rotation);
         if (ptr->getTransform().position != ptr->lastPos) {
-            ptr->getAudioComponent().toPlay();
+            if (ptr->shouldPlayFootstepSound(_time->get().getCurrentIntervalSeconds()))
+                ptr->getAudioComponent().toPlay();
             ptr->getEntity()->getComponent<is::components::AnimatorComponent>()->get()->changeAnimation("Walk");
         }
         else if (ptr->canPlaceBomb)

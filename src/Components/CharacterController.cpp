@@ -14,7 +14,8 @@ CharacterControllerComponent::CharacterControllerComponent(
     std::shared_ptr<Entity> &e,
     TransformComponent &transform,
     MovementComponent &movementComponent,
-    AudioComponent &audio,
+    AudioComponent &footstep_1,
+    AudioComponent &footstep_2,
     CharacterComponent &character,
     std::string wn,
     float ps
@@ -25,7 +26,8 @@ CharacterControllerComponent::CharacterControllerComponent(
     windowName(std::move(wn)),
     _movementComponent(movementComponent),
     _transform(transform),
-    _audioComponent(audio),
+    _footstep_1(footstep_1),
+    _footstep_2(footstep_2),
     _character(character)
 {
     static int id = 0;
@@ -33,9 +35,7 @@ CharacterControllerComponent::CharacterControllerComponent(
 }
 
 void CharacterControllerComponent::deleteComponent()
-{
-    
-}
+{}
 
 bool CharacterControllerComponent::operator==(const CharacterControllerComponent &character) const noexcept
 {
@@ -52,12 +52,26 @@ TransformComponent &CharacterControllerComponent::getTransform() const noexcept
     return (_transform);
 }
 
-AudioComponent &CharacterControllerComponent::getAudioComponent() const noexcept
+AudioComponent &CharacterControllerComponent::getAudioComponent() noexcept
 {
-    return (_audioComponent);
+    _fs_1 = !_fs_1;
+
+    if (_fs_1)
+        return _footstep_1;
+    return _footstep_2;
 }
 
 CharacterComponent &CharacterControllerComponent::getCharacterComponent() const noexcept
 {
     return (_character);
+}
+
+bool CharacterControllerComponent::shouldPlayFootstepSound(float secondsElapsed)
+{
+    _footstepElapsedTime += secondsElapsed;
+    if (_footstepElapsedTime > 0.3) {
+        _footstepElapsedTime -= 0.3;
+        return true;
+    }
+    return false;
 }
