@@ -47,10 +47,7 @@ void WindowSystem::awake()
         ptr->canvas = ptr->device->getGUIEnvironment();
         if (!ptr->canvas)
             throw is::exceptions::Exception("WindowSystem", "Could not create gui environment");
-
-        ptr->eventManager.addEventKeyReleased(irr::KEY_ESCAPE, [](){
-            is::Game::isRunning = false;
-        });
+        
         ptr->device->getCursorControl()->setVisible(false);
         ptr->device->activateJoysticks(ptr->joysticks);
 
