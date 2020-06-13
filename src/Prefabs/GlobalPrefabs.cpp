@@ -547,6 +547,14 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createbombsetSound()
     return e;
 }
 
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createSound(const std::string &sound)
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<AudioComponent>(e, RESSOURCE(sound), SOUND);
+    return e;
+}
+
 std::shared_ptr<Entity> GlobalPrefabs::createGlobalPause(irr::EKEY_CODE key)
 {
     auto e = std::make_shared<Entity>();
