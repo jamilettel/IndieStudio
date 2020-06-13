@@ -13,6 +13,10 @@
 #define RESOURCES_PATH "./resources/"
 #endif
 
+#ifdef _WIN32
+#define F_OK 00
+#endif
+
 #define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
 
 using namespace is::ecs;
