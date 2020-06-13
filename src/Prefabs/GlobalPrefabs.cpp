@@ -546,3 +546,13 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createbombsetSound()
     e->addComponent<AudioComponent>(e, RESSOURCE("sounds/bomb_set.wav"), SOUND);
     return e;
 }
+
+std::shared_ptr<Entity> GlobalPrefabs::createGlobalPause(irr::EKEY_CODE key)
+{
+    auto e = std::make_shared<Entity>();
+    auto &input = e->addComponent<InputManagerComponent>(e);
+    auto &keyboard = e->addComponent<KeyboardInputComponent>(e, input);
+
+    keyboard.bind(key, "Pause", 1);
+    return e;
+}

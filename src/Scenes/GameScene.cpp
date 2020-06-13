@@ -116,7 +116,7 @@ void GameScene::initEntities()
             ch.setNbBonusCollected(MapLoader::charactersInfo[i].bonusCollected);
             ch.setNbCharactersKilled(MapLoader::charactersInfo[i].kills);
             ch.setTimePlaying(MapLoader::charactersInfo[i].time);
-            if (bm.wallPass)    
+            if (bm.wallPass)
                 bm.getEntity()->getComponent<is::components::ColliderComponent>()->get()->removeCollisionWithLayer(is::ecs::Entity::BRKBL_BLK);
             initEntity(GlobalPrefabs::createPlayerHud(
                 bm,
@@ -150,6 +150,7 @@ void GameScene::initEntities()
         auto &tmpTime = *static_cast<TimerComponent *>(tmpRule.get());
         tmpTime.setTime(MapLoader::timer);
     }
+    initEntity(GlobalPrefabs::createGlobalPause());
     MapLoader::componentManager = _componentManager;
 }
 
