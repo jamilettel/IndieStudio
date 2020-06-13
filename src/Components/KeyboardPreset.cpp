@@ -9,6 +9,7 @@
 
 using namespace is::components;
 using namespace is::ecs;
+using namespace is;
 
 KeyboardPresetComponent::KeyboardPresetComponent(
     std::shared_ptr<Entity> &e

@@ -9,6 +9,7 @@
 
 using namespace is::components;
 using namespace is::ecs;
+using namespace is;
 
 JoystickPresetComponent::JoystickPresetComponent(
     std::shared_ptr<Entity> &e

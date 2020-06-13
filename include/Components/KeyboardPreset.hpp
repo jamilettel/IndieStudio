@@ -11,6 +11,7 @@
 #include <irrlicht.h>
 #include <functional>
 #include <map>
+#include <algorithm>
 
 #include "ECS/Component.hpp"
 #include "PresetAction.hpp"
