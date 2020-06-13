@@ -34,7 +34,7 @@ namespace is {
     class Game {
         public:
             Game() = default;
-            ~Game() = default;
+            ~Game();
 
             Game(const Game &) = default;
             Game &operator=(const Game &) = default;

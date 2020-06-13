@@ -90,3 +90,8 @@ void AScene::saveEntity(std::shared_ptr<Entity> &e)
 {
     _entitySaver->addEntity(e);
 }
+
+void AScene::clearSavedEntities()
+{
+    _entitySaver.reset();
+}

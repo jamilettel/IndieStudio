@@ -36,6 +36,9 @@ namespace is::ecs {
 
             static void saveEntity(std::shared_ptr<Entity> &e);
 
+            // destroys all the saved entities.
+            static void clearSavedEntities();
+
         protected:
             std::shared_ptr<EntityManager> _entityManager;
             static std::shared_ptr<EntityManager> _entitySaver;
