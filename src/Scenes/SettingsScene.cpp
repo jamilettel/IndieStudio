@@ -52,5 +52,6 @@ void SettingsScene::initEntities()
 
             initEntity(prefabs::GlobalPrefabs::createPauseController(*ptr, *_componentManager.get()), false);
         }
+        initEntity(prefabs::GlobalPrefabs::createGlobalPause());
     }
 }
