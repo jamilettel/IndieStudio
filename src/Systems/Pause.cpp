@@ -43,9 +43,16 @@ void PauseSystem::update()
         if (im->getInput("Pause")) {
             click = true;
             if (canChange) {
-                if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME)
+                if (is::Game::getCurrentScene() == is::ecs::SCENE_GAME) {
+                    auto es = _componentManager->getComponentsByType(typeid(AudioComponent).hash_code());
+
+                    std::for_each(es.begin(), es.end(), [](std::shared_ptr<Component> &c) {
+                        AudioComponent &audio = *static_cast<AudioComponent *>(c.get());
+
+                        audio.pause();
+                    });
                     is::Game::setActualScene(is::ecs::SCENE_PAUSE, true, false);
-                else
+                } else
                     is::Game::setActualScene(is::ecs::SCENE_GAME, false, true);
             }
             break;

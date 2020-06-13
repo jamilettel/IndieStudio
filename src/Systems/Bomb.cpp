@@ -19,6 +19,12 @@ void is::systems::BombSystem::awake()
     _deathSound.emplace(*entity->getComponent<AudioComponent>()->get());
     _deathSound->get().init();
     entity->setInit(true);
+    
+    auto &entityFuse = initRuntimeEntity(prefabs::GlobalPrefabs::createSound("sounds/Fuse.ogg"), false);
+
+    _fuseSound.emplace(*entityFuse->getComponent<AudioComponent>()->get());
+    _fuseSound->get().init();
+    entityFuse->setInit(true);
 }
 
 void is::systems::BombSystem::start()
@@ -33,6 +39,9 @@ void is::systems::BombSystem::start()
 
 void is::systems::BombSystem::update()
 {
+    static int nbBomb = 0;
+
+    int i = 0;
     for (const auto &elem : _componentManager->getComponentsByType(typeid(is::components::BombComponent).hash_code())) {
         const auto &ptr = std::static_pointer_cast<is::components::BombComponent>(elem);
         if (!ptr)
@@ -57,7 +66,16 @@ void is::systems::BombSystem::update()
             ptr->bomberman->instantBomb--;
             ptr->getEntity()->setDelete(true);
         }
+        i++;
     }
+    if (i == 0) {
+        _fuseSound.value().get().toStop();
+    } else {
+        if (i > nbBomb || !_fuseSound.value().get().isPlaying()) {
+            _fuseSound.value().get().toPlay();
+        }
+    }
+    nbBomb = i;
 }
 
 bool is::systems::BombSystem::dropFire(const std::shared_ptr<is::components::BombComponent> &ptr,
