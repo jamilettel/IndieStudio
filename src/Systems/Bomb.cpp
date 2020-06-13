@@ -14,7 +14,11 @@ using namespace is::components;
 
 void is::systems::BombSystem::awake()
 {
+    auto &entity = initRuntimeEntity(prefabs::GlobalPrefabs::createSound("sounds/death.ogg"), false);
 
+    _deathSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _deathSound->get().init();
+    entity->setInit(true);
 }
 
 void is::systems::BombSystem::start()
@@ -121,8 +125,10 @@ bool is::systems::BombSystem::checkFireCollision(
             }
             if (ptr->getEntity()->layer == is::ecs::Entity::PLAYER) {
                 auto &bmEnemy = *ptr->getEntity()->getComponent<is::components::BombermanComponent>()->get();
-                if (!bmEnemy.dead)
+                if (!bmEnemy.dead) {
                     ch.getCharacterComponent().setNbCharactersKilled(ch.getCharacterComponent().getNbCharactersKilled() + 1);
+                    _deathSound.value().get().toPlay();
+                }
                 bmEnemy.dead = true;
                 continue;
             }

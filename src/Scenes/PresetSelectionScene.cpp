@@ -37,26 +37,23 @@ void PresetSelectionScene::initSystems()
 
 void PresetSelectionScene::initEntities()
 {
-    initEntity(prefabs::GlobalPrefabs::createPresetSelection(*_componentManager), false);
-    //initEntity(prefabs::GlobalPrefabs::createPresetSelectionOptions(*_componentManager), false);
-}
-
-void PresetSelectionScene::awake()
-{
-    AScene::awake();
+    int i = 1;
     auto &rulesComponents = _componentManager->getComponentsByType(typeid(is::components::RulesComponent).hash_code());
-    for (auto &component : rulesComponents) {
-        const auto &c = std::static_pointer_cast<is::components::RulesComponent>(component);
-        c->setAiLevel(1, 1);
-        c->setAiLevel(2, 1);
-        c->setAiLevel(3, 1);
-        c->setAiLevel(4, 1);
-        c->setAiLevel(5, 1);
-    }
     auto &characterComponents = _componentManager->getComponentsByType(typeid(is::components::CharacterComponent).hash_code());
+
+    if (rulesComponents.empty())
+        throw is::exceptions::ECSException("Rules Component Missing for Preset Selection Scene.");
+
     for (auto &component : characterComponents) {
         const auto &c = std::static_pointer_cast<is::components::CharacterComponent>(component);
-        c->characterType = components::CharacterComponent::AI;
-        c->presetNumber = -1;
+        const auto &r = std::static_pointer_cast<is::components::RulesComponent>(rulesComponents[0]);
+        if (c->characterType != components::CharacterComponent::AI) {
+            c->characterType = components::CharacterComponent::AI;
+            c->presetNumber = -1;
+            c->joystickId = -1;
+            r->setAiLevel(i, 1);
+        }
+        i++;
     }
+    initEntity(prefabs::GlobalPrefabs::createPresetSelection(*_componentManager), false);
 }

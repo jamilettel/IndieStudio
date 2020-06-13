@@ -126,7 +126,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer1(
     IAImage1.layer = 2;
     auto &TextIA1 =e->addComponent<TextComponent>(
         e,
-        "AI - Level 1",
+        "AI - Level " + std::to_string(ruleComponent->getAiLevels()[0]),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
@@ -367,7 +367,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer2(
     IAImage2.layer = 2;
     auto &TextIA2 = e->addComponent<TextComponent>(
         e,
-        "AI - Level 1",
+        "AI - Level " + std::to_string(ruleComponent->getAiLevels()[1]),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 13 / 40,
@@ -609,7 +609,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer3(
     IAImage3.layer = 2;
     auto &TextIA3 = e->addComponent<TextComponent>(
         e,
-        "AI - Level 1",
+        "AI - Level " + std::to_string(ruleComponent->getAiLevels()[2]),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 5 / 20 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
@@ -851,7 +851,7 @@ is::prefabs::GlobalPrefabs::createPresetSelectionPlayer4(
     IAImage4.layer = 2;
     auto &TextIA4 = e->addComponent<TextComponent>(
         e,
-        "AI - Level 1",
+        "AI - Level " + std::to_string(ruleComponent->getAiLevels()[3]),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 29 / 40 - 20,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 29 / 40,
