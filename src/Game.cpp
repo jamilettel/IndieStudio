@@ -22,6 +22,11 @@ bool is::Game::_destroyScene = true;
 bool is::Game::_loadScene = true;
 std::pair<bool, is::ecs::Scenes> is::Game::_unloadScene;
 
+is::Game::~Game()
+{
+    AScene::clearSavedEntities();
+}
+
 void is::Game::addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene)
 {
     _scenes[sceneType] = scene;
