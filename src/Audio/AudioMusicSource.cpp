@@ -41,3 +41,8 @@ void AudioMusicSource::setVolume(float volume)
 {
     _music.setVolume(volume);
 }
+
+void AudioMusicSource::setLoop(bool loop)
+{
+    _music.setLoop(loop);
+}

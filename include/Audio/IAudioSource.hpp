@@ -20,6 +20,7 @@ namespace is::audio {
             virtual void stop() = 0;
             virtual bool isPlaying() = 0;
             virtual void setVolume(float volume) = 0;
+            virtual void setLoop(bool loop) = 0;
     };
 }
 

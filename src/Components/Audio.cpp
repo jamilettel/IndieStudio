@@ -47,7 +47,6 @@ void AudioComponent::play()
     _audioSource->play();
 }
 
-
 void AudioComponent::pause()
 {
     _audioSource->pause();
@@ -89,4 +88,9 @@ void AudioComponent::setVolume()
         _audioSource->setVolume(_volumeSound);
     else
         _audioSource->setVolume(_volumeMusic);
+}
+
+void AudioComponent::setLoop(bool loop)
+{
+    _audioSource->setLoop(loop);
 }

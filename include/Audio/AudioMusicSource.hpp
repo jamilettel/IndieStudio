@@ -21,6 +21,7 @@ namespace is::audio {
             void stop() override;
             bool isPlaying() override;
             void setVolume(float volume) override;
+            void setLoop(bool loop) override;
     private:
             sf::Music _music;
     };

@@ -38,6 +38,7 @@ namespace is::components {
 
             void deleteComponent() override;
 
+            void setLoop(bool loop);
             void setVolume();
             static float _volumeMusic;
             static float _volumeSound;

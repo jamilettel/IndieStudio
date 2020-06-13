@@ -532,10 +532,10 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMusic()
         RESSOURCE("sounds/main.ogg"),
         MUSIC
     );
-    mainMusic.init();
-    mainMusic.toPlay();
-    e->setInit(true);
 
+    mainMusic.init();
+    mainMusic.setLoop(true);
+    e->setInit(true);
     return e;
 }
 

@@ -9,8 +9,9 @@
 #define AUDIOSYSTEM_HPP
 
 #include "ECS/ASystem.hpp"
-
 #include "Components/Audio.hpp"
+#include "Game.hpp"
+#include <algorithm>
 
 namespace is::systems {
 
