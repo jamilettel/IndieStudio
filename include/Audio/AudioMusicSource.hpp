@@ -8,6 +8,7 @@
 #ifndef AUDIOMUSICSOURCE_HPP_
 #define AUDIOMUSICSOURCE_HPP_
 
+#include <memory>
 #include <SFML/Audio.hpp>
 #include "IAudioSource.hpp"
 
@@ -23,7 +24,7 @@ namespace is::audio {
             void setVolume(float volume) override;
             void setLoop(bool loop) override;
     private:
-            sf::Music _music;
+            std::unique_ptr<sf::Music> _music;
     };
 }
 
