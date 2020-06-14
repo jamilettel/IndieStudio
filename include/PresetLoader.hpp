@@ -11,9 +11,15 @@
 #include <string>
 #include "Components/Preset.hpp"
 
-#define LINE_PER_KEYBOARD_PRESET 5
-#define LINE_PER_JOYSTICK_PRESET 8
+#define LINE_PER_KEYBOARD_PRESET 6
+#define LINE_PER_JOYSTICK_PRESET 6
 #define LINE_PER_PRESET LINE_PER_JOYSTICK_PRESET + LINE_PER_KEYBOARD_PRESET
+
+#ifndef RESOURCES_PATH
+    #define RESOURCES_PATH "./resources/"
+#endif
+
+#define PRESET_SAVE_FILE RESOURCES_PATH ".savePresets"
 
 namespace is {
 
@@ -26,7 +32,7 @@ namespace is {
         PresetLoader &operator=(const PresetLoader &) = default;
 
         /// Opens, reads, checks if the file is valid and stores it in this class.
-        bool loadFile(const std::string &filepath);
+        bool loadFile(const std::string &filepath = PRESET_SAVE_FILE);
 
         /// Used after open, fills the preset with what was written in the file.
         void loadPreset(is::components::PresetComponent &preset);
@@ -35,12 +41,16 @@ namespace is {
         void savePreset(is::components::PresetComponent &preset);
 
         /// Use after saving the presets to write the file to the system.
-        void write(const std::string &filepath);
+        void write(const std::string &filepath = PRESET_SAVE_FILE);
 
     private:
         bool loadFileInArray(const std::string &filePath, std::vector<std::string> &lines);
-        bool checkFileContents(std::vector<std::string> &lines);
+        bool checkLine(std::vector<std::string> &line);
         static std::vector<std::string> strtok(std::string str, const std::string& sep);
+
+        bool isValidNum(const std::string &string);
+
+        void fillPreset(bool kbd, int presetNb, const PresetAction &action, int key);
 
     private:
         std::vector<std::map<PresetAction, irr::EKEY_CODE>> _keyboardBindings;
