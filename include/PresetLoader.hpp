@@ -40,6 +40,7 @@ namespace is {
     private:
         bool loadFileInArray(const std::string &filePath, std::vector<std::string> &lines);
         bool checkFileContents(std::vector<std::string> &lines);
+        static std::vector<std::string> strtok(std::string str, const std::string& sep);
 
     private:
         std::vector<std::map<PresetAction, irr::EKEY_CODE>> _keyboardBindings;

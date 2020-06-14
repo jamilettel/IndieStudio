@@ -71,3 +71,20 @@ void PresetLoader::write(const std::string &filepath)
         
     }
 }
+
+std::vector<std::string> PresetLoader::strtok(std::string str, const std::string &sep)
+{
+    std::vector<std::string> array;
+    size_t pos = 0;
+    std::string token;
+
+    if (str.empty())
+        return array;
+
+    while ((pos = str.find(sep)) != std::string::npos) {
+        token = str.substr(0, pos);
+        array.emplace_back(token);
+        str.erase(0, pos + sep.length());
+    }
+    return array;
+}
