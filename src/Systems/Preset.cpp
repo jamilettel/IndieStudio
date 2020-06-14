@@ -135,6 +135,15 @@ void PresetSystem::update()
 
 void PresetSystem::stop()
 {
+    auto &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
+    PresetLoader loader;
+
+    for (auto &preset: components) {
+        auto ptr = static_cast<PresetComponent *>(preset.get());
+
+        loader.savePreset(*ptr);
+    }
+    loader.write("./testSave");
 }
 
 void PresetSystem::onTearDown()

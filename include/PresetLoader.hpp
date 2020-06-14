@@ -11,8 +11,8 @@
 #include <string>
 #include "Components/Preset.hpp"
 
-#define LINE_PER_KEYBOARD_PRESET 5
-#define LINE_PER_JOYSTICK_PRESET 8
+#define LINE_PER_KEYBOARD_PRESET 6
+#define LINE_PER_JOYSTICK_PRESET 6
 #define LINE_PER_PRESET LINE_PER_JOYSTICK_PRESET + LINE_PER_KEYBOARD_PRESET
 
 namespace is {
@@ -39,8 +39,12 @@ namespace is {
 
     private:
         bool loadFileInArray(const std::string &filePath, std::vector<std::string> &lines);
-        bool checkFileContents(std::vector<std::string> &lines);
+        bool checkLine(std::vector<std::string> &line);
         static std::vector<std::string> strtok(std::string str, const std::string& sep);
+
+        bool isValidNum(const std::string &string);
+
+        void fillPreset(bool kbd, int presetNb, const PresetAction &action, int key);
 
     private:
         std::vector<std::map<PresetAction, irr::EKEY_CODE>> _keyboardBindings;
