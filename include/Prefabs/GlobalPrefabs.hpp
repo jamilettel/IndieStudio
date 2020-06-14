@@ -128,6 +128,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createFireSound();
         static std::shared_ptr<is::ecs::Entity> createClickSound();
         static std::shared_ptr<is::ecs::Entity> createMainMusic();
+        static std::shared_ptr<is::ecs::Entity> createGameMusic();
         static std::shared_ptr<is::ecs::Entity> createPowerupSound();
         static std::shared_ptr<is::ecs::Entity> createbombsetSound();
         static std::shared_ptr<is::ecs::Entity> createSound(const std::string &sound);
