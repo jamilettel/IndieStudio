@@ -131,7 +131,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
         350, 100,
         [](){
-            if( access("./testmap", F_OK) == -1 )
+            if (access(RESSOURCE(".savemap").c_str(), F_OK) == -1)
                 return;
             is::scenes::GameScene::loadMap = true;
             is::Game::setActualScene(SCENE_GAME);
@@ -272,7 +272,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause(std::shared_ptr<is::ecs::Comp
         WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
         350, 100,
         [&componentManager](){
-            MapLoader::saveMap("./testmap");
+            MapLoader::saveMap(RESSOURCE(".savemap"));
         },
         true,
         "ui/Save/Save_BTN.png",

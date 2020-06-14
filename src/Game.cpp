@@ -97,11 +97,15 @@ void is::Game::unloadScene()
 
 void is::Game::addResource(const std::string &path, void *resource)
 {
+    if (!resource)
+        throw is::exceptions::Exception("Resources", "Could not load ressource " + path);
     resources[path] = std::make_shared<void *>(resource);
 }
 
 void *is::Game::getResource(const std::string &path)
 {
+    if (!resources.count(path))
+        throw is::exceptions::Exception("Resources", "Could not get ressource " + path);
     return (*(resources[path].get()));
 }
 

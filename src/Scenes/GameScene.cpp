@@ -8,6 +8,12 @@
 #include "Scenes/GameScene.hpp"
 #include "MapLoader.hpp"
 
+#ifndef RESOURCES_PATH
+#define RESOURCES_PATH "./resources/"
+#endif
+
+#define RESSOURCE(str) std::string(std::string(RESOURCES_PATH) + std::string(str))
+
 using namespace is::systems;
 using namespace is::scenes;
 using namespace is::ecs;
@@ -69,7 +75,7 @@ void GameScene::initEntities()
     if (characters.size() != 4)
         throw is::exceptions::Exception("GameScene", "Error with character components");
     if (loadMap) {
-        std::vector<std::vector<int>> tmpMap = MapLoader::loadMap("./testmap");
+        std::vector<std::vector<int>> tmpMap = MapLoader::loadMap(RESSOURCE(".savemap"));
         mg.createMap(*this, tmpMap, MapLoader::x / 2, MapLoader::y / 2, a);
     }
 
