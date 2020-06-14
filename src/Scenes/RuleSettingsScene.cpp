@@ -63,4 +63,5 @@ void RuleSettingsScene::initEntities()
     initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules, 55));
     initEntity(is::prefabs::RuleSettingsPrefabs::createSeedRule(rulesSetting, rules, 65));
     initEntity(is::prefabs::RuleSettingsPrefabs::createPowerupFrequency(rulesSetting, rules, 75, false));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createDefaultButton(rulesSetting, rules, 85, 5));
 }

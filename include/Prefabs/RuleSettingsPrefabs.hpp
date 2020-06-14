@@ -41,6 +41,12 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createPowerupFrequency(
                 is::components::RulesSettingComponent &component, is::components::RulesComponent &rules, int pos, bool visible = true
             );
+            static std::shared_ptr<is::ecs::Entity> createDefaultButton(
+                is::components::RulesSettingComponent &component,
+                is::components::RulesComponent &rules,
+                float posX,
+                float posY
+            );
 
         private:
     };

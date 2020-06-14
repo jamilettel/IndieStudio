@@ -387,6 +387,10 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/OkButton.png")));
     is::Game::addResource("ui/RuleSettings/OkButtonPressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/OkButtonPressed.png")));
+    is::Game::addResource("ui/RuleSettings/defaultButton.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/defaultButton.png")));
+    is::Game::addResource("ui/RuleSettings/defaultButtonPressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/defaultButtonPressed.png")));
     is::Game::addResource("ui/settings/Header.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/settings/Header.png")));
     is::Game::addResource("ui/settings/Return_BTN.png",

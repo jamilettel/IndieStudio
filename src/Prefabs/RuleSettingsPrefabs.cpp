@@ -272,6 +272,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(RulesSett
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(std::to_string(rules.getNumberOfPlayers()));
+            valueToChange.setText(std::to_string(rules.getNumberOfPlayers()));
         }
     );
     return (e);
@@ -685,6 +690,15 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules, &wallPassDisable, &acceleratorDisable, &bombDisable, &explosionDisable](){
+            value.setText("On");
+            valueToChange.setText("On");
+            wallPassDisable.setClicked(true);
+            acceleratorDisable.setClicked(true);
+            bombDisable.setClicked(true);
+            explosionDisable.setClicked(true);
         }
     );
     return (e);
@@ -842,6 +856,11 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingCompo
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(rules.getTimeString());
+            valueToChange.setText(rules.getTimeString());
         }
     );
     return (e);
@@ -995,6 +1014,11 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::compone
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(std::to_string(rules.getSeed()));
+            valueToChange.setText(std::to_string(rules.getSeed()));
         }
     );
     return (e);
@@ -1148,7 +1172,40 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(Rul
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(std::to_string(rules.getPowerupFrequency()));
+            valueToChange.setText(std::to_string(rules.getPowerupFrequency()));
         }
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createDefaultButton(
+    is::components::RulesSettingComponent &component,
+    is::components::RulesComponent &rules,
+    float posX,
+    float posY
+)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * posY / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        [&component, &rules]() {
+            rules.reset();
+            component.reset();
+        },
+        true,
+        "ui/RuleSettings/defaultButton.png",
+        "ui/RuleSettings/defaultButtonPressed.png"
     );
     return (e);
 }
