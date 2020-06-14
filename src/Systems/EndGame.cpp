@@ -19,11 +19,11 @@ void EndGameSystem::awake()
     _timeOverSound->get().init();
     entity->setInit(true);
 
-    entity = initRuntimeEntity(prefabs::GlobalPrefabs::createSound("sounds/game_start.wav"), false);
+    auto &entity2 = initRuntimeEntity(prefabs::GlobalPrefabs::createSound("sounds/game_start.wav"), false);
 
-    _gameStartSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _gameStartSound.emplace(*entity2->getComponent<AudioComponent>()->get());
     _gameStartSound->get().init();
-    entity->setInit(true);
+    entity2->setInit(true);
 }
 
 void EndGameSystem::start()
