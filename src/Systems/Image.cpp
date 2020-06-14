@@ -7,9 +7,7 @@
 
 #include "Systems/Image.hpp"
 #include "Components/Image.hpp"
-
 #include <algorithm>
-#include <iostream>
 
 using namespace is::systems;
 using namespace is::components;

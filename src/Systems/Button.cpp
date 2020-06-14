@@ -7,9 +7,8 @@
 
 #include "Systems/Button.hpp"
 #include "Components/Button.hpp"
-
 #include <algorithm>
-#include <iostream>
+
 using namespace is::systems;
 using namespace is::components;
 

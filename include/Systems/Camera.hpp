@@ -8,7 +8,6 @@
 #ifndef CAMERASYSTEM_HPP_
 #define CAMERASYSTEM_HPP_
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 

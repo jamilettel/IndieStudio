@@ -8,7 +8,6 @@
 #ifndef SYSTEMBOMBSYSTEM_HPP_
 #define SYSTEMBOMBSYSTEM_HPP_
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>

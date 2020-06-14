@@ -6,7 +6,6 @@
 */
 
 #include "Components/Network.hpp"
-#include <iostream>
 
 is::components::NetworkComponent::NetworkComponent(std::shared_ptr<is::ecs::Entity> &e) :
 Component(e)

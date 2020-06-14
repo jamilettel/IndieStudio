@@ -8,7 +8,6 @@
 #ifndef SystemNetworkSystem_HPP_
 #define SystemNetworkSystem_HPP_
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>

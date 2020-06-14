@@ -7,9 +7,7 @@
 
 #include "Systems/Texture.hpp"
 #include "Components/Texture.hpp"
-
 #include <algorithm>
-#include <iostream>
 
 using namespace is::systems;
 using namespace is::components;

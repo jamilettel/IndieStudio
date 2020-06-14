@@ -8,7 +8,6 @@
 #ifndef WINDOWSYSTEM_HPP_
 #define WINDOWSYSTEM_HPP_
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 
