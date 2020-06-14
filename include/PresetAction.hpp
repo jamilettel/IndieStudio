@@ -14,7 +14,6 @@
 namespace is {
 
     struct PresetAction {
-        PresetAction() = delete;
         PresetAction(
             std::string actionString,
             float target,
@@ -33,7 +32,8 @@ namespace is {
         std::string action;
         float value;
         std::string description;
-        bool max; // only used for joystick axes
+        // only used for joystick axes
+        bool max;
 
     };
 
