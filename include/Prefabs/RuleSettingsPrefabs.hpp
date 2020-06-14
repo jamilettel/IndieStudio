@@ -26,11 +26,21 @@ namespace is::prefabs
             static std::shared_ptr<is::ecs::Entity> createRuleSettings();
             static std::shared_ptr<is::ecs::Entity> createOkButton(const std::shared_ptr<NetworkComponent> &nc, RulesComponent &rules);
             static std::shared_ptr<is::ecs::Entity> createSettingsBackground(is::components::RulesSettingComponent &component);
-            static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
-            static std::shared_ptr<is::ecs::Entity> createIconsRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
-            static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
-            static std::shared_ptr<is::ecs::Entity> createSeedRule(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
-            static std::shared_ptr<is::ecs::Entity> createPowerupFrequency(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules);
+            static std::shared_ptr<is::ecs::Entity> createNumberOfPlayersRule(
+                is::components::RulesSettingComponent &component, is::components::RulesComponent &rules, int pos, bool visible = true
+            );
+            static std::shared_ptr<is::ecs::Entity> createIconsRule(
+                is::components::RulesSettingComponent &component, is::components::RulesComponent &rules, int pos, bool visible = true
+            );
+            static std::shared_ptr<is::ecs::Entity> createMaxTimeRule(
+                is::components::RulesSettingComponent &component, is::components::RulesComponent &rules, int pos, bool visible = true
+            );
+            static std::shared_ptr<is::ecs::Entity> createSeedRule(
+                is::components::RulesSettingComponent &component, is::components::RulesComponent &rules, int pos, bool visible = true
+            );
+            static std::shared_ptr<is::ecs::Entity> createPowerupFrequency(
+                is::components::RulesSettingComponent &component, is::components::RulesComponent &rules, int pos, bool visible = true
+            );
 
         private:
     };

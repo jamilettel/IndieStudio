@@ -58,9 +58,9 @@ void RuleSettingsScene::initEntities()
         *static_cast<is::components::RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(is::components::RulesSettingComponent).hash_code())[0].get());
 
     initEntity(is::prefabs::RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createSeedRule(rulesSetting, rules));
-    initEntity(is::prefabs::RuleSettingsPrefabs::createPowerupFrequency(rulesSetting, rules));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules, 35));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createIconsRule(rulesSetting, rules, 45));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules, 55));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createSeedRule(rulesSetting, rules, 65));
+    initEntity(is::prefabs::RuleSettingsPrefabs::createPowerupFrequency(rulesSetting, rules, 75, false));
 }

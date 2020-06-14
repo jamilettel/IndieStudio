@@ -65,8 +65,9 @@ void MultiplayerRuleSettingsScene::initEntities()
         *static_cast<RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(RulesSettingComponent).hash_code())[0].get());
 
     initEntity(RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
-    initEntity(RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
+    initEntity(RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules, 35));
     //initEntity(RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
-    initEntity(RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
-    initEntity(RuleSettingsPrefabs::createSeedRule(rulesSetting, rules));
+    initEntity(RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules, 45));
+    initEntity(RuleSettingsPrefabs::createSeedRule(rulesSetting, rules, 55));
+    initEntity(RuleSettingsPrefabs::createPowerupFrequency(rulesSetting, rules, 65));
 }
