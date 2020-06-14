@@ -32,6 +32,7 @@ void SettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<JoystickCursorSystem>());
     _systemManager->addSystem(std::make_shared<JoystickInputSystem>());
     _systemManager->addSystem(std::make_shared<AlertSystem>());
+    _systemManager->addSystem(std::make_shared<SettingsLoaderSystem>());
     if (is::Game::getPreviousScene() == SCENE_PAUSE) {
         _systemManager->addSystem(std::make_shared<PauseSystem>());
         _systemManager->addSystem(std::make_shared<KeyboardInputSystem>());

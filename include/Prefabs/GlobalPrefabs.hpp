@@ -51,6 +51,7 @@
 #include "Components/Timer.hpp"
 #include "Components/Hud.hpp"
 #include "Components/NumberField.hpp"
+#include "PresetLoader.hpp"
 
 namespace is::prefabs {
 
@@ -111,7 +112,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createSettings();
         static std::shared_ptr<is::ecs::Entity> createControllersBase();
         static std::shared_ptr<is::ecs::Entity> createCharacter();
-        static std::shared_ptr<is::ecs::Entity> createPresets();
+        static std::shared_ptr<is::ecs::Entity> createOrLoadPresets();
         static std::shared_ptr<is::ecs::Entity> createJoystickCursor(int joystickId, const std::shared_ptr<components::WindowComponent> &window, int cursorNb);
         static std::shared_ptr<is::ecs::Entity> createControllersOptions(const is::ecs::ComponentManager &manager);
 
@@ -129,6 +130,7 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createFireSound();
         static std::shared_ptr<is::ecs::Entity> createClickSound();
         static std::shared_ptr<is::ecs::Entity> createMainMusic();
+        static std::shared_ptr<is::ecs::Entity> createGameMusic();
         static std::shared_ptr<is::ecs::Entity> createPowerupSound();
         static std::shared_ptr<is::ecs::Entity> createbombsetSound();
         static std::shared_ptr<is::ecs::Entity> createSound(const std::string &sound);

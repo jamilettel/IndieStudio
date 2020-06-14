@@ -56,6 +56,8 @@ void AudioSystem::update()
         } else if (ptr->getStatus() == TO_STOP && ptr->isPlaying()) {
             ptr->stop();
             ptr->nothing();
+        } else if (ptr->getID() == GAME && is::Game::getCurrentScene() == SCENE_GAME && !ptr->isPlaying()) {
+            ptr->play();
         }
     }
 }

@@ -61,6 +61,7 @@ namespace is::components
             int getNbIcons() const noexcept;
             Icon getIcon(int nb) const noexcept;
             std::map<Icon, bool> getIcons() const noexcept;
+            void reset() noexcept;
 
         private:
             int _numberOfPlayers = 4;
@@ -69,7 +70,7 @@ namespace is::components
             bool _fpsMode = false;
             std::vector<int> _aiLevels;
             int _seed = 1;
-            int _powerupFrequency = 4;
+            int _powerupFrequency = 5;
     };
 }
 

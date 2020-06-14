@@ -58,8 +58,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createGlobalPrefab()
     auto e = std::make_shared<Entity>();
 
     e->addComponent<TimeComponent>(e);
-    e->addComponent<AudioComponent>(e, RESSOURCE("sounds/lol.wav"), MUSIC,
-        false);
     auto &window = e->addComponent<WindowComponent>(e, "Indie Studio");
     auto &cursor = e->addComponent<ImageComponent>(e, "ui/cursor/cursor.png", "Indie Studio", 0, 0);
     cursor.layer = 10;
@@ -131,7 +129,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createMainMenu()
         WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
         350, 100,
         [](){
-            if( access("./testmap", F_OK) == -1 )
+            if (access(RESSOURCE(".savemap").c_str(), F_OK) == -1)
                 return;
             is::scenes::GameScene::loadMap = true;
             is::Game::setActualScene(SCENE_GAME);
@@ -272,7 +270,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createPause(std::shared_ptr<is::ecs::Comp
         WindowComponent::_windowsDimensions["Indie Studio"].second * 11 / 20,
         350, 100,
         [&componentManager](){
-            MapLoader::saveMap("./testmap");
+            MapLoader::saveMap(RESSOURCE(".savemap"));
         },
         true,
         "ui/Save/Save_BTN.png",

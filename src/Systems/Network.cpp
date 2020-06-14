@@ -75,7 +75,7 @@ void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::comp
     ptr->timeBeforeSharePos += _time->get().getCurrentIntervalSeconds();
     ptr->timeBeforeSharePosAi += _time->get().getCurrentIntervalSeconds();
     if (ptr->playerIdx == 0 && ptr->timeBeforeSharePosAi >= 0.05f) {
-        for (int i = 0; i < characters.size(); i++) {
+        for (size_t i = 0; i < characters.size(); i++) {
             auto &ch = *static_cast<CharacterComponent *>(charactersCo[i].get());
             if (ch.characterType == is::components::CharacterComponent::AI) {
                 const auto &trAi = characters[i]->getEntity()->getComponent<is::components::TransformComponent>()->get();
@@ -98,7 +98,7 @@ void is::systems::NetworkSystem::refreshGameState(const std::shared_ptr<is::comp
         ptr->timeBeforeSharePos = 0;
     }
     
-    for (int i = 0; i < characters.size(); i++) {
+    for (size_t i = 0; i < characters.size(); i++) {
         if (static_cast<is::components::CharacterControllerComponent *>(characters[i].get())->dropBombFrame) { 
             ptr->writeQueue.push("evt db " + std::to_string(ptr->lobby) +
             " " + std::to_string(i) + " \n");

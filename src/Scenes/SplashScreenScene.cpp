@@ -30,6 +30,7 @@ void SplashScreenScene::initSystems()
     _systemManager->addSystem(std::make_shared<ButtonSystem>());
     _systemManager->addSystem(std::make_shared<TextSystem>());
     _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<SettingsLoaderSystem>());
 }
 
 void SplashScreenScene::initEntities()
@@ -37,7 +38,7 @@ void SplashScreenScene::initEntities()
     initEntity(prefabs::GlobalPrefabs::createGlobalPrefab(), true);
     initEntity(prefabs::GlobalPrefabs::createSplashScreen(), false);
     initEntity(prefabs::GlobalPrefabs::createCharacter(), true);
-    initEntity(prefabs::GlobalPrefabs::createPresets(), true);
+    initEntity(prefabs::GlobalPrefabs::createOrLoadPresets(), true);
     initEntity(prefabs::GlobalPrefabs::createRules(), true);
     initEntity(prefabs::GlobalPrefabs::createMainMusic(), true);
 }

@@ -24,7 +24,6 @@ std::pair<bool, is::ecs::Scenes> is::Game::_unloadScene;
 
 is::Game::~Game()
 {
-    AScene::clearSavedEntities();
 }
 
 void is::Game::addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene)
@@ -60,6 +59,7 @@ void is::Game::launchGame(is::ecs::Scenes startScene)
     }
     _scenes[currentScene]->stop();
     _scenes[currentScene]->onTearDown();
+    AScene::clearSavedEntities();
 }
 
 void is::Game::setActualScene(is::ecs::Scenes scene, bool loadScene, bool destroyScene)
@@ -97,11 +97,15 @@ void is::Game::unloadScene()
 
 void is::Game::addResource(const std::string &path, void *resource)
 {
+    if (!resource)
+        throw is::exceptions::Exception("Resources", "Could not load ressource " + path);
     resources[path] = std::make_shared<void *>(resource);
 }
 
 void *is::Game::getResource(const std::string &path)
 {
+    if (!resources.count(path))
+        throw is::exceptions::Exception("Resources", "Could not get ressource " + path);
     return (*(resources[path].get()));
 }
 
@@ -407,6 +411,10 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/OkButton.png")));
     is::Game::addResource("ui/RuleSettings/OkButtonPressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/OkButtonPressed.png")));
+    is::Game::addResource("ui/RuleSettings/defaultButton.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/defaultButton.png")));
+    is::Game::addResource("ui/RuleSettings/defaultButtonPressed.png",
+        (void *)window->driver->getTexture(RESSOURCE("ui/RuleSettings/defaultButtonPressed.png")));
     is::Game::addResource("ui/settings/Header.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/settings/Header.png")));
     is::Game::addResource("ui/settings/Return_BTN.png",

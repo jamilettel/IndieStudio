@@ -327,9 +327,10 @@ std::shared_ptr<Entity> GlobalPrefabs::createCharacter()
     return e;
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createPresets()
+std::shared_ptr<Entity> GlobalPrefabs::createOrLoadPresets()
 {
     auto e = std::make_shared<Entity>();
+    is::PresetLoader loader;
 
     auto &preset1 = e->addComponent<PresetComponent>(e, 1);
     auto &preset2 = e->addComponent<PresetComponent>(e, 2);
@@ -345,6 +346,13 @@ std::shared_ptr<Entity> GlobalPrefabs::createPresets()
     JoystickPresetComponent::createBasicPreset(preset2.getJoystickPreset());
     JoystickPresetComponent::createBasicPreset(preset3.getJoystickPreset());
     JoystickPresetComponent::createBasicPreset(preset4.getJoystickPreset());
+
+    if (loader.loadFile()) {
+        loader.loadPreset(preset1);
+        loader.loadPreset(preset2);
+        loader.loadPreset(preset3);
+        loader.loadPreset(preset4);
+    }
 
     return e;
 }
@@ -398,7 +406,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    auto &texture = e->addComponent<ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         "ui/Game/playerHud.png",
         "Indie Studio",
@@ -406,7 +414,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
         (player == 1 || player == 3 ? 0 : WindowComponent::_windowsDimensions["Indie Studio"].second - 101),
         false
     ).layer=-11;
-    auto &icon = e->addComponent<ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         "icon"+skin.substr(6),
         "Indie Studio",
@@ -553,6 +561,24 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMusic()
 
     mainMusic.init();
     mainMusic.setLoop(true);
+    e->setInit(true);
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGameMusic()
+{
+    auto e = std::make_shared<Entity>();
+
+    auto &gameMusic = e->addComponent<AudioComponent>(
+        e,
+        RESSOURCE("sounds/gameMusic.ogg"),
+        MUSIC
+    );
+
+    gameMusic.init();
+    gameMusic.setLoop(true);
+    gameMusic.setID(GAME);
+    gameMusic.toPlay();
     e->setInit(true);
     return e;
 }

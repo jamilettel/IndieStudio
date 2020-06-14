@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** Systems/ParticuleSystem.cpp
 ** File description:
-** 
+** a
 */
 
 #include "Systems/Preset.hpp"
@@ -135,6 +135,15 @@ void PresetSystem::update()
 
 void PresetSystem::stop()
 {
+    auto &components = _componentManager->getComponentsByType(typeid(PresetComponent).hash_code());
+    PresetLoader loader;
+
+    for (auto &preset: components) {
+        auto ptr = static_cast<PresetComponent *>(preset.get());
+
+        loader.savePreset(*ptr);
+    }
+    loader.write();
 }
 
 void PresetSystem::onTearDown()

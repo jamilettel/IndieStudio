@@ -22,6 +22,7 @@
 #include "Systems/JoystickInput.hpp"
 #include "Systems/JoystickCursor.hpp"
 #include "Systems/Alert.hpp"
+#include "Systems/SettingsLoaderSystem.hpp"
 
 namespace is::scenes {
 

@@ -169,3 +169,15 @@ void RulesComponent::setPowerUpFrequency(int nb) noexcept
 {
     _powerupFrequency = nb;
 }
+
+void RulesComponent::reset() noexcept
+{
+    _icons[ACCELERATOR] = true;
+    _icons[EXPLOSION] = true;
+    _icons[BOMB] = true;
+    _icons[WALL_PASS] = true;
+    _numberOfPlayers = 4;
+    _maxTime = 180;
+    _seed = 1;
+    _powerupFrequency = 5;
+}
