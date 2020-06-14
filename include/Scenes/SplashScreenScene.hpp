@@ -19,6 +19,7 @@
 #include "Systems/Cursor.hpp"
 #include "Systems/Button.hpp"
 #include "Systems/Text.hpp"
+#include "Systems/SettingsLoaderSystem.hpp"
 
 namespace is::scenes {
 

@@ -30,6 +30,7 @@ void SplashScreenScene::initSystems()
     _systemManager->addSystem(std::make_shared<ButtonSystem>());
     _systemManager->addSystem(std::make_shared<TextSystem>());
     _systemManager->addSystem(std::make_shared<AudioSystem>());
+    _systemManager->addSystem(std::make_shared<SettingsLoaderSystem>());
 }
 
 void SplashScreenScene::initEntities()
