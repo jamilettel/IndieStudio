@@ -50,6 +50,7 @@ std::shared_ptr<Entity> is::prefabs::GlobalPrefabs::createPresetSelectionBase(st
         50,
         350, 100,
         [](){
+            is::scenes::GameScene::loadMap = false;
             is::Game::setActualScene(SCENE_GAME);
         },
         true,
