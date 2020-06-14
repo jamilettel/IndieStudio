@@ -10,7 +10,6 @@
 
 #define _USE_MATH_DEFINES
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <cmath>

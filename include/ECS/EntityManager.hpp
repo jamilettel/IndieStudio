@@ -9,7 +9,6 @@
 #define ENTITYMANAGER_HPP_
 
 #include <vector>
-#include <iostream>
 
 #include "ECS/Entity.hpp"
 #include "ECS/ComponentManager.hpp"

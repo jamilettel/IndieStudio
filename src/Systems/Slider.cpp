@@ -8,7 +8,7 @@
 #include "Systems/Slider.hpp"
 #include "Components/Slider.hpp"
 #include <algorithm>
-#include <iostream>
+
 using namespace is::systems;
 using namespace is::components;
 

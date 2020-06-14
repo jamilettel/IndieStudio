@@ -7,9 +7,7 @@
 
 #include "Systems/Particule.hpp"
 #include "Components/Particule.hpp"
-
 #include <algorithm>
-#include <iostream>
 
 using namespace is::systems;
 using namespace is::components;

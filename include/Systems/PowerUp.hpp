@@ -8,7 +8,6 @@
 #ifndef SYSTEMPOWERUPSYSTEM_HPP_
 #define SYSTEMPOWERUPSYSTEM_HPP_
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>

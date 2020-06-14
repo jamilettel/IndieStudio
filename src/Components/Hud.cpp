@@ -6,7 +6,6 @@
 */
 
 #include "Components/Hud.hpp"
-#include <iostream>
 
 using namespace is::components;
 using namespace is::ecs;

@@ -6,7 +6,6 @@
 */
 
 #include "MapLoader.hpp"
-#include <iostream>
 #include "Components/AIController.hpp"
 #include "Components/CharacterController.hpp"
 #include "Components/Timer.hpp"

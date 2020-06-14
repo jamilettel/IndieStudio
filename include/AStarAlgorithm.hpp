@@ -12,7 +12,6 @@
 #include <vector>
 #include <algorithm>
 #include "Exception.hpp"
-#include <iostream>
 #include <cmath>
 #include <functional>
 #include <memory>

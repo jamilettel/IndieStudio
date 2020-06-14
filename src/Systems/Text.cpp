@@ -7,9 +7,7 @@
 
 #include "Systems/Text.hpp"
 #include "Components/Text.hpp"
-
 #include <algorithm>
-#include <iostream>
 
 using namespace is::systems;
 using namespace is::components;

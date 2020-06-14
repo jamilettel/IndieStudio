@@ -8,7 +8,6 @@
 #ifndef SYSTEMLIGHTSYSTEM_HPP_
 #define SYSTEMLIGHTSYSTEM_HPP_
 
-#include <iostream>
 #include <memory>
 #include <irrlicht.h>
 #include <filesystem>

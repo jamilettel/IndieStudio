@@ -12,7 +12,6 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include <iostream>
 #include <algorithm>
 
 #include "ECS/Component.hpp"

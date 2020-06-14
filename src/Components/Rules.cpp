@@ -6,7 +6,6 @@
 */
 
 #include "Components/Rules.hpp"
-#include <iostream>
 
 using namespace is::ecs;
 using namespace is::components;
