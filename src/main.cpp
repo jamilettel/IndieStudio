@@ -8,17 +8,17 @@
 #include "Game.hpp"
 #include "Exception.hpp"
 
-int main(int argc, char const *argv[])
+int bomberman(int argc, char const *argv[])
 {
     is::Game game;
     try {
-#ifdef _WIN32
-            WSADATA data;
+        #ifdef _WIN32
+        WSADATA data;
 
             if (!SetProcessDPIAware())
                 throw is::exceptions::WindowException("SetProcessDPIAware failed.");
             WSAStartup(MAKEWORD(2, 2), &data);
-#endif
+        #endif
         game.addScene(is::ecs::Scenes::SCENE_SPLASH_SCREEN, std::make_shared<is::scenes::SplashScreenScene>());
         game.addScene(is::ecs::Scenes::SCENE_MAIN_MENU, std::make_shared<is::scenes::MainMenuScene>());
         game.addScene(is::ecs::Scenes::SCENE_CREDIT, std::make_shared<is::scenes::CreditScene>());
@@ -46,4 +46,9 @@ int main(int argc, char const *argv[])
         return 84;
     }
     return 0;
+}
+
+int main(int argc, char const *argv[])
+{
+    return (bomberman(argc, argv));
 }

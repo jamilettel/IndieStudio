@@ -24,8 +24,8 @@ namespace is::audio {
             void setVolume(float volume) override;
             void setLoop(bool loop) override;
         private:
-            std::unique_ptr<sf::Sound> _sound;
             std::unique_ptr<sf::SoundBuffer> _buffer;
+            std::unique_ptr<sf::Sound> _sound;
     };
 }
 

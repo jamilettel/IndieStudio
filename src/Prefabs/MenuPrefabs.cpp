@@ -58,8 +58,6 @@ std::shared_ptr<Entity> GlobalPrefabs::createGlobalPrefab()
     auto e = std::make_shared<Entity>();
 
     e->addComponent<TimeComponent>(e);
-    e->addComponent<AudioComponent>(e, RESSOURCE("sounds/lol.wav"), MUSIC,
-        false);
     auto &window = e->addComponent<WindowComponent>(e, "Indie Studio");
     auto &cursor = e->addComponent<ImageComponent>(e, "ui/cursor/cursor.png", "Indie Studio", 0, 0);
     cursor.layer = 10;

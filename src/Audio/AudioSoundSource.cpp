@@ -11,7 +11,7 @@
 using namespace is::audio;
 using namespace is::exceptions;
 
-AudioSoundSource::AudioSoundSource(const std::string &filename) : _sound(std::make_unique<sf::Sound>()), _buffer(std::make_unique<sf::SoundBuffer>())
+AudioSoundSource::AudioSoundSource(const std::string &filename) : _buffer(std::make_unique<sf::SoundBuffer>()), _sound(std::make_unique<sf::Sound>())
 {
     if (!_buffer->loadFromFile(filename))
         throw (Exception("AudioSoundSource", "cant open music file"));
