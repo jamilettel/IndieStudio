@@ -60,6 +60,8 @@ namespace is::prefabs {
         static std::shared_ptr<is::ecs::Entity> createGlobalPrefabMultiplayer();
         static std::shared_ptr<is::ecs::Entity> createWallBlock(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createCenterBlock(const irr::core::vector3df &position);
+        static std::shared_ptr<is::ecs::Entity> createEnvironment();
+        static std::shared_ptr<is::ecs::Entity> createTree(int nb, irr::core::vector3df pos, float rot = 0);
         static std::shared_ptr<is::ecs::Entity> createGrassBlock(const irr::core::vector3df &position);
         static std::shared_ptr<is::ecs::Entity> createBomb(irr::core::vector3df position, int range, std::shared_ptr<is::components::BombermanComponent> &bm, is::components::CharacterControllerComponent &ch);
         static std::shared_ptr<is::ecs::Entity> createFire(const irr::core::vector3df &position);

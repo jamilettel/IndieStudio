@@ -38,5 +38,5 @@ void TransformComponent::rotate(const irr::core::vector3df &vector)
 
 void TransformComponent::scaleObject(const irr::core::vector3df &vector)
 {
-    this->scale *= vector;
+    this->scale = vector;
 }

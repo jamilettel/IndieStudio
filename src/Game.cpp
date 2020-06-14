@@ -211,12 +211,36 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->scenemgr->getMesh(RESSOURCE("cubb.obj")));
     is::Game::addResource("poteau.obj",
         (void *)window->scenemgr->getMesh(RESSOURCE("poteau.obj")));
+
+    is::Game::addResource("env.b3d",
+        (void *)window->scenemgr->getMesh(RESSOURCE("env.b3d")));
+    is::Game::addResource("env.png",
+        (void *)window->driver->getTexture(RESSOURCE("env.png")));
+    is::Game::addResource("tree1.b3d",
+        (void *)window->scenemgr->getMesh(RESSOURCE("tree1.b3d")));
+    is::Game::addResource("tree1.png",
+        (void *)window->driver->getTexture(RESSOURCE("tree1.png")));
+    is::Game::addResource("tree2.b3d",
+        (void *)window->scenemgr->getMesh(RESSOURCE("tree2.b3d")));
+    is::Game::addResource("tree2.png",
+        (void *)window->driver->getTexture(RESSOURCE("tree2.png")));
+    is::Game::addResource("tree3.b3d",
+        (void *)window->scenemgr->getMesh(RESSOURCE("tree3.b3d")));
+    is::Game::addResource("tree3.png",
+        (void *)window->driver->getTexture(RESSOURCE("tree3.png")));
+    is::Game::addResource("tree4.b3d",
+        (void *)window->scenemgr->getMesh(RESSOURCE("tree4.b3d")));
+    is::Game::addResource("tree4.png",
+        (void *)window->driver->getTexture(RESSOURCE("tree4.png")));
+
     is::Game::addResource("grass.obj",
         (void *)window->scenemgr->getMesh(RESSOURCE("grass.obj")));
     is::Game::addResource("crate.obj",
         (void *)window->scenemgr->getMesh(RESSOURCE("crate.obj")));
-    is::Game::addResource("bomb.obj",
-        (void *)window->scenemgr->getMesh(RESSOURCE("bomb.obj")));
+    is::Game::addResource("bomb.b3d",
+        (void *)window->scenemgr->getMesh(RESSOURCE("bomb.b3d")));
+    is::Game::addResource("bomb.png",
+        (void *)window->driver->getTexture(RESSOURCE("bomb.png")));
     is::Game::addResource("powerup.b3d",
         (void *)window->scenemgr->getMesh(RESSOURCE("powerup.b3d")));
     is::Game::addResource("bombup.png",

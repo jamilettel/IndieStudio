@@ -8,6 +8,7 @@
 #include "Systems/Bomb.hpp"
 
 #include <utility>
+#include <cmath>
 
 using namespace irr;
 using namespace is::components;
@@ -39,6 +40,7 @@ void is::systems::BombSystem::start()
 
 void is::systems::BombSystem::update()
 {
+    static float angle = 0;
     static int nbBomb = 0;
 
     int i = 0;
@@ -66,8 +68,11 @@ void is::systems::BombSystem::update()
             ptr->bomberman->instantBomb--;
             ptr->getEntity()->setDelete(true);
         }
+        const auto &transform = ptr->getEntity()->getComponent<is::components::TransformComponent>();
+        transform->get()->scaleObject(irr::core::vector3df(10+sin(angle * M_PI / 180 * 10))); 
         i++;
     }
+    angle = (angle >= 360 ? 0 : angle + 1);
     if (i == 0) {
         _fuseSound.value().get().toStop();
     } else {

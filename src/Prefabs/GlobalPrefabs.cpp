@@ -46,6 +46,24 @@ std::shared_ptr<Entity> GlobalPrefabs::createCenterBlock(const irr::core::vector
     return (e);
 }
 
+std::shared_ptr<Entity> GlobalPrefabs::createEnvironment()
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<TransformComponent>(e, irr::core::vector3df(0, -0.5, 0), irr::core::vector3df(0, 0, 0), irr::core::vector3df(1.f));
+    e->addComponent<ModelRendererComponent>(e, "env.b3d", "Indie Studio", "env.png");
+    return (e);
+}
+
+std::shared_ptr<Entity> GlobalPrefabs::createTree(int nb, irr::core::vector3df pos, float rot)
+{
+    auto e = std::make_shared<Entity>();
+
+    e->addComponent<TransformComponent>(e, pos, irr::core::vector3df(0, rot, 0), irr::core::vector3df(0.5f));
+    e->addComponent<ModelRendererComponent>(e, "tree"+std::to_string(nb)+".b3d", "Indie Studio", "tree"+std::to_string(nb)+".png");
+    return (e);
+}
+
 std::shared_ptr<Entity> GlobalPrefabs::createGrassBlock(const irr::core::vector3df &position)
 {
     auto e = std::make_shared<Entity>(Entity::GROUND);
@@ -84,7 +102,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createBomb(
     auto e = std::make_shared<Entity>(Entity::BOMB);
 
     e->addComponent<TransformComponent>(e, position, irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 10));
-    e->addComponent<ModelRendererComponent>(e, "bomb.obj", "Indie Studio");
+    e->addComponent<ModelRendererComponent>(e, "bomb.b3d", "Indie Studio", "bomb.png");
     e->addComponent<BombComponent>(e, bm, position, ch, 3, range);
     e->addComponent<ParticuleComponent>(
         e,

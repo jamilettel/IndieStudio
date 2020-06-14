@@ -100,6 +100,13 @@ std::vector<std::vector<int>> MapGenerator::generateArray(int width, int height)
 
 void MapGenerator::createMap(ecs::AScene &sc, std::vector<std::vector<int>> arrayMap, int mid_w, int mid_h, std::vector<std::shared_ptr<is::ecs::Component>> network)
 {
+    sc.initEntity(prefabs::GlobalPrefabs::createEnvironment());
+    sc.initEntity(prefabs::GlobalPrefabs::createTree(1, irr::core::vector3df(5, 0, -24)));
+    sc.initEntity(prefabs::GlobalPrefabs::createTree(2, irr::core::vector3df(-1, 0, 29)));
+    sc.initEntity(prefabs::GlobalPrefabs::createTree(3, irr::core::vector3df(-12, 0, 25)));
+    sc.initEntity(prefabs::GlobalPrefabs::createTree(4, irr::core::vector3df(10, 0, 26), 180));
+    sc.initEntity(prefabs::GlobalPrefabs::createTree(4, irr::core::vector3df(-10, 0, -27)));
+    sc.initEntity(prefabs::GlobalPrefabs::createTree(2, irr::core::vector3df(20, 0, -29)));
     for (int i = -mid_w; i < mid_w + 1; i++) {
         for (int j = -mid_h; j < mid_h + 1; j++) {
             sc.initEntity(prefabs::GlobalPrefabs::createGrassBlock(irr::core::vector3df(j * 3, -3, i * 3)));

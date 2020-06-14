@@ -46,7 +46,6 @@ namespace is::components {
         private:
             CharacterComponent &_character;
     };
-
 }
 
 #endif /* !BOMBERMAN_HPP_ */
