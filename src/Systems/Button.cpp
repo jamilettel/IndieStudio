@@ -55,7 +55,7 @@ void ButtonSystem::update()
     for (auto &elem : _componentManager->getComponentsByType(typeid(ButtonComponent).hash_code())) {
         const auto &ptr = static_cast<ButtonComponent*>(elem.get());
         if (ptr->isClicked()) {
-            _clickSound->get().toPlay();
+            _clickSound->get().play();
             ptr->callCallback();
             ptr->setClicked(false);
         }

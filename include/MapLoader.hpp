@@ -6,18 +6,18 @@
 */
 
 #ifndef MAP_LOADER_HPP_
-#   define MAP_LOADER_HPP_
+#define MAP_LOADER_HPP_
 
-#   include <vector>
-#   include <string>
-#   include <irrlicht.h>
-#   include "Components/Character.hpp"
-#   include "Components/Transform.hpp"
-#   include "ECS/ComponentManager.hpp"
-#   include "ECS/Entity.hpp"
-#   include "Components/PowerUp.hpp"
-#   include <fstream>
-#   include "Components/Bomberman.hpp"
+#include <vector>
+#include <string>
+#include <irrlicht.h>
+#include "Components/Character.hpp"
+#include "Components/Transform.hpp"
+#include "ECS/ComponentManager.hpp"
+#include "ECS/Entity.hpp"
+#include "Components/PowerUp.hpp"
+#include <fstream>
+#include "Components/Bomberman.hpp"
 
 namespace is {
 
