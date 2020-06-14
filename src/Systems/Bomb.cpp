@@ -69,7 +69,7 @@ void is::systems::BombSystem::update()
             ptr->getEntity()->setDelete(true);
         }
         const auto &transform = ptr->getEntity()->getComponent<is::components::TransformComponent>();
-        transform->get()->scaleObject(irr::core::vector3df(10+sin(angle * M_PI / 180 * 10))); 
+        transform->get()->scaleObject(irr::core::vector3df(10+sin(angle * 3.1415 / 180 * 10))); 
         i++;
     }
     angle = (angle >= 360 ? 0 : angle + 1);
