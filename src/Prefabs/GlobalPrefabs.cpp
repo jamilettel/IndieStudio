@@ -555,7 +555,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMusic()
 
     auto &mainMusic = e->addComponent<AudioComponent>(
         e,
-        RESSOURCE("sounds/main.ogg"),
+        RESSOURCE("sounds/menu.ogg"),
         MUSIC
     );
 
@@ -571,7 +571,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGameMusic()
 
     auto &gameMusic = e->addComponent<AudioComponent>(
         e,
-        RESSOURCE("sounds/gameMusic.ogg"),
+        RESSOURCE("sounds/game.ogg"),
         MUSIC
     );
 
