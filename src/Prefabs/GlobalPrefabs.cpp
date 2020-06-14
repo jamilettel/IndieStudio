@@ -388,7 +388,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
 {
     auto e = std::make_shared<is::ecs::Entity>();
 
-    auto &texture = e->addComponent<ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         "ui/Game/playerHud.png",
         "Indie Studio",
@@ -396,7 +396,7 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createPlayerHud(BombermanCompone
         (player == 1 || player == 3 ? 0 : WindowComponent::_windowsDimensions["Indie Studio"].second - 101),
         false
     ).layer=-11;
-    auto &icon = e->addComponent<ImageComponent>(
+    e->addComponent<ImageComponent>(
         e,
         "icon"+skin.substr(6),
         "Indie Studio",
@@ -543,6 +543,24 @@ std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createMainMusic()
 
     mainMusic.init();
     mainMusic.setLoop(true);
+    e->setInit(true);
+    return e;
+}
+
+std::shared_ptr<is::ecs::Entity> GlobalPrefabs::createGameMusic()
+{
+    auto e = std::make_shared<Entity>();
+
+    auto &gameMusic = e->addComponent<AudioComponent>(
+        e,
+        RESSOURCE("sounds/gameMusic.ogg"),
+        MUSIC
+    );
+
+    gameMusic.init();
+    gameMusic.setLoop(true);
+    gameMusic.setID(GAME);
+    gameMusic.toPlay();
     e->setInit(true);
     return e;
 }

@@ -122,7 +122,7 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createSettingsBackground(RulesSetti
     return (e);
 }
 
-std::shared_ptr<Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(RulesSettingComponent &component, RulesComponent &rules, int pos, bool visible)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -130,48 +130,52 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(RulesSett
         e,
         "ui/RuleSettings/Dot_01.png",
         "Indie Studio",
-        irr::core::vector2df(11.3, 36),
+        irr::core::vector2df(11.3, pos + 1),
         irr::core::vector2df(3, 5)
     );
     TextureComponent &firstTable = e->addComponent<TextureComponent>(
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(15, 35),
-        irr::core::vector2df(20, 8)
+        irr::core::vector2df(15, pos),
+        irr::core::vector2df(20, 8),
+        visible
     );
     TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(36, 35),
-        irr::core::vector2df(7, 8)
+        irr::core::vector2df(36, pos),
+        irr::core::vector2df(7, 8),
+        visible
     );
     TextComponent &title = e->addComponent<TextComponent>(
         e,
         "Number of players",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 35 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * pos / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 20 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
         std::to_string(rules.getNumberOfPlayers()),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 35.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * (pos + 0.3f) / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &valueToChange = e->addComponent<TextComponent>(
         e,
@@ -268,12 +272,17 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createNumberOfPlayersRule(RulesSett
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(std::to_string(rules.getNumberOfPlayers()));
+            valueToChange.setText(std::to_string(rules.getNumberOfPlayers()));
         }
     );
     return (e);
 }
 
-std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingComponent &component, RulesComponent &rules, int pos, bool visible)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -281,7 +290,7 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         e,
         "ui/RuleSettings/Dot_01.png",
         "Indie Studio",
-        irr::core::vector2df(11.3, 46),
+        irr::core::vector2df(11.3, pos + 1),
         irr::core::vector2df(3, 5),
         false
     );
@@ -289,41 +298,45 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(15, 45),
-        irr::core::vector2df(20, 8)
+        irr::core::vector2df(15, pos),
+        irr::core::vector2df(20, 8),
+        visible
     );
     TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(36, 45),
-        irr::core::vector2df(7, 8)
+        irr::core::vector2df(36, pos),
+        irr::core::vector2df(7, 8),
+        visible
     );
     TextComponent &title = e->addComponent<TextComponent>(
         e,
         "Icons",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 45 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * pos / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
         (rules.noIconUsed() ? "Off" : "On"),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 45.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * (pos + 0.3f) / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &valueToChange = e->addComponent<TextComponent>(
         e,
@@ -677,12 +690,21 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createIconsRule(RulesSettingCompone
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules, &wallPassDisable, &acceleratorDisable, &bombDisable, &explosionDisable](){
+            value.setText("On");
+            valueToChange.setText("On");
+            wallPassDisable.setClicked(true);
+            acceleratorDisable.setClicked(true);
+            bombDisable.setClicked(true);
+            explosionDisable.setClicked(true);
         }
     );
     return (e);
 }
 
-std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingComponent &component, RulesComponent &rules, int pos, bool visible)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -690,7 +712,7 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingCompo
         e,
         "ui/RuleSettings/Dot_01.png",
         "Indie Studio",
-        irr::core::vector2df(11.3, 56),
+        irr::core::vector2df(11.3, pos + 1),
         irr::core::vector2df(3, 5),
         false
     );
@@ -698,41 +720,45 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingCompo
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(15, 55),
-        irr::core::vector2df(20, 8)
+        irr::core::vector2df(15, pos),
+        irr::core::vector2df(20, 8),
+        visible
     );
     TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(36, 55),
-        irr::core::vector2df(7, 8)
+        irr::core::vector2df(36, pos),
+        irr::core::vector2df(7, 8),
+        visible
     );
     TextComponent &title = e->addComponent<TextComponent>(
         e,
         "Max Time",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 55 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * pos / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 13 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
         rules.getTimeString(),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 55.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * (pos + 0.3f) / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &valueToChange = e->addComponent<TextComponent>(
         e,
@@ -830,12 +856,17 @@ std::shared_ptr<Entity> RuleSettingsPrefabs::createMaxTimeRule(RulesSettingCompo
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(rules.getTimeString());
+            valueToChange.setText(rules.getTimeString());
         }
     );
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::components::RulesSettingComponent &component, RulesComponent &rules)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::components::RulesSettingComponent &component, RulesComponent &rules, int pos, bool visible)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -843,7 +874,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::compone
         e,
         "ui/RuleSettings/Dot_01.png",
         "Indie Studio",
-        irr::core::vector2df(11.3, 66),
+        irr::core::vector2df(11.3, pos + 1),
         irr::core::vector2df(3, 5),
         false
     );
@@ -851,41 +882,45 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::compone
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(15, 65),
-        irr::core::vector2df(20, 8)
+        irr::core::vector2df(15, pos),
+        irr::core::vector2df(20, 8),
+        visible
     );
     TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(36, 65),
-        irr::core::vector2df(7, 8)
+        irr::core::vector2df(36, pos),
+        irr::core::vector2df(7, 8),
+        visible
     );
     TextComponent &title = e->addComponent<TextComponent>(
         e,
         "Seed",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 65 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * pos / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 9 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
         std::to_string(rules.getSeed()),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 65.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * (pos + 0.3f) / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
-        irr::video::SColor(255, 227, 245, 244)
+        irr::video::SColor(255, 227, 245, 244),
+        visible
     );
     TextComponent &valueToChange = e->addComponent<TextComponent>(
         e,
@@ -979,12 +1014,17 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createSeedRule(is::compone
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(std::to_string(rules.getSeed()));
+            valueToChange.setText(std::to_string(rules.getSeed()));
         }
     );
     return (e);
 }
 
-std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(is::components::RulesSettingComponent &component, is::components::RulesComponent &rules)
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(RulesSettingComponent &component, RulesComponent &rules, int pos, bool visible)
 {
     std::shared_ptr<Entity> e = std::make_shared<Entity>();
 
@@ -992,7 +1032,7 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(is:
         e,
         "ui/RuleSettings/Dot_01.png",
         "Indie Studio",
-        irr::core::vector2df(11.3, 76),
+        irr::core::vector2df(11.3, pos + 1),
         irr::core::vector2df(3, 5),
         false
     );
@@ -1000,45 +1040,45 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(is:
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(15, 75),
+        irr::core::vector2df(15, pos),
         irr::core::vector2df(20, 8),
-        false
+        visible
     );
     TextureComponent &secondTable = e->addComponent<TextureComponent>(
         e,
         "ui/RuleSettings/Table_01.png",
         "Indie Studio",
-        irr::core::vector2df(36, 75),
+        irr::core::vector2df(36, pos),
         irr::core::vector2df(7, 8),
-        false
+        visible
     );
     TextComponent &title = e->addComponent<TextComponent>(
         e,
         "Powerup rate",
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 15.5 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 75 / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * pos / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 15 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 227, 245, 244),
-        false
+        visible
     );
     TextComponent &value = e->addComponent<TextComponent>(
         e,
         std::to_string(rules.getPowerupFrequency()),
         "Indie Studio",
         WindowComponent::_windowsDimensions["Indie Studio"].first * 36 / 100,
-        WindowComponent::_windowsDimensions["Indie Studio"].second * 75.3f / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * (pos + 0.3f) / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].first * 7 / 100,
         WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
         false,
         true,
         "fonts/fontVolumeSettings/fontVolumeSettings.xml",
         irr::video::SColor(255, 227, 245, 244),
-        false
+        visible
     );
     TextComponent &valueToChange = e->addComponent<TextComponent>(
         e,
@@ -1132,7 +1172,40 @@ std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createPowerupFrequency(is:
             secondTable.setVisible(true);
             title.setVisible(true);
             value.setVisible(true);
+        },
+        // On reset
+        [&value, &valueToChange, &rules](){
+            value.setText(std::to_string(rules.getPowerupFrequency()));
+            valueToChange.setText(std::to_string(rules.getPowerupFrequency()));
         }
+    );
+    return (e);
+}
+
+std::shared_ptr<is::ecs::Entity> RuleSettingsPrefabs::createDefaultButton(
+    is::components::RulesSettingComponent &component,
+    is::components::RulesComponent &rules,
+    float posX,
+    float posY
+)
+{
+    std::shared_ptr<Entity> e = std::make_shared<Entity>();
+
+    e->addComponent<ButtonComponent>(
+        e,
+        "",
+        "Indie Studio",
+        WindowComponent::_windowsDimensions["Indie Studio"].first * posX / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * posY / 100,
+        WindowComponent::_windowsDimensions["Indie Studio"].first * 12 / 100.0f,
+        WindowComponent::_windowsDimensions["Indie Studio"].second * 7 / 100,
+        [&component, &rules]() {
+            rules.reset();
+            component.reset();
+        },
+        true,
+        "ui/RuleSettings/defaultButton.png",
+        "ui/RuleSettings/defaultButtonPressed.png"
     );
     return (e);
 }

@@ -52,8 +52,9 @@ void PauseSystem::update()
                         audio.pause();
                     });
                     is::Game::setActualScene(is::ecs::SCENE_PAUSE, true, false);
-                } else
+                } else {
                     is::Game::setActualScene(is::ecs::SCENE_GAME, false, true);
+                }
             }
             break;
         }

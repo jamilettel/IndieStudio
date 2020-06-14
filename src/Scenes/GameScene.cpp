@@ -65,9 +65,10 @@ void GameScene::initSystems()
 
 void GameScene::initEntities()
 {
+    std::shared_ptr<is::ecs::Entity> e;
+    initEntity(GlobalPrefabs::createGameMusic());
     int x = 0;
     int y = 0;
-    std::shared_ptr<is::ecs::Entity> e;
     auto &characters = _componentManager->getComponentsByType(typeid(CharacterComponent).hash_code());
     auto &rules = getRulesComponent();
     MapGenerator mg;

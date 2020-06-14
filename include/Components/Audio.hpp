@@ -15,6 +15,7 @@ namespace is::components {
 
     enum SOUND_TYPE {SOUND, MUSIC};
     enum SOUND_STATUS {NOTHING, TO_PLAY, TO_STOP};
+    enum SOUND_ID {GAME, MENU, OTHERS};
 
     class AudioComponent: public is::ecs::Component {
         public:
@@ -35,6 +36,8 @@ namespace is::components {
             bool isPlaying();
 
             [[nodiscard]] SOUND_STATUS getStatus() const;
+            void setID(SOUND_ID id);
+            SOUND_ID getID() const;
 
             void deleteComponent() override;
 
@@ -48,6 +51,7 @@ namespace is::components {
             std::shared_ptr<is::audio::IAudioSource> _audioSource;
             SOUND_STATUS _status;
             SOUND_TYPE _type;
+            SOUND_ID _id;
     };
 
 }

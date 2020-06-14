@@ -26,6 +26,7 @@ namespace is::components
             using onRuleUp = std::function<void()>;
             using onRuleDown = std::function<void()>;
             using onAppear = std::function<void()>;
+            using onReset = std::function<void()>;
 
         public:
             explicit RulesSettingComponent(std::shared_ptr<is::ecs::Entity> &e);
@@ -37,7 +38,8 @@ namespace is::components
                 const std::function<void()>& onDisappear,
                 const std::function<void()>& onRuleUp,
                 const std::function<void()>& onRuleDown,
-                const std::function<void()>& onAppear
+                const std::function<void()>& onAppear,
+                const std::function<void()>& onReset
             );
             void up();
             void down();
@@ -46,12 +48,13 @@ namespace is::components
             [[nodiscard]] int getLast() const noexcept;
 
             void deleteComponent() override;
+            void reset();
 
         private:
             int _i = 0;
             int _first = 0;
             int _last = 0;
-            std::vector<std::tuple<onSelectFct, onExitFct, onDisappear, onRuleUp, onRuleDown, onAppear>> _rules;
+            std::vector<std::tuple<onSelectFct, onExitFct, onDisappear, onRuleUp, onRuleDown, onAppear, onReset>> _rules;
     };
 }
 

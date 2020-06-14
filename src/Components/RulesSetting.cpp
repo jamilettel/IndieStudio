@@ -20,12 +20,13 @@ void RulesSettingComponent::addRule(
     const std::function<void()>& onDisappear,
     const std::function<void()>& onRuleUp,
     const std::function<void()>& onRuleDown,
-    const std::function<void()>& onAppear
+    const std::function<void()>& onAppear,
+    const std::function<void()>& onReset
 )
 {
     if (_first + 4 != _last + 1)
         _last++;
-    _rules.emplace_back(std::make_tuple(onSelect, onExit, onDisappear, onRuleUp, onRuleDown, onAppear));
+    _rules.emplace_back(std::make_tuple(onSelect, onExit, onDisappear, onRuleUp, onRuleDown, onAppear, onReset));
 }
 
 void RulesSettingComponent::up()
@@ -94,4 +95,11 @@ int RulesSettingComponent::getFirst() const noexcept
 int RulesSettingComponent::getLast() const noexcept
 {
     return _last;
+}
+
+void RulesSettingComponent::reset()
+{
+    std::for_each(_rules.begin(), _rules.end(), [this](auto &rule) {
+        std::get<6>(rule)();
+    });
 }

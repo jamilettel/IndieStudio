@@ -56,6 +56,7 @@ void MultiplayerRuleSettingsScene::initEntities()
     auto e = _componentManager->getComponentsByType(typeid(is::components::NetworkComponent).hash_code())[0];
     const auto &ptr = std::static_pointer_cast<is::components::NetworkComponent>(e);
 
+    rules.setAllICons(true);
     initEntity(RuleSettingsPrefabs::createBackground());
     initEntity(RuleSettingsPrefabs::createOkButton(ptr, rules));
     initEntity(RuleSettingsPrefabs::createReturnButton());
@@ -65,8 +66,10 @@ void MultiplayerRuleSettingsScene::initEntities()
         *static_cast<RulesSettingComponent *>(_componentManager->getComponentsByType(typeid(RulesSettingComponent).hash_code())[0].get());
 
     initEntity(RuleSettingsPrefabs::createSettingsBackground(rulesSetting));
-    initEntity(RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules));
+    initEntity(RuleSettingsPrefabs::createNumberOfPlayersRule(rulesSetting, rules, 35));
     //initEntity(RuleSettingsPrefabs::createIconsRule(rulesSetting, rules));
-    initEntity(RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules));
-    initEntity(RuleSettingsPrefabs::createSeedRule(rulesSetting, rules));
+    initEntity(RuleSettingsPrefabs::createMaxTimeRule(rulesSetting, rules, 45));
+    initEntity(RuleSettingsPrefabs::createSeedRule(rulesSetting, rules, 55));
+    initEntity(RuleSettingsPrefabs::createPowerupFrequency(rulesSetting, rules, 65));
+    initEntity(RuleSettingsPrefabs::createDefaultButton(rulesSetting, rules, 21, 92));
 }
