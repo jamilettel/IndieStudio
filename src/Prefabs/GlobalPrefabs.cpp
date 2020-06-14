@@ -309,7 +309,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createCharacter()
     return e;
 }
 
-std::shared_ptr<Entity> GlobalPrefabs::createPresets()
+std::shared_ptr<Entity> GlobalPrefabs::createOrLoadPresets()
 {
     auto e = std::make_shared<Entity>();
 
