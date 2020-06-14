@@ -54,6 +54,7 @@ namespace is::components
             [[nodiscard]] int getSeed() const noexcept;
             void incSeed() noexcept;
             void decSeed() noexcept;
+            void setSeed(int newSeed) noexcept;
 
             int getPowerupFrequency() const noexcept;
             void decPowerupFrequency() noexcept;

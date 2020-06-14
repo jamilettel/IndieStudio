@@ -9,6 +9,7 @@
 #define SETTINGSLOADERSYSTEM_HPP_
 
 #include "ECS/ASystem.hpp"
+#include "Components/Rules.hpp"
 
 namespace is::systems {
 

@@ -31,6 +31,7 @@ void RuleSettingsScene::initSystems()
     _systemManager->addSystem(std::make_shared<is::systems::AlertSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::TextSystem>());
     _systemManager->addSystem(std::make_shared<is::systems::AudioSystem>());
+    _systemManager->addSystem(std::make_shared<is::systems::SettingsLoaderSystem>());
 }
 
 is::components::RulesComponent &RuleSettingsScene::getRulesComponent() const

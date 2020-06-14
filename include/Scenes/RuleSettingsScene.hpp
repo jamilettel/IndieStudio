@@ -24,7 +24,7 @@
 #include "Systems/Texture.hpp"
 #include "Systems/Text.hpp"
 #include "Systems/Alert.hpp"
-
+#include "Systems/SettingsLoaderSystem.hpp"
 #include "Components/RulesSetting.hpp"
 #include "Components/Rules.hpp"
 

@@ -112,6 +112,11 @@ void RulesComponent::incSeed() noexcept
     _seed++;
 }
 
+void RulesComponent::setSeed(int newSeed) noexcept
+{
+    _seed = newSeed;
+}
+
 void RulesComponent::decSeed() noexcept
 {
     if (_seed != 1)
