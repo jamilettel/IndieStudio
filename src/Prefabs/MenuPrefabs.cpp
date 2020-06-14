@@ -58,7 +58,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createGlobalPrefab()
     auto e = std::make_shared<Entity>();
 
     e->addComponent<TimeComponent>(e);
-    auto &window = e->addComponent<WindowComponent>(e, "Indie Studio");
+    auto &window = e->addComponent<WindowComponent>(e, "Indie Studio", irr::core::dimension2d<irr::u32>(1920, 1080), true);
     auto &cursor = e->addComponent<ImageComponent>(e, "ui/cursor/cursor.png", "Indie Studio", 0, 0);
     cursor.layer = 10;
     e->addComponent<CursorComponent>(e, cursor, window);
