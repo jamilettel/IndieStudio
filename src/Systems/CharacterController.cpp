@@ -46,8 +46,12 @@ void is::systems::CharacterControllerSystem::rotateToAngle(irr::core::vector3df 
     int diff;
 
     angle = 360 - angle;
-    diff = (360 + (int)angle - (int)rotate.Y) % 360;
-    if (diff > 180)
+    diff = static_cast<int>(360 + angle - rotate.Y) % 360;
+    while (rotate.Y < 0)
+        rotate.Y += 360;
+    if (std::abs((((int)angle + 180) % 360) - ((int)rotate.Y % 360)) < 15)
+        rotate.Y = static_cast<int>(angle + 180) % 360;
+    else if (diff > 180)
         rotate.Y += 15;
     else if (diff < 180)
         rotate.Y -= 15;
