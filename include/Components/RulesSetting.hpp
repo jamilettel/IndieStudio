@@ -15,6 +15,8 @@
 
 #include "ECS/Component.hpp"
 
+#define END [](int){exit(0);}
+
 namespace is::components
 {
     class RulesSettingComponent : public is::ecs::Component {
