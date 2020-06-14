@@ -13,6 +13,17 @@ using namespace is::systems;
 
 void EndGameSystem::awake()
 {
+    auto &entity = initRuntimeEntity(prefabs::GlobalPrefabs::createSound("sounds/time_over.wav"), false);
+
+    _timeOverSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _timeOverSound->get().init();
+    entity->setInit(true);
+
+    entity = initRuntimeEntity(prefabs::GlobalPrefabs::createSound("sounds/game_start.wav"), false);
+
+    _gameStartSound.emplace(*entity->getComponent<AudioComponent>()->get());
+    _gameStartSound->get().init();
+    entity->setInit(true);
 }
 
 void EndGameSystem::start()
@@ -25,6 +36,10 @@ void EndGameSystem::update()
     int count = 0;
     const RulesComponent &rules = *static_cast<RulesComponent*>(_componentManager->getComponentsByType(typeid(RulesComponent).hash_code())[0].get());
 
+    if (!_gsAlreadyPlaying) {
+        _gameStartSound.value().get().toPlay();
+        _gsAlreadyPlaying = true;
+    }
     for (auto &elem : characterComponents) {
         const auto &ptr = static_cast<is::components::CharacterControllerComponent*>(elem.get());
         count += ptr->isDead;
@@ -46,8 +61,12 @@ void EndGameSystem::update()
     auto &timers = _componentManager->getComponentsByType(typeid(TimerComponent).hash_code());
 
     for (auto &elem : timers) {
-        TimerComponent &timer = *std::static_pointer_cast<TimerComponent>(elem);
+        const TimerComponent &timer = *static_cast<TimerComponent *>(elem.get());
 
+        if (timer.getTime() <= 1 && !_toAlreadyPlaying) {
+            _timeOverSound.value().get().toPlay();
+            _toAlreadyPlaying = true;
+        }
         if (timer.getTime() <= 0)
             is::Game::setActualScene(is::ecs::SCENE_ENDGAME);
     }

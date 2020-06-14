@@ -33,6 +33,10 @@ namespace is::systems
             void onTearDown() override;
 
         private:
+            std::optional<std::reference_wrapper<is::components::AudioComponent>> _timeOverSound;
+            std::optional<std::reference_wrapper<is::components::AudioComponent>> _gameStartSound;
+            bool _toAlreadyPlaying = false;
+            bool _gsAlreadyPlaying = false;
     };
 }
 
