@@ -329,7 +329,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createOrLoadPresets()
     JoystickPresetComponent::createBasicPreset(preset3.getJoystickPreset());
     JoystickPresetComponent::createBasicPreset(preset4.getJoystickPreset());
 
-    if (loader.loadFile("./testSave")) {
+    if (loader.loadFile()) {
         loader.loadPreset(preset1);
         loader.loadPreset(preset2);
         loader.loadPreset(preset3);

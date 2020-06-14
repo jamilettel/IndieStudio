@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2020
 ** Systems/ParticuleSystem.cpp
 ** File description:
-** 
+** a
 */
 
 #include "Systems/Preset.hpp"
@@ -143,7 +143,7 @@ void PresetSystem::stop()
 
         loader.savePreset(*ptr);
     }
-    loader.write("./testSave");
+    loader.write();
 }
 
 void PresetSystem::onTearDown()

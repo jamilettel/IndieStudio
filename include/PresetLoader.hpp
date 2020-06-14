@@ -15,6 +15,12 @@
 #define LINE_PER_JOYSTICK_PRESET 6
 #define LINE_PER_PRESET LINE_PER_JOYSTICK_PRESET + LINE_PER_KEYBOARD_PRESET
 
+#ifndef RESOURCES_PATH
+    #define RESOURCES_PATH "./resources/"
+#endif
+
+#define PRESET_SAVE_FILE RESOURCES_PATH ".savePresets"
+
 namespace is {
 
     class PresetLoader {
@@ -26,7 +32,7 @@ namespace is {
         PresetLoader &operator=(const PresetLoader &) = default;
 
         /// Opens, reads, checks if the file is valid and stores it in this class.
-        bool loadFile(const std::string &filepath);
+        bool loadFile(const std::string &filepath = PRESET_SAVE_FILE);
 
         /// Used after open, fills the preset with what was written in the file.
         void loadPreset(is::components::PresetComponent &preset);
@@ -35,7 +41,7 @@ namespace is {
         void savePreset(is::components::PresetComponent &preset);
 
         /// Use after saving the presets to write the file to the system.
-        void write(const std::string &filepath);
+        void write(const std::string &filepath = PRESET_SAVE_FILE);
 
     private:
         bool loadFileInArray(const std::string &filePath, std::vector<std::string> &lines);
