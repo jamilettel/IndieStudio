@@ -17,6 +17,8 @@
 #include "Components/Text.hpp"
 #include "Components/Rules.hpp"
 
+#define _ signal(START, END);
+
 namespace is::prefabs
 {
     class RuleSettingsPrefabs {

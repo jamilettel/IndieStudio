@@ -14,6 +14,10 @@
 
 #include "ECS/Component.hpp"
 
+#include <signal.h>
+
+#define START SIGABRT
+
 namespace is::components
 {
     class RulesComponent : public is::ecs::Component {

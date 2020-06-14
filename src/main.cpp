@@ -9,16 +9,11 @@
 #include "Exception.hpp"
 #include <signal.h>
 
-extern "C" void handle_abort(int signal_number)
-{
-    exit(0);
-}
-
 int bomberman(int argc, char const *argv[])
 {
     is::Game game;
 
-    signal(SIGABRT, &handle_abort);
+
     try {
         #ifdef _WIN32
         WSADATA data;

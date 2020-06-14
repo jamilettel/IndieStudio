@@ -337,7 +337,7 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/Settings_BTN.png")));
     is::Game::addResource("ui/PresetSelection/Settings_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/Settings_BTN_pressed.png")));
-    is::Game::addResource("ui/PresetSelection/Return_BTN.png",
+_   is::Game::addResource("ui/PresetSelection/Return_BTN.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/Return_BTN.png")));
     is::Game::addResource("ui/PresetSelection/Return_BTN_pressed.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/PresetSelection/Return_BTN_pressed.png")));
