@@ -7,6 +7,7 @@
 
 #include "PresetLoader.hpp"
 #include <fstream>
+#include <algorithm>
 
 using namespace is;
 
@@ -67,7 +68,15 @@ void PresetLoader::write(const std::string &filepath)
     std::ofstream saveFile;
 
     saveFile.open(filepath, std::ios_base::out | std::ios_base::trunc);
+    if (!saveFile.is_open())
+        return;
     for (int i = 0; i < 4; i++) {
-        
+        for (auto &pair : _joystickBindings[i])
+            saveFile << "J" << i + 1 << ":" << pair.first.action << ":" << pair.first.description
+                     << ":" << pair.first.value << ":" << pair.first.max << ":" << pair.second << std::endl;
+        for (auto &pair : _keyboardBindings[i]) {
+            saveFile << "K" << i + 1 << ":" << pair.first.action << ":" << pair.first.description
+                     << ":" << pair.first.value << ":" << pair.first.max << ":" << static_cast<int>(pair.second) << std::endl;
+        }
     }
 }

@@ -51,6 +51,7 @@
 #include "Components/Timer.hpp"
 #include "Components/Hud.hpp"
 #include "Components/NumberField.hpp"
+#include "PresetLoader.hpp"
 
 namespace is::prefabs {
 

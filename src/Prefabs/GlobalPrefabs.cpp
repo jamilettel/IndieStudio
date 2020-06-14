@@ -312,6 +312,7 @@ std::shared_ptr<Entity> GlobalPrefabs::createCharacter()
 std::shared_ptr<Entity> GlobalPrefabs::createOrLoadPresets()
 {
     auto e = std::make_shared<Entity>();
+    is::PresetLoader loader;
 
     auto &preset1 = e->addComponent<PresetComponent>(e, 1);
     auto &preset2 = e->addComponent<PresetComponent>(e, 2);
@@ -327,6 +328,12 @@ std::shared_ptr<Entity> GlobalPrefabs::createOrLoadPresets()
     JoystickPresetComponent::createBasicPreset(preset2.getJoystickPreset());
     JoystickPresetComponent::createBasicPreset(preset3.getJoystickPreset());
     JoystickPresetComponent::createBasicPreset(preset4.getJoystickPreset());
+
+    loader.savePreset(preset1);
+    loader.savePreset(preset2);
+    loader.savePreset(preset3);
+    loader.savePreset(preset4);
+    loader.write("./testSave");
 
     return e;
 }
