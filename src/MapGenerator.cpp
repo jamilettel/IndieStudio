@@ -27,10 +27,15 @@ const std::vector<std::vector<float>> gradientVector
 
 void MapGenerator::generatePermTable(int seed)
 {
+    static int staticSeed = -1;
+
+    if (seed == staticSeed)
+        return;
     for (size_t i = 0; i < 300; permTable.push_back(i), i++);
 
     std::default_random_engine permRandom(seed);
     shuffle(permTable.begin(), permTable.end(), permRandom);
+    staticSeed = seed;
 }
 
 float MapGenerator::getVectorPermTable(float x, float y, float x0, float y0, int addX, int addY)
