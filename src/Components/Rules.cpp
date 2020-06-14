@@ -179,5 +179,5 @@ void RulesComponent::reset() noexcept
     _numberOfPlayers = 4;
     _maxTime = 180;
     _seed = 1;
-    _powerupFrequency = 4;
+    _powerupFrequency = 5;
 }
