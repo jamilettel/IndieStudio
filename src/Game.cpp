@@ -24,7 +24,6 @@ std::pair<bool, is::ecs::Scenes> is::Game::_unloadScene;
 
 is::Game::~Game()
 {
-    AScene::clearSavedEntities();
 }
 
 void is::Game::addScene(is::ecs::Scenes sceneType, const std::shared_ptr<is::ecs::IScene> &scene)
@@ -60,6 +59,7 @@ void is::Game::launchGame(is::ecs::Scenes startScene)
     }
     _scenes[currentScene]->stop();
     _scenes[currentScene]->onTearDown();
+    AScene::clearSavedEntities();
 }
 
 void is::Game::setActualScene(is::ecs::Scenes scene, bool loadScene, bool destroyScene)
