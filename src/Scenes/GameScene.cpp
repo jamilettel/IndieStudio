@@ -149,6 +149,7 @@ void GameScene::initEntities()
                     initEntity(GlobalPrefabs::createWallPassPowerUp(MapLoader::bonusInfo[i].position));
             }
         }
+        loadMap = false;
     }
 
     initEntity(GlobalPrefabs::createTimer(rules));
