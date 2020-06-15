@@ -115,7 +115,6 @@ void EndGameScene::update()
         if (!stats.isContinue())
             changeScene = false;
         std::string anim = std::string(stats._rank == 1 ? "Fortnite" : stats._rank == 2 ? "Macarena" : stats._rank == 3 ? "Idle" : "Dead");
-        std::cout << stats._rank << " :: " << anim << std::endl;
         stats.getEntity().get()->getComponent<AnimatorComponent>()->get()->changeAnimation(anim);
     });
     if (changeScene) {
