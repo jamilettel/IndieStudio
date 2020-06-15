@@ -46,9 +46,12 @@ std::shared_ptr<::Entity> is::prefabs::EndGamePrefabs::createPlayer(
     animator.animators.push_back({0, 25, "Walk"});
     animator.animators.push_back({26, 41, "DropBomb"});
     animator.animators.push_back({41, 60, "Death"});
+    animator.animators.push_back({60, 60, "Dead"});
     animator.animators.push_back({61, 86, "Idle"});
+    animator.animators.push_back({86, 188, "Macarena"});
+    animator.animators.push_back({188, 356, "Fortnite"});
     addWindow(e, posWindow);
-    addStatsPlayer(e, addTextHigh(e, posWindow + 3.2f), addTextLow(e, posWindow + 3.2f), infos);
+    addStatsPlayer(e, addTextHigh(e, posWindow + 3.2f), addTextLow(e, posWindow + 3.2f), infos, position);
     addContinueButton(e, posWindow + 5.7f, addWaitingText(e, posWindow + 4.7f), isAI);
     addHighTable(e, posWindow + 1);
     addLowTable(e, posWindow + 1);
@@ -75,7 +78,8 @@ void is::prefabs::EndGamePrefabs::addStatsPlayer(
     std::shared_ptr<::Entity> &e,
     TextComponent &textHigh,
     TextComponent &textLow,
-    std::vector<std::pair<std::string, std::string>> &infos
+    std::vector<std::pair<std::string, std::string>> &infos,
+    int rank
 )
 {
     textHigh.setText((infos.size() > 0 ? infos[0].first : ""));
@@ -84,7 +88,8 @@ void is::prefabs::EndGamePrefabs::addStatsPlayer(
         e,
         textHigh,
         textLow,
-        infos
+        infos,
+        rank
     );
 }
 

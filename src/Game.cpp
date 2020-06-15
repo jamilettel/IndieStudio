@@ -192,7 +192,7 @@ void is::Game::resourcesInitialization(const std::shared_ptr<is::components::Win
     is::Game::addResource("ui/background.jpg",
         (void *)window->driver->getTexture(RESSOURCE("ui/background.jpg")));
     is::Game::addResource("player.b3d",
-        (void *)window->scenemgr->getMesh(RESSOURCE("player.b3d")));
+        (void *)window->scenemgr->getMesh(RESSOURCE("perso.b3d")));
     is::Game::addResource("ui/EndGame/Table_01.png",
         (void *)window->driver->getTexture(RESSOURCE("ui/EndGame/Table_01.png")));
     is::Game::addResource("ui/EndGame/continue_button.png",

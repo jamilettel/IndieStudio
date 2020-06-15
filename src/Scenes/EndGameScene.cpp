@@ -12,6 +12,8 @@ using namespace is::scenes;
 using namespace is::ecs;
 using namespace is::components;
 
+#include <iostream>
+
 EndGameScene::EndGameScene() :
 AScene(Scenes::SCENE_ENDGAME)
 {
@@ -112,6 +114,9 @@ void EndGameScene::update()
 
         if (!stats.isContinue())
             changeScene = false;
+        std::string anim = std::string(stats._rank == 1 ? "Fortnite" : stats._rank == 2 ? "Macarena" : stats._rank == 3 ? "Idle" : "Dead");
+        std::cout << stats._rank << " :: " << anim << std::endl;
+        stats.getEntity().get()->getComponent<AnimatorComponent>()->get()->changeAnimation(anim);
     });
     if (changeScene) {
         is::Game::setActualScene(SCENE_MAIN_MENU);

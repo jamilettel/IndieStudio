@@ -50,7 +50,8 @@ namespace is::prefabs
                 std::shared_ptr<is::ecs::Entity> &e,
                 is::components::TextComponent &textHigh,
                 is::components::TextComponent &textLow,
-                std::vector<std::pair<std::string, std::string>> &infos
+                std::vector<std::pair<std::string, std::string>> &infos,
+                int rank
             );
             static is::components::TextComponent &addWaitingText(std::shared_ptr<is::ecs::Entity> &e, float posX);
     };

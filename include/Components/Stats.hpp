@@ -23,7 +23,8 @@ namespace is::components
                 std::shared_ptr<is::ecs::Entity> &e,
                 TextComponent &highText,
                 TextComponent &lowText,
-                std::vector<std::pair<std::string, std::string>> stats
+                std::vector<std::pair<std::string, std::string>> stats,
+                int rank
             );
             ~StatsComponent() override;
 
@@ -41,6 +42,8 @@ namespace is::components
             TextComponent &_lowText;
             std::vector<std::pair<std::string, std::string>> _stats;
             bool _continue = false;
+        public:
+            int _rank;
     };
 }
 

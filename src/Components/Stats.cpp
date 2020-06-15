@@ -14,8 +14,9 @@ StatsComponent::StatsComponent(
     std::shared_ptr<Entity> &e,
     TextComponent &highText,
     TextComponent &lowText,
-    std::vector<std::pair<std::string, std::string>> stats
-) : Component(e), _highText(highText), _lowText(lowText), _stats(std::move(stats))
+    std::vector<std::pair<std::string, std::string>> stats,
+    int rank
+) : Component(e), _highText(highText), _lowText(lowText), _stats(std::move(stats)), _rank(rank)
 {
 }
 
